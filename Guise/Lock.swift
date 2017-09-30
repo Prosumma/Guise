@@ -21,7 +21,13 @@ final class Lock {
     init() {
         let qos: DispatchQoS
         if #available(macOS 10.10, *) {
-            qos = .default
+            /*
+             We're fibbing a bit here, but the docs say that .userInteractive indicates
+             work that completes instantaneously and immediately. This precisely
+             characterizes what we lock with this lock: We do key lookups and that's it.
+             Resolution and metadata filtering are always performed outside of the lock.
+             */
+            qos = .userInteractive
         } else {
             qos = .unspecified
         }
