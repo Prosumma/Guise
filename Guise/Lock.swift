@@ -9,13 +9,11 @@
 import Foundation
 
 /**
- A simple non-reentrant GCD-powered lock allowing one writer and multiple readers.
- 
- - warning: This lock is **not** re-entrant. Never resolve registrations or evaluate
- metafilters inside of a lock.
+ A simple GCD-powered lock allowing one writer and multiple readers.
  */
 final class Lock {
 
+    private let label = "com.prosumma.Guise.lock"
     private let queue: DispatchQueue
     
     init() {
@@ -37,7 +35,7 @@ final class Lock {
         } else {
             afq = .inherit
         }
-        queue = DispatchQueue(label: "com.prosumma.Guise.lock", qos: qos, attributes: .concurrent, autoreleaseFrequency: afq, target: nil)
+        queue = DispatchQueue(label: label, qos: qos, attributes: .concurrent, autoreleaseFrequency: afq, target: nil)
     }
     
     func read<T>(_ block: () -> T) -> T {
