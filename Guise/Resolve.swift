@@ -66,7 +66,6 @@ extension Guise {
         return registration.resolve(parameter: parameter, cached: cached)
     }
     
-
     /**
      Locate and resolve multiple registrations of type `T`.
      
