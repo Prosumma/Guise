@@ -8,10 +8,29 @@
 
 import Foundation
 
+/**
+ Any type that implements this protocol and is also `Hashable`
+ can serve as a key in Guise.
+
+ A key unambiguously identifies a registration. If a registration
+ uses or produces the same key, it is the _same_ registration. This
+ means that if `register` is called with the same (implicit) key,
+ it will overwrite any previous registration.
+ 
+ While it is theoretically possible to create a custom key, in
+ practice the two key types `AnyKey` and `Key<T>` will always
+ suffice. The former is type-erased while the latter is type-safe.
+ */
 public protocol Keyed {
+    /// The registered type
     var type: String { get }
+    /// The registered name, which defaults to `Guise.Name.default`
     var name: AnyHashable { get }
+    /// The registered container, which defaults to `Guise.Container.default`
     var container: AnyHashable { get }
+    /**
+     Failable initializer to convert from one `Keyed` to another.
+     */
     init?(_ key: Keyed)
 }
 
@@ -45,9 +64,15 @@ public struct AnyKey: Keyed, Hashable {
     }
 }
 
+/**
+ Typesafe key.
+ */
 public struct Key<T>: Keyed, Hashable {
+    /// The registered type
     public let type: String
+    /// The registered name, which defaults to `Guise.Name.default`
     public let name: AnyHashable
+    /// The registered container, which defaults to `Guise.Container.default`
     public let container: AnyHashable
     public let hashValue: Int
 
@@ -62,11 +87,17 @@ public struct Key<T>: Keyed, Hashable {
         self.hashValue = hash(self.type, self.name, self.container)
     }
     
+    /**
+     Failable initializer from the `Keyed` protocol, used to convert a `Keyed` into a `Key<T>`.
+     
+     This initializer will fail if `Keyed.type` is not compatible with `T`.
+     */
     public init?(_ key: Keyed) {
         if key.type != String(reflecting: T.self) { return nil }
         self.init(type: nil, name: key.name, container: key.container)
     }
 
+    /// Creates a new `Key<T>` using the specified `name` and `container`.
     public init(name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) {
         self.init(type: nil, name: name, container: container)
     }

@@ -137,10 +137,10 @@ extension Guise {
      // anonymously using UUID.
      let container = Container.plugins
      _ = Guise.register(name: UUID(), container: container) {
-     Plugin1() as Plugin
+         Plugin1() as Plugin
      }
      _ = Guise.register(name: UUID(), container: container) {
-     Plugin2() as Plugin
+         Plugin2() as Plugin
      }
      
      // Resolution

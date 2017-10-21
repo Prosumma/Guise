@@ -30,12 +30,6 @@ func metathunk<M>(_ metafilter: @escaping Metafilter<M>) -> Metathunk {
 
 extension Guise {
     
-    public static func metadata<K: Keyed>(for key: K) -> Any? {
-        let key = AnyKey(key)!
-        guard let dependency = lock.read({ registrations[key] }) else { return nil }
-        return dependency.metadata
-    }
-    
     public static func metadata<K: Keyed, M>(for key: K, type: M.Type = M.self) -> M? {
         let key = AnyKey(key)!
         guard let dependency = lock.read({ registrations[key] }) else { return nil }

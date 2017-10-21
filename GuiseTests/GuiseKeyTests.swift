@@ -9,7 +9,7 @@
 import XCTest
 @testable import Guise
 
-class GuiseTests: XCTestCase {
+class GuiseKeyTests: XCTestCase {
     
     override func tearDown() {
         _ = Guise.clear()
