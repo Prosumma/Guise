@@ -43,4 +43,17 @@ class GuiseKeyTests: XCTestCase {
         XCTAssertEqual(key2, key3)
     }
     
+    func testRegistrationOverwritesPreviousRegistrationWithEqualKey() {
+        let shpong = "shpong"
+        let key1 = Guise.register(factory: Plink(thibb: shpong))
+        let plink1 = Guise.resolve(type: Plink.self)!
+        XCTAssertEqual(plink1.thibb, shpong)
+        let überpickle = "überpickle"
+        let key2 = Guise.register(factory: Plink(thibb: überpickle))
+        let plink2: Plink = Guise.resolve()!
+        XCTAssertNotEqual(shpong, überpickle)
+        XCTAssertEqual(plink2.thibb, überpickle) // This proves the registrations are different, because the `thibb` property has a different value.
+        XCTAssertNotEqual(plink1.thibb, plink2.thibb)
+        XCTAssertEqual(key1, key2) // The keys are the same, so the second registration overwrote the first.
+    }
 }

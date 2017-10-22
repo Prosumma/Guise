@@ -38,7 +38,7 @@ class GuiseBlockResolutionTests: XCTestCase {
 
     func testResolveBlockWithCompositionAndCaching() {
         let parameter = "thuzb"
-        _ = Guise.register(instance: Plink(thibb: parameter) as Plonk)
+        _ = Guise.register(factory: Plink(thibb: parameter) as Plonk)
         // This should really be done with Guise.register(instance:), which uses an autoclosure
         // to evaluate lazily, but I wanted to show the "underlying" syntax.
         _ = Guise.register(cached: true) { Froufroupookiedingdong(plonk: Guise.resolve()!) as Wibble }

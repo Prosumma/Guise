@@ -26,7 +26,7 @@ class GuiseConcurrentResolutionTests: XCTestCase {
         
         let wob = "wob"
         
-        _ = Guise.register(instance: Plink(thibb: wob) as Plonk, container: Container.🐝)
+        _ = Guise.register(factory: Plink(thibb: wob) as Plonk, container: Container.🐝)
         _ = Guise.register(factory: Froufroupookiedingdong(plonk: Guise.resolve(container: Container.🐝)!) as Wibble, name: Name.🌈)
         
         queue.async {

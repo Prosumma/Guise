@@ -67,7 +67,6 @@ extension Guise {
 
 // Instance registration
 extension Guise {
-    
     /**
      Register an instance of `T`.
      
@@ -110,7 +109,6 @@ extension Guise {
 
 // Factory registration
 extension Guise {
-    
     /**
      Register a factory that makes `T` instances.
      
