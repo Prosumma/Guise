@@ -19,15 +19,16 @@ class GuiseFactoryResolutionTests: XCTestCase {
     func testSimpleFactoryResolution() {
         // The factory parameter is an autoclosure, so the parameter is evaluated lazily (and repeatedly).
         _ = Guise.register(factory: Xig() as Upwit)
-        guard // Three different ways to give type evidence to `resolve()`
+        guard // Four different ways to give type evidence to `resolve()`
             let upwit1 = Guise.resolve(type: Upwit.self),
             let upwit2: Upwit = Guise.resolve(),
-            let upwit3 = Guise.resolve() as Upwit?
+            let upwit3 = Guise.resolve() as Upwit?,
+            let upwit4 = Guise.resolve(key: Key<Upwit>())
         else {
             XCTFail("Factory resolution failed.")
             return
         }
-        XCTAssertFalse(upwit1 === upwit2 && upwit1 === upwit3 && upwit2 === upwit3, "Factory resolution failed.")
+        XCTAssertFalse(upwit1 === upwit2 && upwit2 === upwit3 && upwit3 === upwit4, "Factory resolution failed.")
     }
 
 }
