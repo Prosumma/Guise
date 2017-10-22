@@ -393,3 +393,8 @@ let keys = Guise.filter(type: Plugin.self, container: Guise.Container.default, m
 let editors: [Plugin] = Guise.resolve(keys: keys)
 ```
 
+### Concurrency
+
+Guise uses a private concurrent queue for key lookup and registration. This queue allows multiple readers for resolution but only one writer for registration.
+
+However, resolution blocks and metadata filters are _never_ called inside of this queue. The thread safety of the resolution blocks is up to you.
