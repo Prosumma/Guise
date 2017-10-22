@@ -389,6 +389,7 @@ _ = Guise.register(factory: Impl1() as Plugin, name: UUID(), metadata: PluginMet
 _ = Guise.register(factory: Impl2() as Plugin, name: UUID(), metadata: PluginMetadata.viewer)
 _ = Guise.register(factory: Impl3() as Plugin, name: UUID(), metadata: PluginMetadata.editor)
 
-let editors: [Plugin] = Guise.resolve(keys: Guise.filter(type: Plugin.self, container: Guise.Container.default, metadata: PluginMetadata.editor))
+let keys = Guise.filter(type: Plugin.self, container: Guise.Container.default, metadata: PluginMetadata.editor)
+let editors: [Plugin] = Guise.resolve(keys: keys)
 ```
 
