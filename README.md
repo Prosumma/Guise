@@ -18,339 +18,244 @@ Guise is an elegant, flexible, type-safe dependency resolution framework for Swi
 - [x] Swift 4
 - [x] Support for iOS 8.1+, macOS 10.9+, watchOS 2+, tvOS 9+
 
-### Changes From Version 4.0
+### Prerequisites
 
-Guise 5.0 is not backwards-compatible with any previous version. The principle changes are these:
+Dependency resolution is a somewhat advanced topic. For the sake of brevity, this document assumes that you know what dependency resolution and injection are. It also assumes you have a strong knowledge of the Swift language, including generics, blocks, and the distinction between value and reference types.
 
-1. Containers have been eliminated as a separate type and are now just another `Hashable` parameter to the registration and resolution methods.
-2. Caching has been simplified back to the state of affairs that existed in earlier versions. Instead of the complex lifecycles supported by version 4.0, there is only cached and not cached.
-3. Names and containers can now be any `Hashable` type.
-4. A set of `filter` overloads have been added which return arrays of keys. These can be used for resolving or unregistering _en masse_.
-5. Arbitrary metadata can be passed during registration. This metadata can then be queried using the `filter` methods.
-6. The signatures of the `register` and `resolve` overloads have been updated as needed.
+### Registration Basics
 
-### Usage
-
-Before a dependency can be resolved, it must first be registered. Guise does not register dependencies directly. Instead, it registers blocks of type `(P) -> T`, where `P` is a parameter that can be supplied at resolution and `T` is the type of the actual dependency we wish to register. (Thanks to Swift's excellent type system, `P` can be `()`, i.e., `Void`, i.e., no parameter at all. This is the most common case.)
+Before a dependency can be resolved, it must first be registered. Guise does not register dependencies directly. Instead, it registers a block&mdash;called the _resolution block_&mdash;that returns the desired dependency.
 
 ```swift
-Guise.register{ AccountService() }
+_ = Guise.register{ Plink() }
 ```
 
-This registers the supplied block under the `AccountService` type, so if we ask Guise for the `AccountService`, this block will be called and its result returned:
+(The `register` overloads return an instance of `Key<T>`. More on that later.)
+
+The return type of the resolution block is called the _registered type_. When we ask Guise to resolve this dependency, we use the registered type to do so:
 
 ```swift
-let accountService = Guise.resolve()! as AccountService
+let plink = Guise.resolve(type: Plink.self)!
 ```
 
-#### Abstraction
+All of the `resolve` overloads return `T?`, where `T` is the registered type. If the registration is not found, `nil` is returned. In this case, we're very sure we have registered `Plink`, so we force-unwrap it.
 
-Dependency resolution is most useful when it allows abstraction. This way different implementations can be swapped out as needed, whether at runtime or compile time.
+### Abstraction
+
+Registering concrete types defeats the purpose of dependency resolution. In general, we want the registered type to be an abstraction such as a protocol or base class so that we can vary the implementation based on factors such as whether the code is executing in `DEBUG` mode or in a unit test and so on.
+
+Consider the following:
 
 ```swift
-#if TEST
-let accountService = Guise.register{ MockAccountService() as AccountServicing }
+protocol Plonk {
+  func plonk()
+}
+
+class Plink: Plonk {
+  func plonk() {
+    print("plonk")
+  }
+}
+
+class DebugPlink: Plonk {
+  func plonk() {
+    print("DEBUG: plonk")
+  }
+}
+
+#if DEBUG
+  _ = Guise.register{ DebugPlink() as Plonk }
 #else
-let accountService = Guise.register{ AccountService() as AccountServicing }
+  _ = Guise.register{ Plink() as Plonk }
 #endif
 ```
 
-The return type of our resolution block `(P) -> T` is now the `AccountServicing` protocol, which both `AccountService` and `MockAccountService` implement. When resolving, we must specify this exact type:
+Remember: The return type of the resolution block is the registered type. In this case, the registered type is not `DebugPlink` or `Plink`, it's `Plonk`:
 
 ```swift
-let accountService = Guise.resolve()! as AccountServicing
+let plonk: Plonk = Guise.resolve()!
 ```
 
-#### Named Registrations
+Depending upon whether the `DEBUG` flag is set, the `Plonk` we get will either be a `DebugPlink` or a `Plink`.
 
-Registrations are recorded based on the type returned by the resolution block.
+### Caching
+
+In many cases, we don't want the resolution block to be called over and over again. Once it's been evaluated, we want Guise to cache the result and just return it every time, effectively creating a singleton. This is achieved as follows:
 
 ```swift
-Guise.register{ AccountService() as AccountServicing }
-Guise.register{ MockAccountService() as AccountServicing }
+_ = Guise.register(cached: true) { Plink() as Plonk }
 ```
 
-In this case, the second registration silently overwrites the first one. So how can two `AccountServicing` registrations be made?
+Guise will evaluate the resolution block the first time, but after that it will return the cached value. The semantics of returning the cached value vary depending upon whether the cached value is a value type or a reference type. This is a feature of the Swift language and has nothing directly to do with Guise. If the cached value is a reference type, you will get a reference to it. If it's a value type, you'll get a copy, but its initializer will not be called again.
+
+When resolving, it is possible to override the registered caching behavior by passing an explicit value for the `cached` parameter, e.g.,
 
 ```swift
-Guise.register(name: "real") { AccountService() as AccountServicing }
-Guise.registration(name: "mock") { MockAccountService() as AccountServicing }
+let plonk = Guise.resolve(cached: false)! as Plonk
 ```
 
-We can then resolve the one we want quite easily.
+By passing `cached: false`, we are telling Guise to call the resolution block again and return its value. (Any previously cached value will _not_ be overwritten.)
+
+Similarly…
 
 ```swift
-let accountService = Guise.resolve(name: "real")! as AccountServicing
+let plonk = Guise.resolve(cached: true)! as Plonk
 ```
 
-Any `Hashable` type can be used as a `name`.
+By passing `cached: true`, we are telling Guise to use any previously cached value. If there is no cached value, Guise will call the resolution block and cache it, using it whenever `cached: true` is called again.
+
+### Factory Registration
+
+One of the most common cases in dependency resolution is to register a factory from which many distinct instances of the same type will be created. Guise has a clever overload of `register` to handle this.
 
 ```swift
-enum Person { // Simple enumerations are hashable by default in Swift
-case isabella
-case miaoting
+_ = Guise.register(factory: Plink() as Plonk)
+```
+
+Before explaining this, it will be helpful to give the type of the `factory` parameter: `@escaping @autoclosure () -> T`. This means that `Plink() as Plonk` is not evaluated at the call site, but is actually a block that is saved for later execution. The code above is exactly equivalent to…
+
+```swift
+_ = Guise.register(cached: false) { Plink() as Plonk }
+```
+
+(`cached: false` is the default. We could have omitted it, but stating it this way makes it clearer.)
+
+### Instance Registration
+
+Instance registration is analogous to factory registration, except that the result of the resolution block is always cached.
+
+```swift
+_ = Guise.register(instance: Plink() as Plonk)
+```
+
+Again, this is exactly equivalent to…
+
+```swift
+_ = Guise.register(cached: true) { Plink() as Plonk }
+```
+
+The `instance` parameter's type signature is exactly the same as that of `factory` above.
+
+### Named Registrations
+
+A registration that registers the same type as a previous registration silently overwrites that registration, e.g.,
+
+```swift
+_ = Guise.register(instance: DebugPlink() as Plonk)
+_ = Guise.register(instance: Plink() as Plonk)
+```
+
+The registration of `DebugPlink` as a `Plonk` is obliterated by the line that comes after it. So how can multiple `Plonk` registrations be made? By naming them:
+
+```swift
+_ = Guise.register(instance: DebugPlink() as Plonk, name: "debug")
+_ = Guise.register(instance: Plink() as Plonk)
+```
+
+The first registration is given the name "debug", while the second one is not explicitly given a name. (It turns out it does indeed have a name, but more on that in a moment.) Because each registration has a different name, they are different registrations.
+
+When resolving, the appropriate name must be passed:
+
+```swift
+let debugPlonk: Plonk = Guise.resolve(name: "debug")!
+```
+
+Strings, however, are not the best names. It turns out that any `Hashable` type can be used as a name. Simple enumerations in Swift are `Hashable` by default and I strongly recommend their use for names in Guise. In fact, the default name for a registration is `Guise.Name.default`.
+
+It is the combination of registered type and name that disambiguates a registration. If disparate types are registered with the same name, they are separate registrations, e.g.,
+
+```swift
+_ = Guise.register(factory: Foo(), name: Name.foo)
+_ = Guise.register(factory: Bar(), name: Name.foo)
+```
+
+Both of these registrations are made with the name `Name.foo`, but because they register different types, they are different registrations.
+
+### Containers
+
+In addition to names, registrations can be made in containers. A container is a group of related registrations. How they are related is up to you, but a common use case might be a set of plugins. The advantage of a container is that it can be easy to unregister all of the registrations in a container at once. (More on that later.)
+
+```swift
+_ = Guise.register(factory: Plink(), container: Container.plinks)
+```
+
+A container is just another name and any `Hashable` type can be used here. Enumerations are strongly recommended. The default container, which never needs to be specified, is `Guise.Container.default`.
+
+Registrations made in a container are distinct from registrations made in another container. Registrations _within_ a container can be disambiguated using a name, e.g.,
+
+```swift
+_ = Guise.register(factory: Plink(), name: Name.plink, container: Container.plinks)
+_ = Guise.register(instance: Plink(), container: Container.plinks)
+```
+
+The two registrations above are disambiguated by name, though they register the same type in the same container. The name of the first registration is `Name.plink` and the second is `Guise.Name.default`.
+
+### Keys
+
+The return type of the `register` overloads is `Key<T>`, where `T` is the registered type. A key uniquely identifies a registration. Any two registrations that would produced the same key are the same registration. A subsequent registration producing the same key as a previous registration overwrites the previous registration, as discussed above in the section on names. A key consists of three facts about a registration: its registered type, name, and container. Other details, such as metadata (see below) and caching do not distinguish registrations.
+
+There are two types of keys: the type-safe `Key<T>` and the type-erased `AnyKey`. In the case of `AnyKey`, the registered type is still "remembered", but it is remembered as a string and not as a generic type parameter.
+
+Direct use of keys is uncommon. There are `register` and `resolve` overloads that take keys. In fact, the other overloads construct a key and then call these "master" overloads. The primary use of keys is with filtering and unregistering, both of which will be discussed below.
+
+### Parameters
+
+Most of the time, you should perform registration with the `factory:` and `instance:` overloads of the `register` method, rather than registering a resolution block directly. However, one case in which you cannot do this is when a parameter must be passed when resolving. The resolution block can take an optional parameter (but only one):
+
+```swift
+struct Wibble {
+  let thibb: String
+  init(thibb: String) {
+    self.thibb = thibb
+  }
 }
-Guise.register(name: Person.isabella) { Person(name: "Isabella") }
+
+_ = Guise.register{ Wibble(thibb: $0) }
 ```
 
-#### Parameters
-
-It is sometimes useful to pass a parameter when resolving, because the initializer of the registered type requires it.
+Swift figures out the type of `$0` through type inference. Resolution is straightforward:
 
 ```swift
-Guise.register{ (size: Int) in Shoe(size) }
+let wibble: Wibble = Guise.resolve(parameter: "flerb")!
 ```
 
-Resolution is straightforward:
+If more than one parameter is needed, pass a tuple or other structured type.
+
+### Dependency Injection
+
+Very often dependencies have other dependencies. Explicitly using Guise within a type is not recommended. For instance, don't do this:
 
 ```swift
-let shoe = Guise.resolve(parameter: 9)! as Shoe
-```
+struct Sblib {
+  init() {
 
-If `parameter` is not compatible with the type specified at registration, an unrecoverable runtime exception will occur.
-
-But what if we need more than one parameter? This can be solved using any of the various structured types offered by Guise: tuples, arrays, dictionaries, structs, classes, and so on.
-
-```swift
-typealias AccountServiceParams = (url: String, foo: Int, bar: Float)
-Guise.register{ (params: AccountServiceParams) in AccountService(url: params.url, foo: params.foo, bar: params.bar) as AccountServicing }
-// Later
-let accountService = Guise.resolve(parameter: (url: url, foo: 17, bar: 3.9))! as AccountServicing
-```
-
-#### Caching
-
-By default, Guise does not cache. This means that the resolution block is called every time `resolve` is called. Guise can cache the result of the resolution block so that it is not needed again.
-
-```swift
-Guise.register(cached: true) { AccountService() }
-```
-
-The first time the block is resolved, Guise caches the result and all subsequent calls use this cached result. This can be overridden during resolution by passing an explicit value for `cached`.
-
-```swift
-let accountService = Guise.resolve(cached: false)! as AccountService
-```
-
-What happens if `cached: true` is passed during resolution when the block was not originally registered to be cached? Guise will cache the result anyway, but subsequent resolutions will still call the resolution block. However, the next time `cached: true` is passed when resolving, the cached value will be returned.
-
-#### Registering Instances
-
-A common case is to register an already-initialized instance rather than a resolution block. Guise has an overload to handle this case easily.
-
-```swift
-Guise.register(instance: AccountService() as AccountServicing)
-```
-
-This is exactly equivalent to the following:
-
-```swift
-let accountService = AccountService()
-Guise.register(cached: true) { accountService as AccountServicing }
-```
-
-In fact, under the hood this is exactly what Guise does.
-
-#### Weak Registrations
-
-Guise holds strong references to resolution closures, metadata, cached values, etc. Occasionally it is useful to register weak references. This is particularly common when registering `UIKit` objects. While Guise has no formal mechanism to handle weak references, here is a common pattern:
-
-```swift
-// Assume myViewController is a UIViewController subclass of type MyViewController.
-
-// Registration
-_ = Guise.register{ [weak myViewController] in myViewController }
-
-// Resolution
-if let myViewController = Guise.resolve()! as MyViewController? {
-  // Do something fun
+  }
 }
-```
 
-In the case above, the actual type registered with Guise is not `MyViewController` but `MyViewController?`, because weak references must be optionals. This means that the type returned by the `resolve` overloads is `Optional<MyViewController>?`, i.e., a double optional. The outer optional returns `nil` if there is no such registration, while the inner optional returns `nil` if the weak reference was zeroed out. Guise handles registered optionals just fine, but because of the confusion they can cause, the registration of optionals should be avoided.
+_ = Guise.register(factory: Sblib())
 
-#### Unowned Registrations
-
-Unowned registrations can also be done, exactly analogous to weak registrations above, except that the registered type is not optional. The usual care with `unowned` must be taken.
-
-```swift
-_ = Guise.register{ [unowned myViewController] in myViewController }
-let myViewController = Guise.resolve()! as MyViewController // In this case ordinary registration should be used.
-```
-
-#### Containers
-
-Registrations can be differentiated by placing them in containers. A container is simply another parameter that must be passed when registering and resolving. As with names, any `Hashable` type can be used.
-
-```swift
-enum Environment {
-  case development
-  case test
-  case production
+struct Throckmorton {
+  let sblib: Sblib
+  init() {
+    sblib = Guise.resolve()!
+  }
 }
-let accountService = Guise.register(instance: AccountService() as AccountServicing, container: Enviroment.test)
-// Later, when resolving
-let accountService = Guise.resolve(container: Environment.test)! as AccountServicing
+
+_ = Guise.register(factory: Throckmorton())
 ```
 
-Names and containers can be used together.
+Instead, do this:
 
 ```swift
-Guise.register(instance: Dog(name: "Fido"), name: Name.fido, container: Container.dogs)
-let fido = Guise.resolve(name: Name.fido, container: Container.dogs)! as Dog
+struct Throckmorton {
+  let sblib: Sblib
+  init(sblib: Sblib) {
+    self.sblib = sblib
+  }
+}
+
+_ = Guise.register(factory: Throckmorton(sblib: Guise.resolve()!))
 ```
 
-#### Keys
+Of course, there are situations in which this is not possible. In Cocoa and Cocoa Touch, one usually does not have control over the creation of controllers. The framework does this for you. So the direct use of Guise in controllers is unavoidable.
 
-Every registration produces a `Key<T>`. This `Key<T>` uniquely identifies the registration, and any subsequent registration that would produce the same `Key` overwrites the previous one.
-
-```swift
-let key = Guise.register{ AccountService() as AccountServicing }
-```
-
-Each `Key<T>` records the registration's type (which is always the return type of the resolution block `(P) -> T`), `name`, and `container`. While type must always be specified, `name` and `container` default to `Name.default` if they are not given. The following two registrations are functionally identical:
-
-```swift
-let key = Guise.register{ AccountService() as AccountServicing }
-let key = Guise.register(name: Name.default, container: Name.default) { AccountService() as AccountServicing }
-```
-
-Keys can be constructed directly, if desired.
-
-```swift
-let key = Key<AccountingService>name: Name.default, container: Name.default)
-```
-
-Guise actually has two closely related key types: `Key<T>` and `AnyKey`. `AnyKey` is a type-erased version of `Key<T>`, suitable for use in heterogeneous lists and a few other contexts. Conversion between the two is straightforward:
-
-```swift
-let key = Key<AccountService>()
-let anykey = AnyKey(key)
-
-// Key<T> has a failable initializer.
-guard let key = Key<AccountService>(anyKey) else { return }
-```
-
-Sequences of `Key<T>` can be converted to `AnyKey` with the `untypedKeys` method. Sequences of `AnyKey` can be converted to `Key<T>` with the `typedKeys<T>` method. In the latter, any keys that do not contain the type `T` are simply omitted, so the number of keys returned by `typedKeys<T>` can be less than the number of the sequence upon which it is called.
-
-In most cases, keys can be ignored. However, they are used in some scenarios:
-
-- When unregistering.
-- When searching for registrations using the `filter` methods, a collection of type `Set<Key<T>>` or `Set<AnyKey>` is returned.
-- When performing multiple resolutions.
-
-Each of these scenarios will be discussed below.
-
-#### Metadata
-
-Arbitrary metadata can be specified during registration. (Note that the default metadata is not `nil`, but `()`, i.e., an "instance" of `Void`).
-
-```swift
-let name = "Fido"
-Guise.register(instance: Dog(name: name), name: name, metadata: 7)
-```
-
-To retrieve metadata, a `Key` must be used.
-
-```swift
-let key = Key<Dog>(name: "Fido", container: Name.default)
-let metadata = Guise.metadata(for: key)! as Int
-```
-
-If there is no metadata for the `Key`, or if it is not of the specified type, `nil` is returned.
-
-#### Filtering
-
-Sometimes it is convenient to find all of the registrations matching some criteria. For instance, we might want to know all of the registrations in a certain container, or all of those registered under a certain type, or matching certain metadata, or any combination of these.
-
-The overloads of the `filter` method can accomplish any of these tasks. The result is always a set of keys (i.e., `Set<Key<T>>` or `Set<AnyKey>`).
-
-```swift
-// Find all registrations in the default container
-let keys = Guise.filter(container: Name.default)
-// Find all registrations of this type in all containers with any name
-let keys = Guise.filter(type: AccountServicing.self)
-// Find all registrations of this type in the given container
-let keys = Guise.filter(type: AccountServicing.self, container: Environment.test)
-```
-
-The `filter` method also accepts metadata queries. A metadata query is a block of type `(M) -> Bool`, where `M` is the type of the metadata as originally registered.
-
-```swift
-let keys = Guise.filter(type: Dog.self, container: Dogs.purebred) { (metadata: DogMetadata) in metadata.age < 1 }
-```
-
-To match this filter, the following must _all_ be true.
-
-1. The registered type must be `Dog`.
-2. The container must be `Dogs.purebred`.
-3. The type of metadata must be `DogMetadata`.
-4. The metadata query `metadata.age < 1` must return `true`.
-
-Since `name` is not specified, it is ignored. Note that if a registration exists matching everything above, except that a different metadata type was used, i.e., `Int` instead of `DogMetadata`, it is simply ignored and not returned in the output.
-
-The resulting `Set<Key>` can be used when unregistering, when performing multiple resolution, etc.
-
-#### Single Resolution
-
-Resolution has been discussed implicitly in many of the sections above. In order to resolve a dependency, Guise must have the following five pieces of information. All but the first are optional.
-
-1. The type to be resolved.
-2. The name of the registration. Defaults to `Name.default` if not specified.
-3. The container of the registration. Defaults to `Name.default` if not specified.
-4. The parameter to pass to the registration block. Defaults to `()` if not specified.
-5. Whether or not to use a cached value. This is of type `Bool?` and defaults to `nil` if not specified, which means that the value specified when the registration was made will be used.
-
-The return type of `resolve` is `T?`, i.e., either `resolve` returns the desired dependency or returns `nil` if no such dependency is registered. In most cases, dependencies are required for the proper functioning of an application, so forced unwrapping should be used.
-
-```swift
-// If no account service is registered, our application is simply invalid, so this should always succeed.
-// Thus, it's safe to force-unwrap the result of resolve.
-let accountService = Guise.resolve()! as AccountServicing
-```
-
-In the rare case where we need to test whether a registration exists, syntax similar to the following may be used.
-
-```swift
-guard let accountService = Guise.resolve(name: AccountService.funky) as AccountServicing? else { return }
-```
-
-#### Multiple Resolution
-
-Given a `Set` of `Key<T>`, it is possible to resolve many dependencies of the same type at the same time.
-
-```swift
-let keys = Guise.filter<Dog>container: Container.dogs) // Set<Key<T>>
-let dogs = Guise.resolve(keys: dogs) as [Dog]
-// Or…
-let dogs = Guise.resolve(keys: dogs) as [Key<Dog>: Dog]
-```
-
-#### Multiple Anonymous Registration And Resolution
-
-Sometimes it's useful&mdash;such as when writing a plugin architecture&mdash;to make multiple anonymous registrations of the same type. Guise requires that these registrations be distinguished in some way. One useful technique is to use a `UUID` as the `name` of the registration, e.g.,
-
-```swift
-Guise.register(name: UUID()) { plugin1() as Plugin }
-Guise.register(name: UUID()) { plugin2() as Plugin }
-Guise.register(name: UUID()) { plugin3() as Plugin }
-```
-
-Resolution is straightforward using the techniques described above:
-
-```swift
-let pluginKeys = Guise.filter(type: Plugin.self) // returns Set<Key<Plugin>>
-let plugins = Guise.resolve(keys: pluginKeys) as [Plugin]
-```
-
-When combined with metadata and/or containers, this can be a very powerful, flexible technique indeed.
-
-### Thread Safety
-
-Internally, Guise keeps registrations in a dictionary of type `[AnyKey: Dependency]`. `Dependency` is a private type that holds the resolution block, any cached values, related metadata, and so on. All operations on this dictionary are protected by a lock that allows one writer and multiple readers. Whenever possible, only operations specifically on this dictionary are locked. This means that resolution itself _does not_ occur inside of a lock. This is necessary both because resolution is inherently a more expensive operation than simple dictionary operations and to prevent a situation in which calling another Guise method inside of a resolution block could produce a deadlock.
-
-The only exception is that metadata filters are called inside of a read lock. For this reason, it is important to keep metadata filters simple and brief.
-
-### Dependency Injection vs Dependency resolution
-
-Dependency injection is superior to dependency resolution. Resolution creates a dependency on the resolver itself. However, it is not possible to build a dependency injection framework given the current state of the Swift language. Much, much more powerful reflection and metadata capabilities would be needed, akin to those found in languages such as C#.

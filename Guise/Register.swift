@@ -78,9 +78,6 @@ extension Guise {
      - parameter metadata: Optional arbitrary metadata attached to the registration
      
      - returns: The key under which the registration was made
-     
-     - note: Instance registration of value types does little good. Use instance registration with reference (class) types.
-     For value types, use factory registration.
      */
     public static func register<T>(instance: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
         return register(key: key, metadata: metadata, cached: true, resolution: instance)
@@ -97,10 +94,7 @@ extension Guise {
      - parameter container: The container in which to register the instance
      - parameter metadata: Optional arbitrary metadata attached to the registration
      
-     - returns: The key under which the registration was made
-     
-     - note: Instance registration of value types does little good. Use instance registration with reference (class) types.
-     For value types, use factory registration.
+     - returns: The key under which the registration was made     
      */
     public static func register<T>(instance: @escaping @autoclosure () -> T, name: AnyHashable = Name.default, container: AnyHashable = Container.default, metadata: Any = ()) -> Key<T> {
         return register(instance: instance, key: Key(name: name, container: container), metadata: metadata)

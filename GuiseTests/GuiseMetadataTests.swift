@@ -12,7 +12,7 @@ import XCTest
 class GuiseMetadataTests: XCTestCase {
 
     func testMetadata() {
-        let key = Guise.register(factory: 3, metadata: 4)
+        let key = Guise.register(instance: 3, metadata: 4)
         let type = Int.self
         guard let _ = Guise.metadata(for: key, type: type) else {
             XCTFail("Metadata was not of type \(type).")
