@@ -393,6 +393,41 @@ let keys = Guise.filter(type: Plugin.self, container: Guise.Container.default, m
 let editors: [Plugin] = Guise.resolve(keys: keys)
 ```
 
+### Weak Registration
+
+Because Guise is global, it can keep references alive past their useful life and cause memory leaks. This is especially true with controllers. For instance,
+
+```swift
+func viewDidLoad() {
+  super.viewDidLoad()
+  Guise.register(instance: self)
+}
+```
+
+This holds on to a reference to this controller and prevents it from being released until it is unregistered or a subsequent registration overwrites this one. If you really understand the implications of this, it can be acceptable.
+
+However, another technique, _weak registration_, can be used to avoid holding a reference to the controller:
+
+```swift
+class StrongViewController: UIViewController {
+  func viewDidLoad() {
+    super.viewDidLoad()
+    // Don't cache the result
+    Guise.register{ [weak self] in self }
+  }
+}
+```
+
+By capturing a weak reference to `self`, Guise will not hold a reference to the controller, allowing it to be released normally. The trade-off is that the registered type is an optional. In this case, it is not `StrongViewController` but `StrongViewController?`:
+
+```swift
+guard let strongViewController = Guise.resolve(type: StrongViewController?.self)! else { return }
+```
+
+When the registered type is an optional, the return type is a _double optional_, in this case `Optional<StrongViewController>?`. The outer optional returns `nil` if the registration does not exist. The inner optional returns `nil` if Swift has assigned `nil` to the weak reference. This is why we still have an optional even after force-unwrapping the result of `resolve`, so the `guard` statement works correctly.
+
+Confused? Avoid this technique unless you really need it.
+
 ### Concurrency
 
 Guise uses a private concurrent queue for key lookup and registration. This queue allows multiple readers for resolution but only one writer for registration.
