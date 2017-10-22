@@ -104,6 +104,15 @@ let plonk = Guise.resolve(cached: true)! as Plonk
 
 By passing `cached: true`, we are telling Guise to use any previously cached value. If there is no cached value, Guise will call the resolution block and cache it, using it whenever `cached: true` is called again.
 
+If no value for `cached` is specified when resolving, the registered behavior is used:
+
+```swift
+_ = Guise.register(cached: true) { Plink() as Plonk }
+let plonk = Guise.resolve()! as Plonk // Returns cached value
+```
+
+The default behavior when registering is _not_ to cache.
+
 ### Factory Registration
 
 One of the most common cases in dependency resolution is to register a factory from which many distinct instances of the same type will be created. Guise has a clever overload of `register` to handle this.
@@ -311,4 +320,75 @@ let keys = Guise.filter(type: Throckmorton.self, metadata: 8)
 ```
 
 This gets all keys registering `Throckmorton` whose registered metadata is `8`.
+
+### Unregistering
+
+To remove registrations from Guise, use one of the overloads of `unregister`. In the simplest case, just pass a key, which you can easily construct yourself.
+
+```swift
+let key = Key<Slib>(name: Name.wob)
+let unregistered = Guise.unregister(keys: [key])
+```
+
+The `unregister` method returns the number of items unregistered. The type of the `keys` argument is actually `Set<K>`, where `K` is any type conforming to the `Keyed` protocol, i.e., `Key<T>` and `AnyKey`.
+
+Because the `filter` methods return a `Set` of keys, we can combine `unregister` and `filter` together:
+
+```swift
+_ = Guise.unregister(keys: Guise.filter(name: "disposable", container: Container.garbage))
+```
+
+The above unregisters all registrations with the name "disposable" in `Container.garbage`, irrespective of type.
+
+In fact, this usage is so common that `unregister` actually has overloads that mimic those of `filter`. So for the above it would be more natural to say…
+
+```swift
+_ = Guise.unregister(name: "disposable", container: Container.garbage)
+```
+
+Be careful when filtering and unregistering. It's important to understand what code such as that below does:
+
+```swift
+_ = Guise.unregister(type: Wiffle.self)
+```
+
+This unregisters _all_ registrations of type `Wiffle`, with any name, and across all containers. It does not simply unregister those that were originally registered without an explicit name or container. To do that, you must provide those values:
+
+```swift
+_ = Guise.unregister(type: Wiffle.self, name: Guise.Name.default, container: Guise.Container.default)
+```
+
+This unregisters all registrations of type `Wiffle` having the default name in the default container.
+
+To remove _all_ registrations from Guise, use `clear`, which takes no parameters.
+
+### Anonymous Registrations
+
+Sometimes we wish to register some types _en masse_ and we do not care to distinguish them, e.g.,
+
+```swift
+_ = Guise.register(factory: Impl1() as Plugin, name: UUID())
+_ = Guise.register(factory: Impl2() as Plugin, name: UUID())
+_ = Guise.register(factory: Impl3() as Plugin, name: UUID())
+// and so on
+```
+
+By using a `UUID` as the name, we are guaranteed to get a unique, random name for each registration. If we want to resolve them all at once, we can use filtering:
+
+```swift
+let keys = Guise.filter(type: Plugin.self, container: Guise.Container.default)
+let plugins: [Plugin] = Guise.resolve(keys: keys)
+```
+
+Perhaps the plugins are similar enough that they all implement the `Plugin` protocol, but still have subtly different capabilities. There are many techniques available here, depending upon our needs. We could put each `Plugin` subtype into a separate container, for instance.
+
+Another approach is to use metadata. The metadata can be queried in a filter so that we only get and resolve exactly those registrations that we need:
+
+```swift
+_ = Guise.register(factory: Impl1() as Plugin, name: UUID(), metadata: PluginMetadata.viewer)
+_ = Guise.register(factory: Impl2() as Plugin, name: UUID(), metadata: PluginMetadata.viewer)
+_ = Guise.register(factory: Impl3() as Plugin, name: UUID(), metadata: PluginMetadata.editor)
+
+let editors: [Plugin] = Guise.resolve(keys: Guise.filter(type: Plugin.self, container: Guise.Container.default, metadata: PluginMetadata.editor))
+```
 
