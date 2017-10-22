@@ -37,7 +37,7 @@ protocol Upwit: class {
     func bnop(x: Int) -> Int
 }
 
-final class Xig: Init, Upwit {
+final class Xig: Upwit {
     init() {
         
     }

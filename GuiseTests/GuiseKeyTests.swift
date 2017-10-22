@@ -42,12 +42,5 @@ class GuiseKeyTests: XCTestCase {
         let key3 = AnyKey(type: Int.self, name: "Murray Rothbard")
         XCTAssertEqual(key2, key3)
     }
-
-    func testResolution() {
-        let name = UUID() // Any hashable type can be a name, and `UUID` fits the bill.
-        _ = Guise.register(instance: "instance", name: name)
-        let instance = Guise.resolve(name: name)! as String
-        XCTAssertEqual(instance, "instance")
-    }
     
 }

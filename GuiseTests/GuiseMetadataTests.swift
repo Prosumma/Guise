@@ -18,6 +18,8 @@ class GuiseMetadataTests: XCTestCase {
             XCTFail("Metadata was not of type \(type).")
             return
         }
+        // Although this key has metadata, it is not castable to `String`,
+        // so `metadata(for:type:)` returns nil.
         XCTAssertNil(Guise.metadata(for: key) as String?)
     }
 
