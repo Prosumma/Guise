@@ -237,6 +237,7 @@ _ = Guise.register(factory: Sblib())
 struct Throckmorton {
   let sblib: Sblib
   init() {
+    // This is unwise.
     sblib = Guise.resolve()!
   }
 }
@@ -258,4 +259,56 @@ _ = Guise.register(factory: Throckmorton(sblib: Guise.resolve()!))
 ```
 
 Of course, there are situations in which this is not possible. In Cocoa and Cocoa Touch, one usually does not have control over the creation of controllers. The framework does this for you. So the direct use of Guise in controllers is unavoidable.
+
+### Metadata
+
+Arbitrary metadata may be attached to a registration, e.g.,
+
+```swift
+let metadata = (wubble: 18, fuzzle: "threlf")
+_ = Guise.register(factory: Sblib(), metadata: metadata)
+```
+
+Metadata is chiefly useful for anonymous registrations, discussed below.
+
+### Filtering
+
+Filtering searches for registrations and returns their keys, which can then be used for resolving, looking up metadata, unregistering, and so on.
+
+Searches can be typed or untyped. In the former case, `Set<Key<T>>` is returned. In the latter, `Set<AnyKey>`.
+
+A typed search looks like this:
+
+```swift
+let keys = Guise.filter(type: Sblib.self, container: Container.öystër)
+```
+
+This query finds all registrations of type `Slib` in the container `Container.öystër`. These registrations can have _any_ name.
+
+An untyped search simply omits the `type` parameter:
+
+```swift
+let keys = Guise.filter(container: Container.öystër)
+```
+
+Because the registered types in `Container.öystër` may be heterogeneous, `Set<AnyKey>` is returned.
+
+In addition to filtering by registered type, name, and container, Guise also supports metadata filters.
+
+```swift
+typealias SblibMetadata = (wubble: Int, fuzzle: String)
+let keys = Guise.filter(type: Sblib.self) { (metadata: SblibMetadata) in
+  metadata.wubble < 20
+}
+```
+
+In order for the metadata filter to be satisfied, the registered metadata must be of type `SblibMetadata` _and_ the filter itself must return true.
+
+If the underlying metadata is `Equatable` and we are concerned only with an equality comparison, there is a shortcut:
+
+```swift
+let keys = Guise.filter(type: Throckmorton.self, metadata: 8)
+```
+
+This gets all keys registering `Throckmorton` whose registered metadata is `8`.
 
