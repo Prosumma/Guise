@@ -9,10 +9,26 @@
 import Foundation
 @testable import Guise
 
+/**
+ Simple enumerations are hashable by default in Swift.
+ This means they will convert automatically to `AnyHashable`
+ 
+ While I recommend using an enumeration, you don't have to.
+ _Any_ hashable type can be used for the `name` and `container`
+ of a registration.
+ */
 enum Name {
     case 🌈 // My daughter chose this rainbow
 }
 
+/**
+ Simple enumerations are hashable by default in Swift.
+ This means they will convert automatically to `AnyHashable`
+ 
+ While I recommend using an enumeration, you don't have to.
+ _Any_ hashable type can be used for the `name` and `container`
+ of a registration.
+ */
 enum Container {
     case 🐝
 }
@@ -47,7 +63,10 @@ protocol Wibble: class {
     var plonk: Plonk { get }
 }
 
-// My daughter named this type. Deal.
+/*
+ My 4-year-old daughter named this type.
+ Well done.
+*/
 class Froufroupookiedingdong: Wibble {
     let plonk: Plonk
     

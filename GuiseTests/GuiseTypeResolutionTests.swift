@@ -25,7 +25,7 @@ class GuiseTypeResolutionTests: XCTestCase {
     func testAliasedResolutionByTypeInContainer() {
         _ = Guise.register(type: Upwit.self, impl: Xig.self, container: Container.🐝)
         XCTAssertNotNil(Guise.resolve(type: Upwit.self, container: Container.🐝))
-        XCTAssertNil(Guise.resolve(type: Upwit.self))
+        XCTAssertNil(Guise.resolve(type: Upwit.self, name: Name.🌈, container: Container.🐝))
     }
 
 }
