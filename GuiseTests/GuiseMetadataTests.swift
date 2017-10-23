@@ -14,13 +14,13 @@ class GuiseMetadataTests: XCTestCase {
     func testMetadata() {
         let key = Guise.register(instance: 3, metadata: 4)
         let type = Int.self
-        guard let _ = Guise.metadata(for: key, type: type) else {
+        guard let _ = Guise.metadata(forKey: key, metatype: type) else {
             XCTFail("Metadata was not of type \(type).")
             return
         }
         // Although this key has metadata, it is not castable to `String`,
         // so `metadata(for:type:)` returns nil.
-        XCTAssertNil(Guise.metadata(for: key) as String?)
+        XCTAssertNil(Guise.metadata(forKey: key) as String?)
     }
 
 }

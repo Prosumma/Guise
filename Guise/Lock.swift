@@ -8,9 +8,7 @@
 
 import Foundation
 
-/**
- A simple GCD-powered lock allowing one writer and multiple readers.
- */
+/// A simple GCD-powered lock allowing one writer and multiple readers.
 final class Lock {
 
     private let label = "com.prosumma.Guise.lock"

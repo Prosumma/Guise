@@ -8,9 +8,8 @@
 
 import Foundation
 
-// MARK: - Filter By Keys
-
 extension Guise {
+// MARK: - Filter By Keys
     
     /// All roads lead here
     private static func filter<K: Keyed>(keys: Set<K>, metathunk: Metathunk?) -> Set<K> {
@@ -23,22 +22,41 @@ extension Guise {
         return Set(matchedKeys.flatMap{ K($0) })
     }
     
+    /**
+     Return those keys in `keys` which are registered with Guise.
+     
+     - parameter keys: The keys to find
+     - returns: The matched keys
+     */
     public static func filter<K: Keyed>(keys: Set<K>) -> Set<K> {
         return filter(keys: keys, metathunk: nil)
     }
     
+    /**
+     Return those keys in `keys` which are registered with Guise and pass the metadata filter.
+     
+     - parameter keys: The keys to find
+     - parameter metafilter: The metafilter query to apply
+     
+     - returns: The matched keys
+     */
     public static func filter<K: Keyed, M>(keys: Set<K>, metafilter: @escaping Metafilter<M>) -> Set<K> {
         return filter(keys: keys, metathunk: metathunk(metafilter))
     }
     
+    /**
+     Return those keys in `keys` which are registered with Guise and whose metadata is equal to `metadata`.
+     
+     - parameter keys: The keys to find
+     - parameter metadata: The `Equatable` metadata to match
+     
+     - returns: The matched keys
+     */
     public static func filter<K: Keyed, M: Equatable>(keys: Set<K>, metadata: M) -> Set<K> {
         return filter(keys: keys) { $0 == metadata }
     }
-}
 
 // MARK: - Filter By Type, Name, Container
-
-extension Guise {
     
     /// All roads lead here
     private static func filter<K: Keyed & Hashable>(name: AnyHashable?, container: AnyHashable?, metathunk: Metathunk?) -> Set<K> {
@@ -62,26 +80,105 @@ extension Guise {
         return Set(matched.keys)
     }
 
+    /**
+     Find keys matching the given criteria.
+     
+     - parameter type: The registered type
+     - parameter name: The registered name
+     - parameter container: The registered container
+     
+     - returns: The matched keys
+     
+     - warning: The `name` and `container` parameters are optional. In other contexts,
+     an optional `name` or `container` implicitly references the default name or container,
+     but in this case, it means _any_ name or container.
+     */
     public static func filter<T>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> Set<Key<T>> {
         return filter(name: name, container: container, metathunk: nil)
     }
     
+    /**
+     Find keys matching the given criteria and metadata filter.
+     
+     - parameter type: The registered type
+     - parameter name: The registered name
+     - parameter container: The registered container
+     - parameter metafilter: The metafilter query to apply
+     
+     - returns: The matched keys
+     
+     - warning: The `name` and `container` parameters are optional. In other contexts,
+     an optional `name` or `container` implicitly references the default name or container,
+     but in this case, it means _any_ name or container.
+     */
     public static func filter<T, M>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<M>) -> Set<Key<T>> {
         return filter(name: name, container: container, metathunk: metathunk(metafilter))
     }
 
+    /**
+     Find keys matching the given criteria and metadata.
+     
+     - parameter type: The registered type
+     - parameter name: The registered name
+     - parameter container: The registered container
+     - parameter metadata: The `Equatable` metadata to match
+     
+     - returns: The matched keys
+     
+     - warning: The `name` and `container` parameters are optional. In other contexts,
+     an optional `name` or `container` implicitly references the default name or container,
+     but in this case, it means _any_ name or container.
+     */
     public static func filter<T, M: Equatable>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: M) -> Set<Key<T>> {
         return filter(type: type, name: name, container: container) { $0 == metadata }
     }
     
+    /**
+     Find keys matching the given criteria.
+     
+     - parameter name: The registered name
+     - parameter container: The registered container
+     
+     - returns: The matched keys
+     
+     - warning: The `name` and `container` parameters are optional. In other contexts,
+     an optional `name` or `container` implicitly references the default name or container,
+     but in this case, it means _any_ name or container.
+     */
     public static func filter(name: AnyHashable? = nil, container: AnyHashable? = nil) -> Set<AnyKey> {
         return filter(name: name, container: container, metathunk: nil)
     }
     
+    /**
+     Find keys matching the given criteria and metadata filter.
+     
+     - parameter name: The registered name
+     - parameter container: The registered container
+     - parameter metafilter: The metafilter query to apply
+     
+     - returns: The matched keys
+     
+     - warning: The `name` and `container` parameters are optional. In other contexts,
+     an optional `name` or `container` implicitly references the default name or container,
+     but in this case, it means _any_ name or container.
+     */
     public static func filter<M>(name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<M>) -> Set<AnyKey> {
         return filter(name: name, container: container, metathunk: metathunk(metafilter))
     }
     
+    /**
+     Find keys matching the given criteria and metadata.
+     
+     - parameter name: The registered name
+     - parameter container: The registered container
+     - parameter metadata: The `Equatable` metadata to match
+     
+     - returns: The matched keys
+     
+     - warning: The `name` and `container` parameters are optional. In other contexts,
+     an optional `name` or `container` implicitly references the default name or container,
+     but in this case, it means _any_ name or container.
+     */
     public static func filter<M: Equatable>(name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: M) -> Set<AnyKey> {
         return filter(name: name, container: container) { $0 == metadata }
     }

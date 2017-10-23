@@ -66,6 +66,11 @@ public struct Guise {
     }
     
     private init() {}
+
+    /// Returns all registered keys
+    public static var keys: Set<AnyKey> {
+        return Set(registrations.keys)
+    }
     
     static var lock = Lock()
     static var registrations = [AnyKey: Registration]()

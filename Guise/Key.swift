@@ -74,6 +74,7 @@ public struct Key<T>: Keyed, Hashable {
     public let name: AnyHashable
     /// The registered container, which defaults to `Guise.Container.default`
     public let container: AnyHashable
+    /// The hashValue required by `Hashable`
     public let hashValue: Int
 
     /**
