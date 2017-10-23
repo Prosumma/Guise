@@ -28,9 +28,7 @@ public protocol Keyed {
     var name: AnyHashable { get }
     /// The registered container, which defaults to `Guise.Container.default`
     var container: AnyHashable { get }
-    /**
-     Failable initializer to convert from one `Keyed` to another.
-     */
+    /// Failable initializer to convert from one `Keyed` to another.
     init?(_ key: Keyed)
 }
 
@@ -43,9 +41,13 @@ public func ==<K: Keyed & Hashable>(lhs: K, rhs: K) -> Bool {
 }
 
 public struct AnyKey: Keyed, Hashable {
+    /// The registered type
     public let type: String
+    /// The registered name, which defaults to `Guise.Name.default`
     public let name: AnyHashable
+    /// The registered container, which defaults to `Guise.Container.default`
     public let container: AnyHashable
+    /// The hashValue required by `Hashable`
     public let hashValue: Int
     
     private init(type: String, name: AnyHashable, container: AnyHashable) {
@@ -55,10 +57,19 @@ public struct AnyKey: Keyed, Hashable {
         self.hashValue = hash(self.type, self.name, self.container)
     }
     
+    /**
+     Failable initializer to convert from one `Keyed` to another.
+     
+     This initializer is required by the `Keyed` protocol. In the case of
+     `AnyKey`, it can never fail, so it is safe to force-unwrap the result.
+     
+     - parameter key: The key to convert to `AnyKey`
+     */
     public init?(_ key: Keyed) {
         self.init(type: key.type, name: key.name, container: key.container)
     }
     
+    /// Initialize `AnyKey` in a type-safe manner.
     public init<T>(type: T.Type, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) {
         self.init(type: String(reflecting: type), name: name, container: container)
     }
@@ -91,7 +102,7 @@ public struct Key<T>: Keyed, Hashable {
     /**
      Failable initializer from the `Keyed` protocol, used to convert a `Keyed` into a `Key<T>`.
      
-     This initializer will fail if `Keyed.type` is not compatible with `T`.
+     This initializer will fail if `key.type` is not identical to `String(reflecting: T.self)`.
      */
     public init?(_ key: Keyed) {
         if key.type != String(reflecting: T.self) { return nil }

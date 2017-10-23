@@ -65,6 +65,7 @@ public struct Guise {
         case `default`
     }
     
+    // Instance of this type cannot be created.
     private init() {}
 
     /// Returns all registered keys
