@@ -235,16 +235,16 @@ If more than one parameter is needed, pass a tuple or other structured type.
 Very often dependencies have other dependencies. Explicitly using Guise within a type is not recommended. For instance, don't do this:
 
 ```swift
-struct Sblib {
+struct Slib {
   init() {
 
   }
 }
 
-_ = Guise.register(factory: Sblib())
+_ = Guise.register(factory: Slib())
 
 struct Throckmorton {
-  let sblib: Sblib
+  let sblib: Slib
   init() {
     // This is unwise.
     sblib = Guise.resolve()!
@@ -258,8 +258,8 @@ Instead, do this:
 
 ```swift
 struct Throckmorton {
-  let sblib: Sblib
-  init(sblib: Sblib) {
+  let sblib: Slib
+  init(sblib: Slib) {
     self.sblib = sblib
   }
 }
@@ -275,7 +275,7 @@ Arbitrary metadata may be attached to a registration, e.g.,
 
 ```swift
 let metadata = (wubble: 18, fuzzle: "threlf")
-_ = Guise.register(factory: Sblib(), metadata: metadata)
+_ = Guise.register(factory: Slib(), metadata: metadata)
 ```
 
 Metadata is chiefly useful for anonymous registrations, discussed below.
@@ -289,7 +289,7 @@ Searches can be typed or untyped. In the former case, `Set<Key<T>>` is returned.
 A typed search looks like this:
 
 ```swift
-let keys = Guise.filter(type: Sblib.self, container: Container.öystër)
+let keys = Guise.filter(type: Slib.self, container: Container.öystër)
 ```
 
 This query finds all registrations of type `Slib` in the container `Container.öystër`. These registrations can have _any_ name.
@@ -305,13 +305,13 @@ Because the registered types in `Container.öystër` may be heterogeneous, `Set<
 In addition to filtering by registered type, name, and container, Guise also supports metadata filters.
 
 ```swift
-typealias SblibMetadata = (wubble: Int, fuzzle: String)
-let keys = Guise.filter(type: Sblib.self) { (metadata: SblibMetadata) in
+typealias SlibMetadata = (wubble: Int, fuzzle: String)
+let keys = Guise.filter(type: Slib.self) { (metadata: SlibMetadata) in
   metadata.wubble < 20
 }
 ```
 
-In order for the metadata filter to be satisfied, the registered metadata must be of type `SblibMetadata` _and_ the filter itself must return true.
+In order for the metadata filter to be satisfied, the registered metadata must be of type `SlibMetadata` _and_ the filter itself must return true.
 
 If the underlying metadata is `Equatable` and we are concerned only with an equality comparison, there is a shortcut:
 
