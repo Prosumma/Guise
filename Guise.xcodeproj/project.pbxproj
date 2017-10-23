@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
+		F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
+		F31E06E11F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
 		F32120571F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
 		F32120581F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
 		F32120591F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
@@ -102,6 +105,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFilterTests.swift; sourceTree = "<group>"; };
 		F32120561F647B5B00872F32 /* Declarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarations.swift; sourceTree = "<group>"; };
 		F343A9EC1DB7867600B1000F /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseMetadataTests.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				F3C3ED7F1C8D64FF00FD8E4D /* Info.plist */,
+				F32120561F647B5B00872F32 /* Declarations.swift */,
 				F3DBA89E1F9C57160055E83C /* Tests */,
 			);
 			path = GuiseTests;
@@ -251,13 +256,13 @@
 		F3DBA89E1F9C57160055E83C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F32120561F647B5B00872F32 /* Declarations.swift */,
 				F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */,
+				F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */,
 				F3DBA8961F9C54240055E83C /* GuiseFactoryResolutionTests.swift */,
+				F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */,
 				F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */,
 				F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */,
 				F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */,
-				F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -593,6 +598,7 @@
 				F3700B7F1DB7847000DDB218 /* GuiseKeyTests.swift in Sources */,
 				F356FF441F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
 				F3B53EEA1F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
+				F31E06E11F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +630,7 @@
 				F3BACFC81C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
 				F356FF421F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
 				F3B53EE81F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
+				F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +662,7 @@
 				F3BACFC91C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
 				F356FF431F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
 				F3B53EE91F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
+				F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
