@@ -49,7 +49,7 @@ class Registration {
         self.metadata = metadata
         self.cached = cached
         self.resolution = { param in resolution(param as! P) }
-        self.cacheQueue = DispatchQueue(label: "com.prosumma.Guise.Dependency.[\(String(reflecting: T.self))].\(UUID())")
+        self.cacheQueue = DispatchQueue(label: "com.prosumma.Guise.Registration.[\(String(reflecting: T.self))].\(UUID())")
     }
     
     /// - warning: An incompatible `T` will cause an unrecoverable runtime exception.
