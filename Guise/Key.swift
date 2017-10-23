@@ -88,12 +88,8 @@ public struct Key<T>: Keyed, Hashable {
     /// The hashValue required by `Hashable`
     public let hashValue: Int
 
-    /**
-     - note: The `type` parameter is ignored. It exists simply to disambiguate an overload.
-     Just pass `nil`.
-     */
-    private init(type: String?, name: AnyHashable, container: AnyHashable) {
-        self.type = String(reflecting: T.self)
+    private init(type: T.Type, name: AnyHashable, container: AnyHashable) {
+        self.type = String(reflecting: type)
         self.name = name
         self.container = container
         self.hashValue = hash(self.type, self.name, self.container)
@@ -106,11 +102,11 @@ public struct Key<T>: Keyed, Hashable {
      */
     public init?(_ key: Keyed) {
         if key.type != String(reflecting: T.self) { return nil }
-        self.init(type: nil, name: key.name, container: key.container)
+        self.init(type: T.self, name: key.name, container: key.container)
     }
 
     /// Creates a new `Key<T>` using the specified `name` and `container`.
     public init(name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) {
-        self.init(type: nil, name: name, container: container)
+        self.init(type: T.self, name: name, container: container)
     }
 }
