@@ -28,7 +28,7 @@ final class Lock {
             qos = .unspecified
         }
         let afq: DispatchQueue.AutoreleaseFrequency
-        if #available(macOS 10.12, iOS 10.0, tvOS 10.0, *) {
+        if #available(macOS 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
             afq = .workItem
         } else {
             afq = .inherit
