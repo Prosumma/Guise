@@ -13,12 +13,12 @@ class GuiseBlockResolutionTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        _ = Guise.clear()
+        Guise.clear()
     }
     
     func testResolveBlock() {
         let parameter = "gshob"
-        _ = Guise.register{ Plink(thibb: parameter) as Plonk }
+        Guise.register{ Plink(thibb: parameter) as Plonk }
         guard let plonk: Plonk = Guise.resolve() else {
             XCTFail("Unable to resolve Plink as Plonk.")
             return
@@ -28,7 +28,7 @@ class GuiseBlockResolutionTests: XCTestCase {
     
     func testResolveBlockWithParameter() {
         let parameter = "squibbit"
-        _ = Guise.register{ Plink(thibb: $0) as Plonk }
+        Guise.register{ Plink(thibb: $0) as Plonk }
         guard let plonk: Plonk = Guise.resolve(parameter: parameter) else {
             XCTFail("Unable to resolve Plink as Plonk with parameter.")
             return
@@ -38,10 +38,10 @@ class GuiseBlockResolutionTests: XCTestCase {
 
     func testResolveBlockWithCompositionAndCaching() {
         let parameter = "thuzb"
-        _ = Guise.register(factory: Plink(thibb: parameter) as Plonk)
+        Guise.register(factory: Plink(thibb: parameter) as Plonk)
         // This should really be done with Guise.register(instance:), which uses an autoclosure
         // to evaluate lazily, but I wanted to show the "underlying" syntax.
-        _ = Guise.register(cached: true) { Froufroupookiedingdong(plonk: Guise.resolve()!) as Wibble }
+        Guise.register(cached: true) { Froufroupookiedingdong(plonk: Guise.resolve()!) as Wibble }
         guard let wibble1 = Guise.resolve(type: Wibble.self) else {
             XCTFail("Unable to resolve Froufroupookiedingdong as Wibble.")
             return

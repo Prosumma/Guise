@@ -13,7 +13,7 @@ class GuiseFilterTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        _ = Guise.clear()
+        Guise.clear()
     }
     
     func testFilterByKeys() {
@@ -41,7 +41,7 @@ class GuiseFilterTests: XCTestCase {
         let key1 = Guise.register(instance: 7, name: name, container: container)
         let key2 = Guise.register(instance: 3, container: container)
         let key3 = Guise.register(instance: 1, name: name)
-        _ = Guise.register(instance: "y0", name: name)
+        Guise.register(instance: "y0", name: name)
         let found = Guise.filter(type: Int.self)
         XCTAssertEqual(found.count, 3)
         XCTAssertEqual(found.intersection([key1, key2, key3]).count, found.count)

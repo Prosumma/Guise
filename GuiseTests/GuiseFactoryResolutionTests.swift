@@ -13,12 +13,12 @@ class GuiseFactoryResolutionTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        _ = Guise.clear()
+        Guise.clear()
     }
     
     func testSimpleFactoryResolution() {
         // The factory parameter is an autoclosure, so the parameter is evaluated lazily (and repeatedly).
-        _ = Guise.register(factory: Xig() as Upwit)
+        Guise.register(factory: Xig() as Upwit)
         guard // Four different ways to give type evidence to `resolve()`
             let upwit1 = Guise.resolve(type: Upwit.self),
             let upwit2: Upwit = Guise.resolve(),

@@ -13,7 +13,7 @@ class GuiseConcurrentResolutionTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        _ = Guise.clear()
+        Guise.clear()
     }
 
     // This test is probably worthless, but it can't hurt.
@@ -26,8 +26,8 @@ class GuiseConcurrentResolutionTests: XCTestCase {
         
         let wob = "wob"
         
-        _ = Guise.register(factory: Plink(thibb: wob) as Plonk, container: Container.🐝)
-        _ = Guise.register(factory: Froufroupookiedingdong(plonk: Guise.resolve(container: Container.🐝)!) as Wibble, name: Name.🌈)
+        Guise.register(factory: Plink(thibb: wob) as Plonk, container: Container.🐝)
+        Guise.register(factory: Froufroupookiedingdong(plonk: Guise.resolve(container: Container.🐝)!) as Wibble, name: Name.🌈)
         
         queue.async {
             let wibble = Guise.resolve(type: Wibble.self, name: Name.🌈)!
@@ -36,7 +36,7 @@ class GuiseConcurrentResolutionTests: XCTestCase {
         }
         
         queue.async {
-            _ = Guise.resolve(container: Container.🐝)! as Plonk
+            Guise.resolve(container: Container.🐝)! as Plonk
             let wibble = Guise.resolve(type: Wibble.self, name: Name.🌈)!
             XCTAssertEqual(wibble.plonk.thibb, wob)
             expectation2.fulfill()

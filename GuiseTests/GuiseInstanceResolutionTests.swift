@@ -13,13 +13,13 @@ class GuiseInstanceResolutionTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        _ = Guise.clear()
+        Guise.clear()
     }
 
     func testSimpleInstanceRegistration() {
         let xig1 = Xig()
         // Instances are always cached.
-        _ = Guise.register(instance: xig1)
+        Guise.register(instance: xig1)
         guard let xig2 = Guise.resolve() as Xig? else {
             XCTFail("Instance resolution failed for Xig.")
             return
@@ -30,7 +30,7 @@ class GuiseInstanceResolutionTests: XCTestCase {
 
     func testNamedInstanceRegistration() {
         let xig1: Upwit = Xig()
-        _ = Guise.register(instance: xig1, name: Name.🌈)
+        Guise.register(instance: xig1, name: Name.🌈)
         XCTAssertNil(Guise.resolve(type: Upwit.self), "Registration by name failed.")
         guard let xig2: Upwit = Guise.resolve(name: Name.🌈) else {
             XCTFail("Registration by name failed.")

@@ -12,7 +12,7 @@ import XCTest
 class GuiseKeyTests: XCTestCase {
     
     override func tearDown() {
-        _ = Guise.clear()
+        Guise.clear()
         super.tearDown()
     }
     
