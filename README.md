@@ -27,10 +27,10 @@ Dependency resolution is a somewhat advanced topic. For the sake of brevity, thi
 Before a dependency can be resolved, it must first be registered. Guise does not register dependencies directly. Instead, it registers a block&mdash;called the _resolution block_&mdash;that returns the desired dependency.
 
 ```swift
-_ = Guise.register{ Plink() }
+Guise.register{ Plink() }
 ```
 
-(The `register` overloads return an instance of `Key<T>`. More on that later.)
+(The `register` overloads return an instance of `Key<T>`, which we are ignoring here. More on that later.)
 
 The return type of the resolution block is called the _registered type_. When we ask Guise to resolve this dependency, we use the registered type to do so:
 
@@ -64,9 +64,9 @@ class DebugPlink: Plonk {
 }
 
 #if DEBUG
-  _ = Guise.register{ DebugPlink() as Plonk }
+  Guise.register{ DebugPlink() as Plonk }
 #else
-  _ = Guise.register{ Plink() as Plonk }
+  Guise.register{ Plink() as Plonk }
 #endif
 ```
 
@@ -83,7 +83,7 @@ Depending upon whether the `DEBUG` flag is set, the `Plonk` we get will either b
 In many cases, we don't want the resolution block to be called over and over again. Once it's been evaluated, we want Guise to cache the result and just return it every time, effectively creating a singleton. This is achieved as follows:
 
 ```swift
-_ = Guise.register(cached: true) { Plink() as Plonk }
+Guise.register(cached: true) { Plink() as Plonk }
 ```
 
 Guise will evaluate the resolution block the first time, but after that it will return the cached value. The semantics of returning the cached value vary depending upon whether the cached value is a value type or a reference type. This is a feature of the Swift language and has nothing directly to do with Guise. If the cached value is a reference type, you will get a reference to it. If it's a value type, you'll get a copy, but its initializer will not be called again.
@@ -107,7 +107,7 @@ By passing `cached: true`, we are telling Guise to use any previously cached val
 If no value for `cached` is specified when resolving, the registered behavior is used:
 
 ```swift
-_ = Guise.register(cached: true) { Plink() as Plonk }
+Guise.register(cached: true) { Plink() as Plonk }
 let plonk = Guise.resolve()! as Plonk // Returns cached value
 ```
 
@@ -118,13 +118,13 @@ The default behavior when registering is _not_ to cache.
 One of the most common cases in dependency resolution is to register a factory from which many distinct instances of the same type will be created. Guise has a clever overload of `register` to handle this.
 
 ```swift
-_ = Guise.register(factory: Plink() as Plonk)
+Guise.register(factory: Plink() as Plonk)
 ```
 
 Before explaining this, it will be helpful to give the type of the `factory` parameter: `@escaping @autoclosure () -> T`. This means that `Plink() as Plonk` is not evaluated at the call site, but is actually a block that is saved for later execution. The code above is exactly equivalent to…
 
 ```swift
-_ = Guise.register(cached: false) { Plink() as Plonk }
+Guise.register(cached: false) { Plink() as Plonk }
 ```
 
 (`cached: false` is the default. We could have omitted it, but stating it this way makes it clearer.)
@@ -134,13 +134,13 @@ _ = Guise.register(cached: false) { Plink() as Plonk }
 Instance registration is analogous to factory registration, except that the result of the resolution block is always cached.
 
 ```swift
-_ = Guise.register(instance: Plink() as Plonk)
+Guise.register(instance: Plink() as Plonk)
 ```
 
 Again, this is exactly equivalent to…
 
 ```swift
-_ = Guise.register(cached: true) { Plink() as Plonk }
+Guise.register(cached: true) { Plink() as Plonk }
 ```
 
 The `instance` parameter's type signature is exactly the same as that of `factory` above.
@@ -149,7 +149,7 @@ Instance registration is what you want to use if you already have an instance at
 
 ```swift
 let s = "registered string"
-_ = Guise.register(instance: s)
+Guise.register(instance: s)
 ```
 
 ### Named Registrations
@@ -157,15 +157,15 @@ _ = Guise.register(instance: s)
 A registration that registers the same type as a previous registration silently overwrites that registration, e.g.,
 
 ```swift
-_ = Guise.register(instance: DebugPlink() as Plonk)
-_ = Guise.register(instance: Plink() as Plonk)
+Guise.register(instance: DebugPlink() as Plonk)
+Guise.register(instance: Plink() as Plonk)
 ```
 
 The registration of `DebugPlink` as a `Plonk` is obliterated by the line that comes after it. So how can multiple `Plonk` registrations be made? By naming them:
 
 ```swift
-_ = Guise.register(instance: DebugPlink() as Plonk, name: "debug")
-_ = Guise.register(instance: Plink() as Plonk)
+Guise.register(instance: DebugPlink() as Plonk, name: "debug")
+Guise.register(instance: Plink() as Plonk)
 ```
 
 The first registration is given the name "debug", while the second one is not explicitly given a name. (It turns out it does indeed have a name, but more on that in a moment.) Because each registration has a different name, they are different registrations.
@@ -181,8 +181,8 @@ Strings, however, are not the best names. It turns out that any `Hashable` type 
 It is the combination of registered type and name that disambiguates a registration. If disparate types are registered with the same name, they are separate registrations, e.g.,
 
 ```swift
-_ = Guise.register(factory: Foo(), name: Name.foo)
-_ = Guise.register(factory: Bar(), name: Name.foo)
+Guise.register(factory: Foo(), name: Name.foo)
+Guise.register(factory: Bar(), name: Name.foo)
 ```
 
 Both of these registrations are made with the name `Name.foo`, but because they register different types, they are different registrations.
@@ -192,7 +192,7 @@ Both of these registrations are made with the name `Name.foo`, but because they 
 In addition to names, registrations can be made in containers. A container is a group of related registrations. How they are related is up to you, but a common use case might be a set of plugins. The advantage of a container is that it can be easy to unregister all of the registrations in a container at once. (More on that later.)
 
 ```swift
-_ = Guise.register(factory: Plink(), container: Container.plinks)
+Guise.register(factory: Plink(), container: Container.plinks)
 ```
 
 A container is just another name and any `Hashable` type can be used here. Enumerations are strongly recommended. The default container, which never needs to be specified, is `Guise.Container.default`.
@@ -200,8 +200,8 @@ A container is just another name and any `Hashable` type can be used here. Enume
 Registrations made in a container are distinct from registrations made in another container. Registrations _within_ a container can be disambiguated using a name, e.g.,
 
 ```swift
-_ = Guise.register(factory: Plink(), name: Name.plink, container: Container.plinks)
-_ = Guise.register(instance: Plink(), container: Container.plinks)
+Guise.register(factory: Plink(), name: Name.plink, container: Container.plinks)
+Guise.register(instance: Plink(), container: Container.plinks)
 ```
 
 The two registrations above are disambiguated by name, though they register the same type in the same container. The name of the first registration is `Name.plink` and the second is `Guise.Name.default`.
@@ -226,7 +226,7 @@ struct Wibble {
   }
 }
 
-_ = Guise.register{ Wibble(thibb: $0) }
+Guise.register{ Wibble(thibb: $0) }
 ```
 
 Swift figures out the type of `$0` through type inference. Resolution is straightforward:
@@ -248,7 +248,7 @@ struct Slib {
   }
 }
 
-_ = Guise.register(factory: Slib())
+Guise.register(factory: Slib())
 
 struct Throckmorton {
   let slib: Slib
@@ -258,7 +258,7 @@ struct Throckmorton {
   }
 }
 
-_ = Guise.register(factory: Throckmorton())
+Guise.register(factory: Throckmorton())
 ```
 
 Instead, do this:
@@ -271,7 +271,7 @@ struct Throckmorton {
   }
 }
 
-_ = Guise.register(factory: Throckmorton(slib: Guise.resolve()!))
+Guise.register(factory: Throckmorton(slib: Guise.resolve()!))
 ```
 
 Of course, there are situations in which this is not possible. In Cocoa and Cocoa Touch, one usually does not have control over the creation of controllers. The framework does this for you. So the direct use of Guise in controllers is unavoidable.
@@ -282,7 +282,7 @@ Arbitrary metadata may be attached to a registration, e.g.,
 
 ```swift
 let metadata = (wubble: 18, fuzzle: "threlf")
-_ = Guise.register(factory: Slib(), metadata: metadata)
+Guise.register(factory: Slib(), metadata: metadata)
 ```
 
 Metadata is chiefly useful for anonymous registrations, discussed below.
@@ -342,7 +342,7 @@ The `unregister` method returns the number of items unregistered. The type of th
 Because the `filter` methods return a `Set` of keys, we can combine `unregister` and `filter` together:
 
 ```swift
-_ = Guise.unregister(keys: Guise.filter(name: "disposable", container: Container.garbage))
+Guise.unregister(keys: Guise.filter(name: "disposable", container: Container.garbage))
 ```
 
 The above unregisters all registrations with the name "disposable" in `Container.garbage`, irrespective of type.
@@ -350,19 +350,19 @@ The above unregisters all registrations with the name "disposable" in `Container
 In fact, this usage is so common that `unregister` actually has overloads that mimic those of `filter`. So for the above it would be more natural to say…
 
 ```swift
-_ = Guise.unregister(name: "disposable", container: Container.garbage)
+Guise.unregister(name: "disposable", container: Container.garbage)
 ```
 
 Be careful when filtering and unregistering. It's important to understand what code such as that below does:
 
 ```swift
-_ = Guise.unregister(type: Wiffle.self)
+Guise.unregister(type: Wiffle.self)
 ```
 
 This unregisters _all_ registrations of type `Wiffle`, with any name, and across all containers. It does not simply unregister those that were originally registered without an explicit name or container. To do that, you must provide those values:
 
 ```swift
-_ = Guise.unregister(type: Wiffle.self, name: Guise.Name.default, container: Guise.Container.default)
+Guise.unregister(type: Wiffle.self, name: Guise.Name.default, container: Guise.Container.default)
 ```
 
 This unregisters all registrations of type `Wiffle` having the default name in the default container.
@@ -374,9 +374,9 @@ To remove _all_ registrations from Guise, use `clear`, which takes no parameters
 Sometimes we wish to register some types _en masse_ and we do not care to distinguish them, e.g.,
 
 ```swift
-_ = Guise.register(factory: Impl1() as Plugin, name: UUID())
-_ = Guise.register(factory: Impl2() as Plugin, name: UUID())
-_ = Guise.register(factory: Impl3() as Plugin, name: UUID())
+Guise.register(factory: Impl1() as Plugin, name: UUID())
+Guise.register(factory: Impl2() as Plugin, name: UUID())
+Guise.register(factory: Impl3() as Plugin, name: UUID())
 // and so on
 ```
 
@@ -392,9 +392,9 @@ Perhaps the plugins are similar enough that they all implement the `Plugin` prot
 Another approach is to use metadata. The metadata can be queried in a filter so that we only get and resolve exactly those registrations that we need:
 
 ```swift
-_ = Guise.register(factory: Impl1() as Plugin, name: UUID(), metadata: PluginMetadata.viewer)
-_ = Guise.register(factory: Impl2() as Plugin, name: UUID(), metadata: PluginMetadata.viewer)
-_ = Guise.register(factory: Impl3() as Plugin, name: UUID(), metadata: PluginMetadata.editor)
+Guise.register(factory: Impl1() as Plugin, name: UUID(), metadata: PluginMetadata.viewer)
+Guise.register(factory: Impl2() as Plugin, name: UUID(), metadata: PluginMetadata.viewer)
+Guise.register(factory: Impl3() as Plugin, name: UUID(), metadata: PluginMetadata.editor)
 
 let keys = Guise.filter(type: Plugin.self, container: Guise.Container.default, metadata: PluginMetadata.editor)
 let editors: [Plugin] = Guise.resolve(keys: keys)
