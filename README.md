@@ -145,6 +145,13 @@ _ = Guise.register(cached: true) { Plink() as Plonk }
 
 The `instance` parameter's type signature is exactly the same as that of `factory` above.
 
+Instance registration is what you want to use if you already have an instance at hand and you want to register it, e.g.,
+
+```swift
+let s = "registered string"
+_ = Guise.register(instance: s)
+```
+
 ### Named Registrations
 
 A registration that registers the same type as a previous registration silently overwrites that registration, e.g.,
