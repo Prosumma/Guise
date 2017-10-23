@@ -35,7 +35,7 @@ class Registration {
      This just ensures that we don't resolve more than once
      due to concurrency when creating a cached value.
      */
-    private var cacheQueue: DispatchQueue?
+    private let cacheQueue: DispatchQueue
     /// Default lifecycle for the dependency
     let cached: Bool
     /// The registered resolution block
@@ -49,6 +49,7 @@ class Registration {
         self.metadata = metadata
         self.cached = cached
         self.resolution = { param in resolution(param as! P) }
+        self.cacheQueue = DispatchQueue(label: "com.prosumma.Guise.Dependency.[\(String(reflecting: T.self))].\(UUID())")
     }
     
     /// - warning: An incompatible `T` will cause an unrecoverable runtime exception.
@@ -56,8 +57,7 @@ class Registration {
         var result: T
         if cached ?? self.cached {
             if instance == nil {
-                cacheQueue ??= DispatchQueue(label: "com.prosumma.Guise.Dependency.[\(String(reflecting: T.self))].\(UUID())")
-                cacheQueue!.sync {
+                cacheQueue.sync {
                     if instance != nil { return }
                     instance = resolution(parameter)
                 }

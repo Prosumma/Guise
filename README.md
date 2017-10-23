@@ -430,6 +430,7 @@ Confused? Avoid this technique unless you really need it.
 
 ### Concurrency
 
-Guise uses a private concurrent queue for key lookup and registration. This queue allows multiple readers for resolution but only one writer for registration.
+Guise uses a private concurrent queue for key lookup and registration. This queue allows multiple readers for resolution but only one writer for registration. _No other operations (such as resolution) are performed on this queue._ 
 
-However, resolution blocks and metadata filters are _never_ called inside of this queue. The thread safety of the resolution blocks is up to you.
+Guise uses a serial queue per registration when generating cached values to avoid a race condition.
+
