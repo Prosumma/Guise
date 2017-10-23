@@ -244,10 +244,10 @@ struct Slib {
 _ = Guise.register(factory: Slib())
 
 struct Throckmorton {
-  let sblib: Slib
+  let slib: Slib
   init() {
     // This is unwise.
-    sblib = Guise.resolve()!
+    slib = Guise.resolve()!
   }
 }
 
@@ -258,13 +258,13 @@ Instead, do this:
 
 ```swift
 struct Throckmorton {
-  let sblib: Slib
-  init(sblib: Slib) {
-    self.sblib = sblib
+  let slib: Slib
+  init(slib: Slib) {
+    self.slib = slib
   }
 }
 
-_ = Guise.register(factory: Throckmorton(sblib: Guise.resolve()!))
+_ = Guise.register(factory: Throckmorton(slib: Guise.resolve()!))
 ```
 
 Of course, there are situations in which this is not possible. In Cocoa and Cocoa Touch, one usually does not have control over the creation of controllers. The framework does this for you. So the direct use of Guise in controllers is unavoidable.
