@@ -29,7 +29,7 @@ extension Guise {
      - parameter keys: The keys to remove
      - returns: The number of registrations removed
      */
-    @discardableResult  public static func unregister<K: Keyed>(keys: Set<K>) -> Int {
+    @discardableResult public static func unregister<K: Keyed>(keys: Set<K>) -> Int {
         let keys = keys.map{ AnyKey($0)! }
         return lock.write {
             let count = registrations.count
@@ -51,7 +51,7 @@ extension Guise {
      an optional `name` or `container` implicitly references the default name or container,
      but in this case, it means _any_ name or container.
      */
-    @discardableResult  public static func unregister<T>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
+    @discardableResult public static func unregister<T>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
         return unregister(keys: filter(type: type, name: name, container: container))
     }
     
