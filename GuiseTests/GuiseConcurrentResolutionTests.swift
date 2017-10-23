@@ -36,7 +36,7 @@ class GuiseConcurrentResolutionTests: XCTestCase {
         }
         
         queue.async {
-            Guise.resolve(container: Container.🐝)! as Plonk
+            _ = Guise.resolve(container: Container.🐝)! as Plonk
             let wibble = Guise.resolve(type: Wibble.self, name: Name.🌈)!
             XCTAssertEqual(wibble.plonk.thibb, wob)
             expectation2.fulfill()
