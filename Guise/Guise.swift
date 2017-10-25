@@ -65,14 +65,13 @@ public struct Guise {
         case `default`
     }
     
+    static let defaultResolver = DependencyResolver()
+    
     // Instance of this type cannot be created.
     private init() {}
 
     /// Returns all registered keys
     public static var keys: Set<AnyKey> {
-        return Set(registrations.keys)
+        return Set(defaultResolver.keys)
     }
-    
-    static var lock = Lock()
-    static var registrations = [AnyKey: Registration]()
 }
