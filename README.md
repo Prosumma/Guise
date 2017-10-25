@@ -1,4 +1,3 @@
-<h1 style='text-align: center'>Guise</h1>
 
 <!-- [![Build Status](https://travis-ci.org/Prosumma/Guise.svg)](https://travis-ci.org/Prosumma/Guise) -->
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Guise.svg)](https://cocoapods.org)
@@ -21,6 +20,23 @@ Guise is an elegant, flexible, type-safe dependency resolution framework for Swi
 ### Prerequisites
 
 Dependency resolution is a somewhat advanced topic. For the sake of brevity, this document assumes that you know what dependency resolution and injection are. It also assumes you have a strong knowledge of the Swift language, including generics, blocks, and the distinction between value and reference types.
+
+### Usage Styles
+
+Guise can be used in two different ways. The simplest way is to use the static methods of the `Guise` struct, and that is the approach taken here in this document.
+
+The other way is to create an instance of the `DependencyResolver` class and use its instance methods. For instance, one can say:
+
+```swift
+Guise.register{ Plink() }
+```
+
+Or one can say,
+
+```swift
+let dependencyResolver = DependencyResolver()
+dependencyResolver.register { Plink() }
+```
 
 ### Registration Basics
 
