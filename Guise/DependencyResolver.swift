@@ -29,8 +29,6 @@ import Foundation
  This simple, flexible system can accommodate many scenarios. Some of
  these scenarios are so common that overloads exist to handle them
  concisely.
- 
- - note: Instances of this type cannot be created. Use its static methods.
  */
 public class DependencyResolver {
     
