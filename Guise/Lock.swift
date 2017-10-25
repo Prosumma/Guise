@@ -11,7 +11,7 @@ import Foundation
 /// A simple GCD-powered lock allowing one writer and multiple readers.
 final class Lock {
 
-    private let label = "com.prosumma.Guise.lock"
+    private let label = "com.prosumma.Guise.lock.\(UUID())"
     private let queue: DispatchQueue
     
     init() {
