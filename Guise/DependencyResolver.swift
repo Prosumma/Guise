@@ -36,7 +36,7 @@ public class DependencyResolver {
     var registrations = [AnyKey: Registration]()
     
     /// Returns all registered keys
-    var keys: Set<AnyKey> {
+    public var keys: Set<AnyKey> {
         return Set(registrations.keys)
     }
     
