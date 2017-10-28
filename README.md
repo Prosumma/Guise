@@ -58,7 +58,9 @@ All of the `resolve` overloads return `T?`, where `T` is the registered type. If
 
 ### Abstraction
 
-Registering concrete types defeats the purpose of dependency resolution. In general, we want the registered type to be an abstraction such as a protocol or base class so that we can vary the implementation based on factors such as whether the code is executing in `DEBUG` mode or in a unit test and so on.
+> **Guise**, _n._ An external form, appearance, or manner of presentation, typically concealing the true nature of something.
+
+Registering concrete types defeats the purpose of dependency resolution. In general, we want the registered type to be an abstraction such as a protocol or base class so that we can vary the implementation based on factors such as whether the code is executing in `DEBUG` mode or in a unit test and so on. In other words, we want our implementations to appear _in the guise of_ some other type.
 
 Consider the following:
 
