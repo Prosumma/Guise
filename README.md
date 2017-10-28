@@ -161,9 +161,9 @@ Again, this is exactly equivalent to…
 Guise.register(cached: true) { Plink() as Plonk }
 ```
 
-The `instance` parameter's type signature is exactly the same as that of `factory` above.
+The `instance` parameter's type signature is exactly the same as that of `factory` above: `@escaping @autoclosure () -> T`. This means that even instances are not evaluated eagerly. However, they are always cached after they are evaluated.
 
-Instance registration is what you want to use if you already have an instance at hand and you want to register it, e.g.,
+If you want eager evaluation for instance registration, you should instantiate your instance first, then pass it to Guise:
 
 ```swift
 let s = "registered string"
