@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension DependencyResolver {
+extension Resolver {
     // MARK: Block Registration
     
     /**

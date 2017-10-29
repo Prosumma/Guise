@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension DependencyResolver {
+extension Resolver {
     /**
      Remove all registrations from Guise.
      

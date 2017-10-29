@@ -25,7 +25,7 @@ Dependency resolution is a somewhat advanced topic. For the sake of brevity, thi
 
 Guise can be used in two different ways. The simplest way is to use the static methods of the `Guise` struct, and that is the approach taken here in this document.
 
-The other way is to create an instance of the `DependencyResolver` class and use its instance methods. For instance, one can say:
+The other way is to create an instance of the `Resolver` class and use its instance methods. For instance, one can say:
 
 ```swift
 Guise.register{ Plink() }
@@ -34,9 +34,11 @@ Guise.register{ Plink() }
 Or one can say,
 
 ```swift
-let dependencyResolver = DependencyResolver()
-dependencyResolver.register { Plink() }
+let resolver = Resolver()
+resolver.register { Plink() }
 ```
+
+Note: `Resolver` was originally called `DependencyResolver`. `DependencyResolver` is now a `typealias` for `Resolver`, is marked as deprecated, and will be removed in a future release.
 
 ### Registration Basics
 

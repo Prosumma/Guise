@@ -28,7 +28,7 @@ func metathunk<M>(_ metafilter: @escaping Metafilter<M>) -> Metathunk {
 
 // MARK: -
 
-extension DependencyResolver {
+extension Resolver {
     /**
      Retrieve metadata for the given key.
      

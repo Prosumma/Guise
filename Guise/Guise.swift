@@ -65,7 +65,7 @@ public struct Guise {
         case `default`
     }
     
-    static let defaultResolver = DependencyResolver()
+    static let defaultResolver = Resolver()
     
     // Instance of this type cannot be created.
     private init() {}

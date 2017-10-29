@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension DependencyResolver {
+extension Resolver {
 // MARK: - Filter By Keys
     
     /// All roads lead here

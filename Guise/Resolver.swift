@@ -30,7 +30,7 @@ import Foundation
  these scenarios are so common that overloads exist to handle them
  concisely.
  */
-public class DependencyResolver {
+public class Resolver {
     
     var lock = Lock()
     var registrations = [AnyKey: Registration]()
@@ -41,3 +41,6 @@ public class DependencyResolver {
     }
     
 }
+
+@available(*, deprecated)
+typealias DependencyResolver = Resolver;
