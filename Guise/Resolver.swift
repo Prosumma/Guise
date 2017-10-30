@@ -43,4 +43,4 @@ public class Resolver {
 }
 
 @available(*, deprecated)
-typealias DependencyResolver = Resolver;
+public typealias DependencyResolver = Resolver;
