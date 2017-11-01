@@ -15,13 +15,6 @@ func hash<H: Hashable>(_ hashables: H...) -> Int {
     return hashables.reduce(5381) { (result, hashable) in ((result << 5) &+ result) &+ hashable.hashValue }
 }
 
-infix operator ??= : AssignmentPrecedence
-
-func ??=<T>(lhs: inout T?, rhs: @autoclosure () -> T?) {
-    if lhs != nil { return }
-    lhs = rhs()
-}
-
 extension Array {
     // https://stackoverflow.com/a/43107628/27779
     func dictionary<K: Hashable, V>() -> [K: V] where Element == Dictionary<K, V>.Element {
