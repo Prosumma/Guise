@@ -8,9 +8,7 @@
 
 import Foundation
 
-extension Resolver {
-    // MARK: Block Registration
-    
+public extension Resolver {
     /**
      Register a single resolution block with multiple keys. All of the keys must have the same type `T`, but may have
      different values for `name` and `container`.
@@ -25,7 +23,7 @@ extension Resolver {
      
      - returns: The keys under which the registrations were made
      */
-    @discardableResult public func register<P, T>(keys: Set<Key<T>>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Set<Key<T>> {
+    @discardableResult func register<P, T>(keys: Set<Key<T>>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Set<Key<T>> {
         return lock.write {
             for key in keys {
                 registrations[AnyKey(key)!] = Registration(metadata: metadata, cached: cached, resolution: resolution)
@@ -33,6 +31,10 @@ extension Resolver {
             return keys
         }
     }
+}
+
+public extension Resolving {
+    // MARK: Block Registration
     
     /**
      Register a resolution block with a single key.
@@ -44,7 +46,7 @@ extension Resolver {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public func register<P, T>(key: Key<T>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
+    @discardableResult func register<P, T>(key: Key<T>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
         return register(keys: [key], metadata: metadata, cached: cached, resolution: resolution).first!
     }
     
@@ -61,7 +63,7 @@ extension Resolver {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public func register<P, T>(name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
+    @discardableResult func register<P, T>(name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
         return register(key: Key(name: name, container: container), metadata: metadata, cached: cached, resolution: resolution)
     }
     
@@ -79,7 +81,7 @@ extension Resolver {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public func register<T>(instance: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
+    @discardableResult func register<T>(instance: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
         return register(key: key, metadata: metadata, cached: true, resolution: instance)
     }
     
@@ -96,7 +98,7 @@ extension Resolver {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public func register<T>(instance: @escaping @autoclosure () -> T, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<T> {
+    @discardableResult func register<T>(instance: @escaping @autoclosure () -> T, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<T> {
         return register(instance: instance, key: Key(name: name, container: container), metadata: metadata)
     }
     
@@ -114,7 +116,7 @@ extension Resolver {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public func register<T>(factory: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
+    @discardableResult func register<T>(factory: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
         return register(key: key, metadata: metadata, cached: false, resolution: factory)
     }
     
@@ -131,14 +133,14 @@ extension Resolver {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public func register<T>(factory: @escaping @autoclosure () -> T, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<T> {
+    @discardableResult func register<T>(factory: @escaping @autoclosure () -> T, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<T> {
         return register(factory: factory, key: Key(name: name, container: container), metadata: metadata)
     }
 }
 
 // MARK: -
 
-extension Guise {
+public extension Guise {
 // MARK: Block Registration
     
     /**
@@ -155,7 +157,7 @@ extension Guise {
      
      - returns: The keys under which the registrations were made
      */
-    @discardableResult public static func register<P, T>(keys: Set<Key<T>>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Set<Key<T>> {
+    @discardableResult static func register<P, T>(keys: Set<Key<T>>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Set<Key<T>> {
         return defaultResolver.register(keys: keys, metadata: metadata, cached: cached, resolution: resolution)
     }
     
@@ -169,7 +171,7 @@ extension Guise {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public static func register<P, T>(key: Key<T>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
+    @discardableResult static func register<P, T>(key: Key<T>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
         return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
     }
     
@@ -186,7 +188,7 @@ extension Guise {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public static func register<P, T>(name: AnyHashable = Name.default, container: AnyHashable = Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
+    @discardableResult static func register<P, T>(name: AnyHashable = Name.default, container: AnyHashable = Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<P, T>) -> Key<T> {
         return defaultResolver.register(name: name, container: container, metadata: metadata, cached: cached, resolution: resolution)
     }
 
@@ -204,7 +206,7 @@ extension Guise {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public static func register<T>(instance: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
+    @discardableResult static func register<T>(instance: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
         return defaultResolver.register(instance: instance, key: key, metadata: metadata)
     }
     
@@ -221,7 +223,7 @@ extension Guise {
      
      - returns: The key under which the registration was made     
      */
-    @discardableResult public static func register<T>(instance: @escaping @autoclosure () -> T, name: AnyHashable = Name.default, container: AnyHashable = Container.default, metadata: Any = ()) -> Key<T> {
+    @discardableResult static func register<T>(instance: @escaping @autoclosure () -> T, name: AnyHashable = Name.default, container: AnyHashable = Container.default, metadata: Any = ()) -> Key<T> {
         return defaultResolver.register(instance: instance, name: name, container: container, metadata: metadata)
     }
 
@@ -239,7 +241,7 @@ extension Guise {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public static func register<T>(factory: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
+    @discardableResult static func register<T>(factory: @escaping @autoclosure () -> T, key: Key<T>, metadata: Any = ()) -> Key<T> {
         return defaultResolver.register(factory: factory, key: key, metadata: metadata)
     }
 
@@ -256,7 +258,7 @@ extension Guise {
      
      - returns: The key under which the registration was made
      */
-    @discardableResult public static func register<T>(factory: @escaping @autoclosure () -> T, name: AnyHashable = Name.default, container: AnyHashable = Container.default, metadata: Any = ()) -> Key<T> {
+    @discardableResult static func register<T>(factory: @escaping @autoclosure () -> T, name: AnyHashable = Name.default, container: AnyHashable = Container.default, metadata: Any = ()) -> Key<T> {
         return defaultResolver.register(factory: factory, name: name, container: container, metadata: metadata)
     }
 }

@@ -72,6 +72,6 @@ public struct Guise {
 
     /// Returns all registered keys
     public static var keys: Set<AnyKey> {
-        return Set(defaultResolver.keys)
+        return defaultResolver.keys
     }
 }

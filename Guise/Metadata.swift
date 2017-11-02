@@ -11,15 +11,7 @@ import Foundation
 /// The type of a metadata predicate.
 public typealias Metafilter<M> = (M) -> Bool
 
-/**
- Used in filters and resolution.
- 
- This type exists primarily to emphasize that the `metathunk` method should be applied to
- `Metafilter<M>` before the metafilter is passed to the master `filter` or `exists` method.
- */
-typealias Metathunk = Metafilter<Any>
-
-func metathunk<M>(_ metafilter: @escaping Metafilter<M>) -> Metathunk {
+public func metathunk<M>(_ metafilter: @escaping Metafilter<M>) -> Metafilter<Any> {
     return {
         guard let metadata = $0 as? M else { return false }
         return metafilter(metadata)
@@ -28,7 +20,7 @@ func metathunk<M>(_ metafilter: @escaping Metafilter<M>) -> Metathunk {
 
 // MARK: -
 
-extension Resolver {
+public extension Resolver {
     /**
      Retrieve metadata for the given key.
      
@@ -41,12 +33,16 @@ extension Resolver {
      
      - returns: The metadata or `nil` if it is not found
      */
-    public func metadata<K: Keyed, M>(forKey key: K, metatype: M.Type = M.self) -> M? {
+    func metadata<K: Keyed, M>(forKey key: K, metatype: M.Type = M.self) -> M? {
         let key = AnyKey(key)!
         guard let dependency = lock.read({ registrations[key] }) else { return nil }
         return dependency.metadata as? M
     }
-    
+}
+
+// MARK: -
+
+public extension Resolving {
     /**
      Retrieve metadata for the given key.
      
@@ -61,15 +57,15 @@ extension Resolver {
      
      - returns: The metadata or `nil` if it is not found
      */
-    public func metadata<T, M>(forType type: T.Type, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metatype: M.Type = M.self) -> M? {
-        return metadata(forKey: Key<T>(name: name, container: container))
+    func metadata<T, M>(forType type: T.Type, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metatype: M.Type = M.self) -> M? {
+        return metadata(forKey: Key<T>(name: name, container: container), metatype: metatype)
     }
 
 }
 
 // MARK: -
 
-extension Guise {
+public extension Guise {
     
     /**
      Retrieve metadata for the given key.
@@ -83,7 +79,7 @@ extension Guise {
      
      - returns: The metadata or `nil` if it is not found
      */
-    public static func metadata<K: Keyed, M>(forKey key: K, metatype: M.Type = M.self) -> M? {
+    static func metadata<K: Keyed, M>(forKey key: K, metatype: M.Type = M.self) -> M? {
         return defaultResolver.metadata(forKey: key, metatype: metatype)
     }
     
@@ -101,7 +97,7 @@ extension Guise {
      
      - returns: The metadata or `nil` if it is not found
      */
-    public static func metadata<T, M>(forType type: T.Type, name: AnyHashable = Name.default, container: AnyHashable = Container.default, metatype: M.Type = M.self) -> M? {
+    static func metadata<T, M>(forType type: T.Type, name: AnyHashable = Name.default, container: AnyHashable = Container.default, metatype: M.Type = M.self) -> M? {
         return defaultResolver.metadata(forType: type, name: name, container: container, metatype: metatype)
     }
     

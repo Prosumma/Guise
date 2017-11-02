@@ -8,33 +8,33 @@
 
 import Foundation
 
-extension Resolver {
-    /**
-     Remove all registrations from Guise.
-     
-     - returns: The number of registrations removed
-     */
-    @discardableResult public func clear() -> Int {
-        return lock.write {
-            let count = registrations.count
-            registrations = [:]
-            return count
-        }
-    }
-    
+public extension Resolver {
     /**
      Remove registrations by key.
      
      - parameter keys: The keys to remove
      - returns: The number of registrations removed
      */
-    @discardableResult public func unregister<K: Keyed>(keys: Set<K>) -> Int {
+    @discardableResult func unregister<K: Keyed>(keys: Set<K>) -> Int {
         let keys = keys.map{ AnyKey($0)! }
         return lock.write {
             let count = registrations.count
             registrations = registrations.filter{ !keys.contains($0.key) }
             return count - registrations.count
         }
+    }
+    
+}
+
+public extension Resolving {
+    
+    /**
+     Remove all registrations from Guise.
+     
+     - returns: The number of registrations removed
+     */
+    @discardableResult func clear() -> Int {
+        return unregister(keys: keys)
     }
     
     /**
@@ -50,7 +50,7 @@ extension Resolver {
      an optional `name` or `container` implicitly references the default name or container,
      but in this case, it means _any_ name or container.
      */
-    @discardableResult public func unregister<T>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
+    @discardableResult func unregister<T>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
         return unregister(keys: filter(type: type, name: name, container: container))
     }
     
@@ -66,9 +66,9 @@ extension Resolver {
      an optional `name` or `container` implicitly references the default name or container,
      but in this case, it means _any_ name or container.
      */
-    @discardableResult public func unregister(name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
+    @discardableResult func unregister(name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
         if name == nil && container == nil {
-            return clear()
+            return unregister(keys: keys)
         } else {
             return unregister(keys: filter(name: name, container: container))
         }
@@ -77,13 +77,13 @@ extension Resolver {
 
 // MARK: -
 
-extension Guise {
+public extension Guise {
     /**
      Remove all registrations from Guise.
      
      - returns: The number of registrations removed
      */
-    @discardableResult public static func clear() -> Int {
+    @discardableResult static func clear() -> Int {
         return defaultResolver.clear()
     }
     
@@ -93,7 +93,7 @@ extension Guise {
      - parameter keys: The keys to remove
      - returns: The number of registrations removed
      */
-    @discardableResult public static func unregister<K: Keyed>(keys: Set<K>) -> Int {
+    @discardableResult static func unregister<K: Keyed>(keys: Set<K>) -> Int {
         return defaultResolver.unregister(keys: keys)
     }
     
@@ -110,7 +110,7 @@ extension Guise {
      an optional `name` or `container` implicitly references the default name or container,
      but in this case, it means _any_ name or container.
      */
-    @discardableResult public static func unregister<T>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
+    @discardableResult static func unregister<T>(type: T.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
         return defaultResolver.unregister(type: type, name: name, container: container)
     }
     
@@ -126,7 +126,7 @@ extension Guise {
      an optional `name` or `container` implicitly references the default name or container,
      but in this case, it means _any_ name or container.
      */
-    @discardableResult public static func unregister(name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
+    @discardableResult static func unregister(name: AnyHashable? = nil, container: AnyHashable? = nil) -> Int {
         return defaultResolver.unregister(name: name, container: container)
     }
 }

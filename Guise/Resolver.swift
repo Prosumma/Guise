@@ -30,7 +30,7 @@ import Foundation
  these scenarios are so common that overloads exist to handle them
  concisely.
  */
-public class Resolver {
+public class Resolver: Resolving {
     
     var lock = Lock()
     var registrations = [AnyKey: Registration]()
@@ -38,8 +38,7 @@ public class Resolver {
     /// Returns all registered keys
     public var keys: Set<AnyKey> {
         return Set(registrations.keys)
-    }
-    
+    }    
 }
 
 @available(*, deprecated)
