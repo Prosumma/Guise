@@ -17,6 +17,22 @@
 		F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
 		F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
 		F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
+		F32D9BBC1FDF3017005C00BD /* Keyed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BBB1FDF3017005C00BD /* Keyed.swift */; };
+		F32D9BBD1FDF3017005C00BD /* Keyed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BBB1FDF3017005C00BD /* Keyed.swift */; };
+		F32D9BBE1FDF3017005C00BD /* Keyed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BBB1FDF3017005C00BD /* Keyed.swift */; };
+		F32D9BBF1FDF3017005C00BD /* Keyed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BBB1FDF3017005C00BD /* Keyed.swift */; };
+		F32D9BC11FDF3098005C00BD /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC01FDF3098005C00BD /* Key.swift */; };
+		F32D9BC21FDF3098005C00BD /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC01FDF3098005C00BD /* Key.swift */; };
+		F32D9BC31FDF3098005C00BD /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC01FDF3098005C00BD /* Key.swift */; };
+		F32D9BC41FDF3098005C00BD /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC01FDF3098005C00BD /* Key.swift */; };
+		F32D9BC61FDF3117005C00BD /* Miscellanea.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC51FDF3117005C00BD /* Miscellanea.swift */; };
+		F32D9BC71FDF3117005C00BD /* Miscellanea.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC51FDF3117005C00BD /* Miscellanea.swift */; };
+		F32D9BC81FDF3117005C00BD /* Miscellanea.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC51FDF3117005C00BD /* Miscellanea.swift */; };
+		F32D9BC91FDF3117005C00BD /* Miscellanea.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC51FDF3117005C00BD /* Miscellanea.swift */; };
+		F32D9BCB1FDF316B005C00BD /* AnyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BCA1FDF316B005C00BD /* AnyKey.swift */; };
+		F32D9BCC1FDF316B005C00BD /* AnyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BCA1FDF316B005C00BD /* AnyKey.swift */; };
+		F32D9BCD1FDF316B005C00BD /* AnyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BCA1FDF316B005C00BD /* AnyKey.swift */; };
+		F32D9BCE1FDF316B005C00BD /* AnyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BCA1FDF316B005C00BD /* AnyKey.swift */; };
 		F343AA041DB7871A00B1000F /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F343AA051DB7871D00B1000F /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F356FF421F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */; };
@@ -72,6 +88,10 @@
 		F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFilterTests.swift; sourceTree = "<group>"; };
 		F32120561F647B5B00872F32 /* Declarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarations.swift; sourceTree = "<group>"; };
 		F32D9BB61FDF2FEE005C00BD /* Guise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guise.swift; sourceTree = "<group>"; };
+		F32D9BBB1FDF3017005C00BD /* Keyed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyed.swift; sourceTree = "<group>"; };
+		F32D9BC01FDF3098005C00BD /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		F32D9BC51FDF3117005C00BD /* Miscellanea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Miscellanea.swift; sourceTree = "<group>"; };
+		F32D9BCA1FDF316B005C00BD /* AnyKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyKey.swift; sourceTree = "<group>"; };
 		F343A9EC1DB7867600B1000F /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseMetadataTests.swift; sourceTree = "<group>"; };
 		F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseBlockResolutionTests.swift; sourceTree = "<group>"; };
@@ -151,6 +171,10 @@
 			isa = PBXGroup;
 			children = (
 				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
+				F32D9BBB1FDF3017005C00BD /* Keyed.swift */,
+				F32D9BC01FDF3098005C00BD /* Key.swift */,
+				F32D9BC51FDF3117005C00BD /* Miscellanea.swift */,
+				F32D9BCA1FDF316B005C00BD /* AnyKey.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -503,7 +527,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BBF1FDF3017005C00BD /* Keyed.swift in Sources */,
+				F32D9BCE1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F32D9BC91FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F32D9BC41FDF3098005C00BD /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,7 +539,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BBE1FDF3017005C00BD /* Keyed.swift in Sources */,
+				F32D9BCD1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F32D9BC81FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F32D9BC31FDF3098005C00BD /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,7 +566,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BBC1FDF3017005C00BD /* Keyed.swift in Sources */,
+				F32D9BCB1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BB71FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F32D9BC61FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F32D9BC11FDF3098005C00BD /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,7 +593,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BBD1FDF3017005C00BD /* Keyed.swift in Sources */,
+				F32D9BCC1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F32D9BC71FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F32D9BC21FDF3098005C00BD /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

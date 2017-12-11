@@ -9,11 +9,11 @@
 import Foundation
 
 public struct Guise {
-    enum Name {
+    public enum Name {
         case `default`
     }
     
-    enum Container {
+    public enum Container {
         case `default`
         case injections
     }
