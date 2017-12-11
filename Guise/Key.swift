@@ -8,8 +8,8 @@
 
 import Foundation
 
-public struct Key<T>: Keyed, Hashable {
-    public let type = String(reflecting: T.self)
+public struct Key<RegisteredType>: Keyed, Hashable {
+    public let type = String(reflecting: RegisteredType.self)
     public let name: AnyHashable
     public let container: AnyHashable
     public let hashValue: Int
