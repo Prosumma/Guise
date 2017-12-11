@@ -13,6 +13,10 @@
 		F32120571F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
 		F32120581F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
 		F32120591F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
+		F32D9BB71FDF2FEE005C00BD /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
+		F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
+		F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
+		F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
 		F343AA041DB7871A00B1000F /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F343AA051DB7871D00B1000F /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F356FF421F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */; };
@@ -67,6 +71,7 @@
 /* Begin PBXFileReference section */
 		F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFilterTests.swift; sourceTree = "<group>"; };
 		F32120561F647B5B00872F32 /* Declarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarations.swift; sourceTree = "<group>"; };
+		F32D9BB61FDF2FEE005C00BD /* Guise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guise.swift; sourceTree = "<group>"; };
 		F343A9EC1DB7867600B1000F /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseMetadataTests.swift; sourceTree = "<group>"; };
 		F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseBlockResolutionTests.swift; sourceTree = "<group>"; };
@@ -145,6 +150,7 @@
 		F3985BCF1F5CABD8007392C0 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -384,13 +390,13 @@
 					F343A9EB1DB7867600B1000F = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = RWC7T4Z6DX;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					F3700B651DB7826900DDB218 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = RWC7T4Z6DX;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					F3700B6D1DB7826900DDB218 = {
@@ -401,7 +407,7 @@
 					};
 					F3C3ED6D1C8D64FF00FD8E4D = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 					};
 					F3C3ED771C8D64FF00FD8E4D = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -409,7 +415,7 @@
 					};
 					F3C3ED8E1C8D695C00FD8E4D = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 					};
 					F3C3ED971C8D695C00FD8E4D = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -497,6 +503,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +534,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BB71FDF2FEE005C00BD /* Guise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +712,7 @@
 		F3700B7B1DB7826A00DDB218 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -721,6 +732,7 @@
 		F3700B7C1DB7826A00DDB218 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -890,6 +902,7 @@
 		F3C3ED861C8D64FF00FD8E4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GuiseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -904,6 +917,7 @@
 		F3C3ED871C8D64FF00FD8E4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GuiseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -966,6 +980,7 @@
 		F3C3EDA41C8D695C00FD8E4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -984,6 +999,7 @@
 		F3C3EDA51C8D695C00FD8E4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
