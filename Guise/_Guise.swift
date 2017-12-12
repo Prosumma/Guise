@@ -11,18 +11,22 @@ import Foundation
 public protocol _Guise {
     static var defaultResolver: Guising { get set }
     static func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: Resolution<Parameter, RegisteredType>) -> Key<RegisteredType>
-    static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed
+    static func unregister<K: Keyed>(keys: Set<K>) -> Int
     static func filter<K: Keyed>(key: K.Type, name: AnyHashable?, container: AnyHashable?) -> [K: Registration]
 }
 
-public extension Guising {
+public extension _Guise {
     
     static func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
-        return register(key: key, metadata: metadata, cached: cached, resolution: resolution)
+        return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
+    }
+    
+    static func unregister<K: Keyed>(keys: Set<K>) -> Int {
+        return defaultResolver.unregister(keys: keys)
     }
     
     static func filter<K: Keyed>(key: K.Type = K.self, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [K: Registration] {
-        return filter(key: key, name: name, container: container)
+        return defaultResolver.filter(key: key, name: name, container: container)
     }
     
 }
