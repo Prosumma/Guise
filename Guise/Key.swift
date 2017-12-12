@@ -20,7 +20,7 @@ public struct Key<RegisteredType>: Keyed, Hashable {
         self.hashValue = hash(self.type, self.name, self.container)
     }
     
-    public init?(key: Keyed) {
+    public init?(_ key: Keyed) {
         self.init(name: key.name, container: key.container)
         if key.type != self.type { return nil }
     }

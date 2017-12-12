@@ -45,7 +45,7 @@ public struct Injector<Target> {
         return inject(keyPath, key: Key(name: name, container: container))
     }
     
-    public func register() -> Key<Target> {
+    @discardableResult public func register() -> Key<Target> {
         let injections = self.injections
         return resolver.register(injectable: Target.self) { (target, resolver) in
             var target = target

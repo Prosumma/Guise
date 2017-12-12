@@ -9,14 +9,14 @@
 import Foundation
 
 public extension Guising {
-    func metadata<RegisteredType, Metadata>(for key: Key<RegisteredType>, type: Metadata.Type = Metadata.self) -> Metadata? {
+    func metadata<RegisteredType, Metadata>(for key: Key<RegisteredType>, metatype: Metadata.Type = Metadata.self) -> Metadata? {
         guard let registration: Registration = filter(key: key) else { return nil }
         return registration.metadata as? Metadata
     }
 }
 
 public extension _Guise {
-    static func metadata<RegisteredType, Metadata>(for key: Key<RegisteredType>, type: Metadata.Type = Metadata.self) -> Metadata? {
-        return defaultResolver.metadata(for: key, type: type)
+    static func metadata<RegisteredType, Metadata>(for key: Key<RegisteredType>, metatype: Metadata.Type = Metadata.self) -> Metadata? {
+        return defaultResolver.metadata(for: key, metatype: metatype)
     }
 }

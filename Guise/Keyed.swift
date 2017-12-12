@@ -12,7 +12,7 @@ public protocol Keyed {
     var type: String { get }
     var name: AnyHashable { get }
     var container: AnyHashable { get }
-    init?(key: Keyed)
+    init?(_ key: Keyed)
 }
 
 public func ==(lhs: Keyed, rhs: Keyed) -> Bool {

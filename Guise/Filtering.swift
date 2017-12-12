@@ -10,12 +10,16 @@ import Foundation
 
 public extension Guising {
     
+    var keys: Set<AnyKey> {
+        return Set(filter().keys)
+    }
+    
     func filter<K: Keyed>(key: K.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [K: Registration] {
         return filter(key: key, name: name, container: container)
     }
     
     func filter<RegisteredType>(key: Key<RegisteredType>) -> Registration? {
-        return filter(type: RegisteredType.self, name: key.name, container: key.container).values.first
+        return filter(key: Key<RegisteredType>.self, name: key.name, container: key.container).values.first
     }
     
     func filter<RegisteredType>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [Key<RegisteredType>: Registration] {
@@ -44,15 +48,19 @@ public extension Guising {
 }
 
 public extension _Guise {
+    
+    static var keys: Set<AnyKey> {
+        return defaultResolver.keys
+    }
 
     static func filter<K: Keyed>(key: K.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [K: Registration] {
         return filter(key: key, name: name, container: container)
     }
     
     static func filter<RegisteredType>(key: Key<RegisteredType>) -> Registration? {
-        return filter(type: RegisteredType.self, name: key.name, container: key.container).values.first
+        return filter(key: Key<RegisteredType>.self, name: key.name, container: key.container).values.first
     }
-    
+
     static func filter<RegisteredType>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [Key<RegisteredType>: Registration] {
         return filter(key: Key<RegisteredType>.self, name: name, container: container)
     }

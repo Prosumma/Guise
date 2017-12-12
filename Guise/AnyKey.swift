@@ -21,7 +21,7 @@ public struct AnyKey: Keyed, Hashable {
         self.hashValue = hash(self.type, self.name, self.container)
     }
     
-    public init?(key: Keyed) {
+    public init?(_ key: Keyed) {
         self.type = key.type
         self.name = key.name
         self.container = key.container
