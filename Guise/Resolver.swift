@@ -10,8 +10,8 @@ import Foundation
 
 public class Resolver: Guising {
     
-    private var lock = Lock()
-    private var registrations = [AnyKey: Registration]()
+    internal var lock = Lock()
+    internal var registrations = [AnyKey: Registration]()
     
     public func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
         lock.write { registrations[AnyKey(key: key)!] = _Registration(metadata: metadata, cached: cached, resolution: resolution) }

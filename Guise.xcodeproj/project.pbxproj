@@ -89,6 +89,14 @@
 		F3C2BC491FDF664E006726B7 /* Filtering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC471FDF664E006726B7 /* Filtering.swift */; };
 		F3C2BC4A1FDF664E006726B7 /* Filtering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC471FDF664E006726B7 /* Filtering.swift */; };
 		F3C2BC4B1FDF664E006726B7 /* Filtering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC471FDF664E006726B7 /* Filtering.swift */; };
+		F3C2BC4D1FDF6D14006726B7 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */; };
+		F3C2BC4E1FDF6D14006726B7 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */; };
+		F3C2BC4F1FDF6D14006726B7 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */; };
+		F3C2BC501FDF6D14006726B7 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */; };
+		F3C2BC5C1FDFCCB4006726B7 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
+		F3C2BC5D1FDFCCB4006726B7 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
+		F3C2BC5E1FDFCCB4006726B7 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
+		F3C2BC5F1FDFCCB4006726B7 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
 		F3C3ED721C8D64FF00FD8E4D /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3C3ED791C8D64FF00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */; };
 		F3C3ED991C8D695C00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */; };
@@ -150,6 +158,8 @@
 		F3C2BC3D1FDF6413006726B7 /* Registering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registering.swift; sourceTree = "<group>"; };
 		F3C2BC421FDF65F2006726B7 /* Resolving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolving.swift; sourceTree = "<group>"; };
 		F3C2BC471FDF664E006726B7 /* Filtering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filtering.swift; sourceTree = "<group>"; };
+		F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metafilter.swift; sourceTree = "<group>"; };
 		F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED711C8D64FF00FD8E4D /* Guise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Guise.h; sourceTree = "<group>"; };
 		F3C3ED731C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -223,18 +233,20 @@
 				F32D9BE31FDF36D7005C00BD /* _Guise.swift */,
 				F3C2BC381FDF38F3006726B7 /* _Registration.swift */,
 				F32D9BCA1FDF316B005C00BD /* AnyKey.swift */,
+				F3C2BC471FDF664E006726B7 /* Filtering.swift */,
 				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
 				F32D9BDE1FDF33EC005C00BD /* Guising.swift */,
 				F32D9BC01FDF3098005C00BD /* Key.swift */,
 				F32D9BBB1FDF3017005C00BD /* Keyed.swift */,
 				F34B17FF1FDF384C0040E183 /* Lock.swift */,
+				F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */,
 				F32D9BC51FDF3117005C00BD /* Miscellanea.swift */,
+				F3C2BC3D1FDF6413006726B7 /* Registering.swift */,
 				F32D9BD41FDF3388005C00BD /* Registration.swift */,
 				F32D9BD91FDF3397005C00BD /* Resolution.swift */,
 				F32D9BE81FDF3799005C00BD /* Resolver.swift */,
-				F3C2BC3D1FDF6413006726B7 /* Registering.swift */,
 				F3C2BC421FDF65F2006726B7 /* Resolving.swift */,
-				F3C2BC471FDF664E006726B7 /* Filtering.swift */,
+				F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -590,6 +602,7 @@
 				F32D9BE21FDF33EC005C00BD /* Guising.swift in Sources */,
 				F32D9BBF1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD81FDF3388005C00BD /* Registration.swift in Sources */,
+				F3C2BC5F1FDFCCB4006726B7 /* Metafilter.swift in Sources */,
 				F32D9BCE1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BE71FDF36D7005C00BD /* _Guise.swift in Sources */,
 				F3C2BC461FDF65F2006726B7 /* Resolving.swift in Sources */,
@@ -597,6 +610,7 @@
 				F32D9BEC1FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18031FDF384C0040E183 /* Lock.swift in Sources */,
 				F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F3C2BC501FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3C1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F32D9BC91FDF3117005C00BD /* Miscellanea.swift in Sources */,
 				F32D9BC41FDF3098005C00BD /* Key.swift in Sources */,
@@ -612,6 +626,7 @@
 				F32D9BE11FDF33EC005C00BD /* Guising.swift in Sources */,
 				F32D9BBE1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD71FDF3388005C00BD /* Registration.swift in Sources */,
+				F3C2BC5E1FDFCCB4006726B7 /* Metafilter.swift in Sources */,
 				F32D9BCD1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BE61FDF36D7005C00BD /* _Guise.swift in Sources */,
 				F3C2BC451FDF65F2006726B7 /* Resolving.swift in Sources */,
@@ -619,6 +634,7 @@
 				F32D9BEB1FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18021FDF384C0040E183 /* Lock.swift in Sources */,
 				F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F3C2BC4F1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3B1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F32D9BC81FDF3117005C00BD /* Miscellanea.swift in Sources */,
 				F32D9BC31FDF3098005C00BD /* Key.swift in Sources */,
@@ -649,6 +665,7 @@
 				F32D9BDF1FDF33EC005C00BD /* Guising.swift in Sources */,
 				F32D9BBC1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD51FDF3388005C00BD /* Registration.swift in Sources */,
+				F3C2BC5C1FDFCCB4006726B7 /* Metafilter.swift in Sources */,
 				F32D9BCB1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BE41FDF36D7005C00BD /* _Guise.swift in Sources */,
 				F3C2BC431FDF65F2006726B7 /* Resolving.swift in Sources */,
@@ -656,6 +673,7 @@
 				F32D9BE91FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18001FDF384C0040E183 /* Lock.swift in Sources */,
 				F32D9BB71FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F3C2BC4D1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC391FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F32D9BC61FDF3117005C00BD /* Miscellanea.swift in Sources */,
 				F32D9BC11FDF3098005C00BD /* Key.swift in Sources */,
@@ -686,6 +704,7 @@
 				F32D9BE01FDF33EC005C00BD /* Guising.swift in Sources */,
 				F32D9BBD1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD61FDF3388005C00BD /* Registration.swift in Sources */,
+				F3C2BC5D1FDFCCB4006726B7 /* Metafilter.swift in Sources */,
 				F32D9BCC1FDF316B005C00BD /* AnyKey.swift in Sources */,
 				F32D9BE51FDF36D7005C00BD /* _Guise.swift in Sources */,
 				F3C2BC441FDF65F2006726B7 /* Resolving.swift in Sources */,
@@ -693,6 +712,7 @@
 				F32D9BEA1FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18011FDF384C0040E183 /* Lock.swift in Sources */,
 				F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F3C2BC4E1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3A1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F32D9BC71FDF3117005C00BD /* Miscellanea.swift in Sources */,
 				F32D9BC21FDF3098005C00BD /* Key.swift in Sources */,

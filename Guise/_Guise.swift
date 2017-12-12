@@ -15,19 +15,3 @@ public protocol _Guise {
     static func filter<K: Keyed>(key: K.Type, name: AnyHashable?, container: AnyHashable?) -> [K: Registration]
 }
 
-public extension _Guise {
-    
-    static func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
-        return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
-    }
-    
-    static func unregister<K: Keyed>(keys: Set<K>) -> Int {
-        return defaultResolver.unregister(keys: keys)
-    }
-    
-    static func filter<K: Keyed>(key: K.Type = K.self, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [K: Registration] {
-        return defaultResolver.filter(key: key, name: name, container: container)
-    }
-    
-}
-
