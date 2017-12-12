@@ -18,15 +18,15 @@ public extension Guising {
         return filter(type: RegisteredType.self, name: key.name, container: key.container).values.first
     }
     
-    func filter<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [Key<RegisteredType>: Registration] {
+    func filter<RegisteredType>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [Key<RegisteredType>: Registration] {
         return filter(key: Key<RegisteredType>.self, name: name, container: container)
     }
     
-    func filter<RegisteredType, Metadata>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<Metadata>) -> [Key<RegisteredType>: Registration] {
+    func filter<RegisteredType, Metadata>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<Metadata>) -> [Key<RegisteredType>: Registration] {
         return filter(type: type, name: name, container: container).filter(metathunk(metafilter))
     }
     
-    func filter<RegisteredType, Metadata: Equatable>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: Metadata) -> [Key<RegisteredType>: Registration] {
+    func filter<RegisteredType, Metadata: Equatable>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: Metadata) -> [Key<RegisteredType>: Registration] {
         return filter(type: type, name: name, container: container) { $0 == metadata }
     }
     
@@ -53,15 +53,15 @@ public extension _Guise {
         return filter(type: RegisteredType.self, name: key.name, container: key.container).values.first
     }
     
-    static func filter<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [Key<RegisteredType>: Registration] {
+    static func filter<RegisteredType>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [Key<RegisteredType>: Registration] {
         return filter(key: Key<RegisteredType>.self, name: name, container: container)
     }
     
-    static func filter<RegisteredType, Metadata>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<Metadata>) -> [Key<RegisteredType>: Registration] {
+    static func filter<RegisteredType, Metadata>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<Metadata>) -> [Key<RegisteredType>: Registration] {
         return filter(type: type, name: name, container: container).filter(metathunk(metafilter))
     }
     
-    static func filter<RegisteredType, Metadata: Equatable>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: Metadata) -> [Key<RegisteredType>: Registration] {
+    static func filter<RegisteredType, Metadata: Equatable>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: Metadata) -> [Key<RegisteredType>: Registration] {
         return filter(type: type, name: name, container: container) { $0 == metadata }
     }
     

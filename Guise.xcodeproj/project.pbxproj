@@ -97,6 +97,18 @@
 		F3C2BC5D1FDFCCB4006726B7 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
 		F3C2BC5E1FDFCCB4006726B7 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
 		F3C2BC5F1FDFCCB4006726B7 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
+		F3C2BC611FDFD2F9006726B7 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC601FDFD2F9006726B7 /* Injection.swift */; };
+		F3C2BC621FDFD2F9006726B7 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC601FDFD2F9006726B7 /* Injection.swift */; };
+		F3C2BC631FDFD2F9006726B7 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC601FDFD2F9006726B7 /* Injection.swift */; };
+		F3C2BC641FDFD2F9006726B7 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC601FDFD2F9006726B7 /* Injection.swift */; };
+		F3C2BC661FDFD3D9006726B7 /* InjectionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC651FDFD3D9006726B7 /* InjectionParameters.swift */; };
+		F3C2BC671FDFD3D9006726B7 /* InjectionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC651FDFD3D9006726B7 /* InjectionParameters.swift */; };
+		F3C2BC681FDFD3D9006726B7 /* InjectionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC651FDFD3D9006726B7 /* InjectionParameters.swift */; };
+		F3C2BC691FDFD3D9006726B7 /* InjectionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC651FDFD3D9006726B7 /* InjectionParameters.swift */; };
+		F3C2BC6B1FDFD5E2006726B7 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */; };
+		F3C2BC6C1FDFD5E2006726B7 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */; };
+		F3C2BC6D1FDFD5E2006726B7 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */; };
+		F3C2BC6E1FDFD5E2006726B7 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */; };
 		F3C3ED721C8D64FF00FD8E4D /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3C3ED791C8D64FF00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */; };
 		F3C3ED991C8D695C00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */; };
@@ -160,6 +172,9 @@
 		F3C2BC471FDF664E006726B7 /* Filtering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filtering.swift; sourceTree = "<group>"; };
 		F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
 		F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metafilter.swift; sourceTree = "<group>"; };
+		F3C2BC601FDFD2F9006726B7 /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
+		F3C2BC651FDFD3D9006726B7 /* InjectionParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionParameters.swift; sourceTree = "<group>"; };
+		F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED711C8D64FF00FD8E4D /* Guise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Guise.h; sourceTree = "<group>"; };
 		F3C3ED731C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -236,17 +251,20 @@
 				F3C2BC471FDF664E006726B7 /* Filtering.swift */,
 				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
 				F32D9BDE1FDF33EC005C00BD /* Guising.swift */,
+				F3C2BC601FDFD2F9006726B7 /* Injection.swift */,
+				F3C2BC651FDFD3D9006726B7 /* InjectionParameters.swift */,
+				F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */,
 				F32D9BC01FDF3098005C00BD /* Key.swift */,
 				F32D9BBB1FDF3017005C00BD /* Keyed.swift */,
 				F34B17FF1FDF384C0040E183 /* Lock.swift */,
 				F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */,
+				F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */,
 				F32D9BC51FDF3117005C00BD /* Miscellanea.swift */,
 				F3C2BC3D1FDF6413006726B7 /* Registering.swift */,
 				F32D9BD41FDF3388005C00BD /* Registration.swift */,
 				F32D9BD91FDF3397005C00BD /* Resolution.swift */,
 				F32D9BE81FDF3799005C00BD /* Resolver.swift */,
 				F3C2BC421FDF65F2006726B7 /* Resolving.swift */,
-				F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -612,8 +630,11 @@
 				F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC501FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3C1FDF38F3006726B7 /* _Registration.swift in Sources */,
+				F3C2BC691FDFD3D9006726B7 /* InjectionParameters.swift in Sources */,
 				F32D9BC91FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F3C2BC6E1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC41FDF3098005C00BD /* Key.swift in Sources */,
+				F3C2BC641FDFD2F9006726B7 /* Injection.swift in Sources */,
 				F3C2BC4B1FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDD1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);
@@ -636,8 +657,11 @@
 				F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC4F1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3B1FDF38F3006726B7 /* _Registration.swift in Sources */,
+				F3C2BC681FDFD3D9006726B7 /* InjectionParameters.swift in Sources */,
 				F32D9BC81FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F3C2BC6D1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC31FDF3098005C00BD /* Key.swift in Sources */,
+				F3C2BC631FDFD2F9006726B7 /* Injection.swift in Sources */,
 				F3C2BC4A1FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDC1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);
@@ -675,8 +699,11 @@
 				F32D9BB71FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC4D1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC391FDF38F3006726B7 /* _Registration.swift in Sources */,
+				F3C2BC661FDFD3D9006726B7 /* InjectionParameters.swift in Sources */,
 				F32D9BC61FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F3C2BC6B1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC11FDF3098005C00BD /* Key.swift in Sources */,
+				F3C2BC611FDFD2F9006726B7 /* Injection.swift in Sources */,
 				F3C2BC481FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDA1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);
@@ -714,8 +741,11 @@
 				F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC4E1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3A1FDF38F3006726B7 /* _Registration.swift in Sources */,
+				F3C2BC671FDFD3D9006726B7 /* InjectionParameters.swift in Sources */,
 				F32D9BC71FDF3117005C00BD /* Miscellanea.swift in Sources */,
+				F3C2BC6C1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC21FDF3098005C00BD /* Key.swift in Sources */,
+				F3C2BC621FDFD2F9006726B7 /* Injection.swift in Sources */,
 				F3C2BC491FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDB1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);
