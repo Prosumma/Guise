@@ -19,7 +19,7 @@ public extension Guising {
         return resolve(key: Key<RegisteredType>(name: name, container: container), parameter: parameter, cached: cached)
     }
     
-    func resolve<Target>(into instance: Target) -> Target {
+    @discardableResult func resolve<Target>(into instance: Target) -> Target {
         let key = Key<Target>(container: Guise.Container.injections)
         guard let registration = filter(key: key) else { return instance }
         let parameter = InjectionParameters(target: instance, resolver: self)
@@ -38,7 +38,7 @@ public extension _Guise {
         return resolve(key: Key<RegisteredType>(name: name, container: container), parameter: parameter, cached: cached)
     }
     
-    static func resolve<Target>(into instance: Target) -> Target {
+    @discardableResult static func resolve<Target>(into instance: Target) -> Target {
         return defaultResolver.resolve(into: instance)
     }
 }

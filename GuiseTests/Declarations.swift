@@ -17,8 +17,9 @@ import Foundation
  _Any_ hashable type can be used for the `name` and `container`
  of a registration.
  */
-enum Name {
+enum Name: String {
     case 🌈 // My daughter chose this rainbow
+    case owlette
 }
 
 /**
@@ -75,3 +76,7 @@ class Froufroupookiedingdong: Wibble {
     }
 }
 
+class Owlette {
+    var upwit: Upwit!
+    var plonk: Plonk?
+}

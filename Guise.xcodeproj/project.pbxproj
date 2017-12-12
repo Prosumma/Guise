@@ -117,6 +117,9 @@
 		F3C2BC761FDFDEAB006726B7 /* Unregistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC741FDFDEAB006726B7 /* Unregistration.swift */; };
 		F3C2BC771FDFDEAB006726B7 /* Unregistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC741FDFDEAB006726B7 /* Unregistration.swift */; };
 		F3C2BC781FDFDEAB006726B7 /* Unregistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC741FDFDEAB006726B7 /* Unregistration.swift */; };
+		F3C2BC7A1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */; };
+		F3C2BC7B1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */; };
+		F3C2BC7C1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */; };
 		F3C3ED721C8D64FF00FD8E4D /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3C3ED791C8D64FF00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */; };
 		F3C3ED991C8D695C00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */; };
@@ -185,6 +188,7 @@
 		F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		F3C2BC6F1FDFDC6C006726B7 /* ImpotentResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpotentResolver.swift; sourceTree = "<group>"; };
 		F3C2BC741FDFDEAB006726B7 /* Unregistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unregistration.swift; sourceTree = "<group>"; };
+		F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseInjectionTests.swift; sourceTree = "<group>"; };
 		F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED711C8D64FF00FD8E4D /* Guise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Guise.h; sourceTree = "<group>"; };
 		F3C3ED731C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 				F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */,
 				F3DBA8961F9C54240055E83C /* GuiseFactoryResolutionTests.swift */,
 				F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */,
+				F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */,
 				F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */,
 				F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */,
 				F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */,
@@ -690,6 +695,7 @@
 				F32120591F647B5B00872F32 /* Declarations.swift in Sources */,
 				F3DBA8991F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */,
 				F3DBA89D1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */,
+				F3C2BC7C1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */,
 				F356FF481F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
 				F3700B7F1DB7847000DDB218 /* GuiseKeyTests.swift in Sources */,
 				F356FF441F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
@@ -734,6 +740,7 @@
 				F32120571F647B5B00872F32 /* Declarations.swift in Sources */,
 				F3DBA8971F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */,
 				F3DBA89B1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */,
+				F3C2BC7A1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */,
 				F356FF461F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
 				F3BACFC81C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
 				F356FF421F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
@@ -778,6 +785,7 @@
 				F32120581F647B5B00872F32 /* Declarations.swift in Sources */,
 				F3DBA8981F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */,
 				F3DBA89C1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */,
+				F3C2BC7B1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */,
 				F356FF471F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
 				F3BACFC91C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
 				F356FF431F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
