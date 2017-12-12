@@ -22,6 +22,15 @@ public struct Injector<Target> {
         return injector
     }
     
+    public func inject<Value>(exact keyPath: WritableKeyPath<Target, Value>, key: Key<Value>) -> Injector<Target> {
+        return inject { (target, resolver) in
+            guard let value = resolver.resolve(key: key) else { return target }
+            var target = target
+            target[keyPath: keyPath] = value
+            return target
+        }
+    }
+    
     public func inject<Value>(_ keyPath: WritableKeyPath<Target, Value?>, key: Key<Value>) -> Injector<Target> {
         return inject { (target, resolver) in
             var target = target
@@ -34,6 +43,26 @@ public struct Injector<Target> {
         return inject(keyPath, key: Key(name: name, container: container))
     }
     
+    public func inject<Value>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, key: Key<Value>) -> Injector<Target> {
+        return inject { (target, resolver) in
+            var target = target
+            target[keyPath: keyPath] = resolver.resolve(key: key)
+            return target
+        }
+    }
+    
+    public func inject<Value>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) -> Injector<Target> {
+        return inject(keyPath, key: Key(name: name, container: container))
+    }
+    
+    public func inject<Value>(exact keyPath: ReferenceWritableKeyPath<Target, Value>, key: Key<Value>) -> Injector<Target> {
+        return inject { (target, resolver) in
+            guard let value = resolver.resolve(key: key) else { return target }
+            target[keyPath: keyPath] = value
+            return target
+        }
+    }
+    
     public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, Value?>, key: Key<Value>) -> Injector<Target> {
         return inject { (target, resolver) in
             target[keyPath: keyPath] = resolver.resolve(key: key)
@@ -42,6 +71,17 @@ public struct Injector<Target> {
     }
     
     public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, Value?>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) -> Injector<Target> {
+        return inject(keyPath, key: Key(name: name, container: container))
+    }
+    
+    public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, key: Key<Value>) -> Injector<Target> {
+        return inject { (target, resolver) in
+            target[keyPath: keyPath] = resolver.resolve(key: key)
+            return target
+        }
+    }
+    
+    public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) -> Injector<Target> {
         return inject(keyPath, key: Key(name: name, container: container))
     }
     
