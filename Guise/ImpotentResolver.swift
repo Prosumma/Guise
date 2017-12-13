@@ -16,8 +16,8 @@ public struct ImpotentResolver: Guising {
     @discardableResult public func unregister<K: Keyed>(keys: Set<K>) -> Int {
         return 0
     }
-    
-    public func filter<K: Keyed>(key: K.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [K: Registration] {
+
+    public func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration] {
         return [:]
     }
 }

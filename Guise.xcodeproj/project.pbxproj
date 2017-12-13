@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F31A1E711FE09DDC0052425F /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
+		F31A1E721FE09DDC0052425F /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
+		F31A1E731FE09DDC0052425F /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
+		F31A1E741FE09DDC0052425F /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
 		F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
 		F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
 		F31E06E11F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
@@ -156,6 +160,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F31A1E701FE09DDC0052425F /* Criteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Criteria.swift; sourceTree = "<group>"; };
 		F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFilterTests.swift; sourceTree = "<group>"; };
 		F32120561F647B5B00872F32 /* Declarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarations.swift; sourceTree = "<group>"; };
 		F32D9BB61FDF2FEE005C00BD /* Guise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guise.swift; sourceTree = "<group>"; };
@@ -262,6 +267,7 @@
 				F32D9BE31FDF36D7005C00BD /* _Guise.swift */,
 				F3C2BC381FDF38F3006726B7 /* _Registration.swift */,
 				F32D9BCA1FDF316B005C00BD /* AnyKey.swift */,
+				F31A1E701FE09DDC0052425F /* Criteria.swift */,
 				F3C2BC471FDF664E006726B7 /* Filtering.swift */,
 				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
 				F32D9BDE1FDF33EC005C00BD /* Guising.swift */,
@@ -645,6 +651,7 @@
 				F3C2BC411FDF6413006726B7 /* Registering.swift in Sources */,
 				F32D9BEC1FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18031FDF384C0040E183 /* Lock.swift in Sources */,
+				F31A1E741FE09DDC0052425F /* Criteria.swift in Sources */,
 				F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC501FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3C1FDF38F3006726B7 /* _Registration.swift in Sources */,
@@ -674,6 +681,7 @@
 				F3C2BC401FDF6413006726B7 /* Registering.swift in Sources */,
 				F32D9BEB1FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18021FDF384C0040E183 /* Lock.swift in Sources */,
+				F31A1E731FE09DDC0052425F /* Criteria.swift in Sources */,
 				F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC4F1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3B1FDF38F3006726B7 /* _Registration.swift in Sources */,
@@ -719,6 +727,7 @@
 				F3C2BC3E1FDF6413006726B7 /* Registering.swift in Sources */,
 				F32D9BE91FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18001FDF384C0040E183 /* Lock.swift in Sources */,
+				F31A1E711FE09DDC0052425F /* Criteria.swift in Sources */,
 				F32D9BB71FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC4D1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC391FDF38F3006726B7 /* _Registration.swift in Sources */,
@@ -764,6 +773,7 @@
 				F3C2BC3F1FDF6413006726B7 /* Registering.swift in Sources */,
 				F32D9BEA1FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18011FDF384C0040E183 /* Lock.swift in Sources */,
+				F31A1E721FE09DDC0052425F /* Criteria.swift in Sources */,
 				F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */,
 				F3C2BC4E1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3A1FDF38F3006726B7 /* _Registration.swift in Sources */,

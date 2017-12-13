@@ -16,6 +16,15 @@ class GuiseFilterTests: XCTestCase {
         Guise.clear()
     }
     
+//    func testFilterByKeys() {
+//        let key1 = AnyKey(Guise.register(instance: 3, name: Name.🌈))!
+//        let key2 = AnyKey(type: String.self, container: Container.🐝)
+//        let found = Guise.filter(keys: [key1, key2])
+//        XCTAssertEqual(found.count, 1)
+//        XCTAssertTrue(found.contains(key1))
+//        XCTAssertFalse(found.contains(key2))
+//    }
+//
 //    func testFilterByContainer() {
 //        let container = Container.🐝
 //        let key1 = AnyKey(Guise.register(instance: "Fred", name: "fred", container: container))!
@@ -26,7 +35,7 @@ class GuiseFilterTests: XCTestCase {
 //        XCTAssertEqual(found.intersection([key1, key2, key3]).count, found.count)
 //        XCTAssertFalse(found.contains(key3))
 //    }
-//    
+//
 //    func testFilterByType() {
 //        let container = Container.🐝, name = Name.🌈
 //        let key1 = Guise.register(instance: 7, name: name, container: container)

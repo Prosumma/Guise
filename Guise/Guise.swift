@@ -27,8 +27,8 @@ public struct Guise: _Guise {
     @discardableResult public static func unregister<K: Keyed>(keys: Set<K>) -> Int {
         return defaultResolver.unregister(keys: keys)
     }
-    
-    public static func filter<K: Keyed>(key: K.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [K: Registration] {
-        return defaultResolver.filter(key: key, name: name, container: container)
+
+    public static func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration] {
+        return defaultResolver.filter(filter)
     }
 }

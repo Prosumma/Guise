@@ -41,19 +41,19 @@ public extension Guising {
 public extension _Guise {
     
     @discardableResult static func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
-        return register(key: key, metadata: metadata, cached: cached, resolution: resolution)
+        return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
     }
 
     @discardableResult static func register<Parameter, RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
-        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: cached, resolution: resolution)
+        return defaultResolver.register(type: type, name: name, container: container, metadata: metadata, cached: cached, resolution: resolution)
     }
     
     @discardableResult static func register<RegisteredType>(factory: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: false, resolution: factory)
+        return defaultResolver.register(factory: factory, name: name, container: container, metadata: metadata)
     }
     
     @discardableResult static func register<RegisteredType>(instance: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: true, resolution: instance)
+        return defaultResolver.register(instance: instance, name: name, container: container, metadata: metadata)
     }
     
     @discardableResult static func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {

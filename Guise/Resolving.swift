@@ -30,12 +30,11 @@ public extension Guising {
 public extension _Guise {
 
     static func resolve<RegisteredType>(key: Key<RegisteredType>, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
-        guard let registration = filter(key: key) else { return nil }
-        return registration.resolve(parameter: parameter, cached: cached)
+        return defaultResolver.resolve(key: key, parameter: parameter, cached: cached)
     }
     
     static func resolve<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable  = Guise.Container.default, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
-        return resolve(key: Key<RegisteredType>(name: name, container: container), parameter: parameter, cached: cached)
+        return defaultResolver.resolve(type: type, name: name, container: container, parameter: parameter, cached: cached)
     }
     
     @discardableResult static func resolve<Target>(into instance: Target) -> Target {
