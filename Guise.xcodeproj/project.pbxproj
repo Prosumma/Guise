@@ -63,6 +63,9 @@
 		F344CC791FE0FE7500DF17CF /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC771FE0FE7400DF17CF /* Weak.swift */; };
 		F344CC7A1FE0FE7500DF17CF /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC771FE0FE7400DF17CF /* Weak.swift */; };
 		F344CC7B1FE0FE7500DF17CF /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC771FE0FE7400DF17CF /* Weak.swift */; };
+		F344CC7D1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */; };
+		F344CC7E1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */; };
+		F344CC7F1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */; };
 		F34B18001FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18011FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18021FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
@@ -179,6 +182,7 @@
 		F32D9BE81FDF3799005C00BD /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		F343A9EC1DB7867600B1000F /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F344CC771FE0FE7400DF17CF /* Weak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
+		F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseWeakTests.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseMetadataTests.swift; sourceTree = "<group>"; };
 		F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseBlockResolutionTests.swift; sourceTree = "<group>"; };
@@ -352,6 +356,7 @@
 				F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */,
 				F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */,
 				F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */,
+				F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -715,6 +720,7 @@
 				F356FF481F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
 				F3700B7F1DB7847000DDB218 /* GuiseKeyTests.swift in Sources */,
 				F356FF441F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
+				F344CC7F1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
 				F3B53EEA1F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
 				F31E06E11F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);
@@ -762,6 +768,7 @@
 				F356FF461F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
 				F3BACFC81C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
 				F356FF421F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
+				F344CC7D1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
 				F3B53EE81F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
 				F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);
@@ -809,6 +816,7 @@
 				F356FF471F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
 				F3BACFC91C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
 				F356FF431F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
+				F344CC7E1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
 				F3B53EE91F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
 				F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);

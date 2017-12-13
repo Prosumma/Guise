@@ -10,5 +10,5 @@ import Foundation
 
 public protocol Registration {
     var metadata: Any { get }
-    func resolve<R>(parameter: Any, cached: Bool?) -> R
+    func resolve<RegisteredType>(parameter: Any, cached: Bool?) -> RegisteredType
 }
