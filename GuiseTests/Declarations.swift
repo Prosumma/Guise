@@ -81,3 +81,8 @@ class Owlette {
     var plonk: Plonk?
 }
 
+enum Metadata {
+    case blah
+    case bloop
+    case blee
+}
