@@ -19,7 +19,7 @@ class GuiseInjectionTests: XCTestCase {
     func testInjection() {
         Guise.register(factory: Xig() as Upwit)
         Guise.register(factory: Plink(thibb: Name.owlette.rawValue) as Plonk, name: Name.owlette)
-        Guise.register(injectable: Owlette.self)
+        Guise.into(injectable: Owlette.self)
             .inject(\.upwit)
             .inject(\.plonk, name: Name.owlette)
             .register()

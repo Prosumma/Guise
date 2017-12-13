@@ -38,9 +38,10 @@ public extension Guising {
         }
     }
     
-    func register<Target>(injectable: Target.Type) -> Injector<Target> {
+    func into<Target>(injectable type: Target.Type) -> Injector<Target> {
         return Injector(resolver: self)
     }
+    
 }
 
 public extension _Guise {
@@ -68,8 +69,8 @@ public extension _Guise {
     @discardableResult static func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {
         return defaultResolver.register(injectable: injectable, injection: injection)
     }
-    
-    static func register<Target>(injectable: Target.Type) -> Injector<Target> {
-        return defaultResolver.register(injectable: injectable)
+
+    static func into<Target>(injectable type: Target.Type) -> Injector<Target> {
+        return defaultResolver.into(injectable: type)
     }
 }
