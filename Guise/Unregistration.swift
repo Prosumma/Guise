@@ -10,7 +10,7 @@ import Foundation
 
 public extension Guising {
     
-    @discardableResult func unregister<K: Keyed & Hashable>(key: K) -> Int {
+    @discardableResult func unregister<K: Keyed>(key: K) -> Int {
         return unregister(keys: [key])
     }
     
@@ -22,7 +22,7 @@ public extension Guising {
 
 public extension _Guise {
     
-    @discardableResult static func unregister<K: Keyed & Hashable>(key: K) -> Int {
+    @discardableResult static func unregister<K: Keyed>(key: K) -> Int {
         return defaultResolver.unregister(key: key)
     }
     

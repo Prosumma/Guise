@@ -20,7 +20,7 @@ public class Resolver: Guising {
         return key
     }
 
-    @discardableResult public func unregister<K: Keyed>(keys: Set<K>) -> Int {
+    @discardableResult public func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed {
         return lock.write {
             let count = registrations.count
             registrations = registrations.filter{ element in !keys.contains{ $0 == element.key } }

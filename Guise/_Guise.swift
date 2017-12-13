@@ -11,7 +11,7 @@ import Foundation
 public protocol _Guise {
     static var defaultResolver: Guising { get set }
     @discardableResult static func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType>
-    @discardableResult static func unregister<K: Keyed>(keys: Set<K>) -> Int
+    @discardableResult static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed
     static func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration]
 }
 

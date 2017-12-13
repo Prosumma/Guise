@@ -24,7 +24,7 @@ public struct Guise: _Guise {
         return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
     }
     
-    @discardableResult public static func unregister<K: Keyed>(keys: Set<K>) -> Int {
+    @discardableResult public static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed {
         return defaultResolver.unregister(keys: keys)
     }
 
