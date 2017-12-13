@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+ The minimal interface for a Guise resolver.
+ 
+ Implement these three methods and you get everything else for free.
+ */
 public protocol Guising {
     @discardableResult func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType>
     @discardableResult func unregister<K: Keyed>(keys: Set<K>) -> Int
