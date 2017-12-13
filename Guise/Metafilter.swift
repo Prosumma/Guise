@@ -9,9 +9,9 @@
 import Foundation
 
 public typealias Metafilter<Metadata> = (Metadata) -> Bool
-public typealias Metathunk<K: Keyed & Hashable, Metadata> = ((Dictionary<K, Registration>.Element) -> Bool)
 
-public func metathunk<K: Keyed & Hashable, Metadata>(_ filter: @escaping Metafilter<Metadata>) -> Metathunk<K, Metadata> {
+typealias Metathunk<K: Keyed & Hashable, Metadata> = ((Dictionary<K, Registration>.Element) -> Bool)
+func metathunk<K: Keyed & Hashable, Metadata>(_ filter: @escaping Metafilter<Metadata>) -> Metathunk<K, Metadata> {
     return {
         guard let metadata = $0.value.metadata as? Metadata else { return false }
         return filter(metadata)
