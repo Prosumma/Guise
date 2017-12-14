@@ -51,12 +51,7 @@ class GuiseFilterTests: XCTestCase {
         let limit = 2
         for p in 0..<5 {
             let identifier = UUID()
-            let metadata: Any
-            if p < limit {
-                metadata = Metadata.bloop
-            } else {
-                metadata = ()
-            }
+            let metadata: Any = p < limit ? Metadata.bloop : ()
             Guise.register(factory: Plink(thibb: "\(identifier)") as Plonk, name: identifier, metadata: metadata)
         }
         XCTAssertEqual(limit, Guise.filter(type: Plonk.self, metadata: Metadata.bloop).count)
