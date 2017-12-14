@@ -10,10 +10,6 @@ import Foundation
 
 public extension Guising {
         
-    @discardableResult func register<ParameterType, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, RegisteredType>) -> Key<RegisteredType> {
-        return register(key: key, metadata: metadata, cached: cached, resolution: resolution)
-    }
-    
     @discardableResult func register<ParameterType, RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, RegisteredType>) -> Key<RegisteredType> {
         return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: cached, resolution: resolution)
     }
@@ -47,10 +43,6 @@ public extension Guising {
 
 public extension _Guise {
     
-    @discardableResult static func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
-        return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
-    }
-
     @discardableResult static func register<Parameter, RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
         return defaultResolver.register(type: type, name: name, container: container, metadata: metadata, cached: cached, resolution: resolution)
     }

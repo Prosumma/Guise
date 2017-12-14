@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Marker protocol for `Weak<T>`. Used internally.
 public protocol _Weak {}
 
 // Adapted from https://stackoverflow.com/a/47441469/27779
