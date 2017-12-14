@@ -28,28 +28,44 @@ class _Registration: Registration {
     private var instance: Any?
     /// Metadata, which defaults to an instance of `Void`, i.e., `()`
     public let metadata: Any
+    public let isWeak: Bool
     
     init<P, T>(metadata: Any, cached: Bool, resolution: @escaping Resolution<P, T>) {
+        self.isWeak = T.self is _Weak.Type
         self.metadata = metadata
-        self.cached = cached
+        self.cached = isWeak || cached
         self.resolution = { param in resolution(param as! P) }
         self.cacheQueue = DispatchQueue(label: "com.prosumma.Guise.Registration.[\(String(reflecting: T.self))].\(UUID())")
     }
     
     /// - warning: An incompatible `T` will cause an unrecoverable runtime exception.
-    public func resolve<T>(parameter: Any, cached: Bool?) -> T {
-        var result: T
-        if cached ?? self.cached {
+    public func resolve<T>(parameter: Any, cached: Bool?) -> T? {
+        if isWeak {
+            let result: Weak<T>
             if instance == nil {
                 cacheQueue.sync {
                     if instance != nil { return }
                     instance = resolution(parameter)
                 }
+                result = instance! as! Weak<T>
+            } else {
+                result = resolution(parameter) as! Weak<T>
             }
-            result = instance! as! T
+            return result.value
         } else {
-            result = resolution(parameter) as! T
+            let result: T
+            if cached ?? self.cached {
+                if instance == nil {
+                    cacheQueue.sync {
+                        if instance != nil { return }
+                        instance = resolution(parameter)
+                    }
+                }
+                result = instance! as! T
+            } else {
+                result = resolution(parameter) as! T
+            }
+            return result
         }
-        return result
     }
 }

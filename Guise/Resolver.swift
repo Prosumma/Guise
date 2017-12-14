@@ -15,11 +15,11 @@ public class Resolver: Guising {
     
     // MARK: Guising
     
-    @discardableResult public func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
+    @discardableResult public func register<RegisteredType, ParameterType, ResolvedType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, ResolvedType>) -> Key<RegisteredType> {
         lock.write { registrations[AnyKey(key)!] = _Registration(metadata: metadata, cached: cached, resolution: resolution) }
         return key
     }
-
+    
     @discardableResult public func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed {
         return lock.write {
             let count = registrations.count

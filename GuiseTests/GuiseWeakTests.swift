@@ -19,9 +19,9 @@ class GuiseWeakTests: XCTestCase {
     func testWeakRegistrationAndResolution() {
         var xig: Xig? = Xig()
         Guise.register(weak: xig!) // Never register an optional in Guise.
-        XCTAssertNotNil(Guise.resolve(weak: Xig.self))
+        XCTAssertNotNil(Guise.resolve(type: Xig.self))
         xig = nil
-        XCTAssertNil(Guise.resolve(weak: Xig.self))
+        XCTAssertNil(Guise.resolve(type: Xig.self))
     }
     
 }

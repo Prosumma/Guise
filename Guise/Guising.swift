@@ -14,8 +14,7 @@ import Foundation
  Implement these three methods and you get everything else for free.
  */
 public protocol Guising {
-    @discardableResult func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType>
+    @discardableResult func register<RegisteredType, ParameterType, ResolvedType>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, ResolvedType>) -> Key<RegisteredType>
     @discardableResult func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed
     func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration]
 }
-

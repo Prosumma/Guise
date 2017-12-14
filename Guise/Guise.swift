@@ -20,10 +20,10 @@ public struct Guise: _Guise {
     
     public static var defaultResolver: Guising = Resolver()
     
-    @discardableResult public static func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
-        return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
+    @discardableResult public static func register<RegisteredType, ParameterType, ResolvedType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, ResolvedType>) -> Key<RegisteredType> {
+        return defaultResolver.register(key: key, metadata: metadata, cached:cached, resolution: resolution)
     }
-    
+
     @discardableResult public static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed {
         return defaultResolver.unregister(keys: keys)
     }

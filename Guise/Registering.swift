@@ -9,12 +9,12 @@
 import Foundation
 
 public extension Guising {
-    
-    @discardableResult func register<Parameter, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
+        
+    @discardableResult func register<ParameterType, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, RegisteredType>) -> Key<RegisteredType> {
         return register(key: key, metadata: metadata, cached: cached, resolution: resolution)
     }
     
-    @discardableResult func register<Parameter, RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
+    @discardableResult func register<ParameterType, RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, RegisteredType>) -> Key<RegisteredType> {
         return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: cached, resolution: resolution)
     }
     
@@ -26,9 +26,10 @@ public extension Guising {
         return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: true, resolution: instance)
     }
     
-    @discardableResult func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<Weak<RegisteredType>> {
+    @discardableResult func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
+        let key = Key<RegisteredType>(name: name, container: container)
         let weakling = Weak(instance)
-        return register(instance: weakling, name: name, container: container, metadata: metadata)
+        return register(key: key, metadata: metadata, cached: true) { weakling }
     }
     
     @discardableResult func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {
@@ -62,7 +63,7 @@ public extension _Guise {
         return defaultResolver.register(instance: instance, name: name, container: container, metadata: metadata)
     }
     
-    @discardableResult static func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<Weak<RegisteredType>> {
+    @discardableResult static func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
         return defaultResolver.register(weak: instance, name: name, container: container, metadata: metadata)
     }
     

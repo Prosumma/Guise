@@ -8,6 +8,8 @@
 
 import Foundation
 
+public protocol _Weak {}
+
 // Adapted from https://stackoverflow.com/a/47441469/27779
 /**
  A `weak` container for reference types.
@@ -15,7 +17,7 @@ import Foundation
  - warning: If you pass a value type to `Weak`, its `value`
  property will always return `nil` due to boxing.
  */
-public struct Weak<T> {
+public struct Weak<T>: _Weak {
     private weak var ref: AnyObject?
 
     /**
