@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F308F2FF1FE3DBAA00B8A221 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
+		F308F3001FE3DBAA00B8A221 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
+		F308F3011FE3DBAA00B8A221 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
+		F308F3021FE3DBAA00B8A221 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
+		F308F3041FE3DC5B00B8A221 /* Uncached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F3031FE3DC5B00B8A221 /* Uncached.swift */; };
+		F308F3051FE3DC5B00B8A221 /* Uncached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F3031FE3DC5B00B8A221 /* Uncached.swift */; };
+		F308F3061FE3DC5B00B8A221 /* Uncached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F3031FE3DC5B00B8A221 /* Uncached.swift */; };
+		F308F3071FE3DC5B00B8A221 /* Uncached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F3031FE3DC5B00B8A221 /* Uncached.swift */; };
 		F31A1E711FE09DDC0052425F /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
 		F31A1E721FE09DDC0052425F /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
 		F31A1E731FE09DDC0052425F /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
@@ -178,6 +186,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F308F2FE1FE3DBAA00B8A221 /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
+		F308F3031FE3DC5B00B8A221 /* Uncached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uncached.swift; sourceTree = "<group>"; };
 		F31A1E701FE09DDC0052425F /* Criteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Criteria.swift; sourceTree = "<group>"; };
 		F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFilterTests.swift; sourceTree = "<group>"; };
 		F32120561F647B5B00872F32 /* Declarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarations.swift; sourceTree = "<group>"; };
@@ -290,6 +300,7 @@
 				F32D9BE31FDF36D7005C00BD /* _Guise.swift */,
 				F3C2BC381FDF38F3006726B7 /* _Registration.swift */,
 				F32D9BCA1FDF316B005C00BD /* AnyKey.swift */,
+				F308F2FE1FE3DBAA00B8A221 /* Cached.swift */,
 				F31A1E701FE09DDC0052425F /* Criteria.swift */,
 				F3C2BC471FDF664E006726B7 /* Filtering.swift */,
 				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
@@ -311,6 +322,7 @@
 				F32D9BE81FDF3799005C00BD /* Resolver.swift */,
 				F3C2BC421FDF65F2006726B7 /* Resolving.swift */,
 				F3CA19BC1FE3C5F1003F901B /* Strong.swift */,
+				F308F3031FE3DC5B00B8A221 /* Uncached.swift */,
 				F3C2BC741FDFDEAB006726B7 /* Unregistration.swift */,
 				F344CC771FE0FE7400DF17CF /* Weak.swift */,
 			);
@@ -684,6 +696,7 @@
 				F31A1E741FE09DDC0052425F /* Criteria.swift in Sources */,
 				F3CA19BB1FE3C5CE003F901B /* Holder.swift in Sources */,
 				F32D9BBA1FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F308F3071FE3DC5B00B8A221 /* Uncached.swift in Sources */,
 				F3C2BC501FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3C1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC731FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
@@ -692,6 +705,7 @@
 				F3C2BC6E1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC41FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC641FDFD2F9006726B7 /* Injection.swift in Sources */,
+				F308F3021FE3DBAA00B8A221 /* Cached.swift in Sources */,
 				F3C2BC4B1FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDD1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);
@@ -717,6 +731,7 @@
 				F31A1E731FE09DDC0052425F /* Criteria.swift in Sources */,
 				F3CA19BA1FE3C5CE003F901B /* Holder.swift in Sources */,
 				F32D9BB91FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F308F3061FE3DC5B00B8A221 /* Uncached.swift in Sources */,
 				F3C2BC4F1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3B1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC721FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
@@ -725,6 +740,7 @@
 				F3C2BC6D1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC31FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC631FDFD2F9006726B7 /* Injection.swift in Sources */,
+				F308F3011FE3DBAA00B8A221 /* Cached.swift in Sources */,
 				F3C2BC4A1FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDC1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);
@@ -768,6 +784,7 @@
 				F31A1E711FE09DDC0052425F /* Criteria.swift in Sources */,
 				F3CA19B81FE3C5CE003F901B /* Holder.swift in Sources */,
 				F32D9BB71FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F308F3041FE3DC5B00B8A221 /* Uncached.swift in Sources */,
 				F3C2BC4D1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC391FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC701FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
@@ -776,6 +793,7 @@
 				F3C2BC6B1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC11FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC611FDFD2F9006726B7 /* Injection.swift in Sources */,
+				F308F2FF1FE3DBAA00B8A221 /* Cached.swift in Sources */,
 				F3C2BC481FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDA1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);
@@ -819,6 +837,7 @@
 				F31A1E721FE09DDC0052425F /* Criteria.swift in Sources */,
 				F3CA19B91FE3C5CE003F901B /* Holder.swift in Sources */,
 				F32D9BB81FDF2FEE005C00BD /* Guise.swift in Sources */,
+				F308F3051FE3DC5B00B8A221 /* Uncached.swift in Sources */,
 				F3C2BC4E1FDF6D14006726B7 /* Metadata.swift in Sources */,
 				F3C2BC3A1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC711FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
@@ -827,6 +846,7 @@
 				F3C2BC6C1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC21FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC621FDFD2F9006726B7 /* Injection.swift in Sources */,
+				F308F3001FE3DBAA00B8A221 /* Cached.swift in Sources */,
 				F3C2BC491FDF664E006726B7 /* Filtering.swift in Sources */,
 				F32D9BDB1FDF3397005C00BD /* Resolution.swift in Sources */,
 			);

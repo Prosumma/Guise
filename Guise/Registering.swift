@@ -19,11 +19,11 @@ public extension Guising {
     }
     
     @discardableResult func register<RegisteredType>(factory: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: false, resolution: factory)
+        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: false) { Uncached(factory()) }
     }
 
     @discardableResult func register<RegisteredType>(instance: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: true, resolution: instance)
+        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: true) { Cached(instance()) }
     }
     
     @discardableResult func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {

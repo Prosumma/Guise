@@ -20,7 +20,9 @@ class _Registration: Registration {
      due to concurrency when creating a cached value.
      */
     private let cacheQueue: DispatchQueue
-    /// Default lifecycle for the dependency
+    /// If the Holder specifies caching, this will override all other caching
+    let holderCached: Bool?
+    /// Requested lifecycle for the dependency
     let cached: Bool
     /// The registered resolution block
     private let resolution: (Any) -> Any
@@ -33,7 +35,8 @@ class _Registration: Registration {
     
     init<P, H: Holder>(metadata: Any, cached: Bool, resolution: @escaping Resolution<P, H>) {
         self.metadata = metadata
-        self.cached = H.cached ?? cached
+        self.holderCached = H.cached
+        self.cached = cached
         self.resolution = { param in resolution(param as! P) }
         self.get = { ($0 as! H).value }
         self.cacheQueue = DispatchQueue(label: "com.prosumma.Guise.Registration.[\(String(reflecting: H.Held.self))].\(UUID())")
@@ -42,7 +45,7 @@ class _Registration: Registration {
     /// - warning: An incompatible `T` will cause an unrecoverable runtime exception.
     public func resolve<T>(parameter: Any, cached: Bool?) -> T? {
         let result: T?
-        if cached ?? self.cached {
+        if self.holderCached ?? cached ?? self.cached {
             if instance == nil {
                 cacheQueue.sync {
                     if instance != nil { return }
