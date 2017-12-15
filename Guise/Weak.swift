@@ -18,7 +18,7 @@ public protocol _Weak {}
  - warning: If you pass a value type to `Weak`, its `value`
  property will always return `nil` due to boxing.
  */
-public struct Weak<T>: _Weak {
+public struct Weak<T>: Holder, _Weak {
     private weak var ref: AnyObject?
 
     /**
@@ -34,6 +34,10 @@ public struct Weak<T>: _Weak {
     /// Returns the stored value or `nil` if the `weak` reference has been reaped.
     public var value: T? {
         return ref as! T?
+    }
+    
+    public static var cached: Bool? {
+        return true
     }
 }
 

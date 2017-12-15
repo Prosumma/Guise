@@ -9,7 +9,6 @@
 import Foundation
 
 public protocol Registration {
-    var isWeak: Bool { get }
     var metadata: Any { get }
     func resolve<RegisteredType>(parameter: Any, cached: Bool?) -> RegisteredType?
 }

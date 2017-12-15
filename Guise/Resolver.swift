@@ -15,7 +15,7 @@ public class Resolver: Guising {
     
     // MARK: Guising
     
-    @discardableResult public func register<RegisteredType, ParameterType, ResolvedType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, ResolvedType>) -> Key<RegisteredType> {
+    @discardableResult public func register<RegisteredType, ParameterType, HoldingType: Holder>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<RegisteredType> where HoldingType.Held == RegisteredType {
         lock.write { registrations[AnyKey(key)!] = _Registration(metadata: metadata, cached: cached, resolution: resolution) }
         return key
     }

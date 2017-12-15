@@ -20,7 +20,7 @@ public struct Guise: _Guise {
     
     public static var defaultResolver: Guising = Resolver()
     
-    @discardableResult public static func register<RegisteredType, ParameterType, ResolvedType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, ResolvedType>) -> Key<RegisteredType> {
+    @discardableResult public static func register<RegisteredType, ParameterType, HoldingType: Holder>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<RegisteredType> where HoldingType.Held == RegisteredType {
         return defaultResolver.register(key: key, metadata: metadata, cached:cached, resolution: resolution)
     }
 
