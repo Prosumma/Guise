@@ -39,4 +39,9 @@ class GuiseInstanceResolutionTests: XCTestCase {
         XCTAssertNil(Guise.resolve(type: Upwit.self, name: UUID()))
         XCTAssert(xig1 === xig2, "Caching failed.")
     }
+    
+    func testFoo() {
+        let xig1: Upwit = Xig()
+        Guise.register(weak: xig1)
+    }
 }

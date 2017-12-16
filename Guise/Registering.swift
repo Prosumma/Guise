@@ -14,22 +14,31 @@ public extension Guising {
         return register(key: key, metadata: metadata, cached: cached) { Strong(resolution($0)) }
     }
     
+    @discardableResult func register<HoldingType: Holder>(holder: @escaping @autoclosure () -> HoldingType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false) -> Key<HoldingType.Held> {
+        let key = Key<HoldingType.Held>(name: name, container: container)
+        return register(key: key, metadata: metadata, cached: cached, resolution: holder)
+    }
+    
     @discardableResult func register<ParameterType, RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, RegisteredType>) -> Key<RegisteredType> {
         return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: cached, resolution: resolution)
     }
     
+    @discardableResult func register<ParameterType, HoldingType: Holder>(type: HoldingType.Held.Type = HoldingType.Held.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
+        let key = Key<HoldingType.Held>(name: name, container: container)
+        return register(key: key, metadata: metadata, cached: cached, resolution: resolution)
+    }
+    
     @discardableResult func register<RegisteredType>(factory: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: false) { Uncached(factory()) }
+        return register(holder: Uncached(factory()), name: name, container: container, metadata: metadata, cached: false)
     }
 
     @discardableResult func register<RegisteredType>(instance: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return register(key: Key<RegisteredType>(name: name, container: container), metadata: metadata, cached: true) { Cached(instance()) }
+        return register(holder: Cached(instance()), name: name, container: container, metadata: metadata, cached: false)
     }
     
     @discardableResult func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        let key = Key<RegisteredType>(name: name, container: container)
         let weakling = Weak(instance)
-        return register(key: key, metadata: metadata, cached: true) { weakling }
+        return register(holder: weakling, name: name, container: container, metadata: metadata)
     }
     
     @discardableResult func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {
@@ -51,7 +60,15 @@ public extension _Guise {
         return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
     }
     
+    @discardableResult static func register<HoldingType: Holder>(holder: @escaping @autoclosure () -> HoldingType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false) -> Key<HoldingType.Held> {
+        return defaultResolver.register(holder: holder, name: name, container: container, metadata: metadata, cached: cached)
+    }
+    
     @discardableResult static func register<Parameter, RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<Parameter, RegisteredType>) -> Key<RegisteredType> {
+        return defaultResolver.register(type: type, name: name, container: container, metadata: metadata, cached: cached, resolution: resolution)
+    }
+    
+    @discardableResult static func register<ParameterType, HoldingType: Holder>(type: HoldingType.Held.Type = HoldingType.Held.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
         return defaultResolver.register(type: type, name: name, container: container, metadata: metadata, cached: cached, resolution: resolution)
     }
     

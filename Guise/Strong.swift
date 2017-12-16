@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+ `Strong` is the default `Holder`.
+ 
+ `Strong` holds a strong reference to a value and simply
+ regurgitates it. Can be cached or not.
+ */
 public struct Strong<T>: Holder {
     public let value: T?
     

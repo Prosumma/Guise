@@ -10,7 +10,7 @@ import Foundation
 
 // Adapted from https://stackoverflow.com/a/47441469/27779
 /**
- A `weak` container for reference types.
+ A `weak` `Holder` for reference types.
  
  - warning: If you pass a value type to `Weak`, its `value`
  property will always return `nil` due to boxing.
@@ -19,7 +19,7 @@ public struct Weak<T>: Holder {
     private weak var ref: AnyObject?
 
     /**
-     Initalizes a `weak` container for reference types.
+     Initalizes a `weak` `Holder` for reference types.
      
      - warning: If you pass a value type to `Weak`, its `value`
      property will always return `nil` due to boxing.
