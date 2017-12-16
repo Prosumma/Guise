@@ -29,7 +29,7 @@ class _Registration: Registration {
     /// Gets the underlying value from the holder
     private let get: (Any) -> Any?
     /// Cached instance, if any
-    private var instance: Any?
+    private var holder: Any?
     /// Metadata, which defaults to an instance of `Void`, i.e., `()`
     public let metadata: Any
     
@@ -46,13 +46,13 @@ class _Registration: Registration {
     public func resolve<T>(parameter: Any, cached: Bool?) -> T? {
         let result: T?
         if self.holderCached ?? cached ?? self.cached {
-            if instance == nil {
+            if holder == nil {
                 cacheQueue.sync {
-                    if instance != nil { return }
-                    instance = resolution(parameter)
+                    if holder != nil { return }
+                    holder = resolution(parameter)
                 }
             }
-            result = get(instance!) as! T?
+            result = get(holder!) as! T?
         } else {
             result = get(resolution(parameter)) as! T?
         }
