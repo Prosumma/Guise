@@ -32,6 +32,7 @@ enum Name: String {
  */
 enum Container {
     case 🐝
+    case 💣
 }
 
 protocol Upwit: class {

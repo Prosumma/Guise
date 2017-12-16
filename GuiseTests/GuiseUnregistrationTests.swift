@@ -40,4 +40,15 @@ class GuiseUnregistrationTests: XCTestCase {
         XCTAssertEqual(limit, Guise.unregister(container: Container.🐝))
     }
     
+    func testUnregistrationOfMultipleContainers() {
+        let containers: [Container] = [.🐝, .💣]
+        let limit = 10
+        for i in 0..<limit {
+            let container = containers[i % 2]
+            Guise.register(factory: Plink(thibb: "\(i)") as Plonk, name: i, container: container)
+        }
+        let keys: [AnyKey] = containers.map{ Guise.filter(container: $0).keys }.flatMap{ $0 }
+        XCTAssertEqual(limit, Guise.unregister(keys: keys))
+    }
+    
 }
