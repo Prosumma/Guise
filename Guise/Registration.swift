@@ -9,6 +9,7 @@
 import Foundation
 
 public protocol Registration {
+    var expectsResolver: Bool { get }
     var metadata: Any { get }
     func resolve<RegisteredType>(parameter: Any, cached: Bool?) -> RegisteredType?
 }

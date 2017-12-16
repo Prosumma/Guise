@@ -27,24 +27,27 @@ class _Registration: Registration {
     /// The registered resolution block
     private let resolution: (Any) -> Any
     /// Gets the underlying value from the holder
-    private let get: (Any) -> Any?
-    /// Cached instance, if any
+    private let value: (Any) -> Any?
+    /// Cached holder, if any
     private var holder: Any?
     /// Metadata, which defaults to an instance of `Void`, i.e., `()`
     public let metadata: Any
+    /// Whether `ParameterType` is `Guising`
+    public let expectsResolver: Bool
     
-    init<P, H: Holder>(metadata: Any, cached: Bool, resolution: @escaping Resolution<P, H>) {
+    init<ParameterType, HoldingType: Holder>(metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) {
+        self.expectsResolver = ParameterType.self is Guising.Type
         self.metadata = metadata
-        self.holderCached = H.cached
+        self.holderCached = HoldingType.cached
         self.cached = cached
-        self.resolution = { param in resolution(param as! P) }
-        self.get = { ($0 as! H).value }
-        self.cacheQueue = DispatchQueue(label: "com.prosumma.Guise.Registration.[\(String(reflecting: H.Held.self))].\(UUID())")
+        self.resolution = { param in resolution(param as! ParameterType) }
+        self.value = { ($0 as! HoldingType).value }
+        self.cacheQueue = DispatchQueue(label: "\(UUID())")
     }
     
     /// - warning: An incompatible `T` will cause an unrecoverable runtime exception.
-    public func resolve<T>(parameter: Any, cached: Bool?) -> T? {
-        let result: T?
+    public func resolve<RegisteredType>(parameter: Any, cached: Bool?) -> RegisteredType? {
+        let result: RegisteredType?
         if self.holderCached ?? cached ?? self.cached {
             if holder == nil {
                 cacheQueue.sync {
@@ -52,9 +55,9 @@ class _Registration: Registration {
                     holder = resolution(parameter)
                 }
             }
-            result = get(holder!) as! T?
+            result = value(holder!) as! RegisteredType?
         } else {
-            result = get(resolution(parameter)) as! T?
+            result = value(resolution(parameter)) as! RegisteredType?
         }
         return result
     }
