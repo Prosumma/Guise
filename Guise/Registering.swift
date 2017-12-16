@@ -33,10 +33,12 @@ public extension Guising {
     }
 
     @discardableResult func register<RegisteredType>(instance: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return register(holder: Cached(instance()), name: name, container: container, metadata: metadata, cached: false)
+        return register(holder: Cached(instance()), name: name, container: container, metadata: metadata, cached: true)
     }
     
     @discardableResult func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
+        // This must be done in two steps, otherwise the block will capture the instance parameter and it will
+        // not be weakly held.
         let weakling = Weak(instance)
         return register(holder: weakling, name: name, container: container, metadata: metadata)
     }
