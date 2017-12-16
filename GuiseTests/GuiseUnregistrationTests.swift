@@ -11,6 +11,11 @@ import XCTest
 
 class GuiseUnregistrationTests: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        Guise.clear()
+    }
+    
     func testUnregistration() {
         let limit = 4
         var keys = Set<Key<Plonk>>()
@@ -24,6 +29,15 @@ class GuiseUnregistrationTests: XCTestCase {
         keys.insert(Key<Plonk>(name: UUID()))
         XCTAssertNotEqual(limit, keys.count)
         XCTAssertEqual(limit, Guise.unregister(keys: keys))
+    }
+    
+    func testUnregistrationOfContainers() {
+        let limit = 10
+        for _ in 0..<limit {
+            let identifier = UUID()
+            Guise.register(factory: Plink(thibb: "\(identifier)") as Plonk, name: identifier, container: Container.🐝)
+        }
+        XCTAssertEqual(limit, Guise.unregister(container: Container.🐝))
     }
     
 }
