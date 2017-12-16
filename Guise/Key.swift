@@ -8,9 +8,13 @@
 
 import Foundation
 
+/// A type-safe `Keyed` implementation.
 public struct Key<RegisteredType>: Keyed, Hashable {
+    /// The registered type.
     public let type = String(reflecting: RegisteredType.self)
+    /// The name under which the registration was made. Defaults to `Guise.Name.default`.
     public let name: AnyHashable
+    /// The container in which the registration was made. Defaults to `Guise.Container.default`.
     public let container: AnyHashable
     public let hashValue: Int
     
@@ -20,6 +24,17 @@ public struct Key<RegisteredType>: Keyed, Hashable {
         self.hashValue = hash(self.type, self.name, self.container)
     }
     
+    /**
+     Converts another `Keyed` to `Key<RegisteredType>`. This
+     initializer will fail if the `type` parameters are not
+     identical, so care must be used when converting.
+     
+     ```
+     if let key = Key<SomeType>(anotherKey) {
+       // Do something with key
+     }
+     ```
+     */
     public init?(_ key: Keyed) {
         self.init(name: key.name, container: key.container)
         if key.type != self.type { return nil }

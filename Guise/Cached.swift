@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Cached `Holder`. This type forces caching.
 public struct Cached<T>: Holder {
     public let value: T?
     public init(_ value: T) {

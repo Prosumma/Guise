@@ -8,9 +8,13 @@
 
 import Foundation
 
+/// A type-erased `Keyed` implementation.
 public struct AnyKey: Keyed, Hashable {
+    /// The registered type.
     public let type: String
+    /// The name under which the registration was made. Defaults to `Guise.Name.default`.
     public let name: AnyHashable
+    /// The container in which the registration was made. Defaults to `Guise.Container.default`.
     public let container: AnyHashable
     public let hashValue: Int
     
@@ -21,6 +25,17 @@ public struct AnyKey: Keyed, Hashable {
         self.hashValue = hash(self.type, self.name, self.container)
     }
     
+    /**
+     Converts another `Keyed` to `AnyKey`. This initializer
+     is failable because it inherits from the `Keyed` protocol.
+     However, in the case of `AnyKey`, it can never fail, so it
+     is always safe (and always recommended) to force-unwrap
+     the result of this initializer.
+     
+     ```
+     let key = AnyKey(anotherKey)!
+     ```
+    */
     public init?(_ key: Keyed) {
         self.type = key.type
         self.name = key.name

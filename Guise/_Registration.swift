@@ -21,7 +21,7 @@ class _Registration: Registration {
      */
     private let cacheQueue: DispatchQueue
     /// If the Holder specifies caching, this will override all other caching
-    let holderCached: Bool?
+    let forceCached: Bool?
     /// Requested lifecycle for the dependency
     let cached: Bool
     /// The registered resolution block
@@ -38,17 +38,17 @@ class _Registration: Registration {
     init<ParameterType, HoldingType: Holder>(metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) {
         self.expectsGuising = ParameterType.self is Guising.Protocol
         self.metadata = metadata
-        self.holderCached = HoldingType.cached
+        self.forceCached = HoldingType.cached
         self.cached = cached
         self.resolution = { param in resolution(param as! ParameterType) }
         self.value = { ($0 as! HoldingType).value }
         self.cacheQueue = DispatchQueue(label: "\(UUID())")
     }
     
-    /// - warning: An incompatible `T` will cause an unrecoverable runtime exception.
+    /// - warning: An incompatible `RegisteredType` will cause an unrecoverable runtime exception.
     public func resolve<RegisteredType>(parameter: Any, cached: Bool?) -> RegisteredType? {
         let result: RegisteredType?
-        if self.holderCached ?? cached ?? self.cached {
+        if self.forceCached ?? cached ?? self.cached {
             if holder == nil {
                 cacheQueue.sync {
                     if holder != nil { return }

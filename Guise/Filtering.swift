@@ -23,7 +23,7 @@ public extension Guising {
     }
     
     func filter<K: Keyed>(criteria: Criteria) -> [K: Registration] {
-        return filter{ $0 == criteria }
+        return filter{ $0 ~= criteria }
     }
     
     func filter<K: Keyed, Metadata>(criteria: Criteria, metafilter: @escaping Metafilter<Metadata>) -> [K: Registration] {
