@@ -12,7 +12,7 @@ public extension Guising {
     
     func resolve<RegisteredType>(key: Key<RegisteredType>, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
         guard let registration = filter(key: key) else { return nil }
-        let parameter = parameter is Void && registration.expectsResolver ? self : parameter
+        let parameter = registration.expectsResolver ? self : parameter
         return registration.resolve(parameter: parameter, cached: cached)
     }
     
