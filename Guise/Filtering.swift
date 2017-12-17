@@ -18,7 +18,7 @@ public extension Guising {
         return filter{ $0 == key }.values.first
     }
     
-    func filter<K: Keyed>(keys: Set<K>) -> [K: Registration] {
+    func filter<Keys: Sequence>(keys: Keys) -> [Keys.Element: Registration] where Keys.Element: Keyed {
         return filter{ keys.contains($0) }
     }
     
@@ -68,7 +68,7 @@ public extension _Guise {
         return defaultResolver.filter(key: key)
     }
     
-    static func filter<K: Keyed>(keys: Set<K>) -> [K: Registration] {
+    static func filter<Keys: Sequence>(keys: Keys) -> [Keys.Element: Registration] where Keys.Element: Keyed {
         return defaultResolver.filter(keys: keys)
     }
     
@@ -107,4 +107,5 @@ public extension _Guise {
     static func filter<Metadata: Equatable>(name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: Metadata) -> [AnyKey: Registration] {
         return defaultResolver.filter(name: name, container: container, metadata: metadata)
     }
+    
 }

@@ -16,6 +16,11 @@ public extension Guising {
         return registration.resolve(parameter: parameter, cached: cached)
     }
     
+    public func resolve<RegisteredType, Keys: Sequence>(keys: Keys, parameter: Any = (), cached: Bool? = nil) -> [RegisteredType] where Keys.Element == Key<RegisteredType> {
+        let registrations: [Key<RegisteredType>: Registration] = filter(keys: keys)
+        return registrations.flatMap{ $0.value.resolve(parameter: parameter, cached: cached) }
+    }
+    
     func resolve<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable  = Guise.Container.default, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
         return resolve(key: Key<RegisteredType>(name: name, container: container), parameter: parameter, cached: cached)
     }
@@ -25,7 +30,7 @@ public extension Guising {
         guard let registration = filter(key: key) else { return instance }
         let parameter = InjectionParameters(target: instance, resolver: self)
         return registration.resolve(parameter: parameter, cached: false) ?? instance
-    }
+    }    
 }
 
 public extension _Guise {
