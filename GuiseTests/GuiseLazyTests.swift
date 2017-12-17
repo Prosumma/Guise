@@ -25,10 +25,9 @@ class GuiseLazyTests: XCTestCase {
     
     func testLazyResolution() {
         Guise.register(factory: Plink(thibb: "lazy") as Plonk)
-        Guise.register{ (resolver: Guising) in TakesALazy(plonk: resolver.lazy()!) }
+        Guise.register(factory: TakesALazy(plonk: Guise.lazy()!))
         let takesALazy: TakesALazy = Guise.resolve()!
         XCTAssertEqual(takesALazy.plonk.thibb, "lazy")
-        
     }
     
 }
