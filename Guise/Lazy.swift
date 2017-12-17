@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Lazy<RegisteredType> {
+public final class Lazy<RegisteredType> {
     private indirect enum Value {
         case resolved(RegisteredType?)
         case unresolved(Registration)
@@ -20,6 +20,11 @@ public class Lazy<RegisteredType> {
     public init(_ registration: Registration, cached: Bool? = nil) {
         self.value = .unresolved(registration)
         self.cached = cached
+    }
+    
+    public init(value: RegisteredType?) {
+        self.cached = nil
+        self.value = .resolved(value)
     }
     
     public func resolve(parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
