@@ -8,18 +8,31 @@
 
 import Foundation
 
-public struct Lazy<RegisteredType> {
+public class Lazy<RegisteredType> {
+    
+    // `indirect` is required due to https://bugs.swift.org/browse/SR-4383
+    private indirect enum Value {
+        case resolved(RegisteredType?)
+        case unresolved(Registration)
+    }
     
     public let cached: Bool?
-    public let registration: Registration
+    private var value: Value
     
     public init(_ registration: Registration, cached: Bool? = nil) {
-        self.registration = registration
+        self.value = .unresolved(registration)
         self.cached = cached
     }
     
     public func resolve(parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
-        return registration.resolve(parameter: parameter, cached: cached ?? self.cached)
+        switch value {
+        case .resolved(let resolved):
+            return resolved
+        case .unresolved(let registration):
+            let resolved: RegisteredType? = registration.resolve(parameter: parameter, cached: cached ?? self.cached)
+            value = .resolved(resolved)
+            return resolved
+        }
     }
 }
 

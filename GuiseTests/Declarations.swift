@@ -82,6 +82,13 @@ class Owlette {
     var plonk: Plonk?
 }
 
+struct TakesALazy {
+    let plonk: Plonk
+    init(plonk: Lazy<Plonk>) {
+        self.plonk = plonk.resolve()!
+    }
+}
+
 enum Metadata {
     case blah
     case bloop
