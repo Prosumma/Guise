@@ -9,8 +9,6 @@
 import Foundation
 
 public class Lazy<RegisteredType> {
-    
-    // `indirect` is required due to https://bugs.swift.org/browse/SR-4383
     private indirect enum Value {
         case resolved(RegisteredType?)
         case unresolved(Registration)
