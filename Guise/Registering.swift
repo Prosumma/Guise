@@ -10,6 +10,10 @@ import Foundation
 
 public extension Guising {
     
+    @discardableResult func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
+        return register(key: key, metadata: metadata, cached: cached, resolution: resolution)
+    }
+    
     @discardableResult func register<ParameterType, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping (ParameterType) -> RegisteredType) -> Key<RegisteredType> {
         return register(key: key, metadata: metadata, cached: cached) { Strong(resolution($0)) }
     }
@@ -45,8 +49,8 @@ public extension Guising {
     
     @discardableResult func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {
         let key = Key<Target>(container: Guise.Container.injections)
-        return register(key: key, metadata: (), cached: false) { (parameters: InjectionParameters) in
-            return injection(parameters.target, parameters.resolver)
+        return register(key: key) { (parameters: InjectionParameters) in
+            return Uncached(injection(parameters.target, parameters.resolver))
         }
     }
     
@@ -57,6 +61,10 @@ public extension Guising {
 }
 
 public extension _Guise {
+    
+    @discardableResult static func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
+        return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
+    }
     
     @discardableResult static func register<ParameterType, RegisteredType>(key: Key<RegisteredType>, metadata: Any = (), cached: Bool = false, resolution: @escaping (ParameterType) -> RegisteredType) -> Key<RegisteredType> {
         return defaultResolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
