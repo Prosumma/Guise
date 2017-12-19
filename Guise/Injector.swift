@@ -22,67 +22,146 @@ public struct Injector<Target> {
         return injector
     }
     
-    public func inject<Value>(exact keyPath: WritableKeyPath<Target, Value>, key: Key<Value>) -> Injector<Target> {
-        return inject { (target, resolver) in
-            guard let value = resolver.resolve(key: key) else { return target }
-            var target = target
-            target[keyPath: keyPath] = value
-            return target
-        }
-    }
-    
-    public func inject<Value>(_ keyPath: WritableKeyPath<Target, Value?>, key: Key<Value>) -> Injector<Target> {
+    func inject<RegisteredType>(exact keyPath: WritableKeyPath<Target, RegisteredType>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
         return inject { (target, resolver) in
             var target = target
-            target[keyPath: keyPath] = resolver.resolve(key: key)
+            guard let resolved = resolver.resolve(key: key, cached: cached) else { return target }
+            target[keyPath: keyPath] = resolved
             return target
         }
     }
     
-    public func inject<Value>(_ keyPath: WritableKeyPath<Target, Value?>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) -> Injector<Target> {
-        return inject(keyPath, key: Key(name: name, container: container))
+    func inject<RegisteredType>(exact keyPath: WritableKeyPath<Target, RegisteredType>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(exact: keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
     }
     
-    public func inject<Value>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, key: Key<Value>) -> Injector<Target> {
+    func inject<RegisteredType>(exact keyPath: ReferenceWritableKeyPath<Target, RegisteredType>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
+        return inject { (target, resolver) in
+            guard let resolved = resolver.resolve(key: key, cached: cached) else { return target }
+            target[keyPath: keyPath] = resolved
+            return target
+        }
+    }
+    
+    func inject<RegisteredType>(exact keyPath: ReferenceWritableKeyPath<Target, RegisteredType>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(exact: keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, RegisteredType?>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
         return inject { (target, resolver) in
             var target = target
-            target[keyPath: keyPath] = resolver.resolve(key: key)
+            target[keyPath: keyPath] = resolver.resolve(key: key, cached: cached)
             return target
         }
     }
     
-    public func inject<Value>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) -> Injector<Target> {
-        return inject(keyPath, key: Key(name: name, container: container))
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, RegisteredType?>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
     }
     
-    public func inject<Value>(exact keyPath: ReferenceWritableKeyPath<Target, Value>, key: Key<Value>) -> Injector<Target> {
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, RegisteredType?>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
         return inject { (target, resolver) in
-            guard let value = resolver.resolve(key: key) else { return target }
-            target[keyPath: keyPath] = value
+            target[keyPath: keyPath] = resolver.resolve(key: key, cached: cached)
             return target
         }
     }
     
-    public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, Value?>, key: Key<Value>) -> Injector<Target> {
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, RegisteredType?>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<RegisteredType>>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
         return inject { (target, resolver) in
-            target[keyPath: keyPath] = resolver.resolve(key: key)
+            var target = target
+            target[keyPath: keyPath] = resolver.resolve(key: key, cached: cached)
             return target
         }
     }
     
-    public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, Value?>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) -> Injector<Target> {
-        return inject(keyPath, key: Key(name: name, container: container))
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<RegisteredType>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
     }
     
-    public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, key: Key<Value>) -> Injector<Target> {
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<RegisteredType>>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
         return inject { (target, resolver) in
-            target[keyPath: keyPath] = resolver.resolve(key: key)
+            target[keyPath: keyPath] = resolver.resolve(key: key, cached: cached)
             return target
         }
     }
     
-    public func inject<Value>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<Value>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) -> Injector<Target> {
-        return inject(keyPath, key: Key(name: name, container: container))
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<RegisteredType>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, Lazy<RegisteredType>>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
+        return inject { (target, resolver) in
+            var target = target
+            guard let resolved = resolver.lazy(key: key, cached: cached) else { return target }
+            target[keyPath: keyPath] = resolved
+            return target
+        }
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, Lazy<RegisteredType>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, Lazy<RegisteredType>>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
+        return inject { (target, resolver) in
+            guard let resolved = resolver.lazy(key: key, cached: cached) else { return target }
+            target[keyPath: keyPath] = resolved
+            return target
+        }
+    }
+    
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, Lazy<RegisteredType>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, Lazy<RegisteredType>?>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
+        return inject { (target, resolver) in
+            var target = target
+            target[keyPath: keyPath] = resolver.lazy(key: key, cached: cached)
+            return target
+        }
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, Lazy<RegisteredType>?>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, Lazy<RegisteredType>?>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
+        return inject { (target, resolver) in
+            target[keyPath: keyPath] = resolver.lazy(key: key, cached: cached)
+            return target
+        }
+    }
+    
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, Lazy<RegisteredType>?>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<Lazy<RegisteredType>>>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
+        return inject { (target, resolver) in
+            var target = target
+            target[keyPath: keyPath] = resolver.lazy(key: key, cached: cached)
+            return target
+        }
+    }
+    
+    func inject<RegisteredType>(_ keyPath: WritableKeyPath<Target, ImplicitlyUnwrappedOptional<Lazy<RegisteredType>>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
+    }
+    
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<Lazy<RegisteredType>>>, key: Key<RegisteredType>, cached: Bool? = nil) -> Injector<Target> {
+        return inject { (target, resolver) in
+            target[keyPath: keyPath] = resolver.lazy(key: key, cached: cached)
+            return target
+        }
+    }
+    
+    func inject<RegisteredType>(_ keyPath: ReferenceWritableKeyPath<Target, ImplicitlyUnwrappedOptional<Lazy<RegisteredType>>>, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Injector<Target> {
+        return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
     }
     
     @discardableResult public func register() -> Key<Target> {

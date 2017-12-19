@@ -15,25 +15,36 @@ public final class Lazy<RegisteredType> {
     }
     
     public let cached: Bool?
-    private var value: Value
+    private var _value: Value
     
     public init(_ registration: Registration, cached: Bool? = nil) {
-        self.value = .unresolved(registration)
+        self._value = .unresolved(registration)
         self.cached = cached
     }
     
     public init(value: RegisteredType?) {
         self.cached = nil
-        self.value = .resolved(value)
+        self._value = .resolved(value)
+    }
+    
+    public var value: RegisteredType? {
+        return resolve()
+    }
+    
+    public var resolved: Bool {
+        switch _value {
+        case .resolved: return true
+        case .unresolved: return false
+        }
     }
     
     public func resolve(parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
-        switch value {
+        switch _value {
         case .resolved(let resolved):
             return resolved
         case .unresolved(let registration):
             let resolved: RegisteredType? = registration.resolve(parameter: parameter, cached: cached ?? self.cached)
-            value = .resolved(resolved)
+            _value = .resolved(resolved)
             return resolved
         }
     }

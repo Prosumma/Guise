@@ -34,4 +34,14 @@ class GuiseInjectionTests: XCTestCase {
         XCTAssertEqual(owlette.plonk!.thibb, Name.owlette.rawValue)
     }
     
+    func testLazyInjection() {
+        Guise.into(injectable: HasALazy.self).inject(\.plonk).register()
+        Guise.register(instance: Plink(thibb: Name.owlette.rawValue) as Plonk)
+        
+        let hasALazy = HasALazy()
+        Guise.resolve(into: hasALazy)
+        XCTAssertNotNil(hasALazy.plonk)
+        XCTAssertEqual(hasALazy.plonk!.value!.thibb, Name.owlette.rawValue)
+    }
+    
 }

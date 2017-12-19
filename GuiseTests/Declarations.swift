@@ -89,6 +89,10 @@ struct TakesALazy {
     }
 }
 
+class HasALazy {
+    var plonk: Lazy<Plonk>?
+}
+
 enum Metadata {
     case blah
     case bloop
