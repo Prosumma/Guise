@@ -49,9 +49,7 @@ public extension Guising {
     
     @discardableResult func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {
         let key = Key<Target>(container: Guise.Container.injections)
-        return register(key: key) { (parameters: InjectionParameters) in
-            return Uncached(injection(parameters.target, parameters.resolver))
-        }
+        return register(key: key) { (parameters: InjectionParameters) in Uncached(injection(parameters.target, parameters.resolver)) }
     }
     
     func into<Target>(injectable type: Target.Type) -> Injector<Target> {
