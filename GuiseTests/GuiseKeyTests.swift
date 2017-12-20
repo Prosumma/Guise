@@ -19,8 +19,9 @@ class GuiseKeyTests: XCTestCase {
     // MARK: Keys
     
     func testFailableKeyConversion() {
-        let untypedKey = AnyKey(type: String.self)
-        XCTAssertNil(Key<Int>(untypedKey))
+        let typeErasedKey = AnyKey(type: String.self)
+        // This fails because Int != String.
+        XCTAssertNil(Key<Int>(typeErasedKey))
     }
     
     func testKeyEqualityForTypedKeys() {
