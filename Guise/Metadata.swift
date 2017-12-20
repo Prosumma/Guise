@@ -17,6 +17,6 @@ public extension Guising {
 
 public extension _Guise {
     static func metadata<RegisteredType, Metadata>(for key: Key<RegisteredType>, metatype: Metadata.Type = Metadata.self) -> Metadata? {
-        return defaultResolver.metadata(for: key, metatype: metatype)
+        return resolver.metadata(for: key, metatype: metatype)
     }
 }

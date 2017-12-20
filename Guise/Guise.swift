@@ -18,17 +18,17 @@ public struct Guise: _Guise {
         case injections
     }
     
-    public static var defaultResolver: Guising = Resolver()
+    public static var resolver: Guising = Resolver()
     
     @discardableResult public static func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
-        return defaultResolver.register(key: key, metadata: metadata, cached:cached, resolution: resolution)
+        return resolver.register(key: key, metadata: metadata, cached:cached, resolution: resolution)
     }
 
     @discardableResult public static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed {
-        return defaultResolver.unregister(keys: keys)
+        return resolver.unregister(keys: keys)
     }
 
     public static func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration] {
-        return defaultResolver.filter(filter)
+        return resolver.filter(filter)
     }
 }

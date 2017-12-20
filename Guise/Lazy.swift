@@ -78,15 +78,15 @@ extension Guising {
 extension _Guise {
 
     public static func lazy<RegisteredType>(key: Key<RegisteredType>, cached: Bool? = nil) -> Lazy<RegisteredType>? {
-        return defaultResolver.lazy(key: key, cached: cached)
+        return resolver.lazy(key: key, cached: cached)
     }
     
     public static func lazy<RegisteredType, Keys: Sequence>(keys: Keys, cached: Bool? = nil) -> [Lazy<RegisteredType>] where Keys.Element == Key<RegisteredType> {
-        return defaultResolver.lazy(keys: keys, cached: cached)
+        return resolver.lazy(keys: keys, cached: cached)
     }
     
     public static func lazy<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Lazy<RegisteredType>? {
-        return defaultResolver.lazy(type: type, name: name, container: container, cached: cached)
+        return resolver.lazy(type: type, name: name, container: container, cached: cached)
     }
     
 }

@@ -61,51 +61,51 @@ public extension Guising {
 
 public extension _Guise {
     static var keys: Set<AnyKey> {
-        return defaultResolver.keys
+        return resolver.keys
     }
     
     static func filter<K: Keyed & Hashable>(key: K) -> Registration? {
-        return defaultResolver.filter(key: key)
+        return resolver.filter(key: key)
     }
     
     static func filter<Keys: Sequence>(keys: Keys) -> [Keys.Element: Registration] where Keys.Element: Keyed {
-        return defaultResolver.filter(keys: keys)
+        return resolver.filter(keys: keys)
     }
     
     static func filter<K: Keyed>(criteria: Criteria) -> [K: Registration] {
-        return defaultResolver.filter(criteria: criteria)
+        return resolver.filter(criteria: criteria)
     }
     
     static func filter<K: Keyed, Metadata>(criteria: Criteria, metafilter: @escaping Metafilter<Metadata>) -> [K: Registration] {
-        return defaultResolver.filter(criteria: criteria, metafilter: metafilter)
+        return resolver.filter(criteria: criteria, metafilter: metafilter)
     }
     
     static func filter<K: Keyed, Metadata: Equatable>(criteria: Criteria, metadata: Metadata) -> [K: Registration] {
-        return defaultResolver.filter(criteria: criteria, metadata: metadata)
+        return resolver.filter(criteria: criteria, metadata: metadata)
     }
     
     static func filter<RegisteredType>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil) -> [Key<RegisteredType>: Registration] {
-        return defaultResolver.filter(type: type, name: name, container: container)
+        return resolver.filter(type: type, name: name, container: container)
     }
     
     static func filter<RegisteredType, Metadata>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<Metadata>) -> [Key<RegisteredType>: Registration] {
-        return defaultResolver.filter(type: type, name: name, container: container, metafilter: metafilter)
+        return resolver.filter(type: type, name: name, container: container, metafilter: metafilter)
     }
     
     static func filter<RegisteredType, Metadata: Equatable>(type: RegisteredType.Type, name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: Metadata) -> [Key<RegisteredType>: Registration] {
-        return defaultResolver.filter(type: type, name: name, container: container, metadata: metadata)
+        return resolver.filter(type: type, name: name, container: container, metadata: metadata)
     }
     
     static func filter(name: AnyHashable? = nil, container: AnyHashable? = nil) -> [AnyKey: Registration] {
-        return defaultResolver.filter(name: name, container: container)
+        return resolver.filter(name: name, container: container)
     }
     
     static func filter<Metadata>(name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<Metadata>) -> [AnyKey: Registration] {
-        return defaultResolver.filter(name: name, container: container, metafilter: metafilter)
+        return resolver.filter(name: name, container: container, metafilter: metafilter)
     }
     
     static func filter<Metadata: Equatable>(name: AnyHashable? = nil, container: AnyHashable? = nil, metadata: Metadata) -> [AnyKey: Registration] {
-        return defaultResolver.filter(name: name, container: container, metadata: metadata)
+        return resolver.filter(name: name, container: container, metadata: metadata)
     }
     
 }

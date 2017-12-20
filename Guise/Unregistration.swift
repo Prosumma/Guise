@@ -31,19 +31,19 @@ public extension Guising {
 public extension _Guise {
     
     @discardableResult static func unregister<K: Keyed>(key: K) -> Int {
-        return defaultResolver.unregister(key: key)
+        return resolver.unregister(key: key)
     }
     
     @discardableResult static func unregister<RegisteredType>(type: RegisteredType.Type, container: AnyHashable = Guise.Container.default) -> Int {
-        return defaultResolver.unregister(type: type, container: container)
+        return resolver.unregister(type: type, container: container)
     }
     
     @discardableResult static func unregister(container: AnyHashable) -> Int {
-        return defaultResolver.unregister(container: container)
+        return resolver.unregister(container: container)
     }
     
     @discardableResult static func clear() -> Int {
-        return defaultResolver.clear()
+        return resolver.clear()
     }
     
 }

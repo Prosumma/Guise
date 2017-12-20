@@ -36,14 +36,14 @@ public extension Guising {
 public extension _Guise {
 
     static func resolve<RegisteredType>(key: Key<RegisteredType>, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
-        return defaultResolver.resolve(key: key, parameter: parameter, cached: cached)
+        return resolver.resolve(key: key, parameter: parameter, cached: cached)
     }
     
     static func resolve<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable  = Guise.Container.default, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
-        return defaultResolver.resolve(type: type, name: name, container: container, parameter: parameter, cached: cached)
+        return resolver.resolve(type: type, name: name, container: container, parameter: parameter, cached: cached)
     }
     
     @discardableResult static func resolve<Target>(into instance: Target) -> Target {
-        return defaultResolver.resolve(into: instance)
+        return resolver.resolve(into: instance)
     }
 }
