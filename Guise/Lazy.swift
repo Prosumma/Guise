@@ -75,7 +75,7 @@ extension Resolving {
     
 }
 
-extension _Guise {
+extension _Resolving {
 
     public static func lazy<RegisteredType>(key: Key<RegisteredType>, cached: Bool? = nil) -> Lazy<RegisteredType>? {
         return resolver.lazy(key: key, cached: cached)

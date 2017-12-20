@@ -59,7 +59,7 @@ public extension Resolving {
     }
 }
 
-public extension _Guise {
+public extension _Resolving {
     static var keys: Set<AnyKey> {
         return resolver.keys
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Guise: _Guise {
+public struct Guise: _Resolving {
     public enum Name {
         case `default`
     }

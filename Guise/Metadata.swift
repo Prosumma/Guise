@@ -15,7 +15,7 @@ public extension Resolving {
     }
 }
 
-public extension _Guise {
+public extension _Resolving {
     static func metadata<RegisteredType, Metadata>(for key: Key<RegisteredType>, metatype: Metadata.Type = Metadata.self) -> Metadata? {
         return resolver.metadata(for: key, metatype: metatype)
     }

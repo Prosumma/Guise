@@ -33,7 +33,7 @@ public extension Resolving {
     }    
 }
 
-public extension _Guise {
+public extension _Resolving {
 
     static func resolve<RegisteredType>(key: Key<RegisteredType>, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
         return resolver.resolve(key: key, parameter: parameter, cached: cached)

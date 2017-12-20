@@ -58,7 +58,7 @@ public extension Resolving {
     
 }
 
-public extension _Guise {
+public extension _Resolving {
     
     @discardableResult static func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
         return resolver.register(key: key, metadata: metadata, cached: cached, resolution: resolution)
