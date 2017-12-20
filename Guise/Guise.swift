@@ -18,7 +18,7 @@ public struct Guise: _Guise {
         case injections
     }
     
-    public static var resolver: Guising = Resolver()
+    public static var resolver: Guising = DefaultResolver()
     
     @discardableResult public static func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
         return resolver.register(key: key, metadata: metadata, cached:cached, resolution: resolution)
