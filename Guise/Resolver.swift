@@ -1,5 +1,5 @@
 //
-//  DefaultResolver.swift
+//  Resolver.swift
 //  Guise
 //
 //  Created by Gregory Higley on 12/11/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class DefaultResolver: Guising {
+public final class Resolver: Guising {
     
     internal var lock = Lock()
     internal var registrations = [AnyKey: Registration]()
