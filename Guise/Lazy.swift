@@ -21,7 +21,10 @@ public final class Lazy<RegisteredType> {
     public init(_ registration: Registration, resolver: Guising, cached: Bool? = nil) {
         self._value = .unresolved(registration)
         self.cached = cached
-        self._resolver = resolver
+        // Let's not have more weakrefs than we need.
+        if registration.expectsGuising {
+            self._resolver = resolver
+        }
     }
     
     public init(value: RegisteredType?) {
