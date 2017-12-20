@@ -1,5 +1,5 @@
 //
-//  Unregistration.swift
+//  Unregister.swift
 //  Guise
 //
 //  Created by Gregory Higley on 12/12/17.

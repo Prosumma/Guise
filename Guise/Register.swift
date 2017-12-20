@@ -1,5 +1,5 @@
 //
-//  Registering.swift
+//  Register.swift
 //  Guise
 //
 //  Created by Gregory Higley on 12/11/17.
