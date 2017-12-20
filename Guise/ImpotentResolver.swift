@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class ImpotentResolver: Guising {
+public final class ImpotentResolver: Resolving {
     @discardableResult public func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
         return key
     }

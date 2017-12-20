@@ -36,7 +36,7 @@ class _Registration: Registration {
     public let expectsGuising: Bool
     
     init<ParameterType, HoldingType: Holder>(metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) {
-        self.expectsGuising = ParameterType.self is Guising.Protocol
+        self.expectsGuising = ParameterType.self is Resolving.Protocol
         self.metadata = metadata
         self.forceCached = HoldingType.cached
         self.cached = cached

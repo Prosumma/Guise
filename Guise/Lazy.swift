@@ -16,9 +16,9 @@ public final class Lazy<RegisteredType> {
     
     public let cached: Bool?
     private var _value: Value
-    private weak var _resolver: Guising?
+    private weak var _resolver: Resolving?
     
-    public init(_ registration: Registration, resolver: Guising, cached: Bool? = nil) {
+    public init(_ registration: Registration, resolver: Resolving, cached: Bool? = nil) {
         self._value = .unresolved(registration)
         self.cached = cached
         // Let's not have more weakrefs than we need.
@@ -48,7 +48,7 @@ public final class Lazy<RegisteredType> {
         case .resolved(let resolved):
             return resolved
         case .unresolved(let registration):
-            let parameter = registration.expectsGuising && !(parameter is Guising) ? _resolver! : parameter
+            let parameter = registration.expectsGuising && !(parameter is Resolving) ? _resolver! : parameter
             let resolved: RegisteredType? = registration.resolve(parameter: parameter, cached: cached ?? self.cached)
             _value = .resolved(resolved)
             return resolved
@@ -56,7 +56,7 @@ public final class Lazy<RegisteredType> {
     }
 }
 
-extension Guising {
+extension Resolving {
     
     public func lazy<RegisteredType>(key: Key<RegisteredType>, cached: Bool? = nil) -> Lazy<RegisteredType>? {
         guard let registration = filter(key: key) else { return nil }

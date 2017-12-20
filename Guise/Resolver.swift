@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class Resolver: Guising {
+public final class Resolver: Resolving {
     
     internal var lock = Lock()
     internal var registrations = [AnyKey: Registration]()

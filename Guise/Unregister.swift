@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Guising {
+public extension Resolving {
     
     @discardableResult func unregister<K: Keyed>(key: K) -> Int {
         return unregister(keys: [key])

@@ -18,7 +18,7 @@ class GuiseExpectsResolverTests: XCTestCase {
 
     func testExpectsResolver() {
         Guise.register(factory: Plink(thibb: "wibble") as Plonk, name: Name.🌈)
-        Guise.register{ (resolver: Guising) in
+        Guise.register{ (resolver: Resolving) in
             return Froufroupookiedingdong(plonk: resolver.resolve(name: Name.🌈)!) as Wibble
         }
         let wibble = Guise.resolve(type: Wibble.self)!

@@ -8,4 +8,4 @@
 
 import Foundation
 
-typealias InjectionParameters<Target> = (target: Target, resolver: Guising)
+typealias InjectionParameters<Target> = (target: Target, resolver: Resolving)

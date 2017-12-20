@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Guising {
+public extension Resolving {
     
     var keys: Set<AnyKey> {
         return Set(filter().keys)

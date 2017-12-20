@@ -53,10 +53,10 @@
 		F32D9BDB1FDF3397005C00BD /* Resolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BD91FDF3397005C00BD /* Resolution.swift */; };
 		F32D9BDC1FDF3397005C00BD /* Resolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BD91FDF3397005C00BD /* Resolution.swift */; };
 		F32D9BDD1FDF3397005C00BD /* Resolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BD91FDF3397005C00BD /* Resolution.swift */; };
-		F32D9BDF1FDF33EC005C00BD /* Guising.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Guising.swift */; };
-		F32D9BE01FDF33EC005C00BD /* Guising.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Guising.swift */; };
-		F32D9BE11FDF33EC005C00BD /* Guising.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Guising.swift */; };
-		F32D9BE21FDF33EC005C00BD /* Guising.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Guising.swift */; };
+		F32D9BDF1FDF33EC005C00BD /* Resolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Resolving.swift */; };
+		F32D9BE01FDF33EC005C00BD /* Resolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Resolving.swift */; };
+		F32D9BE11FDF33EC005C00BD /* Resolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Resolving.swift */; };
+		F32D9BE21FDF33EC005C00BD /* Resolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Resolving.swift */; };
 		F32D9BE41FDF36D7005C00BD /* _Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BE31FDF36D7005C00BD /* _Guise.swift */; };
 		F32D9BE51FDF36D7005C00BD /* _Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BE31FDF36D7005C00BD /* _Guise.swift */; };
 		F32D9BE61FDF36D7005C00BD /* _Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BE31FDF36D7005C00BD /* _Guise.swift */; };
@@ -211,7 +211,7 @@
 		F32D9BCA1FDF316B005C00BD /* AnyKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyKey.swift; sourceTree = "<group>"; };
 		F32D9BD41FDF3388005C00BD /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 		F32D9BD91FDF3397005C00BD /* Resolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolution.swift; sourceTree = "<group>"; };
-		F32D9BDE1FDF33EC005C00BD /* Guising.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guising.swift; sourceTree = "<group>"; };
+		F32D9BDE1FDF33EC005C00BD /* Resolving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolving.swift; sourceTree = "<group>"; };
 		F32D9BE31FDF36D7005C00BD /* _Guise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Guise.swift; sourceTree = "<group>"; };
 		F32D9BE81FDF3799005C00BD /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		F32DF5801FE632D70038E898 /* Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
@@ -321,7 +321,7 @@
 				F31A1E701FE09DDC0052425F /* Criteria.swift */,
 				F3C2BC471FDF664E006726B7 /* Filter.swift */,
 				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
-				F32D9BDE1FDF33EC005C00BD /* Guising.swift */,
+				F32D9BDE1FDF33EC005C00BD /* Resolving.swift */,
 				F3CA19B71FE3C5CE003F901B /* Holder.swift */,
 				F3C2BC6F1FDFDC6C006726B7 /* ImpotentResolver.swift */,
 				F3C2BC601FDFD2F9006726B7 /* Injection.swift */,
@@ -701,7 +701,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32D9BE21FDF33EC005C00BD /* Guising.swift in Sources */,
+				F32D9BE21FDF33EC005C00BD /* Resolving.swift in Sources */,
 				F32D9BBF1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD81FDF3388005C00BD /* Registration.swift in Sources */,
 				F3C2BC5F1FDFCCB4006726B7 /* Metafilter.swift in Sources */,
@@ -737,7 +737,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32D9BE11FDF33EC005C00BD /* Guising.swift in Sources */,
+				F32D9BE11FDF33EC005C00BD /* Resolving.swift in Sources */,
 				F32D9BBE1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD71FDF3388005C00BD /* Registration.swift in Sources */,
 				F3C2BC5E1FDFCCB4006726B7 /* Metafilter.swift in Sources */,
@@ -794,7 +794,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32D9BDF1FDF33EC005C00BD /* Guising.swift in Sources */,
+				F32D9BDF1FDF33EC005C00BD /* Resolving.swift in Sources */,
 				F32D9BBC1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD51FDF3388005C00BD /* Registration.swift in Sources */,
 				F3C2BC5C1FDFCCB4006726B7 /* Metafilter.swift in Sources */,
@@ -851,7 +851,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32D9BE01FDF33EC005C00BD /* Guising.swift in Sources */,
+				F32D9BE01FDF33EC005C00BD /* Resolving.swift in Sources */,
 				F32D9BBD1FDF3017005C00BD /* Keyed.swift in Sources */,
 				F32D9BD61FDF3388005C00BD /* Registration.swift in Sources */,
 				F3C2BC5D1FDFCCB4006726B7 /* Metafilter.swift in Sources */,

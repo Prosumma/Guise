@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Guising {
+public extension Resolving {
     
     @discardableResult func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any = (), cached: Bool = false, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
         return register(key: key, metadata: metadata, cached: cached, resolution: resolution)

@@ -8,4 +8,4 @@
 
 import Foundation
 
-public typealias Injection<Target> = (Target, Guising) -> Target
+public typealias Injection<Target> = (Target, Resolving) -> Target

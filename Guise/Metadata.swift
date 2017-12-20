@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Guising {
+public extension Resolving {
     func metadata<RegisteredType, Metadata>(for key: Key<RegisteredType>, metatype: Metadata.Type = Metadata.self) -> Metadata? {
         guard let registration: Registration = filter(key: key) else { return nil }
         return registration.metadata as? Metadata

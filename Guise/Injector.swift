@@ -9,10 +9,10 @@
 import Foundation
 
 public struct Injector<Target> {
-    let resolver: Guising
+    let resolver: Resolving
     var injections = [Injection<Target>]()
     
-    public init(resolver: Guising) {
+    public init(resolver: Resolving) {
         self.resolver = resolver
     }
 
