@@ -16,10 +16,12 @@ public final class Lazy<RegisteredType> {
     
     public let cached: Bool?
     private var _value: Value
+    private weak var _resolver: Guising?
     
-    public init(_ registration: Registration, cached: Bool? = nil) {
+    public init(_ registration: Registration, resolver: Guising, cached: Bool? = nil) {
         self._value = .unresolved(registration)
         self.cached = cached
+        self._resolver = resolver
     }
     
     public init(value: RegisteredType?) {
@@ -43,6 +45,7 @@ public final class Lazy<RegisteredType> {
         case .resolved(let resolved):
             return resolved
         case .unresolved(let registration):
+            let parameter = registration.expectsGuising && !(parameter is Guising) ? _resolver! : parameter
             let resolved: RegisteredType? = registration.resolve(parameter: parameter, cached: cached ?? self.cached)
             _value = .resolved(resolved)
             return resolved
@@ -54,12 +57,12 @@ extension Guising {
     
     public func lazy<RegisteredType>(key: Key<RegisteredType>, cached: Bool? = nil) -> Lazy<RegisteredType>? {
         guard let registration = filter(key: key) else { return nil }
-        return Lazy(registration, cached: cached)
+        return Lazy(registration, resolver: self, cached: cached)
     }
     
     public func lazy<RegisteredType, Keys: Sequence>(keys: Keys, cached: Bool? = nil) -> [Lazy<RegisteredType>] where Keys.Element == Key<RegisteredType> {
         let registrations: [Key<RegisteredType>: Registration] = filter(keys: keys)
-        return registrations.map{ Lazy($0.value, cached: cached) }
+        return registrations.map{ Lazy($0.value, resolver: self, cached: cached) }
     }
     
     public func lazy<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, cached: Bool? = nil) -> Lazy<RegisteredType>? {
