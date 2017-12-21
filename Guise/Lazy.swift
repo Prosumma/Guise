@@ -14,12 +14,15 @@ public final class Lazy<RegisteredType> {
         case unresolved(Registration)
     }
     
+    
     public let cached: Bool?
+    public let metadata: Any
     private var _value: Value
     private weak var _resolver: Resolving?
     
     public init(_ registration: Registration, resolver: Resolving, cached: Bool? = nil) {
         self._value = .unresolved(registration)
+        self.metadata = registration.metadata
         self.cached = cached
         // Let's not have more weakrefs than we need.
         if registration.expectsGuising {
@@ -27,9 +30,10 @@ public final class Lazy<RegisteredType> {
         }
     }
     
-    public init(value: RegisteredType?) {
+    public init(value: RegisteredType?, key: Key<RegisteredType> = Key<RegisteredType>(), metadata: Any = ()) {
         self.cached = nil
         self._value = .resolved(value)
+        self.metadata = metadata
     }
     
     public var value: RegisteredType? {
