@@ -33,10 +33,10 @@ class _Registration: Registration {
     /// Metadata, which defaults to an instance of `Void`, i.e., `()`
     public let metadata: Any
     /// Whether `ParameterType` is `Guising`
-    public let expectsGuising: Bool
+    public let expectsResolver: Bool
     
     init<ParameterType, HoldingType: Holder>(metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) {
-        self.expectsGuising = ParameterType.self is Resolving.Protocol
+        self.expectsResolver = ParameterType.self is Resolving.Protocol
         self.metadata = metadata
         self.forceCached = HoldingType.cached
         self.cached = cached

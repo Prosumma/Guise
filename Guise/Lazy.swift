@@ -25,7 +25,7 @@ public final class Lazy<RegisteredType> {
         self.metadata = registration.metadata
         self.cached = cached
         // Let's not have more weakrefs than we need.
-        if registration.expectsGuising {
+        if registration.expectsResolver {
             self._resolver = resolver
         }
     }
@@ -52,7 +52,7 @@ public final class Lazy<RegisteredType> {
         case .resolved(let resolved):
             return resolved
         case .unresolved(let registration):
-            let parameter = registration.expectsGuising && !(parameter is Resolving) ? _resolver! : parameter
+            let parameter = registration.expectsResolver && !(parameter is Resolving) ? _resolver! : parameter
             let resolved: RegisteredType? = registration.resolve(parameter: parameter, cached: cached ?? self.cached)
             _value = .resolved(resolved)
             return resolved

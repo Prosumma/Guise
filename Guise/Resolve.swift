@@ -12,7 +12,7 @@ public extension Resolving {
     
     func resolve<RegisteredType>(key: Key<RegisteredType>, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
         guard let registration = filter(key: key) else { return nil }
-        let parameter = registration.expectsGuising && !(parameter is Resolving) ? self : parameter
+        let parameter = registration.expectsResolver && !(parameter is Resolving) ? self : parameter
         return registration.resolve(parameter: parameter, cached: cached)
     }
     
