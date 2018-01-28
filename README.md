@@ -1,4 +1,3 @@
-
 <!-- [![Build Status](https://travis-ci.org/Prosumma/Guise.svg)](https://travis-ci.org/Prosumma/Guise) -->
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Guise.svg)](https://cocoapods.org)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -109,8 +108,11 @@ resolver.register { Plink() }
 #### Containers
 #### Keys
 #### Parameters
-##### Guising Parameter
+##### Resolver Parameter
 #### Init Injection
+
+
+
 #### KeyPath Injection
 
 ### Resolution
@@ -119,9 +121,12 @@ resolver.register { Plink() }
 #### Nil
 #### Caching
 #### Parameters
-##### Guising Parameter (Reminder)
+##### Resolver Parameter (Reminder)
 #### Lazy
-##### Guising Parameter Doesn't Work With Lazy
 #### KeyPath Injection
 
 ### Concurrency
+
+- Registration and lookup of registrations are thread-safe.
+- Caching is also thread-safe per registration to ensure that the resolution block is not called more than once to produce the cached value. This means that, for cached values,the resolution block is executed once inside of a serialized GCD queue.
+- Uncached resolution is not inherently thread-safe. Thread-safety is up to you. 
