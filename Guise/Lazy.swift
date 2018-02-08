@@ -14,7 +14,6 @@ public final class Lazy<RegisteredType> {
         case unresolved(Registration)
     }
     
-    
     public let cached: Bool?
     public let metadata: Any
     private var _value: Value
