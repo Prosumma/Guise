@@ -12,6 +12,11 @@
 		F3A5CDBB201E85C30099034A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A5CDBA201E85C30099034A /* Assets.xcassets */; };
 		F3A5CDBE201E85C30099034A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3A5CDBC201E85C30099034A /* Main.storyboard */; };
 		F3A5CDCA201E85C40099034A /* ExcryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A5CDC9201E85C40099034A /* ExcryptoTests.swift */; };
+		F3A5CDEC201E88D60099034A /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CDE3201E88BB0099034A /* Guise.framework */; };
+		F3A5CDED201E88D60099034A /* Guise.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CDE3201E88BB0099034A /* Guise.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3BA3A60201EDCBA0009FB37 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA3A5F201EDCBA0009FB37 /* Api.swift */; };
+		F3BA3A68201EDCCF0009FB37 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA3A67201EDCCF0009FB37 /* Result.swift */; };
+		F3BA3A6A201EDDD30009FB37 /* RateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA3A69201EDDD30009FB37 /* RateInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,7 +27,77 @@
 			remoteGlobalIDString = F3A5CDB2201E85C30099034A;
 			remoteInfo = Excrypto;
 		};
+		F3A5CDDE201E88BB0099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED6E1C8D64FF00FD8E4D;
+			remoteInfo = "Guise iOS";
+		};
+		F3A5CDE0201E88BB0099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED781C8D64FF00FD8E4D;
+			remoteInfo = "GuiseTests iOS";
+		};
+		F3A5CDE2201E88BB0099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED8F1C8D695C00FD8E4D;
+			remoteInfo = "Guise OSX";
+		};
+		F3A5CDE4201E88BB0099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED981C8D695C00FD8E4D;
+			remoteInfo = "GuiseTests OSX";
+		};
+		F3A5CDE6201E88BB0099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3700B661DB7826900DDB218;
+			remoteInfo = "Guise tvOS";
+		};
+		F3A5CDE8201E88BB0099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3700B6E1DB7826900DDB218;
+			remoteInfo = "GuiseTests tvOS";
+		};
+		F3A5CDEA201E88BB0099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F343A9EC1DB7867600B1000F;
+			remoteInfo = "Guise watchOS";
+		};
+		F3A5CDEE201E88D60099034A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C3ED8E1C8D695C00FD8E4D;
+			remoteInfo = "Guise OSX";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F3A5CDF0201E88D60099034A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F3A5CDED201E88D60099034A /* Guise.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F3A5CDB3201E85C30099034A /* Excrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Excrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +110,10 @@
 		F3A5CDC5201E85C40099034A /* ExcryptoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExcryptoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3A5CDC9201E85C40099034A /* ExcryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcryptoTests.swift; sourceTree = "<group>"; };
 		F3A5CDCB201E85C40099034A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Guise.xcodeproj; path = ../../Guise.xcodeproj; sourceTree = "<group>"; };
+		F3BA3A5F201EDCBA0009FB37 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		F3BA3A67201EDCCF0009FB37 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		F3BA3A69201EDDD30009FB37 /* RateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3A5CDEC201E88D60099034A /* Guise.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +138,7 @@
 		F3A5CDAA201E85C30099034A = {
 			isa = PBXGroup;
 			children = (
+				F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */,
 				F3A5CDB5201E85C30099034A /* Excrypto */,
 				F3A5CDC8201E85C40099034A /* ExcryptoTests */,
 				F3A5CDB4201E85C30099034A /* Products */,
@@ -82,6 +163,9 @@
 				F3A5CDBC201E85C30099034A /* Main.storyboard */,
 				F3A5CDBF201E85C30099034A /* Info.plist */,
 				F3A5CDC0201E85C30099034A /* Excrypto.entitlements */,
+				F3BA3A5F201EDCBA0009FB37 /* Api.swift */,
+				F3BA3A67201EDCCF0009FB37 /* Result.swift */,
+				F3BA3A69201EDDD30009FB37 /* RateInfo.swift */,
 			);
 			path = Excrypto;
 			sourceTree = "<group>";
@@ -95,6 +179,20 @@
 			path = ExcryptoTests;
 			sourceTree = "<group>";
 		};
+		F3A5CDD5201E88BB0099034A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3A5CDDF201E88BB0099034A /* Guise.framework */,
+				F3A5CDE1201E88BB0099034A /* GuiseTests.xctest */,
+				F3A5CDE3201E88BB0099034A /* Guise.framework */,
+				F3A5CDE5201E88BB0099034A /* GuiseTests.xctest */,
+				F3A5CDE7201E88BB0099034A /* Guise.framework */,
+				F3A5CDE9201E88BB0099034A /* GuiseTests.xctest */,
+				F3A5CDEB201E88BB0099034A /* Guise.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -105,10 +203,12 @@
 				F3A5CDAF201E85C30099034A /* Sources */,
 				F3A5CDB0201E85C30099034A /* Frameworks */,
 				F3A5CDB1201E85C30099034A /* Resources */,
+				F3A5CDF0201E88D60099034A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F3A5CDEF201E88D60099034A /* PBXTargetDependency */,
 			);
 			name = Excrypto;
 			productName = Excrypto;
@@ -165,6 +265,12 @@
 			mainGroup = F3A5CDAA201E85C30099034A;
 			productRefGroup = F3A5CDB4201E85C30099034A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F3A5CDD5201E88BB0099034A /* Products */;
+					ProjectRef = F3A5CDD4201E88BB0099034A /* Guise.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F3A5CDB2201E85C30099034A /* Excrypto */,
@@ -172,6 +278,58 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F3A5CDDF201E88BB0099034A /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F3A5CDDE201E88BB0099034A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3A5CDE1201E88BB0099034A /* GuiseTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GuiseTests.xctest;
+			remoteRef = F3A5CDE0201E88BB0099034A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3A5CDE3201E88BB0099034A /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F3A5CDE2201E88BB0099034A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3A5CDE5201E88BB0099034A /* GuiseTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GuiseTests.xctest;
+			remoteRef = F3A5CDE4201E88BB0099034A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3A5CDE7201E88BB0099034A /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F3A5CDE6201E88BB0099034A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3A5CDE9201E88BB0099034A /* GuiseTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GuiseTests.xctest;
+			remoteRef = F3A5CDE8201E88BB0099034A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3A5CDEB201E88BB0099034A /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F3A5CDEA201E88BB0099034A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F3A5CDB1201E85C30099034A /* Resources */ = {
@@ -197,7 +355,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BA3A60201EDCBA0009FB37 /* Api.swift in Sources */,
 				F3A5CDB9201E85C30099034A /* ViewController.swift in Sources */,
+				F3BA3A6A201EDDD30009FB37 /* RateInfo.swift in Sources */,
+				F3BA3A68201EDCCF0009FB37 /* Result.swift in Sources */,
 				F3A5CDB7201E85C30099034A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +378,11 @@
 			isa = PBXTargetDependency;
 			target = F3A5CDB2201E85C30099034A /* Excrypto */;
 			targetProxy = F3A5CDC6201E85C40099034A /* PBXContainerItemProxy */;
+		};
+		F3A5CDEF201E88D60099034A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Guise OSX";
+			targetProxy = F3A5CDEE201E88D60099034A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -341,6 +507,7 @@
 		F3A5CDCF201E85C40099034A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Excrypto/Excrypto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -356,6 +523,7 @@
 		F3A5CDD0201E85C40099034A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Excrypto/Excrypto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
