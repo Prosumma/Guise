@@ -8,12 +8,12 @@
 
 import Foundation
 
-public final class Resolver: Resolving {
+public final class Resolver: Resolving, Injecting {
     
     internal var lock = Lock()
     internal var registrations = [AnyKey: Registration]()
     
-    // MARK: Guising
+    // MARK: Resolving
     
     @discardableResult public func register<RegisteredType, ParameterType, HoldingType: Holder>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<RegisteredType> where HoldingType.Held == RegisteredType {
         lock.write { registrations[AnyKey(key)!] = _Registration(metadata: metadata, cached: cached, resolution: resolution) }
@@ -37,6 +37,14 @@ public final class Resolver: Resolving {
             }
             return result
         }
+    }
+    
+    // MARK: Injecting
+    
+    private var _inject: Injection<Any>? = nil
+    internal var inject: Injection<Any>? {
+        get { return lock.read { _inject } }
+        set { lock.write{ _inject = newValue } }
     }
     
     // MARK: Optimizations

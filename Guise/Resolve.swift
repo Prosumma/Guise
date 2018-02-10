@@ -26,11 +26,9 @@ public extension Resolving {
     }
     
     @discardableResult func resolve<Target>(into instance: Target) -> Target {
-        let key = Key<Target>(container: Guise.Container.injections)
-        guard let registration = filter(key: key) else { return instance }
-        let parameter = InjectionParameters(target: instance, resolver: self)
-        return registration.resolve(parameter: parameter, cached: false) ?? instance
-    }    
+        let injector = self as! Injecting
+        return injector.inject?(instance, self) as! Target? ?? instance
+    }
 }
 
 public extension _Resolving {

@@ -15,7 +15,6 @@ public struct Guise: _Resolving {
     
     public enum Container {
         case `default`
-        case injections
     }
     
     public static var resolver: Resolving = Resolver()

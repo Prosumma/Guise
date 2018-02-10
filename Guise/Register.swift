@@ -47,11 +47,6 @@ public extension Resolving {
         return register(holder: weakling, name: name, container: container, metadata: metadata)
     }
     
-    @discardableResult func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {
-        let key = Key<Target>(container: Guise.Container.injections)
-        return register(key: key) { (parameters: InjectionParameters) in Uncached(injection(parameters.target, parameters.resolver)) }
-    }
-    
     func into<Target>(injectable type: Target.Type) -> Injector<Target> {
         return Injector(resolver: self)
     }
@@ -92,10 +87,6 @@ public extension _Resolving {
         return resolver.register(weak: instance, name: name, container: container, metadata: metadata)
     }
     
-    @discardableResult static func register<Target>(injectable: Target.Type, injection: @escaping Injection<Target>) -> Key<Target> {
-        return resolver.register(injectable: injectable, injection: injection)
-    }
-
     static func into<Target>(injectable type: Target.Type) -> Injector<Target> {
         return resolver.into(injectable: type)
     }

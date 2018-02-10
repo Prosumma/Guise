@@ -11,7 +11,7 @@ import Foundation
 /**
  The minimal interface for a Guise resolver.
  
- Implement these three methods and you get everything else for free.
+ Implement these four methods and you get everything else for free.
  */
 public protocol Resolving: class {
     @discardableResult func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held>

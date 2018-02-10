@@ -164,14 +164,34 @@ public struct Injector<Target> {
         return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
     }
     
-    @discardableResult public func register() -> Key<Target> {
+    public func register() {
+        let injector = resolver as! Injecting
         let injections = self.injections
-        return resolver.register(injectable: Target.self) { (target, resolver) in
-            var target = target
-            for injection in injections {
-                target = injection(target, resolver)
+        let newInject: Injection<Any>
+        if let inject = injector.inject {
+            newInject = { (target, resolver) in
+                var target = inject(target, resolver)
+                if var cast = target as? Target {
+                    for injection in injections {
+                        cast = injection(cast, resolver)
+                    }
+                    target = cast
+                }
+                return target
             }
-            return target
+            injector.inject = newInject
+        } else {
+            newInject = { (target, resolver) in
+                var target = target
+                if var cast = target as? Target {
+                    for injection in injections {
+                        cast = injection(cast, resolver)
+                    }
+                    target = cast
+                }
+                return target
+            }
         }
+        injector.inject = newInject
     }
 }
