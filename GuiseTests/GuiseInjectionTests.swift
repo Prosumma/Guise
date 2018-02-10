@@ -34,6 +34,19 @@ class GuiseInjectionTests: XCTestCase {
         XCTAssertEqual(owlette.plonk!.thibb, Name.owlette.rawValue)
     }
     
+    func testInjectionWithMultipleProtocols() {
+        Guise.register(instance: "Multi1")
+        Guise.register(instance: 7)
+        
+        Guise.into(injectable: Multi1.self).inject(\.s).register()
+        Guise.into(injectable: Multi2.self).inject(exact: \.x).register()
+        
+        let m = Guise.resolve(into: Multi())
+        XCTAssertNotNil(m.s)
+        XCTAssertEqual(m.s!, "Multi1")
+        XCTAssertEqual(m.x, 7)
+    }
+    
     func testLazyInjection() {
         Guise.into(injectable: HasALazy.self).inject(\.plonk).register()
         Guise.register(instance: Plink(thibb: Name.owlette.rawValue) as Plonk)
