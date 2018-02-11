@@ -30,4 +30,20 @@ public struct Guise: _Resolving {
     public static func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration] {
         return resolver.filter(filter)
     }
+    
+    public static var injectables: Set<String> {
+        return resolver.injectables
+    }
+    
+    public static func register(key: String, injection: @escaping Injection<Any>) -> String {
+        return resolver.register(key: key, injection: injection)
+    }
+    
+    public static func resolve<Target>(into target: Target) -> Target {
+        return resolver.resolve(into: target)
+    }
+    
+    public static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
+        return resolver.unregister(keys: keys)
+    }
 }

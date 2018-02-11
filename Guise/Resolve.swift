@@ -24,10 +24,6 @@ public extension Resolving {
     func resolve<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable  = Guise.Container.default, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
         return resolve(key: Key<RegisteredType>(name: name, container: container), parameter: parameter, cached: cached)
     }
-    
-    @discardableResult func resolve<Target>(into instance: Target) -> Target {
-        return instance
-    }
 }
 
 public extension _Resolving {
@@ -38,9 +34,5 @@ public extension _Resolving {
     
     static func resolve<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable  = Guise.Container.default, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
         return resolver.resolve(type: type, name: name, container: container, parameter: parameter, cached: cached)
-    }
-    
-    @discardableResult static func resolve<Target>(into instance: Target) -> Target {
-        return resolver.resolve(into: instance)
     }
 }

@@ -8,15 +8,14 @@
 
 import Foundation
 
-/**
- The minimal interface for a Guise resolver.
- 
- Implement these four methods and you get everything else for free.
- */
+/// The minimal interface for a Guise resolver.
 public protocol Resolving: class {
     @discardableResult func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held>
     @discardableResult func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element: Keyed
     func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration]
+    // MARK: Injection
+    var injectables: Set<String> { get }
     func register(key: String, injection: @escaping Injection<Any>) -> String
+    func resolve<Target>(into target: Target) -> Target
     func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String
 }

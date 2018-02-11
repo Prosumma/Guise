@@ -16,6 +16,15 @@ public final class Resolver: Resolving {
     
     internal var registrations = [AnyKey: Registration]()
     
+    public var keys: Set<AnyKey> {
+        return Set(lock.read{ registrations.keys })
+    }
+    
+    public func filter<K: Keyed & Hashable>(key: K) -> Registration? {
+        let key = AnyKey(key)!
+        return lock.read{ registrations[key] }
+    }
+    
     @discardableResult public func register<RegisteredType, ParameterType, HoldingType: Holder>(key: Key<RegisteredType>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<RegisteredType> where HoldingType.Held == RegisteredType {
         lock.write { registrations[AnyKey(key)!] = _Registration(metadata: metadata, cached: cached, resolution: resolution) }
         return key
@@ -42,25 +51,32 @@ public final class Resolver: Resolving {
     
     // MARK: Injecting
     
-    internal var injectables = [String: Injection<Any>]()
+    internal var injections = [String: Injection<Any>]()
+    
+    public var injectables: Set<String> {
+        return Set(lock.read{ injections.keys })
+    }
     
     public func register(key: String, injection: @escaping Injection<Any>) -> String {
-        return ""
+        lock.write { injections[key] = injection }
+        return key
+    }
+    
+    public func resolve<Target>(into target: Target) -> Target {
+        let injections = lock.read{ self.injections.values }
+        var target = target
+        for injection in injections {
+            target = injection(target, self) as! Target
+        }
+        return target
     }
     
     public func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
-        return 0
-    }
-
-    // MARK: Optimizations
-    
-    public var keys: Set<AnyKey> {
-        return Set(lock.read{ registrations.keys })
-    }
-    
-    public func filter<K: Keyed & Hashable>(key: K) -> Registration? {
-        let key = AnyKey(key)!
-        return lock.read{ registrations[key] }
+        return lock.write {
+            let count = injections.count
+            injections = injections.filter{ !keys.contains($0.key) }
+            return count - injections.count
+        }
     }
     
 }

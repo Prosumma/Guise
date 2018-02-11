@@ -20,9 +20,17 @@ public final class ImpotentResolver: Resolving {
     public func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration] {
         return [:]
     }
+    
+    public var injectables: Set<String> {
+        return []
+    }
 
     public func register(key: String, injection: @escaping (Any, Resolving) -> Any) -> String {
         return key
+    }
+    
+    public func resolve<Target>(into target: Target) -> Target {
+        return target
     }
     
     public func unregister<Keys>(keys: Keys) -> Int where Keys : Sequence, Keys.Element == String {

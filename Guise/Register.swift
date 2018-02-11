@@ -46,11 +46,7 @@ public extension Resolving {
         let weakling = Weak(instance)
         return register(holder: weakling, name: name, container: container, metadata: metadata)
     }
-    
-    func into<Target>(injectable type: Target.Type) -> Injector<Target> {
-        return Injector(resolver: self)
-    }
-    
+
 }
 
 public extension _Resolving {
@@ -85,9 +81,5 @@ public extension _Resolving {
     
     @discardableResult static func register<RegisteredType>(weak instance: RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
         return resolver.register(weak: instance, name: name, container: container, metadata: metadata)
-    }
-    
-    static func into<Target>(injectable type: Target.Type) -> Injector<Target> {
-        return resolver.into(injectable: type)
-    }
+    }    
 }

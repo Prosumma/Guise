@@ -165,6 +165,13 @@ public struct Injector<Target> {
     }
     
     public func register() -> String {
-        return ""
+        let injections = self.injections
+        return resolver.register(injectable: Target.self) {
+            var target = $0
+            for injection in injections {
+               target = injection(target, $1)
+            }
+            return target
+        }
     }
 }
