@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class ImpotentResolver: Resolving, Injecting {
+public final class ImpotentResolver: Resolving {
     @discardableResult public func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held> {
         return key
     }
@@ -20,9 +20,13 @@ public final class ImpotentResolver: Resolving, Injecting {
     public func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration] {
         return [:]
     }
-    
-    var inject: Injection<Any>? {
-        get { return nil }
-        set { }
+
+    public func register(key: String, injection: @escaping (Any, Resolving) -> Any) -> String {
+        return key
     }
+    
+    public func unregister<Keys>(keys: Keys) -> Int where Keys : Sequence, Keys.Element == String {
+        return 0
+    }
+
 }

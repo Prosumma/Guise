@@ -151,10 +151,6 @@
 		F3C3ED721C8D64FF00FD8E4D /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3C3ED791C8D64FF00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */; };
 		F3C3ED991C8D695C00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */; };
-		F3C4C7E5202EEA1E00915F88 /* Injecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C4C7E4202EEA1E00915F88 /* Injecting.swift */; };
-		F3C4C7E6202EEA1E00915F88 /* Injecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C4C7E4202EEA1E00915F88 /* Injecting.swift */; };
-		F3C4C7E7202EEA1E00915F88 /* Injecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C4C7E4202EEA1E00915F88 /* Injecting.swift */; };
-		F3C4C7E8202EEA1E00915F88 /* Injecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C4C7E4202EEA1E00915F88 /* Injecting.swift */; };
 		F3C5FC0E1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */; };
 		F3C5FC0F1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */; };
 		F3C5FC101FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */; };
@@ -247,7 +243,6 @@
 		F3C3ED7F1C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED981C8D695C00FD8E4D /* GuiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3C4C7E4202EEA1E00915F88 /* Injecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injecting.swift; sourceTree = "<group>"; };
 		F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseUnregistrationTests.swift; sourceTree = "<group>"; };
 		F3CA19B71FE3C5CE003F901B /* Holder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		F3CA19BC1FE3C5F1003F901B /* Strong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strong.swift; sourceTree = "<group>"; };
@@ -323,7 +318,6 @@
 				F32D9BB61FDF2FEE005C00BD /* Guise.swift */,
 				F3CA19B71FE3C5CE003F901B /* Holder.swift */,
 				F3C2BC6F1FDFDC6C006726B7 /* ImpotentResolver.swift */,
-				F3C4C7E4202EEA1E00915F88 /* Injecting.swift */,
 				F3C2BC601FDFD2F9006726B7 /* Injection.swift */,
 				F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */,
 				F32D9BC01FDF3098005C00BD /* Key.swift */,
@@ -723,7 +717,6 @@
 				F3C2BC3C1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC731FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
 				F32D9BC91FDF3117005C00BD /* Miscellanea.swift in Sources */,
-				F3C4C7E8202EEA1E00915F88 /* Injecting.swift in Sources */,
 				F3C2BC6E1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC41FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC641FDFD2F9006726B7 /* Injection.swift in Sources */,
@@ -759,7 +752,6 @@
 				F3C2BC3B1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC721FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
 				F32D9BC81FDF3117005C00BD /* Miscellanea.swift in Sources */,
-				F3C4C7E7202EEA1E00915F88 /* Injecting.swift in Sources */,
 				F3C2BC6D1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC31FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC631FDFD2F9006726B7 /* Injection.swift in Sources */,
@@ -816,7 +808,6 @@
 				F3C2BC391FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC701FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
 				F32D9BC61FDF3117005C00BD /* Miscellanea.swift in Sources */,
-				F3C4C7E5202EEA1E00915F88 /* Injecting.swift in Sources */,
 				F3C2BC6B1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC11FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC611FDFD2F9006726B7 /* Injection.swift in Sources */,
@@ -873,7 +864,6 @@
 				F3C2BC3A1FDF38F3006726B7 /* _Registration.swift in Sources */,
 				F3C2BC711FDFDC6C006726B7 /* ImpotentResolver.swift in Sources */,
 				F32D9BC71FDF3117005C00BD /* Miscellanea.swift in Sources */,
-				F3C4C7E6202EEA1E00915F88 /* Injecting.swift in Sources */,
 				F3C2BC6C1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC21FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC621FDFD2F9006726B7 /* Injection.swift in Sources */,

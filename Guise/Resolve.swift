@@ -26,8 +26,7 @@ public extension Resolving {
     }
     
     @discardableResult func resolve<Target>(into instance: Target) -> Target {
-        let injector = self as! Injecting
-        return injector.inject?(instance, self) as! Target? ?? instance
+        return instance
     }
 }
 
