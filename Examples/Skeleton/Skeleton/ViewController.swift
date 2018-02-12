@@ -18,6 +18,11 @@ class ViewController: NSViewController, Logged, ApiUser {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
+         This next line "hydrates" the logger and api
+         properties above by referencing the KeyPath
+         registrations we made in the AppDelegate.
+        */
         Guise.resolve(into: self)
         api.login(username: "Sir", password: "Von") { result in
             switch result {

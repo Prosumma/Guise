@@ -69,6 +69,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func registerInjections() {
+        /*
+         Injections are a way to "pass" dependencies to instances
+         which are already created by Apple's frameworks. For instance,
+         in general we do not create view controllers. They are created
+         for us.
+         
+         So how do we get our dependencies into them? By registering KeyPath
+         injections such as those below. The first line says, "There is an
+         protocol called Logged. Register an injection of its logger property
+         which is of type XCGLogger?. Resolve this injection by looking
+         up the registration of XCGLogger in the resolver and assigning
+         it to the logger property of any Logged instance.
+         
+         Resolution of KeyPath injection occurs when Guise.resolve(into: self)
+         is called inside the view controller's viewDidLoad. To see an
+         example, go to the ViewController class in this project.
+        */
         Guise.into(injectable: Logged.self).inject(\.logger).register()
         Guise.into(injectable: ApiUser.self).inject(\.api).register()
     }
