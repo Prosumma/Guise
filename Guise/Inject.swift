@@ -29,7 +29,7 @@ public extension Resolving {
     }
 }
 
-extension _Guise {
+public extension _Guise {
     @discardableResult static func register<Injectable>(injectable: Injectable.Type, injection: @escaping Injection<Injectable>) -> String {
         return resolver.register(injectable: injectable, injection: injection)
     }
