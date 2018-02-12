@@ -36,6 +36,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func registerApi() {
+        /*
+         Why do we register RemoteApi as Api? Because in our unit tests we
+         probably don't want to use the REAL api which talks to a server.
+         We want to use a fake one. (Of course, in this app, our "real" API
+         is just as fake.)
+         
+         By abstracting with a protocol, we can use any conforming Api implementation,
+         with or without Guise.
+         
+         This means that when we get an instance of Api out of Guise, we must say…
+         
+         Guise.resolve(type: Api.self)
+         
+         and NOT
+         
+         Guise.resolve(type: RemoteApi.self)
+         
+         As far as Guise is concerned, there is no RemoteApi registered. Only Api.
+         
+         We also have here an example of Init Injection. (This is often called Constructor
+         Injection in other languages.) Elsewhere we have registered a logger, and
+         when Guise creates an Api instance for us (by calling Guise.resolve(type: Api.self)),
+         it will also resolve the logger and pass it to the initalizer of RemoteApi.
+        */
         Guise.register(instance: RemoteApi(logger: Guise.resolve()) as Api)
     }
 
