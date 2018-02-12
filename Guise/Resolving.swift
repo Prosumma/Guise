@@ -17,5 +17,5 @@ public protocol Resolving: class {
     var injectables: Set<String> { get }
     @discardableResult func register(injectable key: String, injection: @escaping Injection<Any>) -> String
     @discardableResult func resolve<Target>(into target: Target) -> Target
-    @discardableResult func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String
+    @discardableResult func unregister<Keys: Sequence>(injectables: Keys) -> Int where Keys.Element == String
 }

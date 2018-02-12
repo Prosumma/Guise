@@ -55,7 +55,7 @@ public struct Guise: _Guise {
         return resolver.resolve(into: target)
     }
     
-    @discardableResult public static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
-        return resolver.unregister(keys: keys)
+    @discardableResult public static func unregister<Keys: Sequence>(injectables: Keys) -> Int where Keys.Element == String {
+        return resolver.unregister(injectables: injectables)
     }
 }

@@ -28,7 +28,7 @@ public extension Resolving {
             cleared.registrations = unregister(keys: keys)
         }
         if clear.contains(.injections) {
-            cleared.injections = unregister(keys: injectables)
+            cleared.injections = unregister(injectables: injectables)
         }
         return cleared
     }

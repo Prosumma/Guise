@@ -33,7 +33,7 @@ public final class ImpotentResolver: Resolving {
         return target
     }
     
-    public func unregister<Keys>(keys: Keys) -> Int where Keys : Sequence, Keys.Element == String {
+    public func unregister<Keys>(injectables: Keys) -> Int where Keys : Sequence, Keys.Element == String {
         return 0
     }
 

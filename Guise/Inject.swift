@@ -21,7 +21,7 @@ public extension Resolving {
     
     @discardableResult func unregister<Injectable>(injectable type: Injectable.Type) -> Int {
         let key = String(reflecting: type)
-        return unregister(keys: [key])
+        return unregister(injectables: [key])
     }
     
     func into<Target>(injectable type: Target.Type) -> Injector<Target> {

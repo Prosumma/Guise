@@ -18,6 +18,6 @@ public protocol _Guise {
     static var injectables: Set<String> { get }
     @discardableResult static func register(injectable key: String, injection: @escaping Injection<Any>) -> String
     @discardableResult static func resolve<Target>(into target: Target) -> Target
-    @discardableResult static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String
+    @discardableResult static func unregister<Keys: Sequence>(injectables: Keys) -> Int where Keys.Element == String
 }
 

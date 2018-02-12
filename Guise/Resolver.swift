@@ -72,10 +72,10 @@ public final class Resolver: Resolving {
         return injected
     }
     
-    @discardableResult public func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
+    @discardableResult public func unregister<Keys: Sequence>(injectables: Keys) -> Int where Keys.Element == String {
         return lock.write {
             let count = injections.count
-            injections = injections.filter{ !keys.contains($0.key) }
+            injections = injections.filter{ !injectables.contains($0.key) }
             return count - injections.count
         }
     }
