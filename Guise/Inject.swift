@@ -9,8 +9,8 @@
 import Foundation
 
 public extension Resolving {
-    @discardableResult func register<Injectable>(injectable: Injectable.Type, injection: @escaping Injection<Injectable>) -> String {
-        let injectable = String(reflecting: injectable)
+    @discardableResult func register<Injectable>(injectable type: Injectable.Type, injection: @escaping Injection<Injectable>) -> String {
+        let injectable = String(reflecting: type)
         return register(injectable: injectable) {
             guard let target = $0 as? Injectable else {
                 return $0
@@ -19,8 +19,8 @@ public extension Resolving {
         }
     }
     
-    @discardableResult func unregister<Injectable>(injectable: Injectable.Type) -> Int {
-        let key = String(reflecting: Injectable.self)
+    @discardableResult func unregister<Injectable>(injectable type: Injectable.Type) -> Int {
+        let key = String(reflecting: type)
         return unregister(keys: [key])
     }
     

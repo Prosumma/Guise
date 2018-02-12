@@ -164,7 +164,7 @@ public struct Injector<Target> {
         return inject(keyPath, key: Key<RegisteredType>(name: name, container: container), cached: cached)
     }
     
-    public func register() -> String {
+    @discardableResult public func register() -> String {
         let injections = self.injections
         return resolver.register(injectable: Target.self) {
             var target = $0

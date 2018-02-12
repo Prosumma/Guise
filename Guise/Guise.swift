@@ -47,15 +47,15 @@ public struct Guise: _Resolving {
         return resolver.injectables
     }
     
-    public static func register(key: String, injection: @escaping Injection<Any>) -> String {
+    @discardableResult public static func register(injectable key: String, injection: @escaping Injection<Any>) -> String {
         return resolver.register(injectable: key, injection: injection)
     }
     
-    public static func resolve<Target>(into target: Target) -> Target {
+    @discardableResult public static func resolve<Target>(into target: Target) -> Target {
         return resolver.resolve(into: target)
     }
     
-    public static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
+    @discardableResult public static func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
         return resolver.unregister(keys: keys)
     }
 }

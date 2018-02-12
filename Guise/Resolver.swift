@@ -57,12 +57,12 @@ public final class Resolver: Resolving {
         return Set(lock.read{ injections.keys })
     }
     
-    public func register(injectable: String, injection: @escaping Injection<Any>) -> String {
-        lock.write { injections[injectable] = injection }
-        return injectable
+    @discardableResult public func register(injectable key: String, injection: @escaping Injection<Any>) -> String {
+        lock.write { injections[key] = injection }
+        return key
     }
     
-    public func resolve<Target>(into target: Target) -> Target {
+    @discardableResult public func resolve<Target>(into target: Target) -> Target {
         let injections = lock.read{ self.injections.values }
         var target = target
         for injection in injections {
@@ -71,7 +71,7 @@ public final class Resolver: Resolving {
         return target
     }
     
-    public func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
+    @discardableResult public func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
         return lock.write {
             let count = injections.count
             injections = injections.filter{ !keys.contains($0.key) }

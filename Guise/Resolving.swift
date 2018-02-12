@@ -15,7 +15,7 @@ public protocol Resolving: class {
     func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration]
     // MARK: Injection
     var injectables: Set<String> { get }
-    func register(injectable: String, injection: @escaping Injection<Any>) -> String
-    func resolve<Target>(into target: Target) -> Target
-    func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String
+    @discardableResult func register(injectable key: String, injection: @escaping Injection<Any>) -> String
+    @discardableResult func resolve<Target>(into target: Target) -> Target
+    @discardableResult func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String
 }
