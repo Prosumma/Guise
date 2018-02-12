@@ -26,7 +26,7 @@ public extension Resolving {
     }
 }
 
-public extension _Resolving {
+public extension _Guise {
 
     static func resolve<RegisteredType>(key: Key<RegisteredType>, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {
         return resolver.resolve(key: key, parameter: parameter, cached: cached)

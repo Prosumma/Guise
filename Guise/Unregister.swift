@@ -35,7 +35,7 @@ public extension Resolving {
     
 }
 
-public extension _Resolving {
+public extension _Guise {
     
     @discardableResult static func unregister<K: Keyed>(key: K) -> Int {
         return resolver.unregister(key: key)
