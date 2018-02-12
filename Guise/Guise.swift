@@ -26,7 +26,7 @@ public struct Guise: _Guise {
         
         public static let registrations = Clear(rawValue: 1 << 0)
         public static let injections = Clear(rawValue: 1 << 1)
-        public static let all: Clear = [.registrations, .injections]
+        public static let both: Clear = [.registrations, .injections]
     }
     
     public static var resolver: Resolving = Resolver()

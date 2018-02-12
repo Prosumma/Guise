@@ -22,13 +22,13 @@ public extension Resolving {
         return unregister(keys: filter(container: container).keys)
     }
     
-    @discardableResult func clear(_ clear: Guise.Clear = .all) -> Int {
-        var cleared = 0
+    @discardableResult func clear(_ clear: Guise.Clear = .both) -> (registrations: Int, injections: Int) {
+        var cleared = (registrations: 0, injections: 0)
         if clear.contains(.registrations) {
-            cleared = unregister(keys: keys)
+            cleared.registrations = unregister(keys: keys)
         }
         if clear.contains(.injections) {
-            cleared += unregister(keys: injectables)
+            cleared.injections = unregister(keys: injectables)
         }
         return cleared
     }
@@ -49,7 +49,7 @@ public extension _Guise {
         return resolver.unregister(container: container)
     }
     
-    @discardableResult static func clear(_ clear: Guise.Clear = .all) -> Int {
+    @discardableResult static func clear(_ clear: Guise.Clear = .both) -> (registrations: Int, injections: Int) {
         return resolver.clear(clear)
     }
     
