@@ -13,7 +13,7 @@ class GuiseInjectionTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        Guise.clear()
+        Guise.clear(.both)
     }
 
     func testInjection() {
