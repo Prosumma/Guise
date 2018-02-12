@@ -8,4 +8,10 @@
 
 import Foundation
 
+/**
+ The type of an injection.
+ 
+ If `Target` is a reference type, an Injection block *must*
+ return the *same* reference.
+ */
 public typealias Injection<Target> = (Target, Resolving) -> Target

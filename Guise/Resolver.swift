@@ -64,11 +64,12 @@ public final class Resolver: Resolving {
     
     @discardableResult public func resolve<Target>(into target: Target) -> Target {
         let injections = lock.read{ self.injections.values }
-        var target = target
+        var injected = target
         for injection in injections {
-            target = injection(target, self) as! Target
+            injected = injection(injected, self) as! Target
         }
-        return target
+        assert(!(type(of: target) is AnyClass) || (target as AnyObject === injected as AnyObject), "When the target of resolve(into:) is a class instance, the very same instance must be returned after resolution.")
+        return injected
     }
     
     @discardableResult public func unregister<Keys: Sequence>(keys: Keys) -> Int where Keys.Element == String {
