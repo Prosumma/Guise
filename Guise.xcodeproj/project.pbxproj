@@ -93,9 +93,6 @@
 		F39D1BD21FE5042500616A63 /* ImpotentResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */; };
 		F39D1BD31FE5042500616A63 /* ImpotentResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */; };
 		F39D1BD41FE5042500616A63 /* ImpotentResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */; };
-		F3A55B3D1FE660B700801AAA /* GuiseLazyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A55B3C1FE660B700801AAA /* GuiseLazyTests.swift */; };
-		F3A55B3E1FE660B700801AAA /* GuiseLazyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A55B3C1FE660B700801AAA /* GuiseLazyTests.swift */; };
-		F3A55B3F1FE660B700801AAA /* GuiseLazyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A55B3C1FE660B700801AAA /* GuiseLazyTests.swift */; };
 		F3B53EE81F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */; };
 		F3B53EE91F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */; };
 		F3B53EEA1F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */; };
@@ -221,7 +218,6 @@
 		F37B73E81C952B7B00A9AEFA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseExpectsResolverTests.swift; sourceTree = "<group>"; };
 		F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpotentResolverTests.swift; sourceTree = "<group>"; };
-		F3A55B3C1FE660B700801AAA /* GuiseLazyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseLazyTests.swift; sourceTree = "<group>"; };
 		F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseInstanceResolutionTests.swift; sourceTree = "<group>"; };
 		F3B6E1E72030F318002185AF /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
 		F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuiseKeyTests.swift; sourceTree = "<group>"; };
@@ -396,7 +392,6 @@
 				F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */,
 				F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */,
 				F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */,
-				F3A55B3C1FE660B700801AAA /* GuiseLazyTests.swift */,
 				F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */,
 				F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */,
 				F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */,
@@ -776,7 +771,6 @@
 				F344CC7F1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
 				F39D1BD01FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */,
 				F3C5FC101FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */,
-				F3A55B3F1FE660B700801AAA /* GuiseLazyTests.swift in Sources */,
 				F3B53EEA1F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
 				F31E06E11F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);
@@ -832,7 +826,6 @@
 				F344CC7D1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
 				F39D1BCE1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */,
 				F3C5FC0E1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */,
-				F3A55B3D1FE660B700801AAA /* GuiseLazyTests.swift in Sources */,
 				F3B53EE81F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
 				F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);
@@ -888,7 +881,6 @@
 				F344CC7E1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
 				F39D1BCF1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */,
 				F3C5FC0F1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */,
-				F3A55B3E1FE660B700801AAA /* GuiseLazyTests.swift in Sources */,
 				F3B53EE91F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
 				F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
 			);

@@ -82,17 +82,6 @@ class Owlette {
     var plonk: Plonk?
 }
 
-struct TakesALazy {
-    let plonk: Plonk
-    init(plonk: Lazy<Plonk>) {
-        self.plonk = plonk.resolve()!
-    }
-}
-
-class HasALazy {
-    var plonk: Lazy<Plonk>?
-}
-
 enum Metadata {
     case blah
     case bloop
