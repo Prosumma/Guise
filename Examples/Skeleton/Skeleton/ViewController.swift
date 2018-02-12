@@ -7,21 +7,25 @@
 //
 
 import Cocoa
+import Guise
+import XCGLogger
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, Logged, ApiUser {
 
+    var logger: XCGLogger?
+    var api: Api!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
+        
+        Guise.resolve(into: self)
+        api.login(username: "Sir", password: "Von") { result in
+            switch result {
+            case .success(let payload): self.logger?.debug(payload)
+            case .error(let error): self.logger?.error(error)
+            }
         }
     }
-
 
 }
 

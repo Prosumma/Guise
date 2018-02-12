@@ -7,13 +7,105 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F3320702203162CB000BA7CF /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33206F9203162AF000BA7CF /* Guise.framework */; };
+		F3320703203162CB000BA7CF /* Guise.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F33206F9203162AF000BA7CF /* Guise.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3320709203162E6000BA7CF /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3320707203162E6000BA7CF /* XCGLogger.framework */; };
+		F332070A203162E6000BA7CF /* XCGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3320707203162E6000BA7CF /* XCGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F332070B203162E6000BA7CF /* ObjcExceptionBridging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3320708203162E6000BA7CF /* ObjcExceptionBridging.framework */; };
+		F332070C203162E6000BA7CF /* ObjcExceptionBridging.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3320708203162E6000BA7CF /* ObjcExceptionBridging.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F332070E2031637B000BA7CF /* Logged.swift in Sources */ = {isa = PBXBuildFile; fileRef = F332070D2031637B000BA7CF /* Logged.swift */; };
+		F3320710203163FC000BA7CF /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F332070F203163FC000BA7CF /* Api.swift */; };
+		F33207122031640F000BA7CF /* RemoteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33207112031640F000BA7CF /* RemoteApi.swift */; };
+		F3320714203165A2000BA7CF /* ApiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3320713203165A2000BA7CF /* ApiUser.swift */; };
 		F3B4B469203160D9003C5D71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B4B468203160D9003C5D71 /* AppDelegate.swift */; };
 		F3B4B46B203160D9003C5D71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B4B46A203160D9003C5D71 /* ViewController.swift */; };
 		F3B4B46D203160D9003C5D71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3B4B46C203160D9003C5D71 /* Assets.xcassets */; };
 		F3B4B470203160D9003C5D71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3B4B46E203160D9003C5D71 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F33206F4203162AF000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED6E1C8D64FF00FD8E4D;
+			remoteInfo = "Guise iOS";
+		};
+		F33206F6203162AF000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED781C8D64FF00FD8E4D;
+			remoteInfo = "GuiseTests iOS";
+		};
+		F33206F8203162AF000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED8F1C8D695C00FD8E4D;
+			remoteInfo = "Guise OSX";
+		};
+		F33206FA203162AF000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C3ED981C8D695C00FD8E4D;
+			remoteInfo = "GuiseTests OSX";
+		};
+		F33206FC203162AF000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3700B661DB7826900DDB218;
+			remoteInfo = "Guise tvOS";
+		};
+		F33206FE203162AF000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3700B6E1DB7826900DDB218;
+			remoteInfo = "GuiseTests tvOS";
+		};
+		F3320700203162AF000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F343A9EC1DB7867600B1000F;
+			remoteInfo = "Guise watchOS";
+		};
+		F3320704203162CB000BA7CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C3ED8E1C8D695C00FD8E4D;
+			remoteInfo = "Guise OSX";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F3320706203162CC000BA7CF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F3320703203162CB000BA7CF /* Guise.framework in Embed Frameworks */,
+				F332070A203162E6000BA7CF /* XCGLogger.framework in Embed Frameworks */,
+				F332070C203162E6000BA7CF /* ObjcExceptionBridging.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		F33206EA203162AF000BA7CF /* Guise.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Guise.xcodeproj; path = ../../Guise.xcodeproj; sourceTree = "<group>"; };
+		F3320707203162E6000BA7CF /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/Mac/XCGLogger.framework; sourceTree = "<group>"; };
+		F3320708203162E6000BA7CF /* ObjcExceptionBridging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjcExceptionBridging.framework; path = Carthage/Build/Mac/ObjcExceptionBridging.framework; sourceTree = "<group>"; };
+		F332070D2031637B000BA7CF /* Logged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logged.swift; sourceTree = "<group>"; };
+		F332070F203163FC000BA7CF /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		F33207112031640F000BA7CF /* RemoteApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteApi.swift; sourceTree = "<group>"; };
+		F3320713203165A2000BA7CF /* ApiUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUser.swift; sourceTree = "<group>"; };
 		F3B4B465203160D9003C5D71 /* Skeleton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skeleton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3B4B468203160D9003C5D71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3B4B46A203160D9003C5D71 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,15 +120,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3320702203162CB000BA7CF /* Guise.framework in Frameworks */,
+				F3320709203162E6000BA7CF /* XCGLogger.framework in Frameworks */,
+				F332070B203162E6000BA7CF /* ObjcExceptionBridging.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F33206EB203162AF000BA7CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F33206F5203162AF000BA7CF /* Guise.framework */,
+				F33206F7203162AF000BA7CF /* GuiseTests.xctest */,
+				F33206F9203162AF000BA7CF /* Guise.framework */,
+				F33206FB203162AF000BA7CF /* GuiseTests.xctest */,
+				F33206FD203162AF000BA7CF /* Guise.framework */,
+				F33206FF203162AF000BA7CF /* GuiseTests.xctest */,
+				F3320701203162AF000BA7CF /* Guise.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F3B4B45C203160D8003C5D71 = {
 			isa = PBXGroup;
 			children = (
+				F33206EA203162AF000BA7CF /* Guise.xcodeproj */,
+				F3320708203162E6000BA7CF /* ObjcExceptionBridging.framework */,
+				F3320707203162E6000BA7CF /* XCGLogger.framework */,
 				F3B4B467203160D9003C5D71 /* Skeleton */,
 				F3B4B466203160D9003C5D71 /* Products */,
 			);
@@ -59,6 +171,10 @@
 				F3B4B46E203160D9003C5D71 /* Main.storyboard */,
 				F3B4B471203160D9003C5D71 /* Info.plist */,
 				F3B4B472203160D9003C5D71 /* Skeleton.entitlements */,
+				F332070D2031637B000BA7CF /* Logged.swift */,
+				F332070F203163FC000BA7CF /* Api.swift */,
+				F3320713203165A2000BA7CF /* ApiUser.swift */,
+				F33207112031640F000BA7CF /* RemoteApi.swift */,
 			);
 			path = Skeleton;
 			sourceTree = "<group>";
@@ -73,10 +189,12 @@
 				F3B4B461203160D9003C5D71 /* Sources */,
 				F3B4B462203160D9003C5D71 /* Frameworks */,
 				F3B4B463203160D9003C5D71 /* Resources */,
+				F3320706203162CC000BA7CF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F3320705203162CB000BA7CF /* PBXTargetDependency */,
 			);
 			name = Skeleton;
 			productName = Skeleton;
@@ -110,12 +228,70 @@
 			mainGroup = F3B4B45C203160D8003C5D71;
 			productRefGroup = F3B4B466203160D9003C5D71 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F33206EB203162AF000BA7CF /* Products */;
+					ProjectRef = F33206EA203162AF000BA7CF /* Guise.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F3B4B464203160D9003C5D71 /* Skeleton */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F33206F5203162AF000BA7CF /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F33206F4203162AF000BA7CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F33206F7203162AF000BA7CF /* GuiseTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GuiseTests.xctest;
+			remoteRef = F33206F6203162AF000BA7CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F33206F9203162AF000BA7CF /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F33206F8203162AF000BA7CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F33206FB203162AF000BA7CF /* GuiseTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GuiseTests.xctest;
+			remoteRef = F33206FA203162AF000BA7CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F33206FD203162AF000BA7CF /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F33206FC203162AF000BA7CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F33206FF203162AF000BA7CF /* GuiseTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GuiseTests.xctest;
+			remoteRef = F33206FE203162AF000BA7CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3320701203162AF000BA7CF /* Guise.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Guise.framework;
+			remoteRef = F3320700203162AF000BA7CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F3B4B463203160D9003C5D71 /* Resources */ = {
@@ -135,11 +311,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3B4B46B203160D9003C5D71 /* ViewController.swift in Sources */,
+				F332070E2031637B000BA7CF /* Logged.swift in Sources */,
+				F3320710203163FC000BA7CF /* Api.swift in Sources */,
+				F3320714203165A2000BA7CF /* ApiUser.swift in Sources */,
 				F3B4B469203160D9003C5D71 /* AppDelegate.swift in Sources */,
+				F33207122031640F000BA7CF /* RemoteApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F3320705203162CB000BA7CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Guise OSX";
+			targetProxy = F3320704203162CB000BA7CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F3B4B46E203160D9003C5D71 /* Main.storyboard */ = {
@@ -262,10 +450,15 @@
 		F3B4B476203160D9003C5D71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Skeleton/Skeleton.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Skeleton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.revolucent.Skeleton;
@@ -277,10 +470,15 @@
 		F3B4B477203160D9003C5D71 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Skeleton/Skeleton.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Skeleton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.revolucent.Skeleton;
