@@ -25,8 +25,8 @@ public final class ImpotentResolver: Resolving {
         return []
     }
 
-    public func register(key: String, injection: @escaping (Any, Resolving) -> Any) -> String {
-        return key
+    public func register(injectable: String, injection: @escaping (Any, Resolving) -> Any) -> String {
+        return injectable
     }
     
     public func resolve<Target>(into target: Target) -> Target {

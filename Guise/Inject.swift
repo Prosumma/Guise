@@ -10,8 +10,8 @@ import Foundation
 
 public extension Resolving {
     @discardableResult func register<Injectable>(injectable: Injectable.Type, injection: @escaping Injection<Injectable>) -> String {
-        let key = String(reflecting: injectable)
-        return register(key: key) {
+        let injectable = String(reflecting: injectable)
+        return register(injectable: injectable) {
             guard let target = $0 as? Injectable else {
                 return $0
             }

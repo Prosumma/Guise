@@ -57,9 +57,9 @@ public final class Resolver: Resolving {
         return Set(lock.read{ injections.keys })
     }
     
-    public func register(key: String, injection: @escaping Injection<Any>) -> String {
-        lock.write { injections[key] = injection }
-        return key
+    public func register(injectable: String, injection: @escaping Injection<Any>) -> String {
+        lock.write { injections[injectable] = injection }
+        return injectable
     }
     
     public func resolve<Target>(into target: Target) -> Target {
