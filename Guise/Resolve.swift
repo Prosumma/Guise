@@ -18,7 +18,7 @@ public extension Resolving {
     
     public func resolve<RegisteredType, Keys: Sequence>(keys: Keys, parameter: Any = (), cached: Bool? = nil) -> [RegisteredType] where Keys.Element == Key<RegisteredType> {
         let registrations: [Key<RegisteredType>: Registration] = filter(keys: keys)
-        return registrations.flatMap{ $0.value.resolve(parameter: parameter, cached: cached) }
+        return registrations.compactMap{ $0.value.resolve(parameter: parameter, cached: cached) }
     }
     
     func resolve<RegisteredType>(type: RegisteredType.Type = RegisteredType.self, name: AnyHashable = Guise.Name.default, container: AnyHashable  = Guise.Container.default, parameter: Any = (), cached: Bool? = nil) -> RegisteredType? {

@@ -11,5 +11,5 @@ import Foundation
 func hash(_ hashables: AnyHashable?...) -> Int {
     // djb2 hash algorithm: http://www.cse.yorku.ca/~oz/hash.html
     // &+ operator handles Int overflow
-    return hashables.flatMap{ $0 }.reduce(5381) { (result, hashable) in ((result << 5) &+ result) &+ hashable.hashValue }
+    return hashables.compactMap{ $0 }.reduce(5381) { (result, hashable) in ((result << 5) &+ result) &+ hashable.hashValue }
 }
