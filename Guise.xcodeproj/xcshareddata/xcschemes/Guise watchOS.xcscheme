@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F343A9EB1DB7867600B1000F"
+               BlueprintIdentifier = "F35A10C9209F2AFB000FA4B4"
                BuildableName = "Guise.framework"
                BlueprintName = "Guise watchOS"
                ReferencedContainer = "container:Guise.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F343A9EB1DB7867600B1000F"
+            BlueprintIdentifier = "F35A10C9209F2AFB000FA4B4"
             BuildableName = "Guise.framework"
             BlueprintName = "Guise watchOS"
             ReferencedContainer = "container:Guise.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F343A9EB1DB7867600B1000F"
+            BlueprintIdentifier = "F35A10C9209F2AFB000FA4B4"
             BuildableName = "Guise.framework"
             BlueprintName = "Guise watchOS"
             ReferencedContainer = "container:Guise.xcodeproj">
