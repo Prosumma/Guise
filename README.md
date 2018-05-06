@@ -285,7 +285,7 @@ This is the most common case. However, if the registration is only optionally re
 
 ```swift
 if let logger: XCGLogger = Guise.resolve() {
-  logger?.error("Something bad happened.")
+  logger.error("Something bad happened.")
 }
 ```
 
@@ -369,4 +369,108 @@ let pluginRegistrations = Guise.filter(type: Plugin.self, container: Container.p
 ```
 
 This returns all registrations of type `Plugin` in `Container.plugins` whose metadata == `PluginMetadata(granularity: 2)`.
+
+### `KeyPath` Injection
+
+Whenever possible, dependencies should be injected using initializer injection, as described above. However, sometimes we don't have control over the instantiation of a type. This is particularly true of view controllers instantiated from storyboards, etc.
+
+In this case, Guise offers a powerful technique called `KeyPath` injection. The first step in `KeyPath` injection is to specify the dependencies as properties on the type into which they should be injected.
+
+```
+class MyViewController: UIViewController {
+  var api: Api!
+  var database: DatabaseLayer!
+}
+```
+
+Because these dependencies are resolved after `MyViewController` has already been instantiated, they should be optionals, as shown here.
+
+These properties _cannot_ be private. Otherwise, Swift will not generate `KeyPath` constants for these in the correct scope and Guise will not be able to locate them. Dependencies should be explicit anyways, either exposed as parameters in the initializer or as properties on the type that depends upon them.
+
+The next step in `KeyPath` injection is to register some dependencies so that they can be resolved.
+
+```swift
+Guise.register(instance: Database() as DatabaseLayer)
+Guise.register(instance: Api(database: Guise.resolve()!))
+```
+
+The best place to do this in the `AppDelegate` before the rest of the application has been loaded.
+
+Next, we tell Guise how to marry the properties of `MyViewController` to the registered dependencies. Swift`s type system is a big help here, because keypaths are type-safe.
+
+```swift
+Guise.into(injectable: MyViewController.self).inject(\.api).inject(\.database).register()
+```
+
+In plain English, this says, "For the type `MyViewController`, the `api` property and the `database` property are satisfied by registrations of the corresponding types." In other words, because the `\MyViewController.api` `KeyPath` is of type `KeyPath<MyViewController, Api>`, it can be resolved by locating a registration of type `Api`.
+
+The last step is to resolve the injections.
+
+```swift
+class MyViewController: UIViewController {
+  var api: Api!
+  var database: DatabaseLayer!
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    Guise.resolve(into: self)
+  }
+}
+```
+
+The line `Guise.resolve(into: self)` provides values for the `api` and `database` properties of `MyViewController`.
+
+#### Abstraction
+
+A best practice when using `KeyPath` injection is to create a protocol that holds the property to be injected rather than using a concrete type.
+
+```swift
+protocol UsesApi {
+  var api: Api! { get set }
+}
+
+protocol UsesDatabaseLayer {
+  var database: DatabaseLayer! { get set }
+}
+
+class MyViewController: UIViewController, UsesApi, UsesDatabaseLayer {
+  var api: Api!
+  var database: DatabaseLayer!
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    Guise.resolve(into: self)
+  }
+}
+
+class AppDelegate {
+  func applicationDidFinishLaunching() {
+    Guise.register(instance: Database() as DatabaseLayer)
+    Guise.register(instance: Api(database: Guise.resolve()!))
+    Guise.into(UsesApi.self).inject(\.api).register()
+    Guise.into(UsesDatabaseLayer.self).inject(\.database).register()
+  }
+}
+```
+
+Because `MyViewController` implements `UsesApi` and `UsesDatabaseLayer`, its dependencies will be properly resolved when `resolve(into:)` is called.
+
+#### Neutering Guise
+
+Using `Guise.resolve(into:)` is mildly problematic. Here we have an explicit reference to Guise inside one of our types. This is best avoided because it creates a dependency on the resolver itself. What if we want to use Guise in our application but not in our unit tests? The way out is to use the `ImpotentResolver`.
+
+```swift
+// Somewhere in our unit tests, before they run.
+Guise.resolver = ImpotentResolver()
+```
+
+Here we replace Guise's default resolver with the `ImpotentResolver`. The `ImpotentResolver` does nothing. All registrations are ignored. All resolutions return `nil`. `resolve(into:)` does nothing. We must now set our dependencies explicitly when unit testing this controller.
+
+```swift
+let controller = MyViewController()
+controller.database = FakeDatabase()
+controller.api = Api(database: controller.database)
+_ = controller.view
+```
+
+When `controller.view` is called, `viewDidLoad` is implicitly called, but because we're using the `ImpotentResolver`, `Guise.resolve(into: self)` has become a no-op.
 
