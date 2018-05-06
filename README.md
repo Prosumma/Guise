@@ -167,6 +167,8 @@ guard let myViewController: MyViewController = Guise.resolve() else {
 
 ### Abstraction
 
+> **Guise**, _n._ An external form, appearance, or manner of presentation, typically concealing the true nature of something.
+
 One of the functions of a dependency resolver is to locate dependencies. Another one is to abstract them so that they can be replaced with alternate implementations, whether in unit testing or elsewhere. This is typically achieved with a protocol.
 
 ```swift
