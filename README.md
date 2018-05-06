@@ -521,3 +521,41 @@ Guise is a powerful framework with many features. Not all of these have been dis
 
 Guise was also designed to be extensible. Look at the code and you'll see that each piece was built up from much simpler pieces. I've provided a large number of useful overloads, but create your own extensions as you see fit. 
 
+## Other Frameworks
+
+I have a few other frameworks that may be of use to you.
+
+### [Core Data Query Interface](https://github.com/prosumma/CoreDataQueryInterface)
+
+CDQI allows Core Data queries to be expressed in a very succinct manner using a fluent syntax.
+
+```swift
+let isabellas =
+  try! moc
+    .from(User.self)
+    .filter(User.e.firstName == "Isabella")
+    .orderDesc(by: User.e.lastName)
+    .all()
+```
+
+### [DateMath](https://github.com/prosumma/DateMath)
+
+DateMath is a tiny framework that allows date math to be performed using `Calendar.Component` values.
+
+```swift
+let today = Date()
+let tomorrow = today + .day * 1
+```
+
+The time zone in which the calculations are performed can be specified.
+
+```swift
+let today = Date()
+let oneDayLessOneSecondInGMT = TimeZone(identifier: "GMT")! ⁝ today + .day * 1 - .second * 1
+```
+
+### [AbsoluteDate](https://github.com/prosumma/AbsoluteDate)
+
+Swift's `Date` type represents a specific point in time independent of time zone. An `AbsoluteDate`, by contrast, is like the date representations available in many databases: It wraps the human-readable string representation but does so without time zone, so the exact point in time is unknown.
+
+AbsoluteDate depends on the DateMath framework. Date math can be performed on `AbsoluteDate`, `AbsoluteTime`, and `AbsoluteDay` instances.
