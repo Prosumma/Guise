@@ -20,18 +20,25 @@ import Foundation
  of the value held. Practically speaking,
  this means it is always the registered type.
  
+ When a cached registration is made, it is
+ actually the holder that is cached, not an
+ instance of the underlying registered type.
+ 
  There are four implementations of `Holder`
  in Guise: `Strong` (the default), `Weak`,
  `Cached` and `Uncached`. See their documentation.
  */
 public protocol Holder {
+    
     /// The type of the value held.
     associatedtype Held
+    
     /**
      Gets the value held. Returns `nil`
      only for the `Weak` holder.
     */
     var value: Held? { get }
+    
     /**
      Desired caching semantics. If this
      method returns `nil`, caching semantics
@@ -44,6 +51,8 @@ public protocol Holder {
 }
 
 public extension Holder {
+    
+    /// By default, holders do not specify caching semantics.
     static var cached: Bool? {
         return nil
     }

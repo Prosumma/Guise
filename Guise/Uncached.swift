@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ `Uncached` holds a strong reference to its held
+ value. It is never cached.
+ */
 public struct Uncached<T>: Holder {
     public let value: T?
     public init(_ value: T) {

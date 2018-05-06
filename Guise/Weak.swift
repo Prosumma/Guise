@@ -10,7 +10,8 @@ import Foundation
 
 // Adapted from https://stackoverflow.com/a/47441469/27779
 /**
- A `weak` `Holder` for reference types.
+ A `weak` `Holder` for reference types. This holder is always
+ cached. (However, the weak reference it holds is not.)
  
  - warning: If you pass a value type to `Weak`, its `value`
  property will always return `nil` due to boxing.
@@ -32,7 +33,8 @@ public struct Weak<T>: Holder {
     public var value: T? {
         return ref as! T?
     }
-    
+
+    /// Weak holders are always cached
     public static var cached: Bool? {
         return true
     }
