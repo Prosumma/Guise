@@ -15,7 +15,10 @@ import Foundation
  type must implement this protocol.
  */
 public protocol Registration {
+    /// Whether or not the parameter of `resolve` should be the resolver itself.
     var expectsResolver: Bool { get }
+    /// The registered metadata
     var metadata: Any { get }
+    /// Performs the actual resolution
     func resolve<RegisteredType>(parameter: Any, cached: Bool?) -> RegisteredType?
 }
