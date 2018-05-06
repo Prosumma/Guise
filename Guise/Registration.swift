@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+ The type of a registration.
+ 
+ If you implement your own resolver, your registration
+ type must implement this protocol.
+ */
 public protocol Registration {
     var expectsResolver: Bool { get }
     var metadata: Any { get }
