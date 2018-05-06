@@ -27,6 +27,7 @@ public protocol Resolving: class {
      - returns: The unique `Key` under which the registration was made.
      */
     @discardableResult func register<ParameterType, HoldingType: Holder>(key: Key<HoldingType.Held>, metadata: Any, cached: Bool, resolution: @escaping Resolution<ParameterType, HoldingType>) -> Key<HoldingType.Held>
+    
     /**
      Unregisters the blocks registered under the given keys, if any.
      
