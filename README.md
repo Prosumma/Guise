@@ -142,6 +142,17 @@ let something: Something = Guise.resolve(parameter: 3)!
 
 The registration block can take zero or one parameters. If the need arises to pass more complex state to the registration block, use a structured type such as a struct, tuple, or enum.
 
+If the single parameter to the block is of type `Resolving`, the resolver will be automatically passed to the block when resolving. It is not necessary to pass it explicitly.
+
+```swift
+Guise.register{ (resolver: Resolving) in 
+  Api(database: resolver.resolve()!)
+}
+let api = Guise.resolve()!
+```
+
+When `let api = Guise.resolve()!` is called, the current resolver is automatically passed into the `resolver` parameter of the block.
+
 #### Weak Registration
 
 When caching, Guise always holds a strong reference to whatever is being cached. Because the Guise resolver typically lives for the entire lifetime of the application, this can be problematic when registering transient entities such as view controllers.
