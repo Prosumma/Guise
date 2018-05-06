@@ -396,7 +396,7 @@ Guise.register(instance: Api(database: Guise.resolve()!))
 
 The best place to do this in the `AppDelegate` before the rest of the application has been loaded.
 
-Next, we tell Guise how to marry the properties of `MyViewController` to the registered dependencies. Swift`s type system is a big help here, because keypaths are type-safe.
+Next, we tell Guise how to marry the properties of `MyViewController` to the registered dependencies. Swift's type system is a big help here, because keypaths are type-safe.
 
 ```swift
 Guise.into(injectable: MyViewController.self).inject(\.api).inject(\.database).register()
@@ -454,6 +454,36 @@ class AppDelegate {
 
 Because `MyViewController` implements `UsesApi` and `UsesDatabaseLayer`, its dependencies will be properly resolved when `resolve(into:)` is called.
 
+#### Names and Containers
+
+Injections support names and containers.
+
+```swift
+Guise.register(instance: Database() as DatabaseLayer, name: Name.real)
+Guise.into(injectable: UsesDatabase.self).inject(\.database, name: Name.real).register()
+```
+
+This says that when satisfying the `database` dependency of `UsesDatabase`, the registration with the name `Name.real` must be used.
+
+#### Explicit Injection
+
+Just as ordinary registrations are blocks under the hood, so are `KeyPath` injections. It is possible to perform an injection using a block.
+
+```swift
+protocol Arbiter {
+  var rank: Int { get }
+  var judge: Judge? { get set }
+}
+
+Guise.into(injectable: Arbiter.self).inject { (target, resolver) in
+  if target.rank < 7 { return target }
+  target.judge = resolver.resolve()
+  return target
+}
+```
+
+An explicit injection is passed two parameters. The first is an instance of the target type itself, i.e., `target` is an instance of `Arbiter`. The second parameter is the current resolver. _An injection block must **always** return its target._ If it is a reference type, the same reference must be returned. You must not create a new instance of this type. No such restriction exists for value types, although an instance of the same type must be returned. In addition, it is highly advisable, although not absolutely required, to resolve any dependencies using the passed-in resolver and not some external resolver.
+
 #### Neutering Guise
 
 Using `Guise.resolve(into:)` is mildly problematic. Here we have an explicit reference to Guise inside one of our types. This is best avoided because it creates a dependency on the resolver itself. What if we want to use Guise in our application but not in our unit tests? The way out is to use the `ImpotentResolver`.
@@ -473,4 +503,10 @@ _ = controller.view
 ```
 
 When `controller.view` is called, `viewDidLoad` is implicitly called, but because we're using the `ImpotentResolver`, `Guise.resolve(into: self)` has become a no-op.
+
+### Advanced Guise
+
+Guise is a powerful framework with many features. Not all of these have been discussed here. Look at the code and the unit tests to see more. Guise was designed to be simple rather than easy. It is a fairly low-level framework designed to be the base upon which other frameworks can be built. For instance, I plan to create a UI framework with custom segues and so on that allow dependencies to be resolved in view controllers without having to explicitly call `Guise.resolve(into:)`. The creation of such a framework is outside of the scope of Guise but will require Guise under the hood to do its work. I'm a busy guy, so don't look for this framework any time soon. 😀
+
+Guise was also designed to be extensible. Look at the code and you'll see that each piece was built up from much simpler pieces. I've provided a large number of useful overloads, but create your own extensions as you see fit. 
 
