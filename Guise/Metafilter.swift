@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The type of metadata filters.
 public typealias Metafilter<Metadata> = (Metadata) -> Bool
 
 typealias Metathunk<K: Keyed & Hashable, Metadata> = ((Dictionary<K, Registration>.Element) -> Bool)
