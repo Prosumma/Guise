@@ -169,7 +169,7 @@ guard let myViewController: MyViewController = Guise.resolve() else {
 
 One of the functions of a dependency resolver is to locate dependencies. Another one is to abstract them so that they can be replaced with alternate implementations, whether in unit testing or elsewhere. This is typically achieved with a protocol.
 
-```
+```swift
 protocol DatabaseLayer {
   func retrieveSomething() -> [Something]
 }
@@ -251,6 +251,15 @@ Guise.unregister(container: Container.plugins)
 ### Keys
 
 All of the `register` overloads return an instance of `Key<RegisteredType>`. The registered type is the return type of the registration block. The other elements of a key are the registered name and the registered container. All registrations have a name and a container, even if not explicitly mentioned. The default name is `Guise.Name.default`. The default container is `Guise.Container.default`.
+
+It is the combination of registered type, name, and container that create a key and make a registration unique. No other information—caching, metadata, `register` overload used—has any effect on this.
+
+```swift
+Guise.register(instance: Foo())
+Guise.register(factory: Foo())
+```
+
+Because the above two registrations register the same type with the same name in the same container, the second one silently overwrites the first.
 
 Keys can be used to resolve or drop registrations, filter them, etc. In most cases, it is not necessary to save registration keys, because they can easily be constructed at any time.
 
