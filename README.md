@@ -16,7 +16,7 @@ Guise is an elegant, flexible, type-safe dependency resolution framework for Swi
 - [x] Lazy resolution
 - [x] Support for arbitrary metadata
 - [x] Swift 4
-- [x] Support for iOS 8.1+, macOS 10.9+, watchOS 2+, tvOS 9+
+- [x] Support for iOS 8.0+, macOS 10.9+, watchOS 2+, tvOS 9+
 
 ### What Makes Guise Better Than Those Other Guys?
 
@@ -38,8 +38,8 @@ Guise.register(factory: Implementation() as Plugin)
 // The `instance` parameter is also an @autoclosure. Guise is lazy wherever possible.
 Guise.register(instance: Singleton() as Service)
 
-// Register a block directly.
-Guise.register{ Something() }
+// Register a block directly and parameterize it.
+Guise.register{ (x: Int) in Something(x: x) }
 
 // Use a name to disambiguate registrations. (Otherwise the last one wins.)
 // A name can be any `Hashable` type.
@@ -82,7 +82,7 @@ For the sake of brevity, this document assumes that you know what dependency res
 
 ### Usage Styles
 
-Guise can be used in two different ways. The simplest way is to use the static methods of the `Guise` struct, and that is the approach taken here in this document.
+Guise can be used in two different ways. The simplest way is to use the static methods of the `Guise` type, and that is the approach taken here in this document.
 
 The other way is to create an instance of the `Resolver` class and use its instance methods. For instance, one can say:
 
@@ -99,34 +99,263 @@ resolver.register { Plink() }
 
 ### Registration
 
-#### Blocks
-#### Caching
-#### Factory
-#### Instance
-#### Weak
-#### Names
-#### Containers
-#### Keys
-#### Parameters
-##### Resolver Parameter
-#### Init Injection
+Registration is the act of telling Guise how to create or locate a dependency. There are many ways to do this, but we will cover the four most important.
 
+#### Factory Registration
 
+In factory registration, we tell Guise that when resolving, we always want a _new_ instance of whatever we have registered.
 
-#### KeyPath Injection
+```swift
+Guise.register(factory: StringFormatter())
+```
 
-### Resolution
+The `factory` parameter is an `@autoclosure`, so it is evaluated lazily. Actually, because an `@autoclosure` is a block, it is simply stored for later execution and called every time we ask Guise for a `StringFormatter`:
 
-#### Basics
-#### Nil
-#### Caching
-#### Parameters
-##### Resolver Parameter (Reminder)
-#### Lazy
-#### KeyPath Injection
+```swift
+let formatter: StringFormatter = Guise.resolve()!
+```
 
-### Concurrency
+#### Instance Registration
 
-- Registration and lookup of registrations are thread-safe.
-- Caching is also thread-safe per registration to ensure that the resolution block is not called more than once to produce the cached value. This means that, for cached values,the resolution block is executed once inside of a serialized GCD queue.
-- Uncached resolution is not inherently thread-safe. Thread-safety is up to you. 
+In instance registration, we tell Guise that when resolving, we always want the _same_ instance of whatever we have registered.
+
+```
+Guise.register(instance: Api())
+```
+
+The `instance` parameter is an `@autoclosure`, so it is also stored for later evaluation. However, it is called only once, the first time we ask Guise for an `Api` instance. After that, the same instance is returned.
+
+If the registered type is a reference type, Guise will hand us the same reference back. If it's a value type, we'll get a copy, but the initializer will not be called again.
+
+Effectively, instance registration creates a singleton within the resolver.
+
+#### Block Registration
+
+Block registration is the foundation upon which all other types of registration are built. However, it has a clumsier syntax than the other forms of registration, so it should be avoided except in special cases.
+
+Block registration is useful if you need to pass a parameter when resolving or if you wish to perform more complex logic when resolving.
+
+```swift
+Guise.register{ (x: Int) in Something(x: x) }
+let something: Something = Guise.resolve(parameter: 3)!
+```
+
+The registration block can take zero or one parameters. If the need arises to pass more complex state to the registration block, use a structured type such as a struct, tuple, or enum.
+
+#### Weak Registration
+
+When caching, Guise always holds a strong reference to whatever is being cached. Because the Guise resolver typically lives for the entire lifetime of the application, this can be problematic when registering transient entities such as view controllers.
+
+The solution is weak registration. Unlike the other forms of registration, the `weak:` parameter is _not_ an `@autoclosure`. 
+
+```swift
+class MyViewController: UIViewController {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    Guise.register(weak: self)
+  }
+}
+```
+
+Here we are weakly registering an instance of `MyViewController` with Guise. Never force-unwrap when resolving a weak reference:
+
+```swift
+guard let myViewController: MyViewController = Guise.resolve() else {
+  return
+}
+```
+
+### Abstraction
+
+One of the functions of a dependency resolver is to locate dependencies. Another one is to abstract them so that they can be replaced with alternate implementations, whether in unit testing or elsewhere. This is typically achieved with a protocol.
+
+```
+protocol DatabaseLayer {
+  func retrieveSomething() -> [Something]
+}
+
+class Database: DatabaseLayer {
+  func retrieveSomething() -> [Something] {
+    return connection.retrieve("SELECT * FROM something")
+  }
+}
+
+Guise.register(instance: Database() as DatabaseLayer)
+```
+
+The magic here is `as DatabaseLayer`. This makes the registered type `DatabaseLayer` instead of `Database`. When resolving this registration, we must ask for a `DatabaseLayer`, _not_ a `Database`.
+
+```swift
+let database: DatabaseLayer = Guise.resolve()!
+```
+
+Since we don't want to talk to a real database in a unit test, we can now use a different implementation of `DatabaseLayer` in our unit tests.
+
+### Names
+
+If we register the same type twice with Guise, the second registration silently clobbers the first.
+
+```swift
+Guise.register(instance: Database() as DatabaseLayer)
+Guise.register(instance: FakeDatabase() as DatabaseLayer)
+```
+
+Because these both register `DatabaseLayer`, the second one overwrites the first one. To disambiguate these, we can use a name.
+
+```swift
+enum Name {
+  case real
+  case fake
+}
+
+Guise.register(instance: Database() as DatabaseLayer, name: Name.real)
+Guise.register(instance: FakeDatabase() as DatabaseLayer, name: Name.fake)
+```
+
+Any `Hashable` type—including `String`—can be used as a name. I recommend using an enumeration value.
+
+When resolving, the name must be passed or the registration will not be found.
+
+```swift
+let database: DatabaseLayer = Guise.resolve(name: Name.real)!
+```
+
+### Containers
+
+Containers allow registrations to be grouped together. A container is just another kind of name, and like a name it can be any `Hashable` type.
+
+```swift
+enum Container {
+  case plugins
+}
+
+Guise.register(factory: Plugin1() as Plugin, name: Plugin.plugin1, container: Container.plugins)
+Guise.register(factory: Plugin2() as Plugin, name: Plugin.plugin2, container: Container.plugins)
+Guise.register(factory: Plugin3() as Plugin, name: Plugin.plugin3, container: Container.plugins)
+```
+
+Here we are making three `Plugin` registrations, each with a different implementation. They are disambiguated with a name and placed in `Container.plugins`.
+
+When resolving a registration made in a container, the container must be mentioned or the registration will not be found.
+
+```swift
+let plugin: Plugin = Guise.resolve(name: Plugin.plugin1, container: Container.plugins)!
+```
+
+While containers can be used for any purpose you wish, their primary purpose is to allow a group of registrations to be dropped _en masse_.
+
+```
+Guise.unregister(container: Container.plugins)
+```
+
+### Keys
+
+All of the `register` overloads return an instance of `Key<RegisteredType>`. The registered type is the return type of the registration block. The other elements of a key are the registered name and the registered container. All registrations have a name and a container, even if not explicitly mentioned. The default name is `Guise.Name.default`. The default container is `Guise.Container.default`.
+
+Keys can be used to resolve or drop registrations, filter them, etc. In most cases, it is not necessary to save registration keys, because they can easily be constructed at any time.
+
+```swift
+let key = Key<Plugin>(name: Plugin.plugin1, container: Container.plugins)
+```
+
+Keys come in two varieties: `Key<RegisteredType>` and `AnyKey`. The former is the most common. The latter is type-erased but still contains an internal reference to the registered type. It is used when heterogeneous lists of keys are needed.
+
+### Resolving
+
+Many examples of resolving have already been seen. Resolving is inherently simpler than registration.
+
+The `resolve` overloads return `nil` if the registration could not be found. This includes weak registrations that have been zeroed. If your program is invalid without the dependency having already been registered, you should force-unwrap when resolving.
+
+```swift
+let database: DatabaseLayer = Guise.resolve()!
+```
+
+This is the most common case. However, if the registration is only optionally registered or if it is a weak registration, the registration should be checked for `nil` before it is used. 
+
+```swift
+if let logger: XCGLogger = Guise.resolve() {
+  logger?.error("Something bad happened.")
+}
+```
+
+### Caching
+
+Guise has the ability to cache the result of calling the resolution block and simply reusing it later rather than calling the block again. Some `register` overloads offer a `cached:` parameter that allows the user to choose whether caching should be performed or not. Others are implicitly always cached or never cached.
+
+All of the `resolve` overloads offer a `cached:` parameter that allows the caller to override the caching decision made when the registration was created. However, this parameter is only honored for those `register` overloads that have an explicit `cached:` parameter. (This is a breaking change from previous versions of Guise where caching could always be overridden when resolving.)
+
+What this means is that factory registration is _always_ uncached, and instance and weak registration are _always_ cached.
+
+```swift
+Guise.register(instance: Singleton())
+let singleton: Singleton = Guise.resolve(cached: false)!
+```
+
+In the example above, the `cached` parameter is ignored because `register(instance:)` does not allow registrations to be uncached.
+
+```swift
+Guise.register(cached: true) { Singleton() }
+let singleton: Singleton = Guise.resolve(cached: false)!
+```
+
+In this example, block registration allows the registrar to decide explicitly whether caching should be performed or not, so it can be overridden. In the second line, the resolution block will be called again, even if a cached instance already exists.
+
+### Initializer Injection
+
+One of the most important capabilities of a dependency resolver is to compose dependencies together. The easiest and most straightforward way to do this is with initializer injection. In this pattern, the dependencies of a dependency are injected into its initializer at the time it is registered.
+
+```swift
+struct Api {
+  init(database: DatabaseLayer) {}
+}
+
+Guise.register(instance: Database() as DatabaseLayer)
+Guise.register(instance: Api(database: Guise.resolve()!))
+```
+
+### Metadata
+
+Arbitrary metadata can be attached to any registration. This metadata can be of any type.
+
+```swift
+Guise.register(factory: Plugin1() as Plugin, metadata: PluginMetadata(granularity: 4))
+```
+
+Metadata is chiefly useful in filtering. It allows the caller to locate a registration without instantiating it. Imagine an application with a large set of plugins that are expensive to instantiate, perhaps because they hold and manipulate external resources. We want the ability to locate a plugin and query its capabilities before we decide whether to instatiate it or not. This is what metadata allows us to do.
+
+For more information, see the section on Filtering.
+
+### Filtering
+
+Filtering locates registrations using various criteria but does not resolve them.
+
+```swift
+let pluginRegistrations = Guise.filter(type: Plugin.self, container: Container.plugins)
+```
+
+This filter locates all registrations of type `Plugin` in `Container.plugins`, regardless of name. The return type of most filter methods is `[Keyed: Registration]`, where `Keyed` is either `Key<RegisteredType>` or `AnyKey`.
+
+Although the `filter` overloads return `Registration` instances directly, it is best not to try to resolve using these. Instead, pass the keys to one of the `resolve` overloads that takes one or more keys.
+
+```swift
+let plugins = Guise.resolve(keys: pluginRegistrations.keys)
+```
+
+In addition to type, name, and container, metadata can be queried.
+
+```swift
+let pluginRegistrations = Guise.filter(type: Plugin.self, container: Container.plugins) { (metadata: PluginMetadata)
+  metadata.granularity > 2
+}
+```
+
+This returns all registrations of type `Plugin` in `Container.plugins` whose metadata is of type `PluginMetadata` and whose "granularity" is greater than 2.
+
+If the metadata implements `Equatable` and an equality comparison is desired, a convenient overload exists.
+
+```swift
+let pluginRegistrations = Guise.filter(type: Plugin.self, container: Container.plugins, metadata: PluginMetadata(granularity: 2))
+```
+
+This returns all registrations of type `Plugin` in `Container.plugins` whose metadata == `PluginMetadata(granularity: 2)`.
+
