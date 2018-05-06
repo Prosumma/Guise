@@ -42,18 +42,21 @@ public protocol Resolving: class {
     
     /// Returns the keys of the registered injections. Injection keys are just strings.
     var injectables: Set<String> { get }
+    
     /**
      Registers an injection.
      
      An injection is a function that transforms and then returns its argument. If the
      argument is a reference type, conforming injections must return the _same_ reference.
      If the injection does not apply to the passed-in instance, the instance should be
-     returned unmodified.
+     returned unmodified. An injection takes two parameters: The first is the target
+     of the injection. The second is the resolver with which the injection is registered.
      
      For example, here is a properly written injection that adds two to any integer passed to it.
+     In this example, we are ignoring the resolver passed as the second argument to the injection.
      
      ```
-     Guise.register(injectable: "AddTwo") { arg in
+     Guise.register(injectable: "AddTwo") { (target, _) in
          guard let i = arg as? Int else { return arg }
          return i + 2
      }
@@ -69,8 +72,9 @@ public protocol Resolving: class {
      
      If our "AddTwo" injection was registered, it would simply return its argument.
      
-     - note: Don't use this method. It is the foundation on which higher-level, more type-safe
-     forms of injection are built.
+     - warning: Don't use this method. It is the foundation on which higher-level, more type-safe
+     forms of injection are built. Use any of the other overloads, but especially those
+     that take keypaths.
      
      - parameter key: The unique key under which this injection is registered.
      - parameter injection: The injection to register.

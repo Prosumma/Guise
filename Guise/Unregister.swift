@@ -10,8 +10,8 @@ import Foundation
 
 public extension Resolving {
     
-    @discardableResult func unregister<K: Keyed>(key: K) -> Int {
-        return unregister(keys: [key])
+    @discardableResult func unregister<K: Keyed>(key: K) -> Bool {
+        return unregister(keys: [key]) == 1
     }
     
     @discardableResult func unregister<RegisteredType>(type: RegisteredType.Type, container: AnyHashable = Guise.Container.default) -> Int {
@@ -37,7 +37,7 @@ public extension Resolving {
 
 public extension _Guise {
     
-    @discardableResult static func unregister<K: Keyed>(key: K) -> Int {
+    @discardableResult static func unregister<K: Keyed>(key: K) -> Bool {
         return resolver.unregister(key: key)
     }
     
