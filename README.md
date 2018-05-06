@@ -119,7 +119,7 @@ let formatter: StringFormatter = Guise.resolve()!
 
 In instance registration, we tell Guise that when resolving, we always want the _same_ instance of whatever we have registered.
 
-```
+```swift
 Guise.register(instance: Api())
 ```
 
@@ -246,7 +246,7 @@ let plugin: Plugin = Guise.resolve(name: Plugin.plugin1, container: Container.pl
 
 While containers can be used for any purpose you wish, their primary purpose is to allow a group of registrations to be dropped _en masse_.
 
-```
+```swift
 Guise.unregister(container: Container.plugins)
 ```
 
@@ -376,7 +376,7 @@ Whenever possible, dependencies should be injected using initializer injection, 
 
 In this case, Guise offers a powerful technique called `KeyPath` injection. The first step in `KeyPath` injection is to specify the dependencies as properties on the type into which they should be injected.
 
-```
+```swift
 class MyViewController: UIViewController {
   var api: Api!
   var database: DatabaseLayer!
