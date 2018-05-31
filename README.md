@@ -55,7 +55,7 @@ class Controller {
 }
 
 // Initializer injection
-Guise.register{ (resolver: Guising) in
+Guise.register{ (resolver: Resolving) in
   // The types of the parameters determine what is resolved.
   return Controller(something: resolver.resolve()!, plugin: resolver.resolve(name: Name.implementation2)!)
 }
