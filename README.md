@@ -1,4 +1,4 @@
-<!-- [![Build Status](https://travis-ci.org/Prosumma/Guise.svg)](https://travis-ci.org/Prosumma/Guise) -->
+[![Build Status](https://travis-ci.org/Prosumma/Guise.svg)](https://travis-ci.org/Prosumma/Guise)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Guise.svg)](https://cocoapods.org)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Language](https://img.shields.io/badge/Swift-4.0-orange.svg)](http://swift.org)
@@ -145,7 +145,7 @@ The registration block can take zero or one parameters. If the need arises to pa
 If the single parameter to the block is of type `Resolving`, the resolver will be automatically passed to the block when resolving. It is not necessary to pass it explicitly.
 
 ```swift
-Guise.register{ (resolver: Resolving) in 
+Guise.register{ (resolver: Resolving) in
   Api(database: resolver.resolve()!)
 }
 let api = Guise.resolve()!
@@ -157,7 +157,7 @@ When `let api = Guise.resolve()!` is called, the current resolver is automatical
 
 When caching, Guise always holds a strong reference to whatever is being cached. Because the Guise resolver typically lives for the entire lifetime of the application, this can be problematic when registering transient entities such as view controllers.
 
-The solution is weak registration. Unlike the other forms of registration, the `weak:` parameter is _not_ an `@autoclosure`. 
+The solution is weak registration. Unlike the other forms of registration, the `weak:` parameter is _not_ an `@autoclosure`.
 
 ```swift
 class MyViewController: UIViewController {
@@ -292,7 +292,7 @@ The `resolve` overloads return `nil` if the registration could not be found. Thi
 let database: DatabaseLayer = Guise.resolve()!
 ```
 
-This is the most common case. However, if the registration is only optionally registered or if it is a weak registration, the registration should be checked for `nil` before it is used. 
+This is the most common case. However, if the registration is only optionally registered or if it is a weak registration, the registration should be checked for `nil` before it is used.
 
 ```swift
 if let logger: XCGLogger = Guise.resolve() {
@@ -419,11 +419,13 @@ The last step is to resolve the injections.
 
 ```swift
 class MyViewController: UIViewController {
+  // These two ivars are "hydrated" by Guise.resolve(into:).
   var api: Api!
   var database: DatabaseLayer!
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    // This line gives values to the api and database ivars above.
     Guise.resolve(into: self)
   }
 }
@@ -519,7 +521,7 @@ When `controller.view` is called, `viewDidLoad` is implicitly called, but becaus
 
 Guise is a powerful framework with many features. Not all of these have been discussed here. Look at the code and the unit tests to see more. Guise was designed to be simple rather than easy. It is a fairly low-level framework designed to be the base upon which other frameworks can be built. For instance, I plan to create a UI framework with custom segues and so on that allow dependencies to be resolved in view controllers without having to explicitly call `Guise.resolve(into:)`. The creation of such a framework is outside of the scope of Guise but will require Guise under the hood to do its work. I'm a busy guy, so don't look for this framework any time soon. 😀
 
-Guise was also designed to be extensible. Look at the code and you'll see that each piece was built up from much simpler pieces. I've provided a large number of useful overloads, but create your own extensions as you see fit. 
+Guise was also designed to be extensible. Look at the code and you'll see that each piece was built up from much simpler pieces. I've provided a large number of useful overloads, but create your own extensions as you see fit.
 
 ## Other Frameworks
 
