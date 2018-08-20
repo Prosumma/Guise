@@ -16,13 +16,11 @@ public struct AnyKey: Keyed, Hashable {
     public let name: AnyHashable
     /// The container in which the registration was made. Defaults to `Guise.Container.default`.
     public let container: AnyHashable
-    public let hashValue: Int
     
     public init<T>(type: T.Type, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default) {
         self.type = String(reflecting: type)
         self.name = name
         self.container = container
-        self.hashValue = hash(self.type, self.name, self.container)
     }
     
     /**
@@ -40,6 +38,5 @@ public struct AnyKey: Keyed, Hashable {
         self.type = key.type
         self.name = key.name
         self.container = key.container
-        self.hashValue = hash(self.type, self.name, self.container)
     }
 }
