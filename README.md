@@ -15,7 +15,7 @@ Guise is an elegant, flexible, type-safe dependency resolution framework for Swi
 - [x] Typesafe `KeyPath` injection
 - [x] Lazy resolution
 - [x] Support for arbitrary metadata
-- [x] Swift 4
+- [x] Swift 4.2 (for Swift 4.1 and earlier, use version 7.0 and earlier)
 - [x] Support for iOS 8.0+, macOS 10.9+, watchOS 2+, tvOS 9+
 
 ### What Makes Guise Better Than Those Other Guys?
