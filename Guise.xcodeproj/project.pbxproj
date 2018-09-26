@@ -280,7 +280,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F3985BCF1F5CABD8007392C0 /* Source */ = {
+		F3512E5D215B301200A2C6E0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				F34E966F20315DE9006DAA56 /* _Guise.swift */,
@@ -311,8 +311,24 @@
 				F308F3031FE3DC5B00B8A221 /* Uncached.swift */,
 				F3C2BC741FDFDEAB006726B7 /* Unregister.swift */,
 				F344CC771FE0FE7400DF17CF /* Weak.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F3512E5E215B30AF00A2C6E0 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
 				F39C36B7215B2AE900B281D8 /* InjectableViewController.swift */,
 				F39C36BA215B2B2A00B281D8 /* InjectableTableViewController.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		F3985BCF1F5CABD8007392C0 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F3512E5D215B301200A2C6E0 /* Common */,
+				F3512E5E215B30AF00A2C6E0 /* iOS */,
 			);
 			name = Source;
 			sourceTree = "<group>";

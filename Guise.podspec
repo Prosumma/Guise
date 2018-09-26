@@ -69,7 +69,7 @@ It allows caching, simplifies unit testing, and allows your application to be mo
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
-  s.ios.deployment_target = "8.1"
+  s.ios.deployment_target = "8.0"
   s.osx.deployment_target = "10.9"
   s.watchos.deployment_target = "2.0"
   s.tvos.deployment_target = "9.0"
@@ -92,7 +92,9 @@ It allows caching, simplifies unit testing, and allows your application to be mo
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Guise"
+  s.source_files  = "Guise/Common"
+  s.ios.source_files = "Guise/iOS"
+  s.tvos.source_files = "Guise/iOS"
 
   # s.public_header_files = "Classes/**/*.h"
 
