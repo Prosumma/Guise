@@ -15,6 +15,15 @@ class GuiseInjectionTests: XCTestCase {
         super.setUp()
         Guise.clear(.both)
     }
+    
+    func testBlockInjection() {
+        Guise.register(injectable: Multi1.self) { (target, resolver) in
+            target.s = "Injected!"
+        }
+        let multi = Multi()
+        Guise.resolve(into: multi)
+        XCTAssertEqual(multi.s, "Injected!")
+    }
 
     func testInjection() {
         Guise.register(factory: Xig() as Upwit)

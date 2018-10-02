@@ -7,6 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F30448182163939D000C40A0 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BE81FDF3799005C00BD /* Resolver.swift */; };
+		F3044819216393B1000C40A0 /* Resolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BDE1FDF33EC005C00BD /* Resolving.swift */; };
+		F304481A216393B3000C40A0 /* _Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34E966F20315DE9006DAA56 /* _Guise.swift */; };
+		F304481B216393B6000C40A0 /* _Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC381FDF38F3006726B7 /* _Registration.swift */; };
+		F304481C216393B9000C40A0 /* AnyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BCA1FDF316B005C00BD /* AnyKey.swift */; };
+		F304481D216393BC000C40A0 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
+		F304481E216393BF000C40A0 /* Criteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A1E701FE09DDC0052425F /* Criteria.swift */; };
+		F304481F216393C1000C40A0 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC471FDF664E006726B7 /* Filter.swift */; };
+		F3044820216393C4000C40A0 /* Guise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BB61FDF2FEE005C00BD /* Guise.swift */; };
+		F3044821216393C7000C40A0 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA19B71FE3C5CE003F901B /* Holder.swift */; };
+		F3044822216393C9000C40A0 /* ImpotentResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC6F1FDFDC6C006726B7 /* ImpotentResolver.swift */; };
+		F3044823216393CD000C40A0 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B6E1E72030F318002185AF /* Inject.swift */; };
+		F3044824216393D0000C40A0 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC601FDFD2F9006726B7 /* Injection.swift */; };
+		F3044825216393D4000C40A0 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC6A1FDFD5E2006726B7 /* Injector.swift */; };
+		F3044826216393D7000C40A0 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC01FDF3098005C00BD /* Key.swift */; };
+		F3044827216393DC000C40A0 /* Keyed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BBB1FDF3017005C00BD /* Keyed.swift */; };
+		F3044828216393DF000C40A0 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
+		F3044829216393E8000C40A0 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC4C1FDF6D14006726B7 /* Metadata.swift */; };
+		F304482A216393E8000C40A0 /* Metafilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC5B1FDFCCB4006726B7 /* Metafilter.swift */; };
+		F304482B216393E8000C40A0 /* Miscellanea.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BC51FDF3117005C00BD /* Miscellanea.swift */; };
+		F304482C216393E8000C40A0 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC3D1FDF6413006726B7 /* Register.swift */; };
+		F304482D216393E8000C40A0 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BD41FDF3388005C00BD /* Registration.swift */; };
+		F304482E216393E8000C40A0 /* Resolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32D9BD91FDF3397005C00BD /* Resolution.swift */; };
+		F304482F216393E8000C40A0 /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC421FDF65F2006726B7 /* Resolve.swift */; };
+		F3044830216393E8000C40A0 /* Strong.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA19BC1FE3C5F1003F901B /* Strong.swift */; };
+		F3044831216393E8000C40A0 /* Uncached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F3031FE3DC5B00B8A221 /* Uncached.swift */; };
+		F3044832216393E8000C40A0 /* Unregister.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC741FDFDEAB006726B7 /* Unregister.swift */; };
+		F3044833216393E8000C40A0 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC771FE0FE7400DF17CF /* Weak.swift */; };
 		F308F2FF1FE3DBAA00B8A221 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
 		F308F3001FE3DBAA00B8A221 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
 		F308F3011FE3DBAA00B8A221 /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = F308F2FE1FE3DBAA00B8A221 /* Cached.swift */; };
@@ -572,6 +600,7 @@
 				TargetAttributes = {
 					F35A10C9209F2AFB000FA4B4 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					F3700B651DB7826900DDB218 = {
@@ -684,6 +713,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3044832216393E8000C40A0 /* Unregister.swift in Sources */,
+				F304482F216393E8000C40A0 /* Resolve.swift in Sources */,
+				F3044824216393D0000C40A0 /* Injection.swift in Sources */,
+				F304481B216393B6000C40A0 /* _Registration.swift in Sources */,
+				F304482E216393E8000C40A0 /* Resolution.swift in Sources */,
+				F3044820216393C4000C40A0 /* Guise.swift in Sources */,
+				F304481C216393B9000C40A0 /* AnyKey.swift in Sources */,
+				F3044831216393E8000C40A0 /* Uncached.swift in Sources */,
+				F3044821216393C7000C40A0 /* Holder.swift in Sources */,
+				F3044825216393D4000C40A0 /* Injector.swift in Sources */,
+				F304482A216393E8000C40A0 /* Metafilter.swift in Sources */,
+				F30448182163939D000C40A0 /* Resolver.swift in Sources */,
+				F3044822216393C9000C40A0 /* ImpotentResolver.swift in Sources */,
+				F3044833216393E8000C40A0 /* Weak.swift in Sources */,
+				F3044827216393DC000C40A0 /* Keyed.swift in Sources */,
+				F3044828216393DF000C40A0 /* Lock.swift in Sources */,
+				F304481E216393BF000C40A0 /* Criteria.swift in Sources */,
+				F304482D216393E8000C40A0 /* Registration.swift in Sources */,
+				F304481D216393BC000C40A0 /* Cached.swift in Sources */,
+				F3044823216393CD000C40A0 /* Inject.swift in Sources */,
+				F304482B216393E8000C40A0 /* Miscellanea.swift in Sources */,
+				F3044826216393D7000C40A0 /* Key.swift in Sources */,
+				F304481F216393C1000C40A0 /* Filter.swift in Sources */,
+				F304481A216393B3000C40A0 /* _Guise.swift in Sources */,
+				F3044830216393E8000C40A0 /* Strong.swift in Sources */,
+				F304482C216393E8000C40A0 /* Register.swift in Sources */,
+				F3044829216393E8000C40A0 /* Metadata.swift in Sources */,
+				F3044819216393B1000C40A0 /* Resolving.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,7 +959,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -932,7 +989,7 @@
 				PRODUCT_NAME = Guise;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
