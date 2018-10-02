@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Guise"
-  s.version      = "7.1.1"
+  s.version      = "8.0"
   s.summary      = "An elegant, flexible, type-safe dependency resolution framework for Swift."
 
   # This description is used to generate tags and improve search results.
