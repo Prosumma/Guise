@@ -1,7 +1,7 @@
 <!-- [![Build Status](https://travis-ci.org/Prosumma/Guise.svg)](https://travis-ci.org/Prosumma/Guise) -->
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Guise.svg)](https://cocoapods.org)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Language](https://img.shields.io/badge/Swift-4.0-orange.svg)](http://swift.org)
+[![Language](https://img.shields.io/badge/Swift-4.2-orange.svg)](http://swift.org)
 ![Platforms](https://img.shields.io/cocoapods/p/Guise.svg)
 
 Guise is an elegant, flexible, type-safe dependency resolution framework for Swift.
@@ -75,6 +75,15 @@ let controller = Guise.resolve()! as Controller
 // Resolve KeyPath injections
 Guise.resolve(into: controller)
 ```
+
+### Changes From 7.x
+
+Guise 8 introduces a breaking change to `KeyPath` injection. Since `KeyPath` injection is only useful to reference types, this is now enforced by Guise.
+
+- `resolve(into:)` now takes `AnyObject` and returns `Void`.
+- Only `ReferenceWritableKeyPath`s are supported. This means that any protocols used in `KeyPath` injection must have `: class` or `: AnyObject`.
+
+See the revised section on `KeyPath` injection for more information.
 
 ### Mental Prerequisites
 
@@ -435,14 +444,14 @@ The line `Guise.resolve(into: self)` provides values for the `api` and `database
 
 #### Abstraction
 
-A best practice when using `KeyPath` injection is to create a protocol that holds the property to be injected rather than using a concrete type.
+A best practice when using `KeyPath` injection is to create a protocol that holds the property to be injected rather than using a concrete type. Since `KeyPath` injection works only with reference types, the protocol must be marked as a reference type as well, using `: class`.
 
 ```swift
-protocol UsesApi {
+protocol UsesApi: class {
   var api: Api! { get set }
 }
 
-protocol UsesDatabaseLayer {
+protocol UsesDatabaseLayer: class {
   var database: DatabaseLayer! { get set }
 }
 
@@ -459,6 +468,8 @@ class AppDelegate {
   func applicationDidFinishLaunching() {
     Guise.register(instance: Database() as DatabaseLayer)
     Guise.register(instance: Api(database: Guise.resolve()!))
+    // Without ": class" on the protocols above, the following two lines
+    // will not compile.
     Guise.into(UsesApi.self).inject(\.api).register()
     Guise.into(UsesDatabaseLayer.self).inject(\.database).register()
   }
