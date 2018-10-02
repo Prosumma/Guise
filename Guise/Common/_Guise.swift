@@ -16,8 +16,8 @@ public protocol _Guise {
     static func filter<K: Keyed>(_ filter: @escaping (K) -> Bool) -> [K: Registration]
     // MARK: Injection
     static var injectables: Set<String> { get }
-    @discardableResult static func register(injectable key: String, injection: @escaping Injection<Any>) -> String
-    @discardableResult static func resolve<Target>(into target: Target) -> Target
+    @discardableResult static func register(injectable key: String, injection: @escaping Injection<AnyObject>) -> String
+    static func resolve(into target: AnyObject)
     @discardableResult static func unregister<Keys: Sequence>(injectables: Keys) -> Int where Keys.Element == String
 }
 

@@ -82,7 +82,7 @@ public protocol Resolving: class {
      
      - returns: The key under which the registration was made.
      */
-    @discardableResult func register(injectable key: String, injection: @escaping Injection<Any>) -> String
+    @discardableResult func register(injectable key: String, injection: @escaping Injection<AnyObject>) -> String
     
     /**
      Resolves any injections which apply to `target`.
@@ -90,7 +90,7 @@ public protocol Resolving: class {
      _All_ registered injections are tested against `target` and applied if applicable. See
      the documentation for `register(injectable:injection:)` for more information.
      */
-    @discardableResult func resolve<Target>(into target: Target) -> Target
+    func resolve(into target: AnyObject)
     
     /**
      Unregisters the registered injections.

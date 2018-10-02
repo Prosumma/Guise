@@ -139,7 +139,7 @@ public struct Guise: _Guise {
      
      - returns: The key under which the registration was made.
      */
-    @discardableResult public static func register(injectable key: String, injection: @escaping Injection<Any>) -> String {
+    @discardableResult public static func register(injectable key: String, injection: @escaping Injection<AnyObject>) -> String {
         return resolver.register(injectable: key, injection: injection)
     }
     
@@ -149,8 +149,8 @@ public struct Guise: _Guise {
      _All_ registered injections are tested against `target` and applied if applicable. See
      the documentation for `register(injectable:injection:)` for more information.
      */
-    @discardableResult public static func resolve<Target>(into target: Target) -> Target {
-        return resolver.resolve(into: target)
+    public static func resolve(into target: AnyObject) {
+        resolver.resolve(into: target)
     }
     
     /**

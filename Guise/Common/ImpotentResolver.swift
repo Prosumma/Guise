@@ -113,7 +113,7 @@ public final class ImpotentResolver: Resolving {
      
      - returns: The key under which the registration was made.
      */
-    public func register(injectable: String, injection: @escaping (Any, Resolving) -> Any) -> String {
+    public func register(injectable: String, injection: @escaping Injection<AnyObject>) -> String {
         return injectable
     }
     
@@ -123,8 +123,8 @@ public final class ImpotentResolver: Resolving {
      _All_ registered injections are tested against `target` and applied if applicable. See
      the documentation for `register(injectable:injection:)` for more information.
      */
-    public func resolve<Target>(into target: Target) -> Target {
-        return target
+    public func resolve(into target: AnyObject) {
+        
     }
     
     /**

@@ -40,8 +40,9 @@ class GuiseInjectionTests: XCTestCase {
         
         Guise.into(injectable: Multi1.self).inject(\.s).register()
         Guise.into(injectable: Multi2.self).inject(exact: \.x).register()
-        
-        let m = Guise.resolve(into: Multi())
+
+        let m = Multi()
+        Guise.resolve(into: m)
         XCTAssertNotNil(m.s)
         XCTAssertEqual(m.s!, "Multi1")
         XCTAssertEqual(m.x, 7)

@@ -101,7 +101,7 @@ public final class Resolver: Resolving {
     
     // MARK: Injecting
     
-    internal var injections = [String: Injection<Any>]()
+    internal var injections = [String: Injection<AnyObject>]()
 
     /// Returns the keys of the registered injections. Injection keys are just strings.
     public var injectables: Set<String> {
@@ -146,7 +146,7 @@ public final class Resolver: Resolving {
      
      - returns: The key under which the registration was made.
      */
-    @discardableResult public func register(injectable key: String, injection: @escaping Injection<Any>) -> String {
+    @discardableResult public func register(injectable key: String, injection: @escaping Injection<AnyObject>) -> String {
         lock.write { injections[key] = injection }
         return key
     }
@@ -157,14 +157,11 @@ public final class Resolver: Resolving {
      _All_ registered injections are tested against `target` and applied if applicable. See
      the documentation for `register(injectable:injection:)` for more information.
      */
-    @discardableResult public func resolve<Target>(into target: Target) -> Target {
+    public func resolve(into target: AnyObject) {
         let injections = lock.read{ self.injections.values }
-        var injected = target
         for injection in injections {
-            injected = injection(injected, self) as! Target
+            injection(target, self)
         }
-        assert(!(type(of: target) is AnyClass) || (target as AnyObject === injected as AnyObject), "When the target of resolve(into:) is a class instance, the very same instance must be returned after resolution.")
-        return injected
     }
     
     /**

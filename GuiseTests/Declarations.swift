@@ -88,15 +88,15 @@ enum Metadata {
     case blee
 }
 
-protocol Multi1 {
+protocol Multi1: class {
     var s: String? { get set }
 }
 
-protocol Multi2 {
+protocol Multi2: class {
     var x: Int { get set }
 }
 
-struct Multi: Multi1, Multi2 {
+class Multi: Multi1, Multi2 {
     var s: String? = nil
     var x: Int = 0
 }

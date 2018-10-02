@@ -33,15 +33,15 @@ public extension Resolving {
      a particular target during resolution is handled for you.
      
      - note: This overload is strongly recommended over using the "root"
-     overload which takes a `String` and a injection of type `Injection<Any>`.
+     overload which takes a `String` and a injection of type `Injection<AnyObject>`.     
      */
     @discardableResult func register<Injectable>(injectable type: Injectable.Type, injection: @escaping Injection<Injectable>) -> String {
         let injectable = String(reflecting: type)
         return register(injectable: injectable) {
             guard let target = $0 as? Injectable else {
-                return $0
+                return
             }
-            return injection(target, $1)
+            injection(target, $1)
         }
     }
     
