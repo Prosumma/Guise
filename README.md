@@ -20,7 +20,7 @@ Guise is an elegant, flexible, type-safe dependency resolution framework for Swi
 
 ### Important Notice About Swift 5.0
 
-The latest release (v8.0) is as described in this README. However, Swift 5.x breaks Guise because of a change in how method overloads occur. The `master` branch contains a fix for this which will be released as Guise 9.0 very shortly.
+The latest release (v8.0) is as described in this README. However, Swift 5.x breaks Guise because of a change in how method overloads are resolved. The `master` branch contains a fix for this which will be released as Guise 9.0 very shortly.
 
 ### What Makes Guise Better Than Those Other Guys?
 
