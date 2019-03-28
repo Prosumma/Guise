@@ -18,6 +18,10 @@ Guise is an elegant, flexible, type-safe dependency resolution framework for Swi
 - [x] Swift 4.2 (for Swift 4.1 and earlier, use version 7.0 and earlier)
 - [x] Support for iOS 8.0+, macOS 10.9+, watchOS 2+, tvOS 9+
 
+### Important Notice About Swift 5b.0
+
+The latest release (v4.2) is as described in this README. However, Swift 5.x breaks Guise because of a change in how method overloads occur. The `master` branch contains a fix for this which will be released as Guise 9.0 very shortly.
+
 ### What Makes Guise Better Than Those Other Guys?
 
 - Guise doesn't require any modification to the types you register. There are no special interfaces like `Injectable` or `Component` to implement. There are no special initializers or properties to add. Any type can be registered as is.
