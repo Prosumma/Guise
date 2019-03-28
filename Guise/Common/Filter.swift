@@ -161,7 +161,7 @@ public extension Resolving {
      `as?` operator) and the metadata filter must return `true`. If `name` and/or `container` are `nil`,
      they are ignored for the purposes of matching.
      */
-    func filter<Metadata>(name: AnyHashable? = nil, container: AnyHashable? = nil, metafilter: @escaping Metafilter<Metadata>) -> [AnyKey: Registration] {
+    func filter<Metadata>(name: AnyHashable?, container: AnyHashable?, metafilter: @escaping Metafilter<Metadata>) -> [AnyKey: Registration] {
         return filter(criteria: Criteria(name: name, container: container)).filter(metathunk(metafilter))
     }
 

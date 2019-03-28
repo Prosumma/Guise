@@ -59,7 +59,7 @@ public extension Resolving {
      
      - returns: An array of instances of the registered type
      */
-    public func resolve<RegisteredType, Keys: Sequence>(keys: Keys, parameter: Any = (), cached: Bool? = nil) -> [RegisteredType] where Keys.Element == Key<RegisteredType> {
+    func resolve<RegisteredType, Keys: Sequence>(keys: Keys, parameter: Any = (), cached: Bool? = nil) -> [RegisteredType] where Keys.Element == Key<RegisteredType> {
         let registrations: [Key<RegisteredType>: Registration] = filter(keys: keys)
         return registrations.compactMap {
             let parameter = $0.value.expectsResolver && parameter is Void ? self : parameter

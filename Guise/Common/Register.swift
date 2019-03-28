@@ -210,7 +210,7 @@ public extension _Guise {
      `register(factory:)`, or `register(weak:)`.
      */
     @discardableResult static func register<HoldingType: Holder>(holder: @escaping @autoclosure () -> HoldingType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false) -> Key<HoldingType.Held> {
-        return resolver.register(holder: holder, name: name, container: container, metadata: metadata, cached: cached)
+        return resolver.register(holder: holder(), name: name, container: container, metadata: metadata, cached: cached)
     }
 
     /**
@@ -283,7 +283,7 @@ public extension _Guise {
      - returns: The key under which the registration was made
      */
     @discardableResult static func register<RegisteredType>(strong: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = (), cached: Bool = false) -> Key<RegisteredType> {
-        return resolver.register(strong: strong, name: name, container: container, metadata: metadata, cached: cached)
+        return resolver.register(holder: Strong(strong()), name: name, container: container, metadata: metadata, cached: cached)
     }
     
     /**
@@ -300,7 +300,7 @@ public extension _Guise {
      - returns: The key under which the registration was made
      */
     @discardableResult static func register<RegisteredType>(factory: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return resolver.register(factory: factory, name: name, container: container, metadata: metadata)
+        return resolver.register(holder: Uncached(factory()), name: name, container: container, metadata: metadata)
     }
     
     /**
@@ -322,7 +322,7 @@ public extension _Guise {
      - returns: The key under which the registration was made
      */
     @discardableResult static func register<RegisteredType>(instance: @escaping @autoclosure () -> RegisteredType, name: AnyHashable = Guise.Name.default, container: AnyHashable = Guise.Container.default, metadata: Any = ()) -> Key<RegisteredType> {
-        return resolver.register(instance: instance, name: name, container: container, metadata: metadata)
+        return resolver.register(holder: Cached(instance()), name: name, container: container, metadata: metadata)
     }
 
     /**
