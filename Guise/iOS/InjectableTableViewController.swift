@@ -6,6 +6,8 @@
 //  Copyright © 2018 Gregory Higley. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
 /**
@@ -48,3 +50,5 @@ open class InjectableTableViewController: UITableViewController {
     }
 
 }
+
+#endif

@@ -8,10 +8,5 @@
 
 import Foundation
 
-/**
- The type of an injection.
- 
- If `Target` is a reference type, an Injection block *must*
- return the *same* reference.
- */
+/// Type type of an injection.
 public typealias Injection<Target> = (Target, Resolving) -> Void
