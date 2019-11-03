@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Guise"
-  s.version      = "9.0"
+  s.version      = "9.1"
   s.summary      = "An elegant, flexible, type-safe dependency resolution framework for Swift."
   s.description  = <<-DESC
 Guise is an elegant, flexible, type-safe dependency resolution framework for Swift.
@@ -16,7 +16,5 @@ It allows caching, simplifies unit testing, and allows your application to be mo
   s.tvos.deployment_target = "10.0"
   s.source       = { :git => "https://github.com/Prosumma/Guise.git", :tag => s.version }
   s.source_files  = "Guise/Common"
-  s.ios.source_files = "Guise/iOS"
-  s.tvos.source_files = "Guise/iOS"
   s.requires_arc = true
 end
