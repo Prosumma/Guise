@@ -17,4 +17,5 @@ It allows caching, simplifies unit testing, and allows your application to be mo
   s.source       = { :git => "https://github.com/Prosumma/Guise.git", :tag => s.version }
   s.source_files  = "Guise/Common"
   s.requires_arc = true
+  s.swift_versions = ['5.0', '5.1'] 
 end
