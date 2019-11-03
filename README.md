@@ -76,14 +76,9 @@ let controller = Guise.resolve()! as Controller
 Guise.resolve(into: controller)
 ```
 
-### Changes From 7.x
+### Important Change
 
-Guise 8 introduces a breaking change to `KeyPath` injection. Since `KeyPath` injection is only useful to reference types, this is now enforced by Guise.
-
-- `resolve(into:)` now takes `AnyObject` and returns `Void`.
-- Only `ReferenceWritableKeyPath`s are supported. This means that any protocols used in `KeyPath` injection must have `: class` or `: AnyObject`.
-
-See the revised section on `KeyPath` injection for more information.
+Guise 9.1 introduces support for Swift Package Manager.
 
 ### Mental Prerequisites
 

@@ -25,7 +25,11 @@ let package = Package(
     targets: [
         .target(
             name: "Guise",
-            path: "Guise")
+            path: "Guise"),
+        .testTarget(
+            name: "GuiseTests",
+            dependencies: ["Guise"],
+            path: "GuiseTests")
     ],
     swiftLanguageVersions: [.v5]
 )
