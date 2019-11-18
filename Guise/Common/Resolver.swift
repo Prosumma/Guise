@@ -28,6 +28,10 @@ public final class Resolver: Resolving {
 
     internal var lock = Lock()
     
+    // MARK: Initialization
+    
+    public init() {}
+    
     // MARK: Registrations
     
     internal var registrations = [AnyKey: Registration]()
