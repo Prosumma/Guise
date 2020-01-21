@@ -45,6 +45,8 @@ public protocol Resolving: class {
     var injectables: Set<String> { get }
     
     /**
+     THIS DOCUMENTATION IS OUT OF DATE.
+     
      Registers an injection.
      
      An injection is a function that transforms and then returns its argument. If the
