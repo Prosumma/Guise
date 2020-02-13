@@ -96,10 +96,6 @@
 		F3700B7E1DB7829E00DDB218 /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3700B7F1DB7847000DDB218 /* GuiseKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */; };
 		F3735646209F2CC700C9FBE8 /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F39C36B8215B2AE900B281D8 /* InjectableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39C36B7215B2AE900B281D8 /* InjectableViewController.swift */; };
-		F39C36B9215B2AE900B281D8 /* InjectableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39C36B7215B2AE900B281D8 /* InjectableViewController.swift */; };
-		F39C36BB215B2B2A00B281D8 /* InjectableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39C36BA215B2B2A00B281D8 /* InjectableTableViewController.swift */; };
-		F39C36BC215B2B2A00B281D8 /* InjectableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39C36BA215B2B2A00B281D8 /* InjectableTableViewController.swift */; };
 		F39D1BCE1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */; };
 		F39D1BCF1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */; };
 		F39D1BD01FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */; };
@@ -215,8 +211,6 @@
 		F3700B661DB7826900DDB218 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3700B6E1DB7826900DDB218 /* GuiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F37B73E81C952B7B00A9AEFA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F39C36B7215B2AE900B281D8 /* InjectableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectableViewController.swift; sourceTree = "<group>"; };
-		F39C36BA215B2B2A00B281D8 /* InjectableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectableTableViewController.swift; sourceTree = "<group>"; };
 		F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseExpectsResolverTests.swift; sourceTree = "<group>"; };
 		F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpotentResolverTests.swift; sourceTree = "<group>"; };
 		F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseInstanceResolutionTests.swift; sourceTree = "<group>"; };
@@ -338,20 +332,10 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		F3512E5E215B30AF00A2C6E0 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				F39C36B7215B2AE900B281D8 /* InjectableViewController.swift */,
-				F39C36BA215B2B2A00B281D8 /* InjectableTableViewController.swift */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
 		F3985BCF1F5CABD8007392C0 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				F3512E5D215B301200A2C6E0 /* Common */,
-				F3512E5E215B30AF00A2C6E0 /* iOS */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -756,7 +740,6 @@
 				F32D9BEB1FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18021FDF384C0040E183 /* Lock.swift in Sources */,
 				F34E967220315DF9006DAA56 /* _Guise.swift in Sources */,
-				F39C36BC215B2B2A00B281D8 /* InjectableTableViewController.swift in Sources */,
 				F3CA19BF1FE3C5F1003F901B /* Strong.swift in Sources */,
 				F31A1E731FE09DDC0052425F /* Criteria.swift in Sources */,
 				F3CA19BA1FE3C5CE003F901B /* Holder.swift in Sources */,
@@ -769,7 +752,6 @@
 				F3C2BC6D1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC31FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC631FDFD2F9006726B7 /* Injection.swift in Sources */,
-				F39C36B9215B2AE900B281D8 /* InjectableViewController.swift in Sources */,
 				F308F3011FE3DBAA00B8A221 /* Cached.swift in Sources */,
 				F3C2BC4A1FDF664E006726B7 /* Filter.swift in Sources */,
 				F32D9BDC1FDF3397005C00BD /* Resolution.swift in Sources */,
@@ -812,7 +794,6 @@
 				F32D9BE91FDF3799005C00BD /* Resolver.swift in Sources */,
 				F34B18001FDF384C0040E183 /* Lock.swift in Sources */,
 				F34E967020315DE9006DAA56 /* _Guise.swift in Sources */,
-				F39C36BB215B2B2A00B281D8 /* InjectableTableViewController.swift in Sources */,
 				F3CA19BD1FE3C5F1003F901B /* Strong.swift in Sources */,
 				F31A1E711FE09DDC0052425F /* Criteria.swift in Sources */,
 				F3CA19B81FE3C5CE003F901B /* Holder.swift in Sources */,
@@ -825,7 +806,6 @@
 				F3C2BC6B1FDFD5E2006726B7 /* Injector.swift in Sources */,
 				F32D9BC11FDF3098005C00BD /* Key.swift in Sources */,
 				F3C2BC611FDFD2F9006726B7 /* Injection.swift in Sources */,
-				F39C36B8215B2AE900B281D8 /* InjectableViewController.swift in Sources */,
 				F308F2FF1FE3DBAA00B8A221 /* Cached.swift in Sources */,
 				F3C2BC481FDF664E006726B7 /* Filter.swift in Sources */,
 				F32D9BDA1FDF3397005C00BD /* Resolution.swift in Sources */,
