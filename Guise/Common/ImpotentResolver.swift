@@ -40,6 +40,8 @@ import Foundation
  ```
  */
 public final class ImpotentResolver: Resolving {
+    public init() {}
+    
     /**
      Registers a resolution block that returns a `Holder`.
      
