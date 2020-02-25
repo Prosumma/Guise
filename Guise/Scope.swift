@@ -9,46 +9,46 @@
 import Foundation
 
 public struct Scope: Equatable {
-    private class Parent {
-        let scope: Scope
-        init(_ scope: Scope) {
-            self.scope = scope
-        }
+  private class Parent {
+    let scope: Scope
+    init(_ scope: Scope) {
+      self.scope = scope
     }
+  }
 
-    private let _parent: Parent?
-    public let identifier: AnyHashable
+  private let _parent: Parent?
+  public let identifier: AnyHashable
 
-    private init() {
-        _parent = nil
-        identifier = "/"
-    }
+  private init() {
+    _parent = nil
+    identifier = "/"
+  }
 
-    public init(parent: Scope, identifier: AnyHashable = UUID()) {
-        self._parent = Parent(parent)
-        self.identifier = identifier
-    }
+  public init(parent: Scope, identifier: AnyHashable = UUID()) {
+    self._parent = Parent(parent)
+    self.identifier = identifier
+  }
 
-    public var parent: Scope? {
-        return _parent?.scope
-    }
+  public var parent: Scope? {
+    return _parent?.scope
+  }
 
-    /// `Scope` is not `Hashable` but participates in the hashing of `Key`.
-    internal func hash(into hasher: inout Hasher) {
-        hasher.combine(identifier)
-        parent?.hash(into: &hasher)
-    }
+  /// `Scope` is not `Hashable` but participates in the hashing of `Key`.
+  internal func hash(into hasher: inout Hasher) {
+    hasher.combine(identifier)
+    parent?.hash(into: &hasher)
+  }
 
-    public static func ==(lhs: Scope, rhs: Scope) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.parent == rhs.parent
-    }
+  public static func ==(lhs: Scope, rhs: Scope) -> Bool {
+    return lhs.identifier == rhs.identifier && lhs.parent == rhs.parent
+  }
 
-    public static let root = Scope()
+  public static let root = Scope()
 }
 
 infix operator ~>: MultiplicationPrecedence
 
 public func ~><R: Hashable>(lhs: Scope, rhs: R) -> Scope {
-    return Scope(parent: lhs, identifier: rhs)
+  return Scope(parent: lhs, identifier: rhs)
 }
 

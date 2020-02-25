@@ -15,6 +15,18 @@
 		62A36EEA24059E70004EF3DF /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE824059E70004EF3DF /* Key.swift */; };
 		62A36EEB24059E70004EF3DF /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE824059E70004EF3DF /* Key.swift */; };
 		62A36EEC24059E70004EF3DF /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE824059E70004EF3DF /* Key.swift */; };
+		62A36EEE2405A065004EF3DF /* Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EED2405A065004EF3DF /* Registrar.swift */; };
+		62A36EEF2405A065004EF3DF /* Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EED2405A065004EF3DF /* Registrar.swift */; };
+		62A36EF02405A065004EF3DF /* Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EED2405A065004EF3DF /* Registrar.swift */; };
+		62A36EF12405A065004EF3DF /* Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EED2405A065004EF3DF /* Registrar.swift */; };
+		62A36EF32405A13D004EF3DF /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF22405A13D004EF3DF /* Registration.swift */; };
+		62A36EF42405A13D004EF3DF /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF22405A13D004EF3DF /* Registration.swift */; };
+		62A36EF52405A13D004EF3DF /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF22405A13D004EF3DF /* Registration.swift */; };
+		62A36EF62405A13D004EF3DF /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF22405A13D004EF3DF /* Registration.swift */; };
+		62A36EF82405A161004EF3DF /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF72405A161004EF3DF /* Resolver.swift */; };
+		62A36EF92405A161004EF3DF /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF72405A161004EF3DF /* Resolver.swift */; };
+		62A36EFA2405A161004EF3DF /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF72405A161004EF3DF /* Resolver.swift */; };
+		62A36EFB2405A161004EF3DF /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EF72405A161004EF3DF /* Resolver.swift */; };
 		F3044828216393DF000C40A0 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
 		F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
@@ -94,6 +106,9 @@
 /* Begin PBXFileReference section */
 		62A36EE324059997004EF3DF /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		62A36EE824059E70004EF3DF /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		62A36EED2405A065004EF3DF /* Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registrar.swift; sourceTree = "<group>"; };
+		62A36EF22405A13D004EF3DF /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
+		62A36EF72405A161004EF3DF /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFilterTests.swift; sourceTree = "<group>"; };
 		F32120561F647B5B00872F32 /* Declarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarations.swift; sourceTree = "<group>"; };
 		F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseWeakTests.swift; sourceTree = "<group>"; };
@@ -184,6 +199,9 @@
 				F34B17FF1FDF384C0040E183 /* Lock.swift */,
 				62A36EE324059997004EF3DF /* Scope.swift */,
 				62A36EE824059E70004EF3DF /* Key.swift */,
+				62A36EED2405A065004EF3DF /* Registrar.swift */,
+				62A36EF22405A13D004EF3DF /* Registration.swift */,
+				62A36EF72405A161004EF3DF /* Resolver.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -543,7 +561,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				62A36EE724059997004EF3DF /* Scope.swift in Sources */,
+				62A36EF12405A065004EF3DF /* Registrar.swift in Sources */,
 				F3044828216393DF000C40A0 /* Lock.swift in Sources */,
+				62A36EFB2405A161004EF3DF /* Resolver.swift in Sources */,
+				62A36EF62405A13D004EF3DF /* Registration.swift in Sources */,
 				62A36EEC24059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -553,7 +574,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				62A36EE624059997004EF3DF /* Scope.swift in Sources */,
+				62A36EF02405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18021FDF384C0040E183 /* Lock.swift in Sources */,
+				62A36EFA2405A161004EF3DF /* Resolver.swift in Sources */,
+				62A36EF52405A13D004EF3DF /* Registration.swift in Sources */,
 				62A36EEB24059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -583,7 +607,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				62A36EE424059997004EF3DF /* Scope.swift in Sources */,
+				62A36EEE2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18001FDF384C0040E183 /* Lock.swift in Sources */,
+				62A36EF82405A161004EF3DF /* Resolver.swift in Sources */,
+				62A36EF32405A13D004EF3DF /* Registration.swift in Sources */,
 				62A36EE924059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,7 +640,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				62A36EE524059997004EF3DF /* Scope.swift in Sources */,
+				62A36EEF2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18011FDF384C0040E183 /* Lock.swift in Sources */,
+				62A36EF92405A161004EF3DF /* Resolver.swift in Sources */,
+				62A36EF42405A13D004EF3DF /* Registration.swift in Sources */,
 				62A36EEA24059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
