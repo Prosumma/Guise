@@ -8,8 +8,11 @@
 
 import Foundation
 
+public typealias RegistrationEntry = (key: Key, value: Registration)
+
 public protocol Resolver {
   subscript(key: Key) -> Registration? { get }
+  func filter(where predicate: (RegistrationEntry) -> Bool) -> [RegistrationEntry]
 }
 
 public extension Resolver {
@@ -25,6 +28,10 @@ public extension Resolver {
 
   func find<Type>(type: Type.Type, scope: Scope) -> Registration? {
     find(Key(type: type, scope: scope))
+  }
+
+  func filter(type: String? = nil, in scope: Scope = .root, metafilter: ((Any) -> Bool)? = nil) -> [RegistrationEntry] {
+    return []
   }
 
   func resolve<Type, Arg>(type: Type.Type = Type.self, scope: Scope = .root, arg: Arg) -> Type? {
