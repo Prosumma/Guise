@@ -35,7 +35,7 @@ public extension Resolver {
   }
 
   func resolve<Type, Arg>(type: Type.Type = Type.self, scope: Scope = .root, arg: Arg) -> Type? {
-    find(type: type, scope: scope)?.resolve(type: type, arg: arg)
+    find(type: type, scope: scope)?.resolve(resolver: self, type: type, arg: arg)
   }
 
   func resolve<Type, Arg1, Arg2>(type: Type.Type = Type.self, scope: Scope = .root, arg1: Arg1, arg2: Arg2) -> Type? {

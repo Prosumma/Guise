@@ -10,6 +10,11 @@ import Foundation
 
 public protocol Registration {
   var metadata: Any { get }
-  func resolve<Type>(type: Type.Type, arg: Any) -> Type
+  func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type
 }
 
+public extension Registration {
+  func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type {
+    resolve(resolver: resolver, type: type, arg: arg)
+  }
+}
