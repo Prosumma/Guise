@@ -22,4 +22,16 @@ public extension Resolver {
     }
     return nil
   }
+
+  func find<Type>(type: Type.Type, scope: Scope) -> Registration? {
+    find(Key(type: type, scope: scope))
+  }
+
+  func resolve<Type, Arg>(type: Type.Type = Type.self, scope: Scope = .root, arg: Arg) -> Type? {
+    find(type: type, scope: scope)?.resolve(type: type, arg: arg)
+  }
+
+  func resolve<Type, Arg1, Arg2>(type: Type.Type = Type.self, scope: Scope = .root, arg1: Arg1, arg2: Arg2) -> Type? {
+    resolve(type: type, scope: scope, arg: (arg1, arg2))
+  }
 }

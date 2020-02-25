@@ -10,6 +10,6 @@ import Foundation
 
 public protocol Registration {
   var metadata: Any { get }
-  func resolve<Type>(type: Type.Type, parameter: Any) -> Type
+  func resolve<Type>(type: Type.Type, arg: Any) -> Type
 }
 
