@@ -51,7 +51,7 @@ public struct Scope: Equatable, CustomStringConvertible {
   public var description: String {
     let description: String
     if let parent = parent {
-      description = "\(parent) • \(identifier)"
+      description = "\(parent)/\(identifier)"
     } else {
       description = "\(identifier)"
     }
@@ -71,9 +71,8 @@ public struct Scope: Equatable, CustomStringConvertible {
   public static let root = Scope()
 }
 
-infix operator •: MultiplicationPrecedence
 
-public func •<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
+public func /<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
   Scope(parent: lhs, identifier: rhs)
 }
 

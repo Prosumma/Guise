@@ -12,34 +12,35 @@ import Guise
 class ScopeTests: XCTestCase {
 
   func testScopeEquivalence() {
-    let scope1 = Scope.root • "scope" • "broke"
-    let scope2 = Scope.root • "scope" • "broke"
+    let scope1 = Scope.root / "scope" / "broke"
+    let scope2 = Scope.root / "scope" / "broke"
     XCTAssertEqual(scope1, scope2)
   }
   
   func testScopeUnequivalence() {
-    let scope1 = Scope.root • "scope" • "scope1"
-    let scope2 = Scope.root • "scope" • "scope2"
+    let scope1 = Scope.root / "scope" / "scope1"
+    let scope2 = Scope.root / "scope" / "scope2"
     XCTAssertNotEqual(scope1, scope2)
   }
   
   func testScopeHasPrefix() {
-    let prefix = Scope.root • "prefix"
-    let scope = prefix • UUID()
+    let prefix = Scope.root / "prefix"
+    let scope = prefix / UUID()
     XCTAssertTrue(scope.starts(with: prefix))
   }
   
   func testScopeLacksPrefix() {
-    let prefix = Scope.root • "prefix" • UUID()
-    let scope = Scope.root • UUID()
+    let prefix = Scope.root / "prefix" / UUID()
+    let scope = Scope.root / UUID()
     XCTAssertFalse(prefix.starts(with: scope))
   }
   
   func testScopeDescription() {
-    let scope = Scope.root • "hello"
-    XCTAssertEqual("\(scope)", "root • hello")
+    let scope = Scope.root / "hello"
+    XCTAssertEqual("\(scope)", "root/hello")
   }
   
 }
+
 
 
