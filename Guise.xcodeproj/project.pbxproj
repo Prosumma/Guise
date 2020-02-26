@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6275A6E62406D5A900169A06 /* RegistrationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275A6E52406D5A900169A06 /* RegistrationBase.swift */; };
+		6275A6E72406D5A900169A06 /* RegistrationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275A6E52406D5A900169A06 /* RegistrationBase.swift */; };
+		6275A6E82406D5A900169A06 /* RegistrationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275A6E52406D5A900169A06 /* RegistrationBase.swift */; };
+		6275A6E92406D5A900169A06 /* RegistrationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275A6E52406D5A900169A06 /* RegistrationBase.swift */; };
 		62A36EE424059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
 		62A36EE524059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
 		62A36EE624059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
@@ -111,6 +115,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6275A6E52406D5A900169A06 /* RegistrationBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationBase.swift; sourceTree = "<group>"; };
 		62A36EE324059997004EF3DF /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		62A36EE824059E70004EF3DF /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		62A36EED2405A065004EF3DF /* Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registrar.swift; sourceTree = "<group>"; };
@@ -218,6 +223,7 @@
 				62A36EE324059997004EF3DF /* Scope.swift */,
 				F3BD8EE52406087E0031275F /* Singleton.swift */,
 				F3BD8EEF24060BCC0031275F /* Weak.swift */,
+				6275A6E52406D5A900169A06 /* RegistrationBase.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				F3BD8EE92406087E0031275F /* Singleton.swift in Sources */,
 				62A36F052405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF324060BCC0031275F /* Weak.swift in Sources */,
+				6275A6E92406D5A900169A06 /* RegistrationBase.swift in Sources */,
 				62A36EE724059997004EF3DF /* Scope.swift in Sources */,
 				F3BD8F0B240637DA0031275F /* Injection.swift in Sources */,
 				62A36EF12405A065004EF3DF /* Registrar.swift in Sources */,
@@ -592,6 +599,7 @@
 				F3BD8EE82406087E0031275F /* Singleton.swift in Sources */,
 				62A36F042405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF224060BCC0031275F /* Weak.swift in Sources */,
+				6275A6E82406D5A900169A06 /* RegistrationBase.swift in Sources */,
 				62A36EE624059997004EF3DF /* Scope.swift in Sources */,
 				F3BD8F0A240637DA0031275F /* Injection.swift in Sources */,
 				62A36EF02405A065004EF3DF /* Registrar.swift in Sources */,
@@ -624,6 +632,7 @@
 				F3BD8EE62406087E0031275F /* Singleton.swift in Sources */,
 				62A36F022405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF024060BCC0031275F /* Weak.swift in Sources */,
+				6275A6E62406D5A900169A06 /* RegistrationBase.swift in Sources */,
 				62A36EE424059997004EF3DF /* Scope.swift in Sources */,
 				F3BD8F08240637DA0031275F /* Injection.swift in Sources */,
 				62A36EEE2405A065004EF3DF /* Registrar.swift in Sources */,
@@ -656,6 +665,7 @@
 				F3BD8EE72406087E0031275F /* Singleton.swift in Sources */,
 				62A36F032405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF124060BCC0031275F /* Weak.swift in Sources */,
+				6275A6E72406D5A900169A06 /* RegistrationBase.swift in Sources */,
 				62A36EE524059997004EF3DF /* Scope.swift in Sources */,
 				F3BD8F09240637DA0031275F /* Injection.swift in Sources */,
 				62A36EEF2405A065004EF3DF /* Registrar.swift in Sources */,

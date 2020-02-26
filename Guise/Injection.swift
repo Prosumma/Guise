@@ -8,5 +8,15 @@
 
 import Foundation
 
-public typealias Injection<O: AnyObject> = (O) -> Void
+public final class Injection: RegistrationBase {
+  private let injection: (Resolver, AnyObject) -> Void
 
+  public init<Type: AnyObject>(inject: @escaping (Resolver, Type) -> Void) {
+    injection = { (r, o) in inject(r, o as! Type) }
+    super.init(metadata: ())
+  }
+
+  public override func inject(resolver: Resolver, into target: AnyObject) {
+    injection(resolver, target)
+  }
+}

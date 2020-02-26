@@ -8,20 +8,19 @@
 
 import Foundation
 
-public final class Singleton: LifetimeRegistration {
+public final class Singleton: RegistrationBase, LifetimeRegistration {
   private let lock = Lock()
   private let resolution: (Resolver, Any) -> Any
   private var value: Any?
-  public let metadata: Any
 
   public init<Type, Arg>(resolve: @escaping (Resolver, Arg) -> Type, metadata: Any) {
     self.resolution = { r, arg in
       resolve(r, arg as! Arg)
     }
-    self.metadata = metadata
+    super.init(metadata: metadata)
   }
 
-  public func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
+  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
     if value == nil {
       lock.write { [unowned self] in
         if self.value == nil {

@@ -1,0 +1,27 @@
+//
+//  RegistrationBase.swift
+//  Guise
+//
+//  Created by Gregory Higley on 2/26/20.
+//  Copyright © 2020 Gregory Higley. All rights reserved.
+//
+
+import Foundation
+
+public class RegistrationBase: Registration {
+  public let metadata: Any
+
+  public init(metadata: Any) {
+    self.metadata = metadata
+  }
+
+  public func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
+    NSException(name: .internalInconsistencyException, reason: "Method not implemented", userInfo: nil).raise()
+    return nil
+  }
+
+  public func inject(resolver: Resolver, into target: AnyObject) {
+    NSException(name: .internalInconsistencyException, reason: "Method not implemented", userInfo: nil).raise()
+  }
+
+}
