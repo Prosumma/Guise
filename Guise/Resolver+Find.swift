@@ -24,8 +24,10 @@ public extension Resolver {
   }
 
   func filter(type: String? = nil, in scope: Scope = .default, metafilter: ((Any) -> Bool)? = nil) -> [RegistrationEntry] {
+    // Keys are filtered inside of the GCD lock.
     var registrations = filter { (type == nil || $0.key.type == type) && $0.key.starts(with: scope) }
     if let metafilter = metafilter {
+      // Metadata is filtered outside of the GCD lock.
       registrations = registrations.filter{ metafilter($0.value.metadata) }
     }
     return registrations
