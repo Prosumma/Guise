@@ -22,20 +22,20 @@ public struct Injector<Target: AnyObject> {
     return injector
   }
 
-  public func inject<Type>(exact keyPath: ReferenceWritableKeyPath<Target, Type>, scope: Scope = .default, arg: AnyHashable = UUID()) -> Injector<Target> {
+  public func inject<Type>(exact keyPath: ReferenceWritableKeyPath<Target, Type>, in scope: Scope = .default, arg: AnyHashable = UUID()) -> Injector<Target> {
     return inject { (r, target, args) in
       target[keyPath: keyPath] = r.resolve(arg: args[arg] ?? ())!
     }
   }
 
-  public func inject<Type>(_ keyPath: ReferenceWritableKeyPath<Target, Type?>, scope: Scope = .default, arg: AnyHashable = UUID()) -> Injector<Target> {
+  public func inject<Type>(_ keyPath: ReferenceWritableKeyPath<Target, Type?>, in scope: Scope = .default, arg: AnyHashable = UUID()) -> Injector<Target> {
     return inject { (r, target, args) in
       target[keyPath: keyPath] = r.resolve(arg: args[arg] ?? ())
     }
   }
 
-  public func register() -> Key {
-    let key = Key(type: Target.self, scope: .injection)
+  @discardableResult public func register() -> Key {
+    let key = Key(type: Target.self, in: .injection)
     let injections = self.injections
     registrar[key] = Injection { (r, target: Target, args) in
       injections.forEach{ inject in inject(r, target, args) }

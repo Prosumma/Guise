@@ -19,8 +19,8 @@ public extension Resolver {
     return nil
   }
 
-  func find<Type>(type: Type.Type, scope: Scope = .default) -> Registration? {
-    find(Key(type: type, scope: scope))
+  func find<Type>(type: Type.Type, in scope: Scope = .default) -> Registration? {
+    find(Key(type: type, in: scope))
   }
 
   func filter(type: String? = nil, in scope: Scope = .default, metafilter: ((Any) -> Bool)? = nil) -> [RegistrationEntry] {

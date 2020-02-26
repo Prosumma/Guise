@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		625FBCFB2406F36E00D00B20 /* InjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FBCFA2406F36E00D00B20 /* InjectionTests.swift */; };
+		625FBCFC2406F36E00D00B20 /* InjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FBCFA2406F36E00D00B20 /* InjectionTests.swift */; };
+		625FBCFD2406F36E00D00B20 /* InjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FBCFA2406F36E00D00B20 /* InjectionTests.swift */; };
+		625FBCFF2406F3E500D00B20 /* Resolver+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FBCFE2406F3E500D00B20 /* Resolver+Injection.swift */; };
+		625FBD002406F3E500D00B20 /* Resolver+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FBCFE2406F3E500D00B20 /* Resolver+Injection.swift */; };
+		625FBD012406F3E500D00B20 /* Resolver+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FBCFE2406F3E500D00B20 /* Resolver+Injection.swift */; };
+		625FBD022406F3E500D00B20 /* Resolver+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FBCFE2406F3E500D00B20 /* Resolver+Injection.swift */; };
 		6275A6E62406D5A900169A06 /* RegistrationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275A6E52406D5A900169A06 /* RegistrationBase.swift */; };
 		6275A6E72406D5A900169A06 /* RegistrationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275A6E52406D5A900169A06 /* RegistrationBase.swift */; };
 		6275A6E82406D5A900169A06 /* RegistrationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275A6E52406D5A900169A06 /* RegistrationBase.swift */; };
@@ -123,6 +130,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		625FBCFA2406F36E00D00B20 /* InjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTests.swift; sourceTree = "<group>"; };
+		625FBCFE2406F3E500D00B20 /* Resolver+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Injection.swift"; sourceTree = "<group>"; };
 		6275A6E52406D5A900169A06 /* RegistrationBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationBase.swift; sourceTree = "<group>"; };
 		6275A6EA2406EA8E00169A06 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		6275A6EF2406EAE100169A06 /* Registrar+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Injection.swift"; sourceTree = "<group>"; };
@@ -232,6 +241,7 @@
 				62A36EF72405A161004EF3DF /* Resolver.swift */,
 				F3BD8F0224061A280031275F /* Resolver+Auto.swift */,
 				F3BD8ED62405EB260031275F /* Resolver+Find.swift */,
+				625FBCFE2406F3E500D00B20 /* Resolver+Injection.swift */,
 				F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */,
 				62A36EE324059997004EF3DF /* Scope.swift */,
 				F3BD8EE52406087E0031275F /* Singleton.swift */,
@@ -289,6 +299,7 @@
 			children = (
 				F3BD8ED22405C6ED0031275F /* ScopeTests.swift */,
 				F3BD8EF42406177B0031275F /* DITests.swift */,
+				625FBCFA2406F36E00D00B20 /* InjectionTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -602,6 +613,7 @@
 				62A36EF62405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8EDA2405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEC24059E70004EF3DF /* Key.swift in Sources */,
+				625FBD022406F3E500D00B20 /* Resolver+Injection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +640,7 @@
 				62A36EF52405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8ED92405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEB24059E70004EF3DF /* Key.swift in Sources */,
+				625FBD012406F3E500D00B20 /* Resolver+Injection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,6 +648,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				625FBCFD2406F36E00D00B20 /* InjectionTests.swift in Sources */,
 				F3BD8EF72406177B0031275F /* DITests.swift in Sources */,
 				F3BD8ED52405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
@@ -663,6 +677,7 @@
 				62A36EF32405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8ED72405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EE924059E70004EF3DF /* Key.swift in Sources */,
+				625FBCFF2406F3E500D00B20 /* Resolver+Injection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,6 +685,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				625FBCFB2406F36E00D00B20 /* InjectionTests.swift in Sources */,
 				F3BD8EF52406177B0031275F /* DITests.swift in Sources */,
 				F3BD8ED32405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
@@ -698,6 +714,7 @@
 				62A36EF42405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8ED82405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEA24059E70004EF3DF /* Key.swift in Sources */,
+				625FBD002406F3E500D00B20 /* Resolver+Injection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +722,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				625FBCFC2406F36E00D00B20 /* InjectionTests.swift in Sources */,
 				F3BD8EF62406177B0031275F /* DITests.swift in Sources */,
 				F3BD8ED42405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);

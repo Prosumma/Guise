@@ -12,13 +12,13 @@ public struct Key: Hashable {
   public let type: String
   public let scope: Scope
 
-  public init(type: String, scope: Scope) {
+  public init(type: String, in scope: Scope) {
     self.type = type
     self.scope = scope
   }
 
-  public init<Type>(type: Type.Type, scope: Scope) {
-    self.init(type: String(reflecting: type), scope: scope)
+  public init<Type>(type: Type.Type, in scope: Scope) {
+    self.init(type: String(reflecting: type), in: scope)
   }
 
   public func hash(into hasher: inout Hasher) {
@@ -28,7 +28,7 @@ public struct Key: Hashable {
 
   public var parent: Key? {
     if let parent = scope.parent {
-      return Key(type: type, scope: parent)
+      return Key(type: type, in: parent)
     }
     return nil
   }
