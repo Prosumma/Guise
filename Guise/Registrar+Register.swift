@@ -11,7 +11,7 @@ import Foundation
 public extension Registrar {
   
   @discardableResult func register<Type, Arg>(type: Type.Type = Type.self, in scope: Scope = .default, lifetime: Lifetime = .factory, metadata: Any = (), resolve: @escaping (Resolver, Arg) -> Type) -> Key {
-    let key = Key(type: type, in: scope)
+    let key = Key(type, in: scope)
     self[key] = lifetime.registrationType.init(resolve: resolve, metadata: metadata)
     return key
   }
@@ -41,7 +41,7 @@ public extension Registrar {
   }
   
   @discardableResult func register<Type: AnyObject>(weak weakling: Type, in scope: Scope = .default, metadata: Any = ()) -> Key {
-    let key = Key(type: Type.self, in: scope)
+    let key = Key(Type.self, in: scope)
     self[key] = Weak(value: weakling, metadata: metadata)
     return key
   }

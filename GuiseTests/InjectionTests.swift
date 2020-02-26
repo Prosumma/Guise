@@ -9,21 +9,45 @@
 import XCTest
 import Guise
 
+struct Argumentative {
+  public static let scope: Scope = .root / "argumentative"
+
+  let arguments: Int
+  let counterArguments: Int
+
+  init(_ arguments: Int, _ counterArguments: Int) {
+    self.arguments = arguments
+    self.counterArguments = counterArguments
+  }
+}
+
 class InjectionTarget {
+  var service: Service!
   var api: Api!
+  var argumentative: Argumentative!
 
   func load() {
-    Guise.resolve(into: self)
+    Guise.resolve(into: self, args: [Key(Argumentative.self, in: Argumentative.scope): (7, 3)])
+    XCTAssertNotNil(service)
+    XCTAssertEqual(argumentative.arguments, 7)
+    XCTAssertEqual(argumentative.counterArguments, 3)
   }
 }
 
 class InjectionTests: XCTestCase {
 
   public func testInjection() {
-    let apiScope: Scope = .default / "api"
+    Guise.register(in: Argumentative.scope) { (_, arguments, counterArguments) in Argumentative(arguments, counterArguments) }
+    Guise.register(singleton: ApiImpl() as Api)
+    Guise.register { r in r.auto(ServiceImpl.init) as Service }
+    Guise.into(target: InjectionTarget.self)
+        .inject(\.service)
+        .inject(\.api)
+        .inject(\.argumentative, in: Argumentative.scope)
+        .register()
 
-    Guise.register(singleton: ApiImpl() as Api, in: apiScope)
-    Guise.into(target: InjectionTarget.self).inject(\.api, in: apiScope).register()
+    let target = InjectionTarget()
+    target.load()
   }
 
 }

@@ -9,8 +9,8 @@
 import Foundation
 
 public extension Resolver {
-  func resolve<Target: AnyObject>(into target: Target, args: [AnyHashable: Any] = [:]) {
-    let key = Key(type: Target.self, in: .injection)
+  func resolve<Target: AnyObject>(into target: Target, args: [Key: Any] = [:]) {
+    let key = Key(Target.self, in: .injection)
     guard let injection = self[key] as? Injection else {
       return
     }
