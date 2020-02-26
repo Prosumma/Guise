@@ -69,7 +69,7 @@ public struct Scope: Equatable, CustomStringConvertible {
   }
 
   public static let root = Scope()
-  public static let `default` = Scope.root / UUID(uuidString: "730801C0-CD8D-4DB0-BCA9-49BEDFCC4C91")! / "$default$"
+  public static let `default` = Scope.root / "$default$"
 }
 
 

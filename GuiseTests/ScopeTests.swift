@@ -37,7 +37,7 @@ class ScopeTests: XCTestCase {
   
   func testScopeDescription() {
     let scope = Scope.default / "hello"
-    XCTAssertEqual("\(scope)", "$root$/730801C0-CD8D-4DB0-BCA9-49BEDFCC4C91/$default$/hello")
+    XCTAssertEqual("\(scope)", "$root$/$default$/hello")
   }
   
 }
