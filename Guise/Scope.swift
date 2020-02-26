@@ -21,7 +21,7 @@ public struct Scope: Equatable, CustomStringConvertible {
 
   private init() {
     _parent = nil
-    identifier = "root"
+    identifier = "$root$"
   }
 
   public init(parent: Scope, identifier: AnyHashable = UUID()) {
@@ -69,11 +69,11 @@ public struct Scope: Equatable, CustomStringConvertible {
   }
 
   public static let root = Scope()
+  public static let `default` = Scope.root / UUID(uuidString: "730801C0-CD8D-4DB0-BCA9-49BEDFCC4C91")! / "$default$"
 }
 
 
 public func /<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
   Scope(parent: lhs, identifier: rhs)
 }
-
 
