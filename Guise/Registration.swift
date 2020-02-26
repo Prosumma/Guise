@@ -30,3 +30,4 @@ public extension Registration {
     resolve(resolver: resolver, type: type, arg: (arg1, arg2, arg3))
   }
 }
+

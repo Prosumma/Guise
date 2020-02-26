@@ -77,6 +77,10 @@
 		F3BD8F0424061A280031275F /* Resolver+Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F0224061A280031275F /* Resolver+Auto.swift */; };
 		F3BD8F0524061A280031275F /* Resolver+Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F0224061A280031275F /* Resolver+Auto.swift */; };
 		F3BD8F0624061A280031275F /* Resolver+Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F0224061A280031275F /* Resolver+Auto.swift */; };
+		F3BD8F08240637DA0031275F /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F07240637DA0031275F /* Injection.swift */; };
+		F3BD8F09240637DA0031275F /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F07240637DA0031275F /* Injection.swift */; };
+		F3BD8F0A240637DA0031275F /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F07240637DA0031275F /* Injection.swift */; };
+		F3BD8F0B240637DA0031275F /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F07240637DA0031275F /* Injection.swift */; };
 		F3C3ED721C8D64FF00FD8E4D /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3C3ED791C8D64FF00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */; };
 		F3C3ED991C8D695C00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */; };
@@ -128,6 +132,7 @@
 		F3BD8EF42406177B0031275F /* DITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DITests.swift; sourceTree = "<group>"; };
 		F3BD8EF82406198F0031275F /* Registrar+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Register.swift"; sourceTree = "<group>"; };
 		F3BD8F0224061A280031275F /* Resolver+Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Auto.swift"; sourceTree = "<group>"; };
+		F3BD8F07240637DA0031275F /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
 		F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED711C8D64FF00FD8E4D /* Guise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Guise.h; sourceTree = "<group>"; };
 		F3C3ED731C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,6 +204,7 @@
 			children = (
 				62A36EFC2405AE0B004EF3DF /* Container.swift */,
 				62A36F012405AF95004EF3DF /* Factory.swift */,
+				F3BD8F07240637DA0031275F /* Injection.swift */,
 				62A36EE824059E70004EF3DF /* Key.swift */,
 				F3BD8EE02405ECBD0031275F /* Lifetime.swift */,
 				F34B17FF1FDF384C0040E183 /* Lock.swift */,
@@ -564,6 +570,7 @@
 				62A36F052405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF324060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE724059997004EF3DF /* Scope.swift in Sources */,
+				F3BD8F0B240637DA0031275F /* Injection.swift in Sources */,
 				62A36EF12405A065004EF3DF /* Registrar.swift in Sources */,
 				F3044828216393DF000C40A0 /* Lock.swift in Sources */,
 				F3BD8F0624061A280031275F /* Resolver+Auto.swift in Sources */,
@@ -586,6 +593,7 @@
 				62A36F042405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF224060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE624059997004EF3DF /* Scope.swift in Sources */,
+				F3BD8F0A240637DA0031275F /* Injection.swift in Sources */,
 				62A36EF02405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18021FDF384C0040E183 /* Lock.swift in Sources */,
 				F3BD8F0524061A280031275F /* Resolver+Auto.swift in Sources */,
@@ -617,6 +625,7 @@
 				62A36F022405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF024060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE424059997004EF3DF /* Scope.swift in Sources */,
+				F3BD8F08240637DA0031275F /* Injection.swift in Sources */,
 				62A36EEE2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18001FDF384C0040E183 /* Lock.swift in Sources */,
 				F3BD8F0324061A280031275F /* Resolver+Auto.swift in Sources */,
@@ -648,6 +657,7 @@
 				62A36F032405AF95004EF3DF /* Factory.swift in Sources */,
 				F3BD8EF124060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE524059997004EF3DF /* Scope.swift in Sources */,
+				F3BD8F09240637DA0031275F /* Injection.swift in Sources */,
 				62A36EEF2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18011FDF384C0040E183 /* Lock.swift in Sources */,
 				F3BD8F0424061A280031275F /* Resolver+Auto.swift in Sources */,
