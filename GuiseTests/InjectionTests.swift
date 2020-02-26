@@ -37,9 +37,10 @@ class InjectionTarget {
 class InjectionTests: XCTestCase {
 
   public func testInjection() {
-    Guise.register(in: Argumentative.scope, resolve: pass(to: Argumentative.init))
-    Guise.register(singleton: ApiImpl() as Api)
-    Guise.register { r in r.auto(ServiceImpl.init) as Service }
+    Guise.register(in: Argumentative.scope, resolve: pass2(to: Argumentative.init))
+    Guise.register(type: Api.self, lifetime: .singleton, resolve: pass(to: ApiImpl.init))
+//    Guise.register(singleton: ApiImpl() as Api)
+    Guise.register(type: Service.self, resolve: auto(ServiceImpl.init))
     Guise.into(target: InjectionTarget.self)
         .inject(\.service)
         .inject(\.api)

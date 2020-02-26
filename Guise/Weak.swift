@@ -26,7 +26,7 @@ public final class Weak: RegistrationBase, LifetimeRegistration {
     super.init(metadata: metadata)
   }
 
-  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type? {
+  public override func resolve<Type, Arg>(type: Type.Type, resolver: Resolver, arg: Arg) -> Type? {
     if resolution != nil {
       lock.write { [unowned self] in
         if self.resolution == nil { return }

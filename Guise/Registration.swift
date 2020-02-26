@@ -10,7 +10,7 @@ import Foundation
 
 public protocol Registration {
   var metadata: Any { get }
-  func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type?
+  func resolve<Type, Arg>(type: Type.Type, resolver: Resolver, arg: Arg) -> Type?
   func inject(resolver: Resolver, into target: AnyObject, args: [Key: Any])
 }
 
@@ -19,20 +19,20 @@ public extension Registration {
     NSException(name: .internalInconsistencyException, reason: "Method not implemented", userInfo: nil).raise()
   }
 
-  func resolve<Type>(resolver: Resolver, type: Type.Type = Type.self) -> Type? {
-    resolve(resolver: resolver, type: type, arg: ())
+  func resolve<Type>(type: Type.Type = Type.self, resolver: Resolver) -> Type? {
+    resolve(type: type, resolver: resolver, arg: ())
   }
   
-  func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
-    resolve(resolver: resolver, type: type, arg: arg)
+  func resolve<Type, Arg>(type: Type.Type = Type.self, resolver: Resolver, arg: Arg) -> Type? {
+    resolve(type: type, resolver: resolver, arg: arg)
   }
   
-  func resolve<Type, Arg1, Arg2>(resolver: Resolver, type: Type.Type = Type.self, arg1: Arg1, arg2: Arg2) -> Type? {
-    resolve(resolver: resolver, type: type, arg: (arg1, arg2))
+  func resolve<Type, Arg1, Arg2>(type: Type.Type = Type.self, resolver: Resolver, arg1: Arg1, arg2: Arg2) -> Type? {
+    resolve(type: type, resolver: resolver, arg: (arg1, arg2))
   }
   
-  func resolve<Type, Arg1, Arg2, Arg3>(resolver: Resolver, type: Type.Type = Type.self, arg1: Arg1, arg2: Arg2, arg3: Arg3) -> Type? {
-    resolve(resolver: resolver, type: type, arg: (arg1, arg2, arg3))
+  func resolve<Type, Arg1, Arg2, Arg3>(type: Type.Type = Type.self, resolver: Resolver, arg1: Arg1, arg2: Arg2, arg3: Arg3) -> Type? {
+    resolve(type: type, resolver: resolver, arg: (arg1, arg2, arg3))
   }
 }
 

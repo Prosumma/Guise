@@ -18,11 +18,15 @@ public func pass<Type>(to resolve: @escaping () -> Type, as type: Type.Type = Ty
   makepass { _ in resolve() }
 }
 
-public func pass<Type, Arg1, Arg2>(to resolve: @escaping (Arg1, Arg2) -> Type, as type: Type.Type = Type.self) -> PassResult<(Arg1, Arg2), Type> {
+public func pass1<Type, Arg>(to resolve: @escaping (Arg) -> Type, as type: Type.Type = Type.self) -> PassResult<Arg, Type> {
+  makepass(resolve)
+}
+
+public func pass2<Type, Arg1, Arg2>(to resolve: @escaping (Arg1, Arg2) -> Type, as type: Type.Type = Type.self) -> PassResult<(Arg1, Arg2), Type> {
   makepass { args in resolve(args.0, args.1) }
 }
 
-public func pass<Type, Arg1, Arg2, Arg3>(to resolve: @escaping (Arg1, Arg2, Arg3) -> Type, as type: Type.Type = Type.self) -> PassResult<(Arg1, Arg2, Arg3), Type> {
+public func pass3<Type, Arg1, Arg2, Arg3>(to resolve: @escaping (Arg1, Arg2, Arg3) -> Type, as type: Type.Type = Type.self) -> PassResult<(Arg1, Arg2, Arg3), Type> {
   makepass { args in resolve(args.0, args.1, args.2) }
 }
 
