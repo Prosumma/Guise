@@ -11,11 +11,11 @@ import Foundation
 public protocol Registration {
   var metadata: Any { get }
   func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type?
-  func inject(resolver: Resolver, into target: AnyObject)
+  func inject(resolver: Resolver, into target: AnyObject, args: [AnyHashable: Any])
 }
 
 public extension Registration {
-  func inject(resolver: Resolver, into target: AnyObject) {
+  func inject(resolver: Resolver, into target: AnyObject, args: [AnyHashable: Any] = [:]) {
     NSException(name: .internalInconsistencyException, reason: "Method not implemented", userInfo: nil).raise()
   }
 

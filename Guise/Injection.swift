@@ -9,14 +9,14 @@
 import Foundation
 
 public final class Injection: RegistrationBase {
-  private let injection: (Resolver, AnyObject) -> Void
+  private let injection: (Resolver, AnyObject, [AnyHashable: Any]) -> Void
 
-  public init<Type: AnyObject>(inject: @escaping (Resolver, Type) -> Void) {
-    injection = { (r, o) in inject(r, o as! Type) }
+  public init<Type: AnyObject>(inject: @escaping (Resolver, Type, [AnyHashable: Any]) -> Void) {
+    injection = { (r, o, args) in inject(r, o as! Type, args) }
     super.init(metadata: ())
   }
 
-  public override func inject(resolver: Resolver, into target: AnyObject) {
-    injection(resolver, target)
+  public override func inject(resolver: Resolver, into target: AnyObject, args: [AnyHashable: Any]) {
+    injection(resolver, target, args)
   }
 }
