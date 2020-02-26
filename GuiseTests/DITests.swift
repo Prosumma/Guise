@@ -15,7 +15,7 @@ protocol Api {
 
 class ApiImpl: Api {}
 
-protocol Service {
+protocol Service: class {
   var api: Api { get }
 }
 
@@ -39,13 +39,15 @@ class DITests: XCTestCase {
     XCTAssertEqual(i, 7)
   }
   
-  func testAuto() {
+  func testAutoAndSingletonBehavior() {
     Guise.register(singleton: ApiImpl() as Api)
     Guise.register(lifetime: .singleton) { r in
       r.auto(ServiceImpl.init) as Service
     }
-    let service: Service? = Guise.resolve()
-    XCTAssertNotNil(service?.api)
+    let service1: Service? = Guise.resolve()
+    XCTAssertNotNil(service1?.api)
+    let service2: Service? = Guise.resolve()
+    XCTAssertTrue(service1 === service2)
   }
 
 }
