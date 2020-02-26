@@ -73,7 +73,6 @@ public struct Scope: Equatable, CustomStringConvertible {
   internal static let injection = Scope(identifier: UUID())
 }
 
-
 public func /<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
   Scope(parent: lhs, identifier: rhs)
 }
