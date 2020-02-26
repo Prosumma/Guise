@@ -61,9 +61,10 @@ public struct Scope: Equatable {
   public static let root = Scope()
 }
 
-infix operator >~: MultiplicationPrecedence
+infix operator •: MultiplicationPrecedence
 
-public func >~<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
+public func •<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
   Scope(parent: lhs, identifier: rhs)
 }
+
 
