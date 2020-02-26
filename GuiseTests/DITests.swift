@@ -33,7 +33,8 @@ enum Name {
 class DITests: XCTestCase {
 
   func testInts() {
-    Guise.register(factory: 7, scope: .root / Name.integers)
+    Guise.register(singleton: 3, scope: .root)
+    Guise.register(singleton: 7, scope: .root / Name.integers)
     let i: Int = Guise.resolve(scope: .root / Name.integers)!
     XCTAssertEqual(i, 7)
   }
