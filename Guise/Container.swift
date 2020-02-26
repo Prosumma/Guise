@@ -23,4 +23,3 @@ public class Container: Registrar & Resolver {
 }
 
 public var Guise: Registrar & Resolver = Container()
-

@@ -19,9 +19,9 @@ public struct Scope: Equatable, CustomStringConvertible {
   private let _parent: Parent?
   public let identifier: AnyHashable
 
-  private init() {
-    _parent = nil
-    identifier = "$root$"
+  private init(identifier: AnyHashable) {
+    self._parent = nil
+    self.identifier = identifier
   }
 
   public init(parent: Scope, identifier: AnyHashable = UUID()) {
@@ -68,8 +68,9 @@ public struct Scope: Equatable, CustomStringConvertible {
     lhs.identifier == rhs.identifier && lhs.parent == rhs.parent
   }
 
-  public static let root = Scope()
+  public static let root = Scope(identifier: "$root$")
   public static let `default` = Scope.root / "$default$"
+  internal static let injection = Scope(identifier: UUID())
 }
 
 
