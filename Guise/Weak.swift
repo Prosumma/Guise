@@ -11,7 +11,7 @@ import Foundation
 public final class Weak: RegistrationBase, LifetimeRegistration {
   private let lock = Lock()
   private var resolution: ((Resolver, Any) -> Any)?
-  private var value: AnyObject?
+  private weak var value: AnyObject?
 
   public init<Type, Arg>(resolve: @escaping (Resolver, Arg) -> Type, metadata: Any) {
     self.resolution = { r, arg in
@@ -26,7 +26,7 @@ public final class Weak: RegistrationBase, LifetimeRegistration {
     super.init(metadata: metadata)
   }
 
-  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
+  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type? {
     if resolution != nil {
       lock.write { [unowned self] in
         if self.resolution == nil { return }

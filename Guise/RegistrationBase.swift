@@ -15,7 +15,7 @@ public class RegistrationBase: Registration {
     self.metadata = metadata
   }
 
-  public func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
+  public func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type? {
     NSException(name: .internalInconsistencyException, reason: "Method not implemented", userInfo: nil).raise()
     return nil
   }

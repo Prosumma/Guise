@@ -216,6 +216,7 @@
 				62A36EED2405A065004EF3DF /* Registrar.swift */,
 				F3BD8EF82406198F0031275F /* Registrar+Register.swift */,
 				62A36EF22405A13D004EF3DF /* Registration.swift */,
+				6275A6E52406D5A900169A06 /* RegistrationBase.swift */,
 				62A36EF72405A161004EF3DF /* Resolver.swift */,
 				F3BD8F0224061A280031275F /* Resolver+Auto.swift */,
 				F3BD8ED62405EB260031275F /* Resolver+Find.swift */,
@@ -223,7 +224,6 @@
 				62A36EE324059997004EF3DF /* Scope.swift */,
 				F3BD8EE52406087E0031275F /* Singleton.swift */,
 				F3BD8EEF24060BCC0031275F /* Weak.swift */,
-				6275A6E52406D5A900169A06 /* RegistrationBase.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";

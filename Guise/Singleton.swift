@@ -20,7 +20,7 @@ public final class Singleton: RegistrationBase, LifetimeRegistration {
     super.init(metadata: metadata)
   }
 
-  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
+  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type? {
     if value == nil {
       lock.write { [unowned self] in
         if self.value == nil {

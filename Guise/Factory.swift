@@ -18,7 +18,7 @@ public final class Factory: RegistrationBase, LifetimeRegistration {
     super.init(metadata: metadata)
   }
 
-  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type = Type.self, arg: Arg) -> Type? {
+  public override func resolve<Type, Arg>(resolver: Resolver, type: Type.Type, arg: Arg) -> Type? {
     (resolution(resolver, arg) as! Type)
   }
 }
