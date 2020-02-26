@@ -70,6 +70,8 @@ public struct Scope: Equatable, CustomStringConvertible {
 
   public static let root = Scope(identifier: "$root$")
   public static let `default` = Scope.root / "$default$"
+  
+  /// A hidden root scope used for `KeyPath` injection
   internal static let injection = Scope(identifier: UUID())
 }
 
