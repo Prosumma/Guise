@@ -36,55 +36,39 @@
 		62A36F042405AF95004EF3DF /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36F012405AF95004EF3DF /* Factory.swift */; };
 		62A36F052405AF95004EF3DF /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36F012405AF95004EF3DF /* Factory.swift */; };
 		F3044828216393DF000C40A0 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
-		F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
-		F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
-		F31E06E11F9E166A0083D983 /* GuiseFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */; };
-		F32120571F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
-		F32120581F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
-		F32120591F647B5B00872F32 /* Declarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32120561F647B5B00872F32 /* Declarations.swift */; };
 		F343AA051DB7871D00B1000F /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F344CC7D1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */; };
-		F344CC7E1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */; };
-		F344CC7F1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */; };
 		F34B18001FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18011FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18021FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
-		F356FF421F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */; };
-		F356FF431F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */; };
-		F356FF441F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */; };
-		F356FF461F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */; };
-		F356FF471F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */; };
-		F356FF481F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */; };
 		F3700B6F1DB7826A00DDB218 /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3700B661DB7826900DDB218 /* Guise.framework */; };
 		F3700B7E1DB7829E00DDB218 /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F3700B7F1DB7847000DDB218 /* GuiseKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */; };
 		F3735646209F2CC700C9FBE8 /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F39D1BCE1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */; };
-		F39D1BCF1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */; };
-		F39D1BD01FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */; };
-		F39D1BD21FE5042500616A63 /* ImpotentResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */; };
-		F39D1BD31FE5042500616A63 /* ImpotentResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */; };
-		F39D1BD41FE5042500616A63 /* ImpotentResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */; };
-		F3B53EE81F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */; };
-		F3B53EE91F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */; };
-		F3B53EEA1F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */; };
-		F3BACFC81C95059600BE0148 /* GuiseKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */; };
-		F3BACFC91C95059600BE0148 /* GuiseKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */; };
-		F3C2BC7A1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */; };
-		F3C2BC7B1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */; };
-		F3C2BC7C1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */; };
+		F3BD8ED32405C6EE0031275F /* ScopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8ED22405C6ED0031275F /* ScopeTests.swift */; };
+		F3BD8ED42405C6EE0031275F /* ScopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8ED22405C6ED0031275F /* ScopeTests.swift */; };
+		F3BD8ED52405C6EE0031275F /* ScopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8ED22405C6ED0031275F /* ScopeTests.swift */; };
+		F3BD8ED72405EB260031275F /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8ED62405EB260031275F /* Resolver+Find.swift */; };
+		F3BD8ED82405EB260031275F /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8ED62405EB260031275F /* Resolver+Find.swift */; };
+		F3BD8ED92405EB260031275F /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8ED62405EB260031275F /* Resolver+Find.swift */; };
+		F3BD8EDA2405EB260031275F /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8ED62405EB260031275F /* Resolver+Find.swift */; };
+		F3BD8EDC2405EB470031275F /* Resolver+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */; };
+		F3BD8EDD2405EB470031275F /* Resolver+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */; };
+		F3BD8EDE2405EB470031275F /* Resolver+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */; };
+		F3BD8EDF2405EB470031275F /* Resolver+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */; };
+		F3BD8EE12405ECBD0031275F /* Lifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE02405ECBD0031275F /* Lifetime.swift */; };
+		F3BD8EE22405ECBD0031275F /* Lifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE02405ECBD0031275F /* Lifetime.swift */; };
+		F3BD8EE32405ECBD0031275F /* Lifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE02405ECBD0031275F /* Lifetime.swift */; };
+		F3BD8EE42405ECBD0031275F /* Lifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE02405ECBD0031275F /* Lifetime.swift */; };
+		F3BD8EE62406087E0031275F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE52406087E0031275F /* Singleton.swift */; };
+		F3BD8EE72406087E0031275F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE52406087E0031275F /* Singleton.swift */; };
+		F3BD8EE82406087E0031275F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE52406087E0031275F /* Singleton.swift */; };
+		F3BD8EE92406087E0031275F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EE52406087E0031275F /* Singleton.swift */; };
+		F3BD8EF024060BCC0031275F /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EEF24060BCC0031275F /* Weak.swift */; };
+		F3BD8EF124060BCC0031275F /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EEF24060BCC0031275F /* Weak.swift */; };
+		F3BD8EF224060BCC0031275F /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EEF24060BCC0031275F /* Weak.swift */; };
+		F3BD8EF324060BCC0031275F /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EEF24060BCC0031275F /* Weak.swift */; };
 		F3C3ED721C8D64FF00FD8E4D /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3C3ED791C8D64FF00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */; };
 		F3C3ED991C8D695C00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */; };
-		F3C5FC0E1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */; };
-		F3C5FC0F1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */; };
-		F3C5FC101FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */; };
-		F3DBA8971F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA8961F9C54240055E83C /* GuiseFactoryResolutionTests.swift */; };
-		F3DBA8981F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA8961F9C54240055E83C /* GuiseFactoryResolutionTests.swift */; };
-		F3DBA8991F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA8961F9C54240055E83C /* GuiseFactoryResolutionTests.swift */; };
-		F3DBA89B1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */; };
-		F3DBA89C1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */; };
-		F3DBA89D1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,21 +103,17 @@
 		62A36EF72405A161004EF3DF /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		62A36EFC2405AE0B004EF3DF /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		62A36F012405AF95004EF3DF /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
-		F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFilterTests.swift; sourceTree = "<group>"; };
-		F32120561F647B5B00872F32 /* Declarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarations.swift; sourceTree = "<group>"; };
-		F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseWeakTests.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
-		F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseMetadataTests.swift; sourceTree = "<group>"; };
-		F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseBlockResolutionTests.swift; sourceTree = "<group>"; };
 		F35A10CA209F2AFB000FA4B4 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3700B661DB7826900DDB218 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3700B6E1DB7826900DDB218 /* GuiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F37B73E81C952B7B00A9AEFA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseExpectsResolverTests.swift; sourceTree = "<group>"; };
-		F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpotentResolverTests.swift; sourceTree = "<group>"; };
-		F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseInstanceResolutionTests.swift; sourceTree = "<group>"; };
-		F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuiseKeyTests.swift; sourceTree = "<group>"; };
-		F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseInjectionTests.swift; sourceTree = "<group>"; };
+		F3BD8ED22405C6ED0031275F /* ScopeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeTests.swift; sourceTree = "<group>"; };
+		F3BD8ED62405EB260031275F /* Resolver+Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Find.swift"; sourceTree = "<group>"; };
+		F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Resolve.swift"; sourceTree = "<group>"; };
+		F3BD8EE02405ECBD0031275F /* Lifetime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lifetime.swift; sourceTree = "<group>"; };
+		F3BD8EE52406087E0031275F /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		F3BD8EEF24060BCC0031275F /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
 		F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED711C8D64FF00FD8E4D /* Guise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Guise.h; sourceTree = "<group>"; };
 		F3C3ED731C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,9 +121,6 @@
 		F3C3ED7F1C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED981C8D695C00FD8E4D /* GuiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseUnregistrationTests.swift; sourceTree = "<group>"; };
-		F3DBA8961F9C54240055E83C /* GuiseFactoryResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseFactoryResolutionTests.swift; sourceTree = "<group>"; };
-		F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiseConcurrentResolutionTests.swift; sourceTree = "<group>"; };
 		F3E170A522AC36B500AC9881 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,14 +183,19 @@
 		F3985BCF1F5CABD8007392C0 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				F34B17FF1FDF384C0040E183 /* Lock.swift */,
-				62A36EE324059997004EF3DF /* Scope.swift */,
+				62A36EFC2405AE0B004EF3DF /* Container.swift */,
+				62A36F012405AF95004EF3DF /* Factory.swift */,
 				62A36EE824059E70004EF3DF /* Key.swift */,
+				F3BD8EE02405ECBD0031275F /* Lifetime.swift */,
+				F34B17FF1FDF384C0040E183 /* Lock.swift */,
 				62A36EED2405A065004EF3DF /* Registrar.swift */,
 				62A36EF22405A13D004EF3DF /* Registration.swift */,
 				62A36EF72405A161004EF3DF /* Resolver.swift */,
-				62A36EFC2405AE0B004EF3DF /* Container.swift */,
-				62A36F012405AF95004EF3DF /* Factory.swift */,
+				F3BD8ED62405EB260031275F /* Resolver+Find.swift */,
+				F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */,
+				62A36EE324059997004EF3DF /* Scope.swift */,
+				F3BD8EE52406087E0031275F /* Singleton.swift */,
+				F3BD8EEF24060BCC0031275F /* Weak.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -257,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				F3C3ED7F1C8D64FF00FD8E4D /* Info.plist */,
-				F32120561F647B5B00872F32 /* Declarations.swift */,
 				F3DBA89E1F9C57160055E83C /* Tests */,
 			);
 			path = GuiseTests;
@@ -266,18 +247,7 @@
 		F3DBA89E1F9C57160055E83C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F356FF451F9B06D60058DE75 /* GuiseBlockResolutionTests.swift */,
-				F3DBA89A1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift */,
-				F39D1BCD1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift */,
-				F3DBA8961F9C54240055E83C /* GuiseFactoryResolutionTests.swift */,
-				F31E06DE1F9E166A0083D983 /* GuiseFilterTests.swift */,
-				F3C2BC791FDFE60D006726B7 /* GuiseInjectionTests.swift */,
-				F3B53EE71F9B130300905DE6 /* GuiseInstanceResolutionTests.swift */,
-				F3BACFC71C95059600BE0148 /* GuiseKeyTests.swift */,
-				F356FF411F9AE2C50058DE75 /* GuiseMetadataTests.swift */,
-				F3C5FC0D1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift */,
-				F344CC7C1FE1056F00DF17CF /* GuiseWeakTests.swift */,
-				F39D1BD11FE5042500616A63 /* ImpotentResolverTests.swift */,
+				F3BD8ED22405C6ED0031275F /* ScopeTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -470,7 +440,7 @@
 					F3700B6D1DB7826900DDB218 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = RWC7T4Z6DX;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					F3C3ED6D1C8D64FF00FD8E4D = {
@@ -479,7 +449,7 @@
 					};
 					F3C3ED771C8D64FF00FD8E4D = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1130;
 					};
 					F3C3ED8E1C8D695C00FD8E4D = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -487,7 +457,7 @@
 					};
 					F3C3ED971C8D695C00FD8E4D = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -572,13 +542,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BD8EDF2405EB470031275F /* Resolver+Resolve.swift in Sources */,
+				F3BD8EE92406087E0031275F /* Singleton.swift in Sources */,
 				62A36F052405AF95004EF3DF /* Factory.swift in Sources */,
+				F3BD8EF324060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE724059997004EF3DF /* Scope.swift in Sources */,
 				62A36EF12405A065004EF3DF /* Registrar.swift in Sources */,
 				F3044828216393DF000C40A0 /* Lock.swift in Sources */,
 				62A36EFB2405A161004EF3DF /* Resolver.swift in Sources */,
+				F3BD8EE42405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36F002405AE0B004EF3DF /* Container.swift in Sources */,
 				62A36EF62405A13D004EF3DF /* Registration.swift in Sources */,
+				F3BD8EDA2405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEC24059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -587,13 +562,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BD8EDE2405EB470031275F /* Resolver+Resolve.swift in Sources */,
+				F3BD8EE82406087E0031275F /* Singleton.swift in Sources */,
 				62A36F042405AF95004EF3DF /* Factory.swift in Sources */,
+				F3BD8EF224060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE624059997004EF3DF /* Scope.swift in Sources */,
 				62A36EF02405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18021FDF384C0040E183 /* Lock.swift in Sources */,
 				62A36EFA2405A161004EF3DF /* Resolver.swift in Sources */,
+				F3BD8EE32405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36EFF2405AE0B004EF3DF /* Container.swift in Sources */,
 				62A36EF52405A13D004EF3DF /* Registration.swift in Sources */,
+				F3BD8ED92405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEB24059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -602,19 +582,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32120591F647B5B00872F32 /* Declarations.swift in Sources */,
-				F3DBA8991F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */,
-				F3DBA89D1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */,
-				F3C2BC7C1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */,
-				F39D1BD41FE5042500616A63 /* ImpotentResolverTests.swift in Sources */,
-				F356FF481F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
-				F3700B7F1DB7847000DDB218 /* GuiseKeyTests.swift in Sources */,
-				F356FF441F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
-				F344CC7F1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
-				F39D1BD01FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */,
-				F3C5FC101FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */,
-				F3B53EEA1F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
-				F31E06E11F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
+				F3BD8ED52405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,13 +590,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BD8EDC2405EB470031275F /* Resolver+Resolve.swift in Sources */,
+				F3BD8EE62406087E0031275F /* Singleton.swift in Sources */,
 				62A36F022405AF95004EF3DF /* Factory.swift in Sources */,
+				F3BD8EF024060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE424059997004EF3DF /* Scope.swift in Sources */,
 				62A36EEE2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18001FDF384C0040E183 /* Lock.swift in Sources */,
 				62A36EF82405A161004EF3DF /* Resolver.swift in Sources */,
+				F3BD8EE12405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36EFD2405AE0B004EF3DF /* Container.swift in Sources */,
 				62A36EF32405A13D004EF3DF /* Registration.swift in Sources */,
+				F3BD8ED72405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EE924059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,19 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32120571F647B5B00872F32 /* Declarations.swift in Sources */,
-				F3DBA8971F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */,
-				F3DBA89B1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */,
-				F3C2BC7A1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */,
-				F39D1BD21FE5042500616A63 /* ImpotentResolverTests.swift in Sources */,
-				F356FF461F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
-				F3BACFC81C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
-				F356FF421F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
-				F344CC7D1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
-				F39D1BCE1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */,
-				F3C5FC0E1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */,
-				F3B53EE81F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
-				F31E06DF1F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
+				F3BD8ED32405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,13 +618,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BD8EDD2405EB470031275F /* Resolver+Resolve.swift in Sources */,
+				F3BD8EE72406087E0031275F /* Singleton.swift in Sources */,
 				62A36F032405AF95004EF3DF /* Factory.swift in Sources */,
+				F3BD8EF124060BCC0031275F /* Weak.swift in Sources */,
 				62A36EE524059997004EF3DF /* Scope.swift in Sources */,
 				62A36EEF2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18011FDF384C0040E183 /* Lock.swift in Sources */,
 				62A36EF92405A161004EF3DF /* Resolver.swift in Sources */,
+				F3BD8EE22405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36EFE2405AE0B004EF3DF /* Container.swift in Sources */,
 				62A36EF42405A13D004EF3DF /* Registration.swift in Sources */,
+				F3BD8ED82405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEA24059E70004EF3DF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -672,19 +638,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32120581F647B5B00872F32 /* Declarations.swift in Sources */,
-				F3DBA8981F9C54240055E83C /* GuiseFactoryResolutionTests.swift in Sources */,
-				F3DBA89C1F9C561E0055E83C /* GuiseConcurrentResolutionTests.swift in Sources */,
-				F3C2BC7B1FDFE60D006726B7 /* GuiseInjectionTests.swift in Sources */,
-				F39D1BD31FE5042500616A63 /* ImpotentResolverTests.swift in Sources */,
-				F356FF471F9B06D60058DE75 /* GuiseBlockResolutionTests.swift in Sources */,
-				F3BACFC91C95059600BE0148 /* GuiseKeyTests.swift in Sources */,
-				F356FF431F9AE2C50058DE75 /* GuiseMetadataTests.swift in Sources */,
-				F344CC7E1FE1056F00DF17CF /* GuiseWeakTests.swift in Sources */,
-				F39D1BCF1FE4FA3A00616A63 /* GuiseExpectsResolverTests.swift in Sources */,
-				F3C5FC0F1FE1D4BC00D829C3 /* GuiseUnregistrationTests.swift in Sources */,
-				F3B53EE91F9B130300905DE6 /* GuiseInstanceResolutionTests.swift in Sources */,
-				F31E06E01F9E166A0083D983 /* GuiseFilterTests.swift in Sources */,
+				F3BD8ED42405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -831,6 +785,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = RWC7T4Z6DX;
@@ -840,6 +795,7 @@
 				PRODUCT_NAME = GuiseTests;
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
@@ -851,6 +807,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = RWC7T4Z6DX;

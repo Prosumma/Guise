@@ -30,7 +30,22 @@ public struct Scope: Equatable {
   }
 
   public var parent: Scope? {
-    return _parent?.scope
+    _parent?.scope
+  }
+  
+  public var length: Int {
+    (parent?.length ?? 0) + 1
+  }
+  
+  public func starts(with prefix: Scope) -> Bool {
+    let prefixLength = prefix.length
+    var parent = self
+    while parent.length > prefixLength {
+      // This is safe because Scope.root always
+      // lives at the base of the scope hierarchy.
+      parent = parent.parent!
+    }
+    return parent == prefix
   }
 
   /// `Scope` is not `Hashable` but participates in the hashing of `Key`.
@@ -40,15 +55,15 @@ public struct Scope: Equatable {
   }
 
   public static func ==(lhs: Scope, rhs: Scope) -> Bool {
-    return lhs.identifier == rhs.identifier && lhs.parent == rhs.parent
+    lhs.identifier == rhs.identifier && lhs.parent == rhs.parent
   }
 
   public static let root = Scope()
 }
 
-infix operator ~>: MultiplicationPrecedence
+infix operator >~: MultiplicationPrecedence
 
-public func ~><R: Hashable>(lhs: Scope, rhs: R) -> Scope {
-  return Scope(parent: lhs, identifier: rhs)
+public func >~<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
+  Scope(parent: lhs, identifier: rhs)
 }
 

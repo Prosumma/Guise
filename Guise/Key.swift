@@ -32,4 +32,8 @@ public struct Key: Hashable {
     }
     return nil
   }
+  
+  public func starts(with prefix: Scope) -> Bool {
+    scope.starts(with: prefix)
+  }
 }
