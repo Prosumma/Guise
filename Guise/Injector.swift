@@ -10,8 +10,11 @@ import Foundation
 
 public struct Injector<Target: AnyObject> {
   private var injections: [(Resolver, Target, [AnyHashable: Any]) -> Void] = []
+  private let registrar: Registrar
 
-  public init() {}
+  public init(_ registrar: Registrar) {
+    self.registrar = registrar
+  }
 
   public func inject(_ injection: @escaping (Resolver, Target, [AnyHashable: Any]) -> Void) -> Injector<Target> {
     var injector = self
@@ -29,5 +32,14 @@ public struct Injector<Target: AnyObject> {
     return inject { (r, target, args) in
       target[keyPath: keyPath] = r.resolve(arg: args[arg] ?? ())
     }
+  }
+
+  public func register() -> Key {
+    let key = Key(type: Target.self, scope: .injection)
+    let injections = self.injections
+    registrar[key] = Injection { (r, target: Target, args) in
+      injections.forEach{ inject in inject(r, target, args) }
+    }
+    return key
   }
 }

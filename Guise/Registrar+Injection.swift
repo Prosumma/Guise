@@ -10,6 +10,6 @@ import Foundation
 
 public extension Registrar {
   func into<Target: AnyObject>(target: Target.Type) -> Injector<Target> {
-    return Injector()
+    return Injector(self)
   }
 }
