@@ -66,6 +66,17 @@
 		F3BD8EF124060BCC0031275F /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EEF24060BCC0031275F /* Weak.swift */; };
 		F3BD8EF224060BCC0031275F /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EEF24060BCC0031275F /* Weak.swift */; };
 		F3BD8EF324060BCC0031275F /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EEF24060BCC0031275F /* Weak.swift */; };
+		F3BD8EF52406177B0031275F /* DITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EF42406177B0031275F /* DITests.swift */; };
+		F3BD8EF62406177B0031275F /* DITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EF42406177B0031275F /* DITests.swift */; };
+		F3BD8EF72406177B0031275F /* DITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EF42406177B0031275F /* DITests.swift */; };
+		F3BD8EF92406198F0031275F /* Registrar+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EF82406198F0031275F /* Registrar+Register.swift */; };
+		F3BD8EFA2406198F0031275F /* Registrar+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EF82406198F0031275F /* Registrar+Register.swift */; };
+		F3BD8EFB2406198F0031275F /* Registrar+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EF82406198F0031275F /* Registrar+Register.swift */; };
+		F3BD8EFC2406198F0031275F /* Registrar+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8EF82406198F0031275F /* Registrar+Register.swift */; };
+		F3BD8F0324061A280031275F /* Resolver+Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F0224061A280031275F /* Resolver+Auto.swift */; };
+		F3BD8F0424061A280031275F /* Resolver+Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F0224061A280031275F /* Resolver+Auto.swift */; };
+		F3BD8F0524061A280031275F /* Resolver+Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F0224061A280031275F /* Resolver+Auto.swift */; };
+		F3BD8F0624061A280031275F /* Resolver+Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD8F0224061A280031275F /* Resolver+Auto.swift */; };
 		F3C3ED721C8D64FF00FD8E4D /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3C3ED791C8D64FF00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */; };
 		F3C3ED991C8D695C00FD8E4D /* Guise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C3ED8F1C8D695C00FD8E4D /* Guise.framework */; };
@@ -114,6 +125,9 @@
 		F3BD8EE02405ECBD0031275F /* Lifetime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lifetime.swift; sourceTree = "<group>"; };
 		F3BD8EE52406087E0031275F /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		F3BD8EEF24060BCC0031275F /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
+		F3BD8EF42406177B0031275F /* DITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DITests.swift; sourceTree = "<group>"; };
+		F3BD8EF82406198F0031275F /* Registrar+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Register.swift"; sourceTree = "<group>"; };
+		F3BD8F0224061A280031275F /* Resolver+Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Auto.swift"; sourceTree = "<group>"; };
 		F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C3ED711C8D64FF00FD8E4D /* Guise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Guise.h; sourceTree = "<group>"; };
 		F3C3ED731C8D64FF00FD8E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -189,8 +203,10 @@
 				F3BD8EE02405ECBD0031275F /* Lifetime.swift */,
 				F34B17FF1FDF384C0040E183 /* Lock.swift */,
 				62A36EED2405A065004EF3DF /* Registrar.swift */,
+				F3BD8EF82406198F0031275F /* Registrar+Register.swift */,
 				62A36EF22405A13D004EF3DF /* Registration.swift */,
 				62A36EF72405A161004EF3DF /* Resolver.swift */,
+				F3BD8F0224061A280031275F /* Resolver+Auto.swift */,
 				F3BD8ED62405EB260031275F /* Resolver+Find.swift */,
 				F3BD8EDB2405EB470031275F /* Resolver+Resolve.swift */,
 				62A36EE324059997004EF3DF /* Scope.swift */,
@@ -248,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				F3BD8ED22405C6ED0031275F /* ScopeTests.swift */,
+				F3BD8EF42406177B0031275F /* DITests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -549,9 +566,11 @@
 				62A36EE724059997004EF3DF /* Scope.swift in Sources */,
 				62A36EF12405A065004EF3DF /* Registrar.swift in Sources */,
 				F3044828216393DF000C40A0 /* Lock.swift in Sources */,
+				F3BD8F0624061A280031275F /* Resolver+Auto.swift in Sources */,
 				62A36EFB2405A161004EF3DF /* Resolver.swift in Sources */,
 				F3BD8EE42405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36F002405AE0B004EF3DF /* Container.swift in Sources */,
+				F3BD8EFC2406198F0031275F /* Registrar+Register.swift in Sources */,
 				62A36EF62405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8EDA2405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEC24059E70004EF3DF /* Key.swift in Sources */,
@@ -569,9 +588,11 @@
 				62A36EE624059997004EF3DF /* Scope.swift in Sources */,
 				62A36EF02405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18021FDF384C0040E183 /* Lock.swift in Sources */,
+				F3BD8F0524061A280031275F /* Resolver+Auto.swift in Sources */,
 				62A36EFA2405A161004EF3DF /* Resolver.swift in Sources */,
 				F3BD8EE32405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36EFF2405AE0B004EF3DF /* Container.swift in Sources */,
+				F3BD8EFB2406198F0031275F /* Registrar+Register.swift in Sources */,
 				62A36EF52405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8ED92405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEB24059E70004EF3DF /* Key.swift in Sources */,
@@ -582,6 +603,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BD8EF72406177B0031275F /* DITests.swift in Sources */,
 				F3BD8ED52405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,9 +619,11 @@
 				62A36EE424059997004EF3DF /* Scope.swift in Sources */,
 				62A36EEE2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18001FDF384C0040E183 /* Lock.swift in Sources */,
+				F3BD8F0324061A280031275F /* Resolver+Auto.swift in Sources */,
 				62A36EF82405A161004EF3DF /* Resolver.swift in Sources */,
 				F3BD8EE12405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36EFD2405AE0B004EF3DF /* Container.swift in Sources */,
+				F3BD8EF92406198F0031275F /* Registrar+Register.swift in Sources */,
 				62A36EF32405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8ED72405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EE924059E70004EF3DF /* Key.swift in Sources */,
@@ -610,6 +634,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BD8EF52406177B0031275F /* DITests.swift in Sources */,
 				F3BD8ED32405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -625,9 +650,11 @@
 				62A36EE524059997004EF3DF /* Scope.swift in Sources */,
 				62A36EEF2405A065004EF3DF /* Registrar.swift in Sources */,
 				F34B18011FDF384C0040E183 /* Lock.swift in Sources */,
+				F3BD8F0424061A280031275F /* Resolver+Auto.swift in Sources */,
 				62A36EF92405A161004EF3DF /* Resolver.swift in Sources */,
 				F3BD8EE22405ECBD0031275F /* Lifetime.swift in Sources */,
 				62A36EFE2405AE0B004EF3DF /* Container.swift in Sources */,
+				F3BD8EFA2406198F0031275F /* Registrar+Register.swift in Sources */,
 				62A36EF42405A13D004EF3DF /* Registration.swift in Sources */,
 				F3BD8ED82405EB260031275F /* Resolver+Find.swift in Sources */,
 				62A36EEA24059E70004EF3DF /* Key.swift in Sources */,
@@ -638,6 +665,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3BD8EF62406177B0031275F /* DITests.swift in Sources */,
 				F3BD8ED42405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

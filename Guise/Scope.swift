@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Scope: Equatable {
+public struct Scope: Equatable, CustomStringConvertible {
   private class Parent {
     let scope: Scope
     init(_ scope: Scope) {
@@ -21,7 +21,7 @@ public struct Scope: Equatable {
 
   private init() {
     _parent = nil
-    identifier = "/"
+    identifier = "root"
   }
 
   public init(parent: Scope, identifier: AnyHashable = UUID()) {
@@ -46,6 +46,16 @@ public struct Scope: Equatable {
       parent = parent.parent!
     }
     return parent == prefix
+  }
+  
+  public var description: String {
+    let description: String
+    if let parent = parent {
+      description = "\(parent) • \(identifier)"
+    } else {
+      description = "\(identifier)"
+    }
+    return description
   }
 
   /// `Scope` is not `Hashable` but participates in the hashing of `Key`.

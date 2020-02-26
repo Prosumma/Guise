@@ -35,6 +35,11 @@ class ScopeTests: XCTestCase {
     XCTAssertFalse(prefix.starts(with: scope))
   }
   
+  func testScopeDescription() {
+    let scope = Scope.root • "hello"
+    XCTAssertEqual("\(scope)", "root • hello")
+  }
+  
 }
 
 
