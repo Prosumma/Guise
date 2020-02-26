@@ -14,6 +14,6 @@ public extension Resolver {
     guard let injection = self[key] as? Injection else {
       return
     }
-    injection.inject(resolver: self, into: target, args: args)
+    injection.inject(into: target, resolver: self, args: args)
   }
 }

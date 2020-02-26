@@ -16,7 +16,7 @@ public final class Injection: RegistrationBase {
     super.init(metadata: ())
   }
 
-  public override func inject(resolver: Resolver, into target: AnyObject, args: [Key: Any]) {
+  public override func inject(into target: AnyObject, resolver: Resolver, args: [Key: Any]) {
     injection(resolver, target, args)
   }
 }

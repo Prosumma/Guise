@@ -20,7 +20,7 @@ public class RegistrationBase: Registration {
     return nil
   }
 
-  public func inject(resolver: Resolver, into target: AnyObject, args: [Key: Any]) {
+  public func inject(into target: AnyObject, resolver: Resolver, args: [Key: Any]) {
     NSException(name: .internalInconsistencyException, reason: "Method not implemented", userInfo: nil).raise()
   }
 
