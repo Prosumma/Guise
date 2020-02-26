@@ -9,6 +9,8 @@
 import XCTest
 import Guise
 
+var Guise: Registrar & Resolver = Container()
+
 protocol Api {
   
 }
@@ -41,9 +43,7 @@ class DITests: XCTestCase {
   
   func testAutoAndSingletonBehavior() {
     Guise.register(singleton: ApiImpl() as Api)
-    Guise.register(lifetime: .singleton) { r in
-      r.auto(ServiceImpl.init) as Service
-    }
+    Guise.register(lifetime: .singleton, resolve: auto(ServiceImpl.init, as: Service.self))
     let service1: Service? = Guise.resolve()
     XCTAssertNotNil(service1?.api)
     let service2: Service? = Guise.resolve()

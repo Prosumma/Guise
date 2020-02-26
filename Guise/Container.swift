@@ -12,6 +12,8 @@ public class Container: Registrar & Resolver {
   private let lock = Lock()
   private var registrations: [Key: Registration] = [:]
 
+  public init() {}
+
   public subscript(key: Key) -> Registration? {
     get { lock.read { registrations[key] }}
     set { lock.write { registrations[key] = newValue }}
@@ -21,5 +23,3 @@ public class Container: Registrar & Resolver {
     lock.read { registrations.filter(predicate) }
   }
 }
-
-public var Guise: Registrar & Resolver = Container()

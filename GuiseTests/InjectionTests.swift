@@ -37,7 +37,7 @@ class InjectionTarget {
 class InjectionTests: XCTestCase {
 
   public func testInjection() {
-    Guise.register(in: Argumentative.scope) { (_, arguments, counterArguments) in Argumentative(arguments, counterArguments) }
+    Guise.register(in: Argumentative.scope, resolve: pass(to: Argumentative.init))
     Guise.register(singleton: ApiImpl() as Api)
     Guise.register { r in r.auto(ServiceImpl.init) as Service }
     Guise.into(target: InjectionTarget.self)
@@ -48,6 +48,10 @@ class InjectionTests: XCTestCase {
 
     let target = InjectionTarget()
     target.load()
+
+    let argumentative: Argumentative = Guise.resolve(in: Argumentative.scope, arg1: 17, arg2: 33)!
+    XCTAssertEqual(argumentative.arguments, 17)
+    XCTAssertEqual(argumentative.counterArguments, 33)
   }
 
 }
