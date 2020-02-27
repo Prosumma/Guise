@@ -8,12 +8,17 @@
 
 import Foundation
 
+
 public final class Injection: RegistrationBase {
+  public struct Metadata: Equatable {}
+  
+  public static let metadata = Metadata()
+  
   private let injection: (Resolver, AnyObject, [Key: Any]) -> Void
 
   public init<Type: AnyObject>(inject: @escaping (Resolver, Type, [Key: Any]) -> Void) {
     injection = { (r, o, args) in inject(r, o as! Type, args) }
-    super.init(metadata: ())
+    super.init(metadata: Metadata())
   }
 
   public override func inject(into target: AnyObject, resolver: Resolver, args: [Key: Any]) {

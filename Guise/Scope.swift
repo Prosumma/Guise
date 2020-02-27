@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Scope: Equatable, CustomStringConvertible {
+public struct Scope: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
   private class Parent {
     let scope: Scope
     init(_ scope: Scope) {
@@ -57,6 +57,10 @@ public struct Scope: Equatable, CustomStringConvertible {
     }
     return description
   }
+  
+  public var debugDescription: String {
+    "Scope(\(self))"
+  }
 
   /// `Scope` is not `Hashable` but participates in the hashing of `Key`.
   internal func hash(into hasher: inout Hasher) {
@@ -70,7 +74,7 @@ public struct Scope: Equatable, CustomStringConvertible {
 
   public static let root = Scope(identifier: "$root$")
   public static let `default` = Scope.root / "$default$"
-  public static let injection = Scope(identifier: UUID())
+  public static let injections = Scope(identifier: "$injections$")
 }
 
 public func /<R: Hashable>(lhs: Scope, rhs: R) -> Scope {

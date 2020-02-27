@@ -47,5 +47,16 @@ public extension Resolver {
   func filter<Type>(type: Type.Type, in scope: Scope = .default) -> [RegistrationEntry] {
     filter(type: String(reflecting: type), in: scope, metafilter: nil)
   }
+  
+  func filter<Metadata>(in scope: Scope = .default, metafilter: @escaping (Metadata) -> Bool) -> [RegistrationEntry] {
+    filter(type: nil, in: scope) { (metadata: Any) in
+      guard let metadata = metadata as? Metadata else { return false }
+      return metafilter(metadata)
+    }
+  }
+  
+  func filter<Metadata: Equatable>(in scope: Scope = .default, metadata: Metadata) -> [RegistrationEntry] {
+    filter(in: scope) { $0 == metadata }
+  }
 
 }

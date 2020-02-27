@@ -10,7 +10,7 @@ import Foundation
 
 public extension Resolver {
   func resolve<Target: AnyObject>(into target: Target, args: [Key: Any] = [:]) {
-    let key = Key(Target.self, in: .injection)
+    let key = Key(Target.self, in: .injections)
     guard let injection = self[key] as? Injection else {
       return
     }

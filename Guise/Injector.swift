@@ -22,14 +22,14 @@ public struct Injector<Target: AnyObject> {
     return injector
   }
 
-  public func inject<Type>(exact keyPath: ReferenceWritableKeyPath<Target, Type>, in scope: Scope = .default) -> Injector<Target> {
+  public func inject<Type>(exact keyPath: ReferenceWritableKeyPath<Target, Type>, from scope: Scope = .default) -> Injector<Target> {
     let arg = Key(Type.self, in: scope)
     return inject { (r, target, args) in
       target[keyPath: keyPath] = r.resolve(in: scope, arg: args[arg] ?? ())!
     }
   }
 
-  public func inject<Type>(_ keyPath: ReferenceWritableKeyPath<Target, Type?>, in scope: Scope = .default) -> Injector<Target> {
+  public func inject<Type>(_ keyPath: ReferenceWritableKeyPath<Target, Type?>, from scope: Scope = .default) -> Injector<Target> {
     let arg = Key(Type.self, in: scope)
     return inject { (r, target, args) in
       target[keyPath: keyPath] = r.resolve(in: scope, arg: args[arg] ?? ())
@@ -37,7 +37,7 @@ public struct Injector<Target: AnyObject> {
   }
 
   @discardableResult public func register() -> Key {
-    let key = Key(Target.self, in: .injection)
+    let key = Key(Target.self, in: .injections)
     let injections = self.injections
     registrar[key] = Injection { (r, target: Target, args) in
       injections.forEach{ inject in inject(r, target, args) }

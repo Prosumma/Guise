@@ -11,23 +11,23 @@ import Foundation
 public typealias PassResult<Arg, Type> = (Resolver, Arg) -> Type
 
 private func makepass<Arg, Type>(_ block: @escaping (Arg) -> Type) -> PassResult<Arg, Type> {
-  return { (_, args) in block(args) }
+  return { _, arg in block(arg) }
 }
 
-public func pass<Type>(to resolve: @escaping () -> Type, as type: Type.Type = Type.self) -> PassResult<Void, Type> {
-  makepass { _ in resolve() }
+public func pass<Type>(to initializer: @escaping () -> Type) -> PassResult<Void, Type> {
+  makepass { _ in initializer() }
 }
 
-public func pass1<Type, Arg>(to resolve: @escaping (Arg) -> Type, as type: Type.Type = Type.self) -> PassResult<Arg, Type> {
-  makepass(resolve)
+public func pass1<Arg, Type>(to initializer: @escaping (Arg) -> Type) -> PassResult<Arg, Type> {
+  makepass(initializer)
 }
 
-public func pass2<Type, Arg1, Arg2>(to resolve: @escaping (Arg1, Arg2) -> Type, as type: Type.Type = Type.self) -> PassResult<(Arg1, Arg2), Type> {
-  makepass { args in resolve(args.0, args.1) }
+public func pass2<Arg1, Arg2, Type>(to initializer: @escaping (Arg1, Arg2) -> Type) -> PassResult<(Arg1, Arg2), Type> {
+  makepass { arg in initializer(arg.0, arg.1) }
 }
 
-public func pass3<Type, Arg1, Arg2, Arg3>(to resolve: @escaping (Arg1, Arg2, Arg3) -> Type, as type: Type.Type = Type.self) -> PassResult<(Arg1, Arg2, Arg3), Type> {
-  makepass { args in resolve(args.0, args.1, args.2) }
+public func pass3<Arg1, Arg2, Arg3, Type>(to initializer: @escaping (Arg1, Arg2, Arg3) -> Type) -> PassResult<(Arg1, Arg2, Arg3), Type> {
+  makepass { arg in initializer(arg.0, arg.1, arg.2) }
 }
 
 public extension Registrar {
