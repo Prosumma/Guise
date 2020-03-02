@@ -27,6 +27,10 @@
 		626A47C1240D913000BA9A99 /* Resolver+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47BF240D913000BA9A99 /* Resolver+Injection.swift */; };
 		626A47C2240D913000BA9A99 /* Resolver+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47BF240D913000BA9A99 /* Resolver+Injection.swift */; };
 		626A47C3240D913000BA9A99 /* Resolver+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47BF240D913000BA9A99 /* Resolver+Injection.swift */; };
+		626A47C5240DBC2000BA9A99 /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */; };
+		626A47C6240DBC2000BA9A99 /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */; };
+		626A47C7240DBC2000BA9A99 /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */; };
+		626A47C8240DBC2000BA9A99 /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */; };
 		62A36EE424059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
 		62A36EE524059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
 		62A36EE624059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
@@ -141,6 +145,7 @@
 		626A47B5240D752100BA9A99 /* Registrar+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Injection.swift"; sourceTree = "<group>"; };
 		626A47BA240D770400BA9A99 /* KeyPathInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathInjection.swift; sourceTree = "<group>"; };
 		626A47BF240D913000BA9A99 /* Resolver+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Injection.swift"; sourceTree = "<group>"; };
+		626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Find.swift"; sourceTree = "<group>"; };
 		62A36EE324059997004EF3DF /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F35A10CA209F2AFB000FA4B4 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +271,7 @@
 				626A47B5240D752100BA9A99 /* Registrar+Injection.swift */,
 				F3A4FD59240C82DA00EA49D3 /* Registrar+Register.swift */,
 				F3A4FD45240C7BF900EA49D3 /* Registration.swift */,
+				626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */,
 				626A47BF240D913000BA9A99 /* Resolver+Injection.swift */,
 				F3A4FD7C240C8B3500EA49D3 /* Resolver+Resolve.swift */,
 				F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */,
@@ -622,6 +628,7 @@
 				F3A4FD80240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
 				F3A4FD67240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD49240C7BF900EA49D3 /* Registration.swift in Sources */,
+				626A47C8240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAD240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F3A4FDA3240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD38240C730500EA49D3 /* Registrar.swift in Sources */,
@@ -652,6 +659,7 @@
 				F3A4FD7F240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
 				F3A4FD66240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD48240C7BF900EA49D3 /* Registration.swift in Sources */,
+				626A47C7240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAC240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F3A4FDA2240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD37240C730500EA49D3 /* Registrar.swift in Sources */,
@@ -690,6 +698,7 @@
 				F3A4FD7D240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
 				F3A4FD64240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD46240C7BF900EA49D3 /* Registration.swift in Sources */,
+				626A47C5240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAA240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F3A4FDA0240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD35240C730500EA49D3 /* Registrar.swift in Sources */,
@@ -728,6 +737,7 @@
 				F3A4FD7E240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
 				F3A4FD65240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD47240C7BF900EA49D3 /* Registration.swift in Sources */,
+				626A47C6240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAB240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F3A4FDA1240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD36240C730500EA49D3 /* Registrar.swift in Sources */,
