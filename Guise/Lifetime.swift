@@ -2,26 +2,31 @@
 //  Lifetime.swift
 //  Guise
 //
-//  Created by Gregory Higley on 2/25/20.
+//  Created by Gregory Higley on 3/1/20.
 //  Copyright © 2020 Gregory Higley. All rights reserved.
 //
 
 import Foundation
 
 public enum Lifetime {
-  case factory
+  case transient
   case singleton
   case weak
   
   public var registrationType: LifetimeRegistration.Type {
     switch self {
-    case .factory: return Factory.self
-    case .singleton: return Singleton.self
-    case .weak: return Weak.self
+    case .transient: return TransientRegistration.self
+    case .singleton: return SingletonRegistration.self
+    case .weak: return WeakRegistration.self
     }
+  }
+  
+  public func register<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type) -> Registration {
+    return self.registrationType.init(type: type, factory: factory)
   }
 }
 
 public protocol LifetimeRegistration: Registration {
-  init<Type, Arg>(resolve: @escaping (Resolver, Arg) -> Type, metadata: Any)
+  init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type)
 }
+

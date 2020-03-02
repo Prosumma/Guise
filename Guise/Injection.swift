@@ -2,26 +2,18 @@
 //  Injection.swift
 //  Guise
 //
-//  Created by Gregory Higley on 2/26/20.
+//  Created by Gregory Higley on 3/1/20.
 //  Copyright © 2020 Gregory Higley. All rights reserved.
 //
 
 import Foundation
 
+public protocol Injection {
+  func resolve<Type: AnyObject>(into target: Type, args: [Scope: Any])
+}
 
-public final class Injection: RegistrationBase {
-  public struct Metadata: Equatable {}
-  
-  public static let metadata = Metadata()
-  
-  private let injection: (Resolver, AnyObject, [Key: Any]) -> Void
-
-  public init<Type: AnyObject>(inject: @escaping (Resolver, Type, [Key: Any]) -> Void) {
-    injection = { (r, o, args) in inject(r, o as! Type, args) }
-    super.init(metadata: Metadata())
-  }
-
-  public override func inject(into target: AnyObject, resolver: Resolver, args: [Key: Any]) {
-    injection(resolver, target, args)
+public extension Injection {
+  func resolve<Type: AnyObject>(into target: Type, args: [Scope: Any] = [:]) {
+    resolve(into: target, args: args)
   }
 }

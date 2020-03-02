@@ -2,7 +2,7 @@
 //  Registration.swift
 //  Guise
 //
-//  Created by Gregory Higley on 2/25/20.
+//  Created by Gregory Higley on 3/1/20.
 //  Copyright © 2020 Gregory Higley. All rights reserved.
 //
 
@@ -11,14 +11,11 @@ import Foundation
 public protocol Registration {
   var metadata: Any { get }
   func resolve<Type, Arg>(type: Type.Type, resolver: Resolver, arg: Arg) -> Type?
-  func inject(into target: AnyObject, resolver: Resolver, args: [Key: Any])
 }
 
 public extension Registration {
-  func inject(into target: AnyObject, resolver: Resolver, args: [Key: Any] = [:]) {
-    NSException(name: .internalInconsistencyException, reason: "Method not implemented", userInfo: nil).raise()
-  }
-
+  var metadata: Any { () }
+  
   func resolve<Type>(type: Type.Type = Type.self, resolver: Resolver) -> Type? {
     resolve(type: type, resolver: resolver, arg: ())
   }
@@ -35,4 +32,3 @@ public extension Registration {
     resolve(type: type, resolver: resolver, arg: (arg1, arg2, arg3))
   }
 }
-

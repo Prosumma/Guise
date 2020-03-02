@@ -35,11 +35,14 @@ class ScopeTests: XCTestCase {
     XCTAssertFalse(prefix.starts(with: scope))
   }
   
-  func testScopeDescription() {
-    let scope = Scope.default / "hello"
-    XCTAssertEqual("\(scope)", "$root$/$default$/hello")
+  func testSomething() {
+    let watusi: Scope = "watusi" / "foo"
+    let arugula: Scope = .root / "arugula" / UUID()
+    let watusiArugula = watusi / arugula
+    let watusiArugulaString = watusiArugula / String.self
+    print(watusiArugulaString)
   }
-  
+    
 }
 
 

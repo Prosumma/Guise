@@ -8,76 +8,116 @@
 
 import Foundation
 
-public struct Scope: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
+public struct Scope: Hashable {
+  
+  private struct HashedType: Hashable {
+    public let name: String
+    public init<Type>(_ type: Type.Type) {
+      name = String(reflecting: type)
+    }
+  }
+  
   private class Parent {
     let scope: Scope
     init(_ scope: Scope) {
       self.scope = scope
     }
   }
-
-  private let _parent: Parent?
+  
   public let identifier: AnyHashable
-
-  private init(identifier: AnyHashable) {
+  private let _parent: Parent?
+  
+  public init<Identifier: Hashable>(_ identifier: Identifier, in parent: Scope? = nil) {
+    if let child = identifier as? Scope {
+      if let parent = parent {
+        self = parent.adopt(child)
+      } else {
+        self = child
+      }
+    } else {
+      self.identifier = identifier
+      if let parent = parent {
+        self._parent = Parent(parent)
+      } else {
+        self._parent = nil
+      }
+    }
+  }
+    
+  public init(in parent: Scope? = nil) {
+    self.identifier = UUID()
     self._parent = nil
-    self.identifier = identifier
   }
-
-  public init(parent: Scope, identifier: AnyHashable = UUID()) {
-    self._parent = Parent(parent)
-    self.identifier = identifier
+  
+  public init<Type>(_ type: Type.Type, in parent: Scope? = nil) {
+    self.init(HashedType(type), in: parent)
   }
-
+  
   public var parent: Scope? {
     _parent?.scope
   }
   
+  public var bottom: Scope {
+    guard let parent = parent else {
+      return self
+    }
+    return parent.bottom
+  }
+  
   public var length: Int {
-    (parent?.length ?? 0) + 1
+    1 + (parent?.length ?? 0)
   }
   
-  public func starts(with prefix: Scope) -> Bool {
-    let prefixLength = prefix.length
-    var parent = self
-    while parent.length > prefixLength {
-      // This is safe because Scope.root always
-      // lives at the base of the scope hierarchy.
-      parent = parent.parent!
+  public func starts(with ancestor: Scope) -> Bool {
+    let ancestorLength = ancestor.length
+    var descendant = self
+    while descendant.length > ancestorLength {
+      descendant = descendant.parent!
     }
-    return parent == prefix
+    return descendant == ancestor
   }
   
-  public var description: String {
-    let description: String
-    if let parent = parent {
-      description = "\(parent)/\(identifier)"
-    } else {
-      description = "\(identifier)"
-    }
-    return description
-  }
-  
-  public var debugDescription: String {
-    "Scope(\(self))"
-  }
-
-  /// `Scope` is not `Hashable` but participates in the hashing of `Key`.
-  internal func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     hasher.combine(identifier)
-    parent?.hash(into: &hasher)
+    if let parent = parent {
+      hasher.combine(parent)
+    }
   }
-
+  
+  private func adopt(_ child: Scope) -> Scope {
+    func reparent(_ child: Scope) -> Scope {
+      if let parent = child.parent {
+        return Scope(child.identifier, in: reparent(parent))
+      }
+      return Scope(child.identifier, in: self)
+    }
+    return reparent(child)
+  }
+    
   public static func ==(lhs: Scope, rhs: Scope) -> Bool {
     lhs.identifier == rhs.identifier && lhs.parent == rhs.parent
   }
+}
 
-  public static let root = Scope(identifier: "$root$")
-  public static let `default` = Scope.root / "$default$"
-  public static let injections = Scope(identifier: "$injections$")
+extension Scope: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    if let parent = parent {
+      return "Scope(\(identifier), parent: \(parent))"
+    }
+    return "Scope(\(identifier))"
+  }
+}
+
+extension Scope: ExpressibleByStringLiteral {
+  public init(stringLiteral value: String) {
+    self.init(value)
+  }
 }
 
 public func /<R: Hashable>(lhs: Scope, rhs: R) -> Scope {
-  Scope(parent: lhs, identifier: rhs)
+  Scope(rhs, in: lhs)
 }
 
+public func /<Type>(lhs: Scope, rhs: Type.Type) -> Key {
+  Scope(rhs, in: lhs)
+}
