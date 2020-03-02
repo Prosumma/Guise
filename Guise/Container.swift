@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+ The default, thread-safe implementation of `Registrar` and `Resolver`.
+
+ This is all that is needed for all of Guise's functionality to work. Rolling
+ your own implementation is simple.
+ */
 public class Container: Registrar & Resolver {
   private let lock = Lock()
   private var registrations: Registrations = [:]

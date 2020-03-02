@@ -9,11 +9,11 @@
 import Foundation
 
 public protocol Injection {
-  func resolve<Type: AnyObject>(into target: Type, args: [Scope: Any])
+  func resolve<Target: AnyObject>(into target: Target, resolver: Resolver, args: [Key: Any])
 }
 
 public extension Injection {
-  func resolve<Type: AnyObject>(into target: Type, args: [Scope: Any] = [:]) {
-    resolve(into: target, args: args)
+  func resolve<Target: AnyObject>(into target: Target, resolver: Resolver, args: [Key: Any] = [:]) {
+    resolve(into: target, resolver: resolver, args: args)
   }
 }

@@ -72,6 +72,7 @@ public struct Scope: Hashable {
     let ancestorLength = ancestor.length
     var descendant = self
     while descendant.length > ancestorLength {
+      // It is not possible for parent to be nil in this algorithm.
       descendant = descendant.parent!
     }
     return descendant == ancestor
