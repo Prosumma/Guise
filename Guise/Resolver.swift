@@ -16,12 +16,13 @@ public protocol Resolver {
 }
 
 public extension Resolver {
-  func find(_ key: Key) -> Any? {
+  func find<Type>(type: Type.Type, in scope: Scope) -> Any? {
+    let key = scope / type
     if let value = self[key] {
       return value
     }
-    if let parent = key.parent {
-      return find(parent)
+    if let parent = scope.parent {
+      return find(type: type, in: parent)
     }
     return nil
   }

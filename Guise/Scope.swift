@@ -8,6 +8,54 @@
 
 import Foundation
 
+/**
+ A `Scope` is a hierarchical key constructed from
+ hashable values or metatypes. Scopes are one
+ of the most fundamental building blocks of Guise.
+
+ A scope consists of an _identifier_, which is required,
+ and an optional parent scope. A scope without a
+ parent is called a _root scope_. Root scopes may be
+ constructed using one of the `Scope` initializers or
+ the `ExpressibleByStringLiteral` conformance.
+
+ ```
+ let anonymousScope = Scope()
+ let awesome: Scope = "awesome"
+ let intScope = Scope(7)
+ let stringScope = Scope(String.self)
+ ```
+
+ The identifier of a scope may be any hashable value
+ or a metataype. In the case of `anonymousScope`, the
+ identifier is a random `UUID`.
+
+ Hierarchical scopes are constructed using the `/` operator.
+
+ ```
+ let awesome: Scope = "awesome"
+ let awesomelyCool = awesome / "cool"
+ let awesomelyRandom = awesome / UUID()
+ let awesomelyRandomString = awesome / UUID() / String.self
+ ```
+
+ Every registration in Guise uses a `Scope` as a key.
+
+ ```
+ registrar.register(singleton: Api(), in: myScope)
+ ```
+
+ When the above registration is made, a `Scope` is
+ constructed from the parent scope (`myScope`) and the
+ registered type (`Api`): `myScope / Api.self`. This
+ is the key used to record this registration.
+
+ An infinite number of registrations can be made in
+ `myScope`. We can think of `myScope` as the parent
+ or containing scope of the registration.
+
+ When resolution occurs, Guise searches up the scope chain
+ */
 public struct Scope: Hashable {
   
   private struct HashedType: Hashable {
