@@ -9,11 +9,32 @@
 import Foundation
 
 public final class WeakRegistration: LifetimeRegistration {
-  public init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type) {
-    
+  private let lock = Lock()
+  private var _factory: Resolve<Any, Any>? = nil
+  private weak var value: AnyObject?
+  
+  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>) {
+    _factory = { r, arg in
+      factory(r, arg as! Arg)
+    }
+  }
+  
+  public init<Type: AnyObject>(_ weakling: Type) {
+    value = weakling
   }
   
   public func resolve<Type, Arg>(type: Type.Type = Type.self, resolver: Resolver, arg: Arg) -> Type? {
+    if let value = value {
+      return (value as! Type)
+    }
+    if let factory = _factory {
+      return lock.write {
+        if _factory == nil { return nil }
+        value = factory(resolver, arg) as AnyObject
+        _factory = nil
+        return value as! Type?
+      }
+    }
     return nil
   }
 }

@@ -10,10 +10,10 @@ import Foundation
 
 public final class SingletonRegistration: LifetimeRegistration {
   private let lock = Lock()
-  private let _factory: (Resolver, Any) -> Any
+  private let _factory: Resolve<Any, Any>
   private var value: Any?
   
-  public init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type) {
+  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>) {
     _factory = { r, arg in factory(r, arg as! Arg) }
   }
   
@@ -21,7 +21,7 @@ public final class SingletonRegistration: LifetimeRegistration {
     if let value = value {
       return (value as! Type)
     }
-    return lock.read {
+    return lock.write {
       if let value = self.value {
         return (value as! Type)
       }

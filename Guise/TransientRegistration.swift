@@ -9,9 +9,9 @@
 import Foundation
 
 public final class TransientRegistration: LifetimeRegistration {
-  private let _factory: (Resolver, Any) -> Any
+  private let _factory: Resolve<Any, Any>
   
-  public init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type) {
+  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>) {
     _factory = { r, arg in factory(r, arg as! Arg) }
   }
   

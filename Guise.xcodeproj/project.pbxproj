@@ -41,6 +41,10 @@
 		62A36EE724059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
 		F3044828216393DF000C40A0 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F343AA051DB7871D00B1000F /* Guise.h in Headers */ = {isa = PBXBuildFile; fileRef = F3C3ED711C8D64FF00FD8E4D /* Guise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F343DEE2240DF802002206FC /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE1240DF802002206FC /* Resolve.swift */; };
+		F343DEE3240DF802002206FC /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE1240DF802002206FC /* Resolve.swift */; };
+		F343DEE4240DF802002206FC /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE1240DF802002206FC /* Resolve.swift */; };
+		F343DEE5240DF802002206FC /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE1240DF802002206FC /* Resolve.swift */; };
 		F34B18001FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18011FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18021FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
@@ -152,6 +156,7 @@
 		626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Find.swift"; sourceTree = "<group>"; };
 		626A47C9240DC13D00BA9A99 /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
 		62A36EE324059997004EF3DF /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
+		F343DEE1240DF802002206FC /* Resolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolve.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F35A10CA209F2AFB000FA4B4 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3700B661DB7826900DDB218 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,6 +282,7 @@
 				626A47B5240D752100BA9A99 /* Registrar+Injection.swift */,
 				F3A4FD59240C82DA00EA49D3 /* Registrar+Register.swift */,
 				F3A4FD45240C7BF900EA49D3 /* Registration.swift */,
+				F343DEE1240DF802002206FC /* Resolve.swift */,
 				626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */,
 				626A47BF240D913000BA9A99 /* Resolver+Injection.swift */,
 				F3A4FD7C240C8B3500EA49D3 /* Resolver+Resolve.swift */,
@@ -636,6 +642,7 @@
 				F3A4FD49240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C8240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAD240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DEE5240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA3240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD38240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8F240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
@@ -668,6 +675,7 @@
 				F3A4FD48240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C7240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAC240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DEE4240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA2240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD37240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8E240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
@@ -708,6 +716,7 @@
 				F3A4FD46240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C5240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAA240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DEE2240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA0240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD35240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8C240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
@@ -748,6 +757,7 @@
 				F3A4FD47240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C6240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAB240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DEE3240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA1240CEFBD00EA49D3 /* Initialize.swift in Sources */,
 				F3A4FD36240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8D240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
