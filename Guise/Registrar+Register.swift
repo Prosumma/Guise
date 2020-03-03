@@ -41,4 +41,9 @@ public extension Registrar {
     register(in: scope, lifetime: .singleton, factory: initialize(singleton))
   }
 
+  @discardableResult func register<Type: AnyObject>(weak weakling: Type, in scope: Scope = .default) -> Key {
+    let key = scope / Type.self
+    self[key] = WeakRegistration(weakling)
+    return key
+  }
 }
