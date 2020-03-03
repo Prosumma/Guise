@@ -16,4 +16,8 @@ public extension Registrar {
   func discard(in scope: Scope = .default) {
     discard { $0.key.starts(with: scope) }
   }
+  
+  func discard(key: Key) {
+    discard { $0.key == key }
+  }
 }

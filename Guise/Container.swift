@@ -20,6 +20,10 @@ public class Container: Registrar & Resolver {
   
   public init() {}
   
+  public func debug() {
+    print(registrations)
+  }
+  
   public subscript(key: Key) -> Any? {
     get { return lock.read{ registrations[key] } }
     set { lock.write{ registrations[key] = newValue } }

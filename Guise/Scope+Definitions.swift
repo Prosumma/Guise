@@ -9,7 +9,12 @@
 import Foundation
 
 public extension Scope {
+  /// The root scope for registrations.
   static let registrations = Scope(Registration.self)
+  /// The default scope for registrations. When no scope is specified, this is what you get.
   static let `default` = Scope.registrations / "$default$"
+  /// The scope for injections.
   static let injections = Scope(Injection.self)
+  /// The scope for assembly registrations.
+  static let assemblies = Scope(Assembly.self)
 }

@@ -9,6 +9,11 @@
 import Foundation
 
 public extension Resolver {
+  /**
+   Recursively finds an entry in the resolver, successively
+   trying parent scopes until the entry is found. If none
+   is found, `nil` is returned.
+   */
   func find<Type>(type: Type.Type, in scope: Scope) -> Any? {
     if let value = self[scope / type] {
       return value

@@ -18,15 +18,15 @@ class DITests: XCTestCase {
     
     class Service {
       let dependency: Dependency
-      init(_ dep: Dependency) { dependency = dep }
+      init(dependency: Dependency) { self.dependency = dependency }
     }
     
     let container: Registrar & Resolver = Container()
-    // The auto* series of higher-order functions automatically
+    // The auto higher-order function automatically
     // registers the dependencies found in Service.init. This
     // only works if ALL of the init parameters are registered
     // dependencies.
-    container.register(lifetime: .singleton, factory: auto1(Service.init))
+    container.register(lifetime: .singleton, factory: auto(Service.init))
     container.register(singleton: Dependency())
     
     let service1: Service = container.resolve()!
@@ -35,7 +35,7 @@ class DITests: XCTestCase {
     XCTAssert(service1.dependency === service2.dependency)
   }
   
-  func testConstruct() {
+  func testInit() {
     struct Worthless {
       let i: Int
       init(i: Int) { self.i = i }
@@ -43,7 +43,7 @@ class DITests: XCTestCase {
     }
     
     let container: Registrar & Resolver = Container()
-    container.register(factory: init1(Worthless.init(i:)))
+    container.register(factory: construct(Worthless.init(i:)))
     
     let worthless: Worthless = container.resolve(arg: 7)!
     XCTAssertEqual(7, worthless.i)
