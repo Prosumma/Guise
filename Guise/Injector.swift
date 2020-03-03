@@ -10,7 +10,7 @@ import Foundation
 
 public struct Injector<Target: AnyObject> {
   private let registrar: Registrar
-  private var injections: [(Resolver, Target, [Key: Any]) -> Void] = []
+  private var injections: [Inject<Target>] = []
 
   public init(_ registrar: Registrar) {
     self.registrar = registrar

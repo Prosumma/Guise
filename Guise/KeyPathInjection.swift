@@ -9,9 +9,9 @@
 import Foundation
 
 public class KeyPathInjection: Injection {
-  private let _inject: (Resolver, AnyObject, [Key: Any]) -> Void
+  private let _inject: Inject<AnyObject>
 
-  public init<Target: AnyObject>(_ inject: @escaping (Resolver, Target, [Key: Any]) -> Void) {
+  public init<Target: AnyObject>(_ inject: @escaping Inject<Target>) {
     _inject = { r, o, args in
       inject(r, o as! Target, args)
     }

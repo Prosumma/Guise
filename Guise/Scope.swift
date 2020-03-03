@@ -58,9 +58,9 @@ import Foundation
  */
 public struct Scope: Hashable {
   
-  private struct HashedType: Hashable {
+  private struct HashedType<Type> : Hashable {
     public let name: String
-    public init<Type>(_ type: Type.Type) {
+    public init(_ type: Type.Type) {
       name = String(reflecting: type)
     }
   }
@@ -100,16 +100,24 @@ public struct Scope: Hashable {
   public init<Type>(_ type: Type.Type, in parent: Scope? = nil) {
     self.init(HashedType(type), in: parent)
   }
-  
+
+  public func getValue<Value>(type: Value.Type = Value.self) -> Value? {
+    identifier.base as? Value
+  }
+
+  public func getType<Type>(type: Type.Type) -> Type.Type? {
+    identifier.base is HashedType<Type> ? Type.self : nil
+  }
+
   public var parent: Scope? {
     _parent?.scope
   }
   
-  public var bottom: Scope {
+  public var root: Scope {
     guard let parent = parent else {
       return self
     }
-    return parent.bottom
+    return parent.root
   }
   
   public var length: Int {

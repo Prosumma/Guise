@@ -31,6 +31,10 @@
 		626A47C6240DBC2000BA9A99 /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */; };
 		626A47C7240DBC2000BA9A99 /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */; };
 		626A47C8240DBC2000BA9A99 /* Resolver+Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */; };
+		626A47CA240DC13D00BA9A99 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C9240DC13D00BA9A99 /* Inject.swift */; };
+		626A47CB240DC13D00BA9A99 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C9240DC13D00BA9A99 /* Inject.swift */; };
+		626A47CC240DC13D00BA9A99 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C9240DC13D00BA9A99 /* Inject.swift */; };
+		626A47CD240DC13D00BA9A99 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626A47C9240DC13D00BA9A99 /* Inject.swift */; };
 		62A36EE424059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
 		62A36EE524059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
 		62A36EE624059997004EF3DF /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A36EE324059997004EF3DF /* Scope.swift */; };
@@ -146,6 +150,7 @@
 		626A47BA240D770400BA9A99 /* KeyPathInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathInjection.swift; sourceTree = "<group>"; };
 		626A47BF240D913000BA9A99 /* Resolver+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Injection.swift"; sourceTree = "<group>"; };
 		626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Find.swift"; sourceTree = "<group>"; };
+		626A47C9240DC13D00BA9A99 /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
 		62A36EE324059997004EF3DF /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F35A10CA209F2AFB000FA4B4 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,6 +267,7 @@
 				F3A4FD9A240CEBE000EA49D3 /* Auto.swift */,
 				F3A4FD3E240C768400EA49D3 /* Container.swift */,
 				F3A4FD9F240CEFBD00EA49D3 /* Initialize.swift */,
+				626A47C9240DC13D00BA9A99 /* Inject.swift */,
 				F3A4FD54240C80C100EA49D3 /* Injection.swift */,
 				626A47B0240D734900BA9A99 /* Injector.swift */,
 				626A47BA240D770400BA9A99 /* KeyPathInjection.swift */,
@@ -639,6 +645,7 @@
 				F3A4FD7B240C88F800EA49D3 /* WeakRegistration.swift in Sources */,
 				F3A4FD3D240C73F300EA49D3 /* Resolver.swift in Sources */,
 				F3A4FD58240C80C100EA49D3 /* Injection.swift in Sources */,
+				626A47CD240DC13D00BA9A99 /* Inject.swift in Sources */,
 				626A47B9240D752100BA9A99 /* Registrar+Injection.swift in Sources */,
 				F3A4FD85240C90A400EA49D3 /* Registrar+Discard.swift in Sources */,
 				626A47B4240D734900BA9A99 /* Injector.swift in Sources */,
@@ -670,6 +677,7 @@
 				F3A4FD7A240C88F800EA49D3 /* WeakRegistration.swift in Sources */,
 				F3A4FD3C240C73F300EA49D3 /* Resolver.swift in Sources */,
 				F3A4FD57240C80C100EA49D3 /* Injection.swift in Sources */,
+				626A47CC240DC13D00BA9A99 /* Inject.swift in Sources */,
 				626A47B8240D752100BA9A99 /* Registrar+Injection.swift in Sources */,
 				F3A4FD84240C90A400EA49D3 /* Registrar+Discard.swift in Sources */,
 				626A47B3240D734900BA9A99 /* Injector.swift in Sources */,
@@ -709,6 +717,7 @@
 				F3A4FD78240C88F800EA49D3 /* WeakRegistration.swift in Sources */,
 				F3A4FD3A240C73F300EA49D3 /* Resolver.swift in Sources */,
 				F3A4FD55240C80C100EA49D3 /* Injection.swift in Sources */,
+				626A47CA240DC13D00BA9A99 /* Inject.swift in Sources */,
 				626A47B6240D752100BA9A99 /* Registrar+Injection.swift in Sources */,
 				F3A4FD82240C90A400EA49D3 /* Registrar+Discard.swift in Sources */,
 				626A47B1240D734900BA9A99 /* Injector.swift in Sources */,
@@ -748,6 +757,7 @@
 				F3A4FD79240C88F800EA49D3 /* WeakRegistration.swift in Sources */,
 				F3A4FD3B240C73F300EA49D3 /* Resolver.swift in Sources */,
 				F3A4FD56240C80C100EA49D3 /* Injection.swift in Sources */,
+				626A47CB240DC13D00BA9A99 /* Inject.swift in Sources */,
 				626A47B7240D752100BA9A99 /* Registrar+Injection.swift in Sources */,
 				F3A4FD83240C90A400EA49D3 /* Registrar+Discard.swift in Sources */,
 				626A47B2240D734900BA9A99 /* Injector.swift in Sources */,
