@@ -21,7 +21,7 @@ public enum Lifetime {
     }
   }
   
-  public func register<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type) -> Registration {
+  public func register<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>) -> Registration {
     return self.registrationType.init(type: type, factory: factory)
   }
 }
