@@ -18,6 +18,8 @@ public class Container: Registrar & Resolver {
   private let lock = Lock()
   private var registrations: Registrations = [:]
   
+  public init() {}
+  
   public subscript(key: Key) -> Any? {
     get { return lock.read{ registrations[key] } }
     set { lock.write{ registrations[key] = newValue } }

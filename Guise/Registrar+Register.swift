@@ -34,11 +34,11 @@ public extension Registrar {
   }
   
   @discardableResult func register<Type>(transient: @escaping @autoclosure () -> Type, in scope: Scope = .default) -> Key {
-    register(in: scope, lifetime: .transient, factory: initialize(transient))
+    register(in: scope, lifetime: .transient, factory: init0(transient))
   }
   
   @discardableResult func register<Type>(singleton: @escaping @autoclosure () -> Type, in scope: Scope = .default) -> Key {
-    register(in: scope, lifetime: .singleton, factory: initialize(singleton))
+    register(in: scope, lifetime: .singleton, factory: init0(singleton))
   }
 
   @discardableResult func register<Type: AnyObject>(weak weakling: Type, in scope: Scope = .default) -> Key {

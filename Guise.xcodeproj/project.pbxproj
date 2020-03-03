@@ -45,6 +45,9 @@
 		F343DEE3240DF802002206FC /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE1240DF802002206FC /* Resolve.swift */; };
 		F343DEE4240DF802002206FC /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE1240DF802002206FC /* Resolve.swift */; };
 		F343DEE5240DF802002206FC /* Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE1240DF802002206FC /* Resolve.swift */; };
+		F343DEE7240DFE31002206FC /* DITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE6240DFE31002206FC /* DITests.swift */; };
+		F343DEE8240DFE31002206FC /* DITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE6240DFE31002206FC /* DITests.swift */; };
+		F343DEE9240DFE31002206FC /* DITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEE6240DFE31002206FC /* DITests.swift */; };
 		F34B18001FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18011FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18021FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
@@ -107,10 +110,10 @@
 		F3A4FD9C240CEBE000EA49D3 /* Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9A240CEBE000EA49D3 /* Auto.swift */; };
 		F3A4FD9D240CEBE000EA49D3 /* Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9A240CEBE000EA49D3 /* Auto.swift */; };
 		F3A4FD9E240CEBE000EA49D3 /* Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9A240CEBE000EA49D3 /* Auto.swift */; };
-		F3A4FDA0240CEFBD00EA49D3 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Initialize.swift */; };
-		F3A4FDA1240CEFBD00EA49D3 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Initialize.swift */; };
-		F3A4FDA2240CEFBD00EA49D3 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Initialize.swift */; };
-		F3A4FDA3240CEFBD00EA49D3 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Initialize.swift */; };
+		F3A4FDA0240CEFBD00EA49D3 /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Init.swift */; };
+		F3A4FDA1240CEFBD00EA49D3 /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Init.swift */; };
+		F3A4FDA2240CEFBD00EA49D3 /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Init.swift */; };
+		F3A4FDA3240CEFBD00EA49D3 /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9F240CEFBD00EA49D3 /* Init.swift */; };
 		F3A4FDAA240CF46700EA49D3 /* TransientRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FDA9240CF46600EA49D3 /* TransientRegistration.swift */; };
 		F3A4FDAB240CF46700EA49D3 /* TransientRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FDA9240CF46600EA49D3 /* TransientRegistration.swift */; };
 		F3A4FDAC240CF46700EA49D3 /* TransientRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FDA9240CF46600EA49D3 /* TransientRegistration.swift */; };
@@ -157,6 +160,7 @@
 		626A47C9240DC13D00BA9A99 /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
 		62A36EE324059997004EF3DF /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		F343DEE1240DF802002206FC /* Resolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolve.swift; sourceTree = "<group>"; };
+		F343DEE6240DFE31002206FC /* DITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DITests.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F35A10CA209F2AFB000FA4B4 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3700B661DB7826900DDB218 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,7 +180,7 @@
 		F3A4FD81240C90A400EA49D3 /* Registrar+Discard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Discard.swift"; sourceTree = "<group>"; };
 		F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scope+Definitions.swift"; sourceTree = "<group>"; };
 		F3A4FD9A240CEBE000EA49D3 /* Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auto.swift; sourceTree = "<group>"; };
-		F3A4FD9F240CEFBD00EA49D3 /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
+		F3A4FD9F240CEFBD00EA49D3 /* Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Init.swift; sourceTree = "<group>"; };
 		F3A4FDA9240CF46600EA49D3 /* TransientRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransientRegistration.swift; sourceTree = "<group>"; };
 		F3BD8ED22405C6ED0031275F /* ScopeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeTests.swift; sourceTree = "<group>"; };
 		F3C3ED6E1C8D64FF00FD8E4D /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,7 +275,7 @@
 			children = (
 				F3A4FD9A240CEBE000EA49D3 /* Auto.swift */,
 				F3A4FD3E240C768400EA49D3 /* Container.swift */,
-				F3A4FD9F240CEFBD00EA49D3 /* Initialize.swift */,
+				F3A4FD9F240CEFBD00EA49D3 /* Init.swift */,
 				626A47C9240DC13D00BA9A99 /* Inject.swift */,
 				F3A4FD54240C80C100EA49D3 /* Injection.swift */,
 				626A47B0240D734900BA9A99 /* Injector.swift */,
@@ -342,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				F3BD8ED22405C6ED0031275F /* ScopeTests.swift */,
+				F343DEE6240DFE31002206FC /* DITests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -643,7 +648,7 @@
 				626A47C8240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAD240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F343DEE5240DF802002206FC /* Resolve.swift in Sources */,
-				F3A4FDA3240CEFBD00EA49D3 /* Initialize.swift in Sources */,
+				F3A4FDA3240CEFBD00EA49D3 /* Init.swift in Sources */,
 				F3A4FD38240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8F240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
 				F3A4FD62240C837E00EA49D3 /* Key.swift in Sources */,
@@ -676,7 +681,7 @@
 				626A47C7240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAC240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F343DEE4240DF802002206FC /* Resolve.swift in Sources */,
-				F3A4FDA2240CEFBD00EA49D3 /* Initialize.swift in Sources */,
+				F3A4FDA2240CEFBD00EA49D3 /* Init.swift in Sources */,
 				F3A4FD37240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8E240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
 				F3A4FD61240C837E00EA49D3 /* Key.swift in Sources */,
@@ -702,6 +707,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F343DEE9240DFE31002206FC /* DITests.swift in Sources */,
 				F3BD8ED52405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -717,7 +723,7 @@
 				626A47C5240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAA240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F343DEE2240DF802002206FC /* Resolve.swift in Sources */,
-				F3A4FDA0240CEFBD00EA49D3 /* Initialize.swift in Sources */,
+				F3A4FDA0240CEFBD00EA49D3 /* Init.swift in Sources */,
 				F3A4FD35240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8C240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
 				F3A4FD5F240C837E00EA49D3 /* Key.swift in Sources */,
@@ -743,6 +749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F343DEE7240DFE31002206FC /* DITests.swift in Sources */,
 				F3BD8ED32405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -758,7 +765,7 @@
 				626A47C6240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
 				F3A4FDAB240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
 				F343DEE3240DF802002206FC /* Resolve.swift in Sources */,
-				F3A4FDA1240CEFBD00EA49D3 /* Initialize.swift in Sources */,
+				F3A4FDA1240CEFBD00EA49D3 /* Init.swift in Sources */,
 				F3A4FD36240C730500EA49D3 /* Registrar.swift in Sources */,
 				F3A4FD8D240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
 				F3A4FD60240C837E00EA49D3 /* Key.swift in Sources */,
@@ -784,6 +791,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F343DEE8240DFE31002206FC /* DITests.swift in Sources */,
 				F3BD8ED42405C6EE0031275F /* ScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
