@@ -9,14 +9,14 @@
 import Foundation
 
 public struct TypeName<Type>: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
-  public let type: Type.Type
+  public let name: String
   
-  public var name: String {
-    return String(reflecting: type)
+  public var type: Type.Type {
+    Type.self
   }
   
   public init(_ type: Type.Type = Type.self) {
-    self.type = type
+    name = String(reflecting: type)
   }
   
   public func hash(into hasher: inout Hasher) {

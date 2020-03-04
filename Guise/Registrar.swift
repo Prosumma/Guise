@@ -10,5 +10,5 @@ import Foundation
 
 public protocol Registrar: class {
   subscript(key: Key) -> Any? { get set }
-  func rewrite(_ write: @escaping (Registrations) -> Registrations)
+  func write(_ setter: (Registrations) -> Registrations)
 }

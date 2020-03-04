@@ -12,5 +12,6 @@ public typealias Registrations = [Key: Any]
 
 public protocol Resolver {
   subscript(key: Key) -> Any? { get }
-  func filter(_ isIncluded: (Registrations.Element) -> Bool) -> Registrations
+  var registrations: Registrations { get }
 }
+

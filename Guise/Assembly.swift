@@ -49,7 +49,7 @@ import Foundation
  ```
  */
 public protocol Assembly {
-  func register(in registrar: Registrar)
+  func register(in container: Registrar & Resolver)
   func registered(to resolver: Resolver)
 }
 

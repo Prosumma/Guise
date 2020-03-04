@@ -14,6 +14,14 @@ public class NilContainer: Registrar & Resolver {
     get { nil }
     set { }
   }
+  
+  public var registrations: Registrations {
+    [:]
+  }
+  
+  public func write(_ setter: (Registrations) -> Registrations) {
+    
+  }
 
   public func filter(_ isIncluded: (Registrations.Element) -> Bool) -> Registrations {
     return [:]
