@@ -13,7 +13,7 @@ public extension Registrar where Self: Resolver {
     let key: Key = .assemblies / A.self
     if self[key] != nil { return }
     assembly.register(in: self)
-    self[key] = 1 // Any value will do.
+    self[key] = RegisteredAssembly()
     assembly.registered(to: self)
   }
 }

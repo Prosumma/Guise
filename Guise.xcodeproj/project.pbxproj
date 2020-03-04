@@ -62,6 +62,18 @@
 		F343DEFF240EC87F002206FC /* AssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEFE240EC87F002206FC /* AssemblyTests.swift */; };
 		F343DF00240EC87F002206FC /* AssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEFE240EC87F002206FC /* AssemblyTests.swift */; };
 		F343DF01240EC87F002206FC /* AssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DEFE240EC87F002206FC /* AssemblyTests.swift */; };
+		F343DF03240F2212002206FC /* Resolver+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF02240F2212002206FC /* Resolver+Filter.swift */; };
+		F343DF04240F2212002206FC /* Resolver+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF02240F2212002206FC /* Resolver+Filter.swift */; };
+		F343DF05240F2212002206FC /* Resolver+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF02240F2212002206FC /* Resolver+Filter.swift */; };
+		F343DF06240F2212002206FC /* Resolver+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF02240F2212002206FC /* Resolver+Filter.swift */; };
+		F343DF09240F3F6C002206FC /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF08240F3F6C002206FC /* TypeName.swift */; };
+		F343DF0A240F3F6C002206FC /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF08240F3F6C002206FC /* TypeName.swift */; };
+		F343DF0B240F3F6C002206FC /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF08240F3F6C002206FC /* TypeName.swift */; };
+		F343DF0C240F3F6C002206FC /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF08240F3F6C002206FC /* TypeName.swift */; };
+		F343DF0E240F41AC002206FC /* RegisteredAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF0D240F41AC002206FC /* RegisteredAssembly.swift */; };
+		F343DF0F240F41AC002206FC /* RegisteredAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF0D240F41AC002206FC /* RegisteredAssembly.swift */; };
+		F343DF10240F41AC002206FC /* RegisteredAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF0D240F41AC002206FC /* RegisteredAssembly.swift */; };
+		F343DF11240F41AC002206FC /* RegisteredAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F343DF0D240F41AC002206FC /* RegisteredAssembly.swift */; };
 		F34B18001FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18011FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
 		F34B18021FDF384C0040E183 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B17FF1FDF384C0040E183 /* Lock.swift */; };
@@ -179,6 +191,9 @@
 		F343DEF4240EC5C3002206FC /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		F343DEF9240EC67C002206FC /* Registrar+Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Assembly.swift"; sourceTree = "<group>"; };
 		F343DEFE240EC87F002206FC /* AssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyTests.swift; sourceTree = "<group>"; };
+		F343DF02240F2212002206FC /* Resolver+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Filter.swift"; sourceTree = "<group>"; };
+		F343DF08240F3F6C002206FC /* TypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName.swift; sourceTree = "<group>"; };
+		F343DF0D240F41AC002206FC /* RegisteredAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredAssembly.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F35A10CA209F2AFB000FA4B4 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3700B661DB7826900DDB218 /* Guise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Guise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,9 +282,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F343DF07240F3F58002206FC /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F343DF08240F3F6C002206FC /* TypeName.swift */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		F3985BCF1F5CABD8007392C0 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F343DF07240F3F58002206FC /* Support */,
 				F3A4FD43240C788700EA49D3 /* Base */,
 				F3A4FD44240C7B1700EA49D3 /* DI */,
 			);
@@ -301,12 +325,14 @@
 				626A47BA240D770400BA9A99 /* KeyPathInjection.swift */,
 				F3A4FD63240C843000EA49D3 /* Lifetime.swift */,
 				626A47AB240D6EE000BA9A99 /* NilContainer.swift */,
+				F343DF0D240F41AC002206FC /* RegisteredAssembly.swift */,
 				F343DEF9240EC67C002206FC /* Registrar+Assembly.swift */,
 				F3A4FD81240C90A400EA49D3 /* Registrar+Discard.swift */,
 				626A47B5240D752100BA9A99 /* Registrar+Injection.swift */,
 				F3A4FD59240C82DA00EA49D3 /* Registrar+Register.swift */,
 				F3A4FD45240C7BF900EA49D3 /* Registration.swift */,
 				F343DEE1240DF802002206FC /* Resolve.swift */,
+				F343DF02240F2212002206FC /* Resolver+Filter.swift */,
 				626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */,
 				626A47BF240D913000BA9A99 /* Resolver+Injection.swift */,
 				F3A4FD7C240C8B3500EA49D3 /* Resolver+Resolve.swift */,
@@ -665,10 +691,13 @@
 			files = (
 				626A47AF240D6EE000BA9A99 /* NilContainer.swift in Sources */,
 				F3A4FD80240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
+				F343DF0C240F3F6C002206FC /* TypeName.swift in Sources */,
 				F3A4FD67240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD49240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C8240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
+				F343DF11240F41AC002206FC /* RegisteredAssembly.swift in Sources */,
 				F3A4FDAD240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DF06240F2212002206FC /* Resolver+Filter.swift in Sources */,
 				F343DEE5240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA3240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD38240C730500EA49D3 /* Registrar.swift in Sources */,
@@ -700,10 +729,13 @@
 			files = (
 				626A47AE240D6EE000BA9A99 /* NilContainer.swift in Sources */,
 				F3A4FD7F240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
+				F343DF0B240F3F6C002206FC /* TypeName.swift in Sources */,
 				F3A4FD66240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD48240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C7240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
+				F343DF10240F41AC002206FC /* RegisteredAssembly.swift in Sources */,
 				F3A4FDAC240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DF05240F2212002206FC /* Resolver+Filter.swift in Sources */,
 				F343DEE4240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA2240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD37240C730500EA49D3 /* Registrar.swift in Sources */,
@@ -746,10 +778,13 @@
 			files = (
 				626A47AC240D6EE000BA9A99 /* NilContainer.swift in Sources */,
 				F3A4FD7D240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
+				F343DF09240F3F6C002206FC /* TypeName.swift in Sources */,
 				F3A4FD64240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD46240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C5240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
+				F343DF0E240F41AC002206FC /* RegisteredAssembly.swift in Sources */,
 				F3A4FDAA240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DF03240F2212002206FC /* Resolver+Filter.swift in Sources */,
 				F343DEE2240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA0240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD35240C730500EA49D3 /* Registrar.swift in Sources */,
@@ -792,10 +827,13 @@
 			files = (
 				626A47AD240D6EE000BA9A99 /* NilContainer.swift in Sources */,
 				F3A4FD7E240C8B3500EA49D3 /* Resolver+Resolve.swift in Sources */,
+				F343DF0A240F3F6C002206FC /* TypeName.swift in Sources */,
 				F3A4FD65240C843000EA49D3 /* Lifetime.swift in Sources */,
 				F3A4FD47240C7BF900EA49D3 /* Registration.swift in Sources */,
 				626A47C6240DBC2000BA9A99 /* Resolver+Find.swift in Sources */,
+				F343DF0F240F41AC002206FC /* RegisteredAssembly.swift in Sources */,
 				F3A4FDAB240CF46700EA49D3 /* TransientRegistration.swift in Sources */,
+				F343DF04240F2212002206FC /* Resolver+Filter.swift in Sources */,
 				F343DEE3240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA1240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD36240C730500EA49D3 /* Registrar.swift in Sources */,

@@ -57,14 +57,7 @@ import Foundation
  When resolution occurs, Guise searches up the scope chain
  */
 public struct Scope: Hashable {
-  
-  private struct HashedType<Type> : Hashable {
-    public let name: String
-    public init(_ type: Type.Type) {
-      name = String(reflecting: type)
-    }
-  }
-  
+    
   private class Parent {
     let scope: Scope
     init(_ scope: Scope) {
@@ -98,15 +91,7 @@ public struct Scope: Hashable {
   }
   
   public init<Type>(_ type: Type.Type, in parent: Scope? = nil) {
-    self.init(HashedType(type), in: parent)
-  }
-
-  public func getValue<Value>(type: Value.Type = Value.self) -> Value? {
-    identifier.base as? Value
-  }
-
-  public func getType<Type>(type: Type.Type) -> Type.Type? {
-    identifier.base is HashedType<Type> ? Type.self : nil
+    self.init(TypeName(type), in: parent)
   }
 
   public var parent: Scope? {
