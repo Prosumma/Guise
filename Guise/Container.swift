@@ -16,20 +16,25 @@ import Foundation
  */
 public class Container: Registrar & Resolver {
   private let lock = Lock()
-  private var _registrations: Registrations = [:]
+  private var registrations: Registrations = [:]
   
   public init() {}
-  
-  public var registrations: Registrations {
-    lock.read { _registrations }
+
+  public func read(_ isIncluded: ((Registrations.Element) -> Bool)?) -> Registrations {
+    lock.read {
+      if let isIncluded = isIncluded {
+        return registrations.filter(isIncluded)
+      }
+      return registrations
+    }
   }
   
   public func write(_ setter: (Registrations) -> Registrations) {
-    lock.write { _registrations = setter(_registrations) }
+    lock.write { registrations = setter(registrations) }
   }
   
   public subscript(key: Key) -> Any? {
-    get { lock.read { _registrations[key] } }
-    set { lock.write { _registrations[key] = newValue } }
+    get { lock.read { registrations[key] } }
+    set { lock.write { registrations[key] = newValue } }
   }
 }

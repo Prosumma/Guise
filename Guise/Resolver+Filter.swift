@@ -9,8 +9,8 @@
 import Foundation
 
 public extension Resolver {
-  func filter(_ isIncluded: (Registrations.Element) -> Bool) -> Registrations {
-    registrations.filter(isIncluded)
+  func filter(_ isIncluded: @escaping (Registrations.Element) -> Bool) -> Registrations {
+    read(isIncluded)
   }
   
   func filter<Type>(type: Type.Type, in scope: Scope? = nil) -> Registrations {
