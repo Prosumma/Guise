@@ -29,8 +29,8 @@ public class Container: Registrar & Resolver {
     }
   }
   
-  public func write(_ setter: (Registrations) -> Registrations) {
-    lock.write { registrations = setter(registrations) }
+  public func write(_ transform: (Registrations) -> Registrations) {
+    lock.write { registrations = transform(registrations) }
   }
   
   public subscript(key: Key) -> Any? {
