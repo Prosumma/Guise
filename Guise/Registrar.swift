@@ -10,5 +10,5 @@ import Foundation
 
 public protocol Registrar: class {
   subscript(key: Key) -> Any? { get set }
-  func write(_ setter: (Registrations) -> Registrations)
+  func write(_ transform: (Registrations) -> Registrations)
 }

@@ -128,10 +128,10 @@
 		F3A4FD83240C90A400EA49D3 /* Registrar+Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD81240C90A400EA49D3 /* Registrar+Discard.swift */; };
 		F3A4FD84240C90A400EA49D3 /* Registrar+Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD81240C90A400EA49D3 /* Registrar+Discard.swift */; };
 		F3A4FD85240C90A400EA49D3 /* Registrar+Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD81240C90A400EA49D3 /* Registrar+Discard.swift */; };
-		F3A4FD8C240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */; };
-		F3A4FD8D240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */; };
-		F3A4FD8E240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */; };
-		F3A4FD8F240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */; };
+		F3A4FD8C240CE6DF00EA49D3 /* Scope+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Names.swift */; };
+		F3A4FD8D240CE6DF00EA49D3 /* Scope+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Names.swift */; };
+		F3A4FD8E240CE6DF00EA49D3 /* Scope+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Names.swift */; };
+		F3A4FD8F240CE6DF00EA49D3 /* Scope+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD8B240CE6DF00EA49D3 /* Scope+Names.swift */; };
 		F3A4FD9B240CEBE000EA49D3 /* Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9A240CEBE000EA49D3 /* Auto.swift */; };
 		F3A4FD9C240CEBE000EA49D3 /* Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9A240CEBE000EA49D3 /* Auto.swift */; };
 		F3A4FD9D240CEBE000EA49D3 /* Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4FD9A240CEBE000EA49D3 /* Auto.swift */; };
@@ -211,7 +211,7 @@
 		F3A4FD77240C88F800EA49D3 /* WeakRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRegistration.swift; sourceTree = "<group>"; };
 		F3A4FD7C240C8B3500EA49D3 /* Resolver+Resolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Resolve.swift"; sourceTree = "<group>"; };
 		F3A4FD81240C90A400EA49D3 /* Registrar+Discard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Discard.swift"; sourceTree = "<group>"; };
-		F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scope+Definitions.swift"; sourceTree = "<group>"; };
+		F3A4FD8B240CE6DF00EA49D3 /* Scope+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scope+Names.swift"; sourceTree = "<group>"; };
 		F3A4FD9A240CEBE000EA49D3 /* Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auto.swift; sourceTree = "<group>"; };
 		F3A4FD9F240CEFBD00EA49D3 /* Construct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Construct.swift; sourceTree = "<group>"; };
 		F3A4FDA9240CF46600EA49D3 /* TransientRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransientRegistration.swift; sourceTree = "<group>"; };
@@ -336,7 +336,7 @@
 				626A47C4240DBC2000BA9A99 /* Resolver+Find.swift */,
 				626A47BF240D913000BA9A99 /* Resolver+Injection.swift */,
 				F3A4FD7C240C8B3500EA49D3 /* Resolver+Resolve.swift */,
-				F3A4FD8B240CE6DF00EA49D3 /* Scope+Definitions.swift */,
+				F3A4FD8B240CE6DF00EA49D3 /* Scope+Names.swift */,
 				F3A4FD72240C87BE00EA49D3 /* SingletonRegistration.swift */,
 				F3A4FDA9240CF46600EA49D3 /* TransientRegistration.swift */,
 				F3A4FD77240C88F800EA49D3 /* WeakRegistration.swift */,
@@ -701,7 +701,7 @@
 				F343DEE5240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA3240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD38240C730500EA49D3 /* Registrar.swift in Sources */,
-				F3A4FD8F240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
+				F3A4FD8F240CE6DF00EA49D3 /* Scope+Names.swift in Sources */,
 				F3A4FD62240C837E00EA49D3 /* Key.swift in Sources */,
 				62A36EE724059997004EF3DF /* Scope.swift in Sources */,
 				F3A4FD9E240CEBE000EA49D3 /* Auto.swift in Sources */,
@@ -739,7 +739,7 @@
 				F343DEE4240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA2240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD37240C730500EA49D3 /* Registrar.swift in Sources */,
-				F3A4FD8E240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
+				F3A4FD8E240CE6DF00EA49D3 /* Scope+Names.swift in Sources */,
 				F3A4FD61240C837E00EA49D3 /* Key.swift in Sources */,
 				62A36EE624059997004EF3DF /* Scope.swift in Sources */,
 				F3A4FD9D240CEBE000EA49D3 /* Auto.swift in Sources */,
@@ -788,7 +788,7 @@
 				F343DEE2240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA0240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD35240C730500EA49D3 /* Registrar.swift in Sources */,
-				F3A4FD8C240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
+				F3A4FD8C240CE6DF00EA49D3 /* Scope+Names.swift in Sources */,
 				F3A4FD5F240C837E00EA49D3 /* Key.swift in Sources */,
 				62A36EE424059997004EF3DF /* Scope.swift in Sources */,
 				F3A4FD9B240CEBE000EA49D3 /* Auto.swift in Sources */,
@@ -837,7 +837,7 @@
 				F343DEE3240DF802002206FC /* Resolve.swift in Sources */,
 				F3A4FDA1240CEFBD00EA49D3 /* Construct.swift in Sources */,
 				F3A4FD36240C730500EA49D3 /* Registrar.swift in Sources */,
-				F3A4FD8D240CE6DF00EA49D3 /* Scope+Definitions.swift in Sources */,
+				F3A4FD8D240CE6DF00EA49D3 /* Scope+Names.swift in Sources */,
 				F3A4FD60240C837E00EA49D3 /* Key.swift in Sources */,
 				62A36EE524059997004EF3DF /* Scope.swift in Sources */,
 				F3A4FD9C240CEBE000EA49D3 /* Auto.swift in Sources */,

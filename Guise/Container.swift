@@ -20,13 +20,8 @@ public class Container: Registrar & Resolver {
   
   public init() {}
 
-  public func read(_ isIncluded: ((Registrations.Element) -> Bool)?) -> Registrations {
-    lock.read {
-      if let isIncluded = isIncluded {
-        return registrations.filter(isIncluded)
-      }
-      return registrations
-    }
+  public func read() -> Registrations {
+    lock.read { registrations  }
   }
   
   public func write(_ transform: (Registrations) -> Registrations) {

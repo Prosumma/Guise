@@ -12,11 +12,6 @@ public typealias Registrations = [Key: Any]
 
 public protocol Resolver {
   subscript(key: Key) -> Any? { get }
-  func read(_ isIncluded: ((Registrations.Element) -> Bool)?) -> Registrations
+  func read() -> Registrations
 }
 
-public extension Resolver {
-  func read() -> Registrations {
-    read(nil)
-  }
-}

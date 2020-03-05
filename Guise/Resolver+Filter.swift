@@ -10,15 +10,11 @@ import Foundation
 
 public extension Resolver {
   func filter(_ isIncluded: @escaping (Registrations.Element) -> Bool) -> Registrations {
-    read(isIncluded)
+    read().filter(isIncluded)
   }
   
   func filter<Type>(type: Type.Type, in scope: Scope? = nil) -> Registrations {
-    func scoped(_ key: Key) -> Bool {
-      guard let scope = scope else { return true }
-      return key.starts(with: scope)
-    }
-    return filter{ $0.key.identifier.base is TypeName<Type> && scoped($0.key) }
+    filter{ $0.key.identifier.base is TypeName<Type> && (scope == nil || $0.key.starts(with: scope!)) }
   }
   
   /// Find all registrations of a given type, optionally within a scope.
@@ -32,6 +28,10 @@ public extension Resolver {
   
   func filter<Type>(assemblies type: Type.Type, in scope: Scope? = .assemblies) -> [Key] {
     Array(filter{ $0.key.identifier.base is TypeName<Type> }.compactMapValues{ $0 as? RegisteredAssembly }.keys)
+  }
+  
+  func registrations(in scope: Scope? = .registrations) -> [Key: Registration] {
+    filter{ scope == nil || $0.key.starts(with: scope!) }.compactMapValues{ $0 as? Registration }
   }
   
 }
