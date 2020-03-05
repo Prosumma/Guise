@@ -36,7 +36,7 @@ class ScopeTests: XCTestCase {
   }
   
   func testSomething() {
-    let watusi: Scope = "watusi" / "foo"
+    let watusi: Scope = Scope("watusi") / "foo"
     let arugula: Scope = .registrations / "arugula" / UUID()
     let watusiArugula = watusi / arugula
     let watusiArugulaString = watusiArugula / String.self

@@ -15,13 +15,13 @@ import Foundation
 
  A scope consists of an _identifier_, which is required,
  and an optional parent scope. A scope without a
- parent is called a _root scope_. Root scopes may be
- constructed using one of the `Scope` initializers or
- the `ExpressibleByStringLiteral` conformance.
+ parent is called a _root scope_.
 
  ```
+ let anonymousUUIDScope = Scope(UUID())
+ // This is exactly equivalent to the line above.
  let anonymousScope = Scope()
- let awesome: Scope = "awesome"
+ let awesome = Scope("awesome")
  let intScope = Scope(7)
  let stringScope = Scope(String.self)
  ```
@@ -86,8 +86,7 @@ public struct Scope: Hashable {
   }
     
   public init(in parent: Scope? = nil) {
-    self.identifier = UUID()
-    self._parent = nil
+    self.init(UUID(), in: nil)
   }
   
   public init<Type>(_ type: Type.Type, in parent: Scope? = nil) {
@@ -147,12 +146,6 @@ extension Scope: CustomDebugStringConvertible {
       return "Scope(\(identifier), parent: \(parent))"
     }
     return "Scope(\(identifier))"
-  }
-}
-
-extension Scope: ExpressibleByStringLiteral {
-  public init(stringLiteral value: String) {
-    self.init(value)
   }
 }
 
