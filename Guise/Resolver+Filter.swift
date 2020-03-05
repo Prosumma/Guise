@@ -10,7 +10,7 @@ import Foundation
 
 public extension Resolver {
   func filter(_ isIncluded: @escaping (Registrations.Element) -> Bool) -> Registrations {
-    read(isIncluded)
+    read().filter(isIncluded)
   }
   
   func filter<Type>(type: Type.Type, in scope: Scope? = nil) -> Registrations {

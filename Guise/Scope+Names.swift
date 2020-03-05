@@ -1,5 +1,5 @@
 //
-//  Scope+Definitions.swift
+//  Scope+Names.swift
 //  Guise
 //
 //  Created by Gregory Higley on 3/2/20.

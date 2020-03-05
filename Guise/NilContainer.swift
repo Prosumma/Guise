@@ -15,7 +15,7 @@ public class NilContainer: Registrar & Resolver {
     set { }
   }
 
-  public func read(_ isIncluded: ((Registrations.Element) -> Bool)?) -> Registrations {
+  public func read() -> Registrations {
     return [:]
   }
   
