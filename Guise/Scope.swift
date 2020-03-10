@@ -70,18 +70,10 @@ public struct Scope: Hashable {
   
   public init<Identifier: Hashable>(_ identifier: Identifier, in parent: Scope? = nil) {
     if let child = identifier as? Scope {
-      if let parent = parent {
-        self = parent.adopt(child)
-      } else {
-        self = child
-      }
+      self = parent?.adopt(child) ?? child
     } else {
       self.identifier = identifier
-      if let parent = parent {
-        self._parent = Parent(parent)
-      } else {
-        self._parent = nil
-      }
+      self._parent = parent.flatMap(Parent.init)
     }
   }
     

@@ -51,7 +51,7 @@ class AssemblyTests: XCTestCase {
     let outerDependency: OuterDependency? = container.resolve(arg: 7)
     XCTAssertNotNil(outerDependency)
     
-    // If we register the inner dependency again, it does nothing.
+    // If we register the inner assembly again, it does nothing.
     // Guise tracks assembly registrations by type.
     container.register(assembly: InnerAssembly())
     XCTAssertEqual(1, InnerAssembly.registrationCount)

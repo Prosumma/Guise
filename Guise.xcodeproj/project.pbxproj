@@ -191,7 +191,7 @@
 		F343DEF4240EC5C3002206FC /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		F343DEF9240EC67C002206FC /* Registrar+Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registrar+Assembly.swift"; sourceTree = "<group>"; };
 		F343DEFE240EC87F002206FC /* AssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyTests.swift; sourceTree = "<group>"; };
-		F343DF02240F2212002206FC /* Resolver+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Filter.swift"; sourceTree = "<group>"; };
+		F343DF02240F2212002206FC /* Resolver+Filter.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "Resolver+Filter.swift"; sourceTree = "<group>"; tabWidth = 2; };
 		F343DF08240F3F6C002206FC /* TypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName.swift; sourceTree = "<group>"; };
 		F343DF0D240F41AC002206FC /* RegisteredAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredAssembly.swift; sourceTree = "<group>"; };
 		F34B17FF1FDF384C0040E183 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
