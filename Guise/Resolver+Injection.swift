@@ -9,6 +9,7 @@
 import Foundation
 
 public extension Resolver {
+  /// Resolves keypath inject on `target`.
   func resolve<Target: AnyObject>(into target: Target, type: Target.Type = Target.self, args: [Key: Any] = [:]) {
     let key = Scope.injections / type
     guard let injection = self[key] as? Injection else { return }
