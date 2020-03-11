@@ -8,6 +8,18 @@
 
 import Foundation
 
+/**
+ Holds a type as a `Hashable` value.
+
+ Why not just use a `String`? Because then there would be no way to distinguish the following:
+
+ ```
+ let scope = .default / "Swift.String"
+ let scope = .default / String.self
+ ```
+
+ The latter uses `TypeName<String>` under the hood.
+ */
 public struct TypeName<Type>: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
   public let name: String
   
