@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dir=`dirname "$0"`
+cd "$dir"
+
+for hook in *; do
+  hook=`basename "$hook"`
+  if [ "$hook" != "install-hooks" ]; then
+    cp -fv "$hook" ../.git/hooks
+  fi
+done

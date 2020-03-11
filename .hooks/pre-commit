@@ -1,0 +1,6 @@
+#!/bin/sh
+
+git stash -q --keep-index
+swift package generate-xcodeproj
+git add -u
+git stash pop -q
