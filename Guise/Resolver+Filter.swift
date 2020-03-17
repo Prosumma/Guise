@@ -40,7 +40,7 @@ public extension Resolver {
   }
   
   func filter<Type>(assemblies type: Type.Type, in scope: Scope? = .assemblies) -> [Key] {
-    Array(filter{ $0.key.identifier.base is TypeName<Type> }.compactMapValues{ $0 as? RegisteredAssembly }.keys)
+    Array(filter{ $0.key.identifier.base is TypeName<Type> }.compactMapValues{ $0 as? AssemblyRegistration }.keys)
   }
   
   func registrations(in scope: Scope? = .registrations) -> [Key: Registration] {

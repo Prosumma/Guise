@@ -8,6 +8,28 @@
 
 import Foundation
 
-public struct RegisteredAssembly {
-  public init() {}
+struct RegisteredAssembly: AssemblyRegistration {
+  private static let lock = Lock()
+  private static var queues: [String: DispatchQueue] = [:]
+
+  static subscript<A: Assembly>(assembly: A.Type) -> DispatchQueue {
+    let key = String(reflecting: assembly)
+    if let queue = lock.read({ queues[key] }) {
+      return queue
+    } else {
+      return lock.write {
+        // We need to check again. Just because we acquired the
+        // lock does not mean that we're the first to create the queue.
+        if let queue = queues[key] {
+          return queue
+        } else {
+          let queue = DispatchQueue(label: key, qos: .userInitiated, attributes: [], autoreleaseFrequency: .never, target: nil)
+          queues[key] = queue
+          return queue
+        }
+      }
+    }
+  }
+
+  init() {}
 }
