@@ -12,6 +12,19 @@ import Guise
 class AssemblyTests: XCTestCase {
 
   func testAssemblies() {
+
+    final class Logger {
+      init() {}
+      public func log(_ message: String) {
+        print(message)
+      }
+    }
+
+    struct LoggerAssembly: Assembly {
+      func register(in registrar: Registrar & Resolver) {
+        registrar.register(singleton: Logger())
+      }
+    }
     
     struct InnerDependency {
       static let scope: Scope = .registrations / UUID()
@@ -22,10 +35,13 @@ class AssemblyTests: XCTestCase {
     
     struct InnerAssembly: Assembly {
       static var registrationCount = 0
-      func register(in container: Registrar & Resolver) {
-        container.register(in: InnerDependency.scope, factory: construct(InnerDependency.init))
+      func register(in registrar: Registrar & Resolver) {
+        registrar.register(assembly: LoggerAssembly())
+        registrar.register(in: InnerDependency.scope, factory: construct(InnerDependency.init))
       }
       func registered(to resolver: Resolver) {
+        let logger: Logger = resolver.resolve()!
+        logger.log("Yeah!")
         Self.registrationCount = Self.registrationCount + 1
       }
     }
@@ -37,11 +53,16 @@ class AssemblyTests: XCTestCase {
     }
     
     struct OuterAssembly: Assembly {
-      func register(in container: Registrar & Resolver) {
-        container.register(assembly: InnerAssembly())
-        container.register { (r, i: Int) in
+      func register(in registrar: Registrar & Resolver) {
+        registrar.register(assembly: LoggerAssembly())
+        registrar.register(assembly: InnerAssembly())
+        registrar.register { (r, i: Int) in
           OuterDependency(innerDependency: r.resolve(in: InnerDependency.scope, arg: i)!)
         }
+      }
+      func registered(to resolver: Resolver) {
+        let logger: Logger = resolver.resolve()!
+        logger.log("Yeah!")
       }
     }
     

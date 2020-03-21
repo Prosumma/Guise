@@ -12,6 +12,10 @@ struct RegisteredAssembly: AssemblyRegistration {
   private static let lock = Lock()
   private static var queues: [String: DispatchQueue] = [:]
 
+  /**
+   Returns a `DispatchQueue` tied to the type of an `Assembly`. This method
+   is idempotent and thread-safe.
+   */
   static subscript<A: Assembly>(assembly: A.Type) -> DispatchQueue {
     let key = String(reflecting: assembly)
     if let queue = lock.read({ queues[key] }) {
@@ -30,6 +34,4 @@ struct RegisteredAssembly: AssemblyRegistration {
       }
     }
   }
-
-  init() {}
 }

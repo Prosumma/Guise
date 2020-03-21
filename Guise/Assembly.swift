@@ -49,11 +49,34 @@ import Foundation
  ```
  */
 public protocol Assembly {
-  func register(in container: Registrar & Resolver)
+  /**
+   When an `Assembly` is registered, this method is called
+   and the `Registrar` passes itself as an argument.
+
+   - warning: If the `Registrar` passed to `register(in:)` does
+   not also implement `Resolver`, `registered(to:)` will not
+   be called.
+   */
+  func register(in registrar: Registrar & Resolver)
+
+  /**
+   Called after `register(in:)` has succeeded. Use it to perform
+   post-registration actions if needed.
+
+   - warning: If the `Registrar` passed to `register(in:)` does
+   not also implement `Resolver`, this method will not be called.
+   */
   func registered(to resolver: Resolver)
 }
 
 public extension Assembly {
+  /**
+   Called after `register(in:)` has succeeded. Use it to perform
+   post-registration actions if needed.
+
+   - warning: If the `Registrar` passed to `register(in:)` does
+   not also implement `Resolver`, this method will not be called.
+   */
   func registered(to resolver: Resolver) {
     // Default implementation does nothing
   }

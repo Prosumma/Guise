@@ -9,6 +9,13 @@
 import Foundation
 
 public extension Registrar where Self: Resolver {
+  /**
+   Register an assembly. If an assembly of
+   the same type has already been registered, then
+   registration is skipped.
+
+   This method is thread-safe.
+   */
   func register<A: Assembly>(assembly: A) {
     let key: Key = .assemblies / A.self
     // If the assembly is already registered,
