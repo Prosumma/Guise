@@ -8,10 +8,10 @@
 
 import Foundation
 
-public typealias Registrations = [Key: Any]
+public typealias Entries = [Key: Any]
 
 public protocol Resolver {
   subscript(key: Key) -> Any? { get }
-  func read() -> Registrations
+  func read() -> Entries
 }
 

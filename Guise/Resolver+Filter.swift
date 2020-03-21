@@ -22,11 +22,11 @@ public func metafilter<Metadata: Equatable>(_ model: Metadata) -> (Any) -> Bool 
 }
 
 public extension Resolver {
-  func filter(_ isIncluded: @escaping (Registrations.Element) -> Bool) -> Registrations {
+  func filter(_ isIncluded: @escaping (Entries.Element) -> Bool) -> Entries {
     read().filter(isIncluded)
   }
   
-  func filter<Type>(type: Type.Type, in scope: Scope? = nil) -> Registrations {
+  func filter<Type>(type: Type.Type, in scope: Scope? = nil) -> Entries {
     filter{ (key, _) in key.identifier.base is TypeName<Type> && (scope.flatMap{ key.starts(with: $0) } ?? true) }
   }
   

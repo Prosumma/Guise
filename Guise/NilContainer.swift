@@ -15,19 +15,19 @@ public class NilContainer: Registrar & Resolver {
     set { }
   }
 
-  public func read() -> Registrations {
+  public func read() -> Entries {
     return [:]
   }
   
-  public func write(_ setter: (Registrations) -> Registrations) {
+  public func write(_ setter: (Entries) -> Entries) {
     
   }
 
-  public func filter(_ isIncluded: (Registrations.Element) -> Bool) -> Registrations {
+  public func filter(_ isIncluded: (Entries.Element) -> Bool) -> Entries {
     return [:]
   }
 
-  public func rewrite(_ write: @escaping (Registrations) -> Registrations) {
+  public func rewrite(_ write: @escaping (Entries) -> Entries) {
 
   }
 }

@@ -16,15 +16,15 @@ import Foundation
  */
 public class Container: Registrar & Resolver {
   private let lock = Lock()
-  private var registrations: Registrations = [:]
+  private var registrations: Entries = [:]
   
   public init() {}
 
-  public func read() -> Registrations {
+  public func read() -> Entries {
     lock.read { registrations  }
   }
   
-  public func write(_ transform: (Registrations) -> Registrations) {
+  public func write(_ transform: (Entries) -> Entries) {
     lock.write { registrations = transform(registrations) }
   }
   
