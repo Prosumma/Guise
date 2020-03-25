@@ -23,10 +23,6 @@ public class NilContainer: Registrar & Resolver {
     
   }
 
-  public func filter(_ isIncluded: (Entries.Element) -> Bool) -> Entries {
-    return [:]
-  }
-
   public func rewrite(_ write: @escaping (Entries) -> Entries) {
 
   }

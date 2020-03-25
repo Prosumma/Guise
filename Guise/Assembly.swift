@@ -51,10 +51,19 @@ import Foundation
  */
 public protocol Assembly {
   /**
-   Implement this method to perform registrations
-   using the passed-in `registrar`.
-
-   - parameter registrar: The `Registrar` in which to register dependencies.
+   Implement this method to perform registrations.
+   
+   ```
+   public struct Assemblage: Assembly {
+     public func register(in registrar: Registrar & Resolver) {
+       registrar.register(instance: X() as XProtocol)
+     }
+   }
+   ```
+   
+   Do not call this method directly. Instead, register assemblies
+   by calling `registrar.register(assembly: SomeAssembly())` and
+   this method will be called as part of the registration process.
    */
   func register(in registrar: Registrar & Resolver)
 

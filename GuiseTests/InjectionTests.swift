@@ -27,7 +27,7 @@ class InjectionTests: XCTestCase {
     }
     
     sharedContainer.register(factory: construct(InnerDependency.init))
-    sharedContainer.into(target: OuterViewController.self).inject(\.inner).register()
+    sharedContainer.into(OuterViewController.self).inject(\.inner).register()
     let outer = OuterViewController()
     XCTAssertNotNil(outer.inner)
   }

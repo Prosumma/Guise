@@ -10,7 +10,7 @@ import Foundation
 
 public extension Registrar {
   func discard(_ isDiscarded: @escaping (Entries.Element) -> Bool) {
-    write { registrations in registrations.filter { !isDiscarded($0) } }
+    write { registrations in registrations.filter(not(isDiscarded)) }
   }
   
   func discard(in scope: Scope = .default) {
@@ -18,6 +18,6 @@ public extension Registrar {
   }
   
   func discard(key: Key) {
-    discard { $0.key == key }
+    self[key] = nil
   }
 }

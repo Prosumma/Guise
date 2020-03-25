@@ -41,8 +41,8 @@ class AssemblyTests: XCTestCase {
       }
       func registered(to resolver: Resolver) {
         let logger: Logger = resolver.resolve()!
-        logger.log("Yeah!")
         Self.registrationCount = Self.registrationCount + 1
+        logger.log("Registration count: \(Self.registrationCount).")
       }
     }
     
@@ -77,6 +77,10 @@ class AssemblyTests: XCTestCase {
     container.register(assembly: InnerAssembly())
     XCTAssertEqual(1, InnerAssembly.registrationCount)
 
+    // If we discard the assembly key, we can register it again.
+    container.discard(key: .assemblies / InnerAssembly.self)
+    container.register(assembly: InnerAssembly())
+    XCTAssertEqual(2, InnerAssembly.registrationCount)
   }
     
 }

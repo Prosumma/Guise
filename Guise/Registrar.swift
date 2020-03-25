@@ -9,6 +9,17 @@
 import Foundation
 
 public protocol Registrar: class {
+  /**
+   Get or set entries in the registrar.
+   
+   Conforming implementations are thread-safe.
+   */
   subscript(key: Key) -> Any? { get set }
+  
+  /**
+   Transform all entries in the registrar.
+   
+   Conforming implementations are thread-safe.
+   */
   func write(_ transform: (Entries) -> Entries)
 }

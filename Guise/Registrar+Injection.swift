@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Registrar {
-  func into<Target: AnyObject>(target: Target.Type) -> Injector<Target> {
+  func into<Target: AnyObject>(_ target: Target.Type) -> Injector<Target> {
     return Injector(self)
   }
 }
