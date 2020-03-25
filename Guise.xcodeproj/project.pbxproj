@@ -550,6 +550,19 @@
          path = "ScopeTests.swift";
          sourceTree = "<group>";
       };
+<<<<<<< Updated upstream
+=======
+      "OBJ_49" = {
+         isa = "PBXGroup";
+         children = (
+            "Guise::Guise::Product",
+            "Guise::GuiseTests::Product"
+         );
+         name = "Products";
+         path = "";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+>>>>>>> Stashed changes
       "OBJ_5" = {
          isa = "PBXGroup";
          children = (
@@ -569,8 +582,8 @@
       "OBJ_50" = {
          isa = "PBXGroup";
          children = (
-            "Guise::GuiseTests::Product",
-            "Guise::Guise::Product"
+            "Guise::Guise::Product",
+            "Guise::GuiseTests::Product"
          );
          name = "Products";
          path = "";
