@@ -569,8 +569,8 @@
       "OBJ_50" = {
          isa = "PBXGroup";
          children = (
-            "Guise::Guise::Product",
-            "Guise::GuiseTests::Product"
+            "Guise::GuiseTests::Product",
+            "Guise::Guise::Product"
          );
          name = "Products";
          path = "";

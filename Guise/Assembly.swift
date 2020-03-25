@@ -15,8 +15,9 @@ import Foundation
  and other module boundaries.
 
  A framework should export a single public
- implementation of `Assembly` as a _type_
- rather than an instance of a type.
+ implementation of `Assembly` either as a type
+ or a public instance of a type. (I recommend a
+ type rather than a public instance.)
  
  Assemblies may depend upon other assemblies,
  as follows:
@@ -50,12 +51,10 @@ import Foundation
  */
 public protocol Assembly {
   /**
-   When an `Assembly` is registered, this method is called
-   and the `Registrar` passes itself as an argument.
+   Implement this method to perform registrations
+   using the passed-in `registrar`.
 
-   - warning: If the `Registrar` passed to `register(in:)` does
-   not also implement `Resolver`, `registered(to:)` will not
-   be called.
+   - parameter registrar: The `Registrar` in which to register dependencies.
    */
   func register(in registrar: Registrar & Resolver)
 
@@ -63,8 +62,7 @@ public protocol Assembly {
    Called after `register(in:)` has succeeded. Use it to perform
    post-registration actions if needed.
 
-   - warning: If the `Registrar` passed to `register(in:)` does
-   not also implement `Resolver`, this method will not be called.
+   - parameter resolver: The resolver with which to resolve dependencies.
    */
   func registered(to resolver: Resolver)
 }
@@ -74,8 +72,7 @@ public extension Assembly {
    Called after `register(in:)` has succeeded. Use it to perform
    post-registration actions if needed.
 
-   - warning: If the `Registrar` passed to `register(in:)` does
-   not also implement `Resolver`, this method will not be called.
+   - parameter resolver: The resolver with which to resolve dependencies.
    */
   func registered(to resolver: Resolver) {
     // Default implementation does nothing
