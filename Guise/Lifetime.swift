@@ -13,16 +13,16 @@ public enum Lifetime {
   case singleton
   case weak
   
-  public var registrationType: LifetimeFactory.Type {
+  public var factoryType: LifetimeFactory.Type {
     switch self {
-    case .transient: return TransientRegistration.self
-    case .singleton: return SingletonRegistration.self
-    case .weak: return WeakRegistration.self
+    case .transient: return TransientFactory.self
+    case .singleton: return SingletonFactory.self
+    case .weak: return WeakFactory.self
     }
   }
   
   public func register<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any) -> Factory {
-    return self.registrationType.init(type: type, factory: factory, metadata: metadata)
+    return self.factoryType.init(type: type, factory: factory, metadata: metadata)
   }
 }
 

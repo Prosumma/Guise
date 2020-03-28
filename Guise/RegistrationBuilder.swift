@@ -117,7 +117,7 @@ public extension RegistrationBuilderProtocol {
   func register<Type: AnyObject>(weak weakling: Type) -> Key {
     let scope: Scope = builder[.scope] ?? .default
     let key = scope / Type.self
-    builder.registrar[key] = WeakRegistration(weakling, metadata: builder[.metadata] ?? ())
+    builder.registrar[key] = WeakFactory(weakling, metadata: builder[.metadata] ?? ())
     return key
   }
 }
