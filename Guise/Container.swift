@@ -14,14 +14,15 @@ import Foundation
  This is all that is needed for all of Guise's functionality to work. Rolling
  your own implementation is simple.
  */
-public class Container: Registrar & Resolver {
+public final class Container: Registrar & Resolver {
   private let lock = Lock()
   private var registrations: Entries = [:]
   
   public init() {}
-
-  public func read() -> Entries {
-    lock.read { registrations  }
+  
+  public func makeIterator() -> AnyIterator<Entry> {
+    let regs = lock.read { Array(registrations) }
+    return AnyIterator(regs.makeIterator())
   }
   
   public func write(_ transform: (Entries) -> Entries) {
@@ -31,5 +32,9 @@ public class Container: Registrar & Resolver {
   public subscript(key: Key) -> Any? {
     get { lock.read { registrations[key] } }
     set { lock.write { registrations[key] = newValue } }
+  }
+  
+  public var builder: RegistrationBuilder {
+    return RegistrationBuilder(registrar: self)
   }
 }

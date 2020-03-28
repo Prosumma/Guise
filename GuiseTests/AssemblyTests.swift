@@ -37,7 +37,7 @@ class AssemblyTests: XCTestCase {
       static var registrationCount = 0
       func register(in registrar: Registrar & Resolver) {
         registrar.register(assembly: LoggerAssembly())
-        registrar.register(in: InnerDependency.scope, factory: construct(InnerDependency.init))
+        registrar.in(InnerDependency.scope).register(factory: construct(InnerDependency.init))
       }
       func registered(to resolver: Resolver) {
         let logger: Logger = resolver.resolve()!

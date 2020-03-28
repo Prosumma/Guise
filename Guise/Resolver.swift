@@ -9,9 +9,10 @@
 import Foundation
 
 public typealias Entries = [Key: Any]
+public typealias Entry = Entries.Element
 
 public protocol Resolver {
   subscript(key: Key) -> Any? { get }
-  func read() -> Entries
+  func makeIterator() -> AnyIterator<Entry>
 }
 

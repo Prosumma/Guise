@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func metafilter<Metadata>(_ predicate: @escaping (Metadata) -> Bool) -> (Any) -> Bool {
+public func metafilter<Metadata>(_ predicate: @escaping Predicate<Metadata>) -> Predicate<Entry> {
   return { metadata in
     guard let metadata = metadata as? Metadata else {
         return false
@@ -17,34 +17,67 @@ public func metafilter<Metadata>(_ predicate: @escaping (Metadata) -> Bool) -> (
   }
 }
 
-public func metafilter<Metadata: Equatable>(_ model: Metadata) -> (Any) -> Bool {
+public func metadata<Metadata: Equatable>(_ model: Metadata) -> Predicate<Entry> {
   metafilter{ $0 == model }
 }
 
+public func scope(in scope: Scope) -> Predicate<Entry> {
+  return { entry in
+    entry.key.starts(with: scope)
+  }
+}
+
+public func scope(is scope: Scope) -> Predicate<Entry> {
+  return { entry in
+    entry.key.parent.flatMap{ $0 == scope } ?? false
+  }
+}
+
+public func key<K>(type: K.Type) -> Predicate<Entry> {
+  return { entry in
+    entry.key.identifier.base is TypeName<K>
+  }
+}
+
 public extension Resolver {
-  func filter(_ isIncluded: @escaping (Entries.Element) -> Bool) -> Entries {
-    read().filter(isIncluded)
+  /**
+   Filter entries in the resolver.
+   
+   Use higher-order functions to make filtering composable, e.g.,
+   
+   ```swift
+   let predicate = key(type: Foo.self) && scope(.registrations) && metadata(FooMetadata(3))
+   resolver.filter(predicate)
+   ```
+   */
+  func filter(_ isIncluded: Predicate<Entry>) -> Entries {
+    var entries: Entries = [:]
+    let iterator = makeIterator()
+    while let next = iterator.next() {
+      if isIncluded(next) {
+        entries[next.key] = next.value
+      }
+    }
+    return entries
   }
   
-  func filter<Type>(type: Type.Type, in scope: Scope? = nil) -> Entries {
-    filter{ (key, _) in key.identifier.base is TypeName<Type> && (scope.flatMap{ key.starts(with: $0) } ?? true) }
+  /**
+   Filter entries in the resolver.
+   
+   Use higher-order functions to make filtering composable, e.g.,
+   
+   ```swift
+   let registrations = filter(valueType: Registration.self, isIncluded: scope(.default))
+   ```
+   */
+  func filter<V>(valueType: V.Type = V.self, _ isIncluded: Predicate<Entry>? = nil) -> [Key: V] {
+    var entries: [Key: V] = [:]
+    let iterator = makeIterator()
+    while let next = iterator.next() {
+      if let value = next.value as? V, isIncluded?(next) ?? true {
+        entries[next.key] = value
+      }
+    }
+    return entries
   }
-  
-  /// Find all registrations of a given type, optionally within a scope.
-  func filter<Type>(registrations type: Type.Type, in scope: Scope? = .registrations, metafilter: ((Any) -> Bool)? = nil) -> [Key: Registration] {
-    filter(type: type, in: scope).compactMapValues{ $0 as? Registration }.filter{ metafilter?($0.value.metadata) ?? true }
-  }
-  
-  func filter<Type>(injections type: Type.Type, in scope: Scope? = .injections) -> [Key: Injection] {
-    filter(type: type, in: scope).compactMapValues{ $0 as? Injection }
-  }
-  
-  func filter<Type>(assemblies type: Type.Type, in scope: Scope? = .assemblies) -> [Key] {
-    Array(filter{ $0.key.identifier.base is TypeName<Type> }.compactMapValues{ $0 as? AssemblyRegistration }.keys)
-  }
-  
-  func registrations(in scope: Scope? = .registrations) -> [Key: Registration] {
-    filter{ scope == nil || $0.key.starts(with: scope!) }.compactMapValues{ $0 as? Registration }
-  }
-  
 }

@@ -26,7 +26,7 @@ class DITests: XCTestCase {
     // registers the dependencies found in Service.init. This
     // only works if ALL of the init parameters are registered
     // dependencies.
-    container.register(lifetime: .singleton, factory: auto(Service.init))
+    container.singleton.register(factory: auto(Service.init))
     container.register(singleton: Dependency())
     
     let service1: Service = container.resolve()!

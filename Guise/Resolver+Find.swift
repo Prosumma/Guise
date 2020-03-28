@@ -15,11 +15,15 @@ public extension Resolver {
    is found, `nil` is returned.
    */
   func find<Type>(type: Type.Type, in scope: Scope) -> Any? {
-    if let value = self[scope / type] {
+    return find(TypeName<Type>(), in: scope)
+  }
+  
+  func find<Identifier: Hashable>(_ identifier: Identifier, in scope: Scope) -> Any? {
+    if let value = self[scope / identifier] {
       return value
     }
     if let parent = scope.parent {
-      return find(type: type, in: parent)
+      return find(identifier, in: parent)
     }
     return nil
   }
