@@ -8,18 +8,20 @@
 import Foundation
 
 public protocol FactoryBuilderProtocol {
+  /**
+   Returns a `FactoryBuilder`.
+   
+   - warning: Some implementations may return a _new_ instance. Therefore,
+   always work with a copy by assigning to a variable, e.g., `let b = builder`.
+   */
   var builder: FactoryBuilder { get }
 }
 
 open class FactoryBuilder: FactoryBuilderProtocol {
   
   public struct StateKey: Hashable {
-    public let identifier = UUID()
+    private let identifier = UUID()
     public init() {}
-    
-    public static let lifetime = StateKey()
-    public static let scope = StateKey()
-    public static let metadata = StateKey()
   }
   
   public required init(registrar: Registrar) {
@@ -40,13 +42,20 @@ open class FactoryBuilder: FactoryBuilderProtocol {
   
   @discardableResult
   open func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
-    let scope: Scope = builder[.scope] ?? .default
+    let b = builder
+    let scope: Scope = b[.scope] ?? .default
     let key: Key = scope / type
-    let lifetime: Lifetime = builder[.lifetime] ?? .transient
-    let metadata: Any = builder[.metadata] ?? ()
-    builder.registrar[key] = lifetime.register(type: type, factory: factory, metadata: metadata)
+    let lifetime: Lifetime = b[.lifetime] ?? .transient
+    let metadata: Any = b[.metadata] ?? ()
+    b.registrar[key] = lifetime.register(type: type, factory: factory, metadata: metadata)
     return key
   }
+}
+
+public extension FactoryBuilder.StateKey {
+  static let lifetime = FactoryBuilder.StateKey()
+  static let scope = FactoryBuilder.StateKey()
+  static let metadata = FactoryBuilder.StateKey()
 }
 
 public extension FactoryBuilderProtocol {
