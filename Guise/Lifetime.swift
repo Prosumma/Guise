@@ -21,12 +21,12 @@ public enum Lifetime {
     }
   }
   
-  public func register<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any) -> Registration {
+  public func register<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any) -> Factory {
     return self.registrationType.init(type: type, factory: factory, metadata: metadata)
   }
 }
 
-public protocol LifetimeRegistration: Registration {
+public protocol LifetimeRegistration: Factory {
   init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type, metadata: Any)
 }
 

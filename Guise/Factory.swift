@@ -1,5 +1,5 @@
 //
-//  Registration.swift
+//  Factory.swift
 //  Guise
 //
 //  Created by Gregory Higley on 3/1/20.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-public protocol Registration {
+public protocol Factory {
   var metadata: Any { get }
   func resolve<Type, Arg>(type: Type.Type, resolver: Resolver, arg: Arg) -> Type?
 }
 
-public extension Registration {
+public extension Factory {
   var metadata: Any { () }
   
   func resolve<Type>(type: Type.Type = Type.self, resolver: Resolver) -> Type? {

@@ -14,7 +14,7 @@ public extension Resolver {
   }
   
   func resolve<Type, Arg>(type: Type.Type = Type.self, in scope: Scope = .default, arg: Arg) -> Type? {
-    guard let registration = find(type: type, in: scope) as? Registration else { return nil }
+    guard let registration = find(type: type, in: scope) as? Factory else { return nil }
     return registration.resolve(type: type, resolver: self, arg: arg)
   }
   
