@@ -11,7 +11,7 @@ public protocol RegistrationBuilderProtocol {
   var builder: RegistrationBuilder { get }
 }
 
-public struct RegistrationBuilder: RegistrationBuilderProtocol, Collection {
+open class RegistrationBuilder: RegistrationBuilderProtocol {
   
   public struct StateKey: Hashable {
     public let identifier = UUID()
@@ -22,44 +22,41 @@ public struct RegistrationBuilder: RegistrationBuilderProtocol, Collection {
     public static let metadata = StateKey()
   }
   
-  public typealias Element = Dictionary<StateKey, Any>.Element
-  public typealias Index = Dictionary<StateKey, Any>.Index
-  
-  public init(registrar: Registrar) {
+  public required init(registrar: Registrar) {
     self.registrar = registrar
   }
+  
   public let registrar: Registrar
-  private var state: [StateKey: Any] = [:]
+  private var state: HeterogeneousDictionary<StateKey> = [:]
   
-  public var startIndex: Index {
-    return state.startIndex
-  }
-  
-  public var endIndex: Index {
-    return state.endIndex
-  }
-  
-  public func index(after i: Index) -> Index {
-    return state.index(after: i)
-  }
-  
-  public subscript(position: Index) -> Element {
-    return state[position]
-  }
-  
-  public subscript<Value>(key: StateKey) -> Value? {
-    get { state[key] as? Value }
+  public final subscript<Value>(key: StateKey) -> Value? {
+    get { state[key] }
     set { state[key] = newValue }
   }
   
   public var builder: RegistrationBuilder {
     return self
   }
+  
+  @discardableResult
+  open func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
+    let scope: Scope = builder[.scope] ?? .default
+    let key: Key = scope / type
+    let lifetime: Lifetime = builder[.lifetime] ?? .transient
+    let metadata: Any = builder[.metadata] ?? ()
+    builder.registrar[key] = lifetime.register(type: type, factory: factory, metadata: metadata)
+    return key
+  }
 }
 
 public extension RegistrationBuilderProtocol {
-  func build(_ key: RegistrationBuilder.StateKey, _ value: Any) -> RegistrationBuilder {
-    var b = builder
+  @discardableResult
+  func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
+    builder.register(type: type, factory: factory)
+  }
+  
+  func build<Value>(_ key: RegistrationBuilder.StateKey, _ value: Value) -> RegistrationBuilder {
+    let b = builder
     b[key] = value
     return b
   }
@@ -90,24 +87,14 @@ public extension RegistrationBuilderProtocol {
   
   @discardableResult
   func register<Type>(type: Type.Type = Type.self, factory: @escaping (Resolver) -> Type) -> Key {
-    register(type: type) { (resolver, _: Void) in
+    builder.register(type: type) { (resolver, _: Void) in
       factory(resolver)
     }
   }
-  
-  @discardableResult
-  func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
-    let scope: Scope = builder[.scope] ?? .default
-    let key: Key = scope / type
-    let lifetime: Lifetime = builder[.lifetime] ?? .transient
-    let metadata: Any = builder[.metadata] ?? ()
-    builder.registrar[key] = lifetime.register(type: type, factory: factory, metadata: metadata)
-    return key
-  }
-  
+    
   @discardableResult
   func register<Type, Arg1, Arg2>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg1, Arg2) -> Type) -> Key {
-    register(type: type) { (resolver, arg: (Arg1, Arg2)) in
+    builder.register(type: type) { (resolver, arg: (Arg1, Arg2)) in
       factory(resolver, arg.0, arg.1)
     }
   }

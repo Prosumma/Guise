@@ -14,7 +14,7 @@ import Foundation
  This is all that is needed for all of Guise's functionality to work. Rolling
  your own implementation is simple.
  */
-public final class Container: Registrar & Resolver {
+open class Container: Registrar & Resolver {
   private let lock = Lock()
   private var registrations: Entries = [:]
   
@@ -34,7 +34,7 @@ public final class Container: Registrar & Resolver {
     set { lock.write { registrations[key] = newValue } }
   }
   
-  public var builder: RegistrationBuilder {
+  open var builder: RegistrationBuilder {
     return RegistrationBuilder(registrar: self)
   }
 }
