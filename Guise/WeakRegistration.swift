@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class WeakRegistration: LifetimeRegistration {
+public final class WeakRegistration: LifetimeFactory {
   public let metadata: Any
   private let lock = Lock()
   private var _factory: Resolve<Any, Any>? = nil

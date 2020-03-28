@@ -13,7 +13,7 @@ public enum Lifetime {
   case singleton
   case weak
   
-  public var registrationType: LifetimeRegistration.Type {
+  public var registrationType: LifetimeFactory.Type {
     switch self {
     case .transient: return TransientRegistration.self
     case .singleton: return SingletonRegistration.self
@@ -26,7 +26,7 @@ public enum Lifetime {
   }
 }
 
-public protocol LifetimeRegistration: Factory {
+public protocol LifetimeFactory: Factory {
   init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type, metadata: Any)
 }
 
