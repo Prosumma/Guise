@@ -20,3 +20,11 @@ public func construct<Type, Arg1, Arg2, Arg3>(_ initialize: @escaping (Arg1, Arg
   return { _, arg in initialize(arg.0, arg.1, arg.2) }
 }
 
+public func construct<Type, Arg1, Arg2, Arg3, Arg4>(_ initialize: @escaping (Arg1, Arg2, Arg3, Arg4) -> Type) -> Resolve<(Arg1, Arg2, Arg3, Arg4), Type> {
+  return { _, arg in initialize(arg.0, arg.1, arg.2, arg.3) }
+}
+
+public func construct<Type, Arg1, Arg2, Arg3, Arg4, Arg5>(_ initialize: @escaping (Arg1, Arg2, Arg3, Arg4, Arg5) -> Type) -> Resolve<(Arg1, Arg2, Arg3, Arg4, Arg5), Type> {
+  return { _, arg in initialize(arg.0, arg.1, arg.2, arg.3, arg.4) }
+}
+

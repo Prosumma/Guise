@@ -38,3 +38,15 @@ public func auto<Type, Arg1, Arg2, Arg3>(_ initializer: @escaping (Arg1, Arg2, A
   }
 }
 
+public func auto<Type, Arg1, Arg2, Arg3, Arg4>(_ initializer: @escaping (Arg1, Arg2, Arg3, Arg4) -> Type, scope: Scope) -> Resolve<Void, Type> {
+  return { r, _ in
+    initializer(r.resolve(in: scope)!, r.resolve(in: scope)!, r.resolve(in: scope)!, r.resolve(in: scope)!)
+  }
+}
+
+public func auto<Type, Arg1, Arg2, Arg3, Arg4, Arg5>(_ initializer: @escaping (Arg1, Arg2, Arg3, Arg4, Arg5) -> Type, scope: Scope) -> Resolve<Void, Type> {
+  return { r, _ in
+    initializer(r.resolve(in: scope)!, r.resolve(in: scope)!, r.resolve(in: scope)!, r.resolve(in: scope)!, r.resolve(in: scope)!)
+  }
+}
+

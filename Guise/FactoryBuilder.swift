@@ -109,6 +109,27 @@ public extension FactoryBuilderProtocol {
   }
   
   @discardableResult
+  func register<Type, Arg1, Arg2, Arg3>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg1, Arg2, Arg3) -> Type) -> Key {
+    builder.register(type: type) { (resolver, arg: (Arg1, Arg2, Arg3)) in
+      factory(resolver, arg.0, arg.1, arg.2)
+    }
+  }
+
+  @discardableResult
+  func register<Type, Arg1, Arg2, Arg3, Arg4>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg1, Arg2, Arg3, Arg4) -> Type) -> Key {
+    builder.register(type: type) { (resolver, arg: (Arg1, Arg2, Arg3, Arg4)) in
+      factory(resolver, arg.0, arg.1, arg.2, arg.3)
+    }
+  }
+
+  @discardableResult
+  func register<Type, Arg1, Arg2, Arg3, Arg4, Arg5>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg1, Arg2, Arg3, Arg4, Arg5) -> Type) -> Key {
+    builder.register(type: type) { (resolver, arg: (Arg1, Arg2, Arg3, Arg4, Arg5)) in
+      factory(resolver, arg.0, arg.1, arg.2, arg.3, arg.4)
+    }
+  }
+  
+  @discardableResult
   func register<Type>(transient: @escaping @autoclosure () -> Type) -> Key {
     lifetime(.transient).register { _ in
       transient()
