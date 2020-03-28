@@ -8,22 +8,22 @@
 
 import Foundation
 
-public enum Lifetime {
-  case transient
-  case singleton
-  case weak
+public struct Lifetime {
+  private let factoryType: LifetimeRegistration.Type
   
-  public var factoryType: LifetimeRegistration.Type {
-    switch self {
-    case .transient: return TransientFactory.self
-    case .singleton: return SingletonFactory.self
-    case .weak: return WeakFactory.self
-    }
+  public init<FactoryType: LifetimeRegistration>(_ type: FactoryType.Type) {
+    factoryType = type
   }
   
   public func register<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any) -> FactoryRegistration {
-    return self.factoryType.init(type: type, factory: factory, metadata: metadata)
+    return factoryType.init(type: type, factory: factory, metadata: metadata)
   }
+}
+
+public extension Lifetime {
+  static let transient = Lifetime(TransientFactory.self)
+  static let singleton = Lifetime(SingletonFactory.self)
+  static let `weak` = Lifetime(WeakFactory.self)
 }
 
 public protocol LifetimeRegistration: FactoryRegistration {

@@ -12,9 +12,10 @@ import Foundation
  The default, thread-safe implementation of `Registrar` and `Resolver`.
 
  This is all that is needed for all of Guise's functionality to work. Rolling
- your own implementation is simple.
+ your own implementation is simple. This type can also be subclassed, but only
+ to override the `builder` attribute.
  */
-open class Guise: Container {
+public class Guise: Container {
   private let lock = Lock()
   private var registrations: Registrations = [:]
   
@@ -34,7 +35,7 @@ open class Guise: Container {
     set { lock.write { registrations[key] = newValue } }
   }
   
-  open var builder: FactoryBuilder {
+  public var builder: FactoryBuilder {
     return FactoryBuilder(registrar: self)
   }
 }

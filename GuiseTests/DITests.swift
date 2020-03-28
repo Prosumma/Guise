@@ -35,7 +35,7 @@ class DITests: XCTestCase {
     XCTAssert(service1.dependency === service2.dependency)
   }
   
-  func testInit() {
+  func testConstruct() {
     struct Worthless {
       let i: Int
       init(i: Int) { self.i = i }

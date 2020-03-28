@@ -1,6 +1,6 @@
 //
 //  FactoryBuilder.swift
-//  
+//  Guise
 //
 //  Created by Gregory Higley on 3/28/20.
 //
@@ -17,38 +17,25 @@ public protocol FactoryBuilderProtocol {
   var builder: FactoryBuilder { get }
 }
 
-open class FactoryBuilder: FactoryBuilderProtocol {
+public struct FactoryBuilder: FactoryBuilderProtocol {
   
   public struct StateKey: Hashable {
     private let identifier = UUID()
     public init() {}
   }
   
-  public required init(registrar: Registrar) {
+  public init(registrar: Registrar) {
     self.registrar = registrar
   }
   
   public let registrar: Registrar
-  private var state: HeterogeneousDictionary<StateKey> = [:]
   
-  public final subscript<Value>(key: StateKey) -> Value? {
-    get { state[key] }
-    set { state[key] = newValue }
-  }
-  
+  public var lifetime: Lifetime = .transient
+  public var scope: Scope = .default
+  public var metadata: Any = ()
+    
   public var builder: FactoryBuilder {
     return self
-  }
-  
-  @discardableResult
-  open func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
-    let b = builder
-    let scope: Scope = b[.scope] ?? .default
-    let key: Key = scope / type
-    let lifetime: Lifetime = b[.lifetime] ?? .transient
-    let metadata: Any = b[.metadata] ?? ()
-    b.registrar[key] = lifetime.register(type: type, factory: factory, metadata: metadata)
-    return key
   }
 }
 
@@ -59,27 +46,23 @@ public extension FactoryBuilder.StateKey {
 }
 
 public extension FactoryBuilderProtocol {
-  @discardableResult
-  func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
-    builder.register(type: type, factory: factory)
-  }
   
-  func build<Value>(_ key: FactoryBuilder.StateKey, _ value: Value) -> FactoryBuilder {
-    let b = builder
-    b[key] = value
+  func build<Value>(_ keyPath: WritableKeyPath<FactoryBuilder, Value>, _ value: Value) -> FactoryBuilder {
+    var b = builder
+    b[keyPath: keyPath] = value
     return b
   }
   
   func lifetime(_ lifetime: Lifetime) -> FactoryBuilder {
-    build(.lifetime, lifetime)
+    build(\.lifetime, lifetime)
   }
   
   func metadata(_ metadata: Any) -> FactoryBuilder {
-    build(.metadata, metadata)
+    build(\.metadata, metadata)
   }
   
   func `in`(_ scope: Scope) -> FactoryBuilder {
-    build(.scope, scope)
+    build(\.scope, scope)
   }
   
   var transient: FactoryBuilder {
@@ -92,6 +75,16 @@ public extension FactoryBuilderProtocol {
   
   var `weak`: FactoryBuilder {
     lifetime(.weak)
+  }
+  
+  @discardableResult
+  func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
+    let b = builder
+    let key: Key = b.scope / type
+    let lifetime: Lifetime = b.lifetime
+    let metadata: Any = b.metadata
+    b.registrar[key] = lifetime.register(type: type, factory: factory, metadata: metadata)
+    return key
   }
   
   @discardableResult
@@ -142,12 +135,14 @@ public extension FactoryBuilderProtocol {
       singleton()
     }
   }
-  
+    
   @discardableResult
   func register<Type: AnyObject>(weak weakling: Type) -> Key {
-    let scope: Scope = builder[.scope] ?? .default
+    let b = builder
+    let scope: Scope = b.scope
     let key = scope / Type.self
-    builder.registrar[key] = WeakFactory(weakling, metadata: builder[.metadata] ?? ())
+    let metadata: Any = b.metadata
+    builder.registrar[key] = WeakFactory(weakling, metadata: metadata)
     return key
   }
 }
