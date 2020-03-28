@@ -14,7 +14,7 @@ class FilterTests: XCTestCase {
     final class Singleton {
       
     }
-    let container: Registrar & Resolver = Container()
+    let container: Container = Guise()
     for i in 0..<5 {
       container.in(.default / i).register(singleton: Singleton())
     }

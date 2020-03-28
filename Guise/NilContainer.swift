@@ -11,7 +11,7 @@ import Foundation
 /**
  A container which does nothing. Useful in testing.
  */
-public class NilContainer: Registrar & Resolver {
+public class NilContainer: Container {
 
   public subscript(key: Key) -> Any? {
     get { nil }

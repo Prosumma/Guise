@@ -21,26 +21,23 @@ import Foundation
  The latter uses `TypeName<String>` under the hood.
  */
 public struct TypeName<Type>: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
-  public let name: String
   
   public var type: Type.Type {
     Type.self
   }
   
-  public init(_ type: Type.Type = Type.self) {
-    name = String(reflecting: type)
-  }
+  public init() {}
   
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(name)
+    hasher.combine(String(reflecting: TypeName<Type>.self))
   }
   
   public var description: String {
-    return name
+    return String(reflecting: Type.self)
   }
   
   public var debugDescription: String {
-    return name.debugDescription
+    return String(reflecting: Type.self).debugDescription
   }
   
   public static func ==(lhs: TypeName<Type>, rhs: TypeName<Type>) -> Bool {

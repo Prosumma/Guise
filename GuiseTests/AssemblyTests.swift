@@ -21,7 +21,7 @@ class AssemblyTests: XCTestCase {
     }
 
     struct LoggerAssembly: Assembly {
-      func register(in registrar: Registrar & Resolver) {
+      func register(in registrar: Container) {
         registrar.register(singleton: Logger())
       }
     }
@@ -35,7 +35,7 @@ class AssemblyTests: XCTestCase {
     
     struct InnerAssembly: Assembly {
       static var registrationCount = 0
-      func register(in registrar: Registrar & Resolver) {
+      func register(in registrar: Container) {
         registrar.register(assembly: LoggerAssembly())
         registrar.in(InnerDependency.scope).register(factory: construct(InnerDependency.init))
       }
@@ -53,7 +53,7 @@ class AssemblyTests: XCTestCase {
     }
     
     struct OuterAssembly: Assembly {
-      func register(in registrar: Registrar & Resolver) {
+      func register(in registrar: Container) {
         registrar.register(assembly: LoggerAssembly())
         registrar.register(assembly: InnerAssembly())
         registrar.register { (r, i: Int) in
@@ -67,7 +67,7 @@ class AssemblyTests: XCTestCase {
     }
     
     // We only need to register the outer assembly.
-    let container = Container()
+    let container = Guise()
     container.register(assembly: OuterAssembly())
     let outerDependency: OuterDependency? = container.resolve(arg: 7)
     XCTAssertNotNil(outerDependency)

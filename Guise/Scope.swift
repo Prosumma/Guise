@@ -82,7 +82,7 @@ public struct Scope: Hashable {
   }
   
   public init<Type>(_ type: Type.Type, in parent: Scope? = nil) {
-    self.init(TypeName(type), in: parent)
+    self.init(TypeName<Type>(), in: parent)
   }
 
   public var parent: Scope? {

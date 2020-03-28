@@ -9,7 +9,7 @@
 import XCTest
 import Guise
 
-let sharedContainer: Resolver & Registrar = Container()
+let sharedContainer: Resolver & Registrar = Guise()
 
 class InjectionTests: XCTestCase {
 

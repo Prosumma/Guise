@@ -55,7 +55,7 @@ public protocol Assembly {
    
    ```
    public struct Assemblage: Assembly {
-     public func register(in registrar: Registrar & Resolver) {
+     public func register(in registrar: Container) {
        registrar.register(instance: X() as XProtocol)
      }
    }
@@ -65,7 +65,7 @@ public protocol Assembly {
    by calling `registrar.register(assembly: SomeAssembly())` and
    this method will be called as part of the registration process.
    */
-  func register(in registrar: Registrar & Resolver)
+  func register(in registrar: Container)
 
   /**
    Called after `register(in:)` has succeeded. Use it to perform

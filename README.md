@@ -18,10 +18,13 @@ Guise is an elegant, flexible, type-safe dependency resolution framework for Swi
 - [x] Swift 5.x (for Swift 4.x use v8.0)
 - [x] Support for iOS 8.0+, macOS 10.9+, watchOS 2+, tvOS 9+
 
+> **Guise**, _n._ An external form, appearance, or manner of presentation, typically concealing the true nature of something.
+
 ### What Makes Guise Better Than Those Other Guys?
 
 - Guise doesn't require any modification to the types you register. There are no special interfaces like `Injectable` or `Component` to implement. There are no special initializers or properties to add. Any type can be registered as is.
 - Guise was designed with Swift in mind. Other DI frameworks for Swift appear to be translations of frameworks from other languages, particularly C&#x266f; and Java. These languages have strengths and weaknesses that are different from those of Swift, and those strengths and weaknesses are reflected in the design of these frameworks. This makes them clumsy in Swift.
+- In keeping with its Swiftiness, Guise has a tiny, simple, extremely general core. Guise prefers higher-order functions and fluent interfaces over large numbers of overloads. This makes its API more composable and extensible.
 - Many of these frameworks register _types_ directly. Guise registers _blocks_ directly and _types_ indirectly. This simple distinction removes an enormous amount of complexity while introducing greater compile-time safety. When combined with Swift's `@autoclosure` attribute, it makes registration elegant and minimal. (See the sections on factory and instance registration below.)
 - Guise was designed to be simple rather than easy. Turns out it's both.
 
@@ -181,8 +184,6 @@ guard let myViewController: MyViewController = Guise.resolve() else {
 ```
 
 ### Abstraction
-
-> **Guise**, _n._ An external form, appearance, or manner of presentation, typically concealing the true nature of something.
 
 One of the functions of a dependency resolver is to locate dependencies. Another one is to abstract them so that they can be replaced with alternate implementations, whether in unit testing or elsewhere. This is typically achieved with a protocol.
 

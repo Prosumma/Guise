@@ -10,7 +10,7 @@ import XCTest
 import Guise
 
 class DITests: XCTestCase {
-  
+    
   func testSingletons() {
     class Dependency {
       
@@ -21,7 +21,7 @@ class DITests: XCTestCase {
       init(dependency: Dependency) { self.dependency = dependency }
     }
     
-    let container: Registrar & Resolver = Container()
+    let container: Container = Guise()
     // The auto higher-order function automatically
     // registers the dependencies found in Service.init. This
     // only works if ALL of the init parameters are registered
@@ -42,7 +42,7 @@ class DITests: XCTestCase {
       init(i: Int, s: String) { self.init(i: i) }
     }
     
-    let container: Registrar & Resolver = Container()
+    let container: Container = Guise()
     container.register(factory: construct(Worthless.init(i:)))
     
     let worthless: Worthless = container.resolve(arg: 7)!
@@ -53,7 +53,7 @@ class DITests: XCTestCase {
     class Something {}
     
     let derivedScope: Scope = .default / UUID()
-    let container: Registrar & Resolver = Container()
+    let container: Container = Guise()
     // Register in the default scope
     container.register(singleton: Something())
     // Attempt to resolve in the derived scope,
