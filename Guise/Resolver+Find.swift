@@ -18,6 +18,11 @@ public extension Resolver {
     return find(TypeName<Type>(), in: scope)
   }
   
+  /**
+   Recursively finds an entry in the resolver, successively
+   trying parent scopes until the entry is found. If none
+   is found, `nil` is returned.
+  */
   func find<Identifier: Hashable>(_ identifier: Identifier, in scope: Scope) -> Any? {
     if let value = self[scope / identifier] {
       return value

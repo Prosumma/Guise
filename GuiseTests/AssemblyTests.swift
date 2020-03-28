@@ -27,7 +27,7 @@ class AssemblyTests: XCTestCase {
     }
     
     struct InnerDependency {
-      static let scope: Scope = .registrations / UUID()
+      static let scope: Scope = .factories / UUID()
       public init(i: Int) {
         
       }
