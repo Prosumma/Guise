@@ -1,5 +1,5 @@
 //
-//  WeakRegistration.swift
+//  WeakFactory.swift
 //  Guise
 //
 //  Created by Gregory Higley on 3/1/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class WeakFactory: LifetimeFactory {
+public final class WeakFactory: LifetimeRegistration {
   public let metadata: Any
   private let lock = Lock()
   private var _factory: Resolve<Any, Any>? = nil

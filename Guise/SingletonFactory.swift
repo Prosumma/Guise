@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class SingletonFactory: LifetimeFactory {
+public final class SingletonFactory: LifetimeRegistration {
   public let metadata: Any
   private let lock = Lock()
   private let _factory: Resolve<Any, Any>

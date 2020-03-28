@@ -8,12 +8,12 @@
 
 import Foundation
 
-public protocol Factory {
+public protocol FactoryRegistration {
   var metadata: Any { get }
   func resolve<Type, Arg>(type: Type.Type, resolver: Resolver, arg: Arg) -> Type?
 }
 
-public extension Factory {
+public extension FactoryRegistration {
   var metadata: Any { () }
   
   func resolve<Type>(type: Type.Type = Type.self, resolver: Resolver) -> Type? {

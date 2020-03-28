@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class TransientFactory: LifetimeFactory {
+public final class TransientFactory: LifetimeRegistration {
   public let metadata: Any
   private let _factory: Resolve<Any, Any>
   

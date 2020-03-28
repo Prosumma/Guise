@@ -19,7 +19,7 @@ class FilterTests: XCTestCase {
       container.in(.default / i).register(singleton: Singleton())
     }
     container.in(.factories / UUID()).register(singleton: Singleton())
-    var factories: [Key: Factory] = container.filter(scope(in: .default) && key(type: Singleton.self))
+    var factories: [Key: FactoryRegistration] = container.filter(scope(in: .default) && key(type: Singleton.self))
     XCTAssertEqual(5, factories.count)
     factories = container.filter(key(type: Singleton.self))
     XCTAssertEqual(6, factories.count)

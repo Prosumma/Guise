@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func metafilter<Metadata>(_ predicate: @escaping Predicate<Metadata>) -> Predicate<Entry> {
+public func metafilter<Metadata>(_ predicate: @escaping Predicate<Metadata>) -> Predicate<Registration> {
   return { metadata in
     guard let metadata = metadata as? Metadata else {
         return false
@@ -17,23 +17,23 @@ public func metafilter<Metadata>(_ predicate: @escaping Predicate<Metadata>) -> 
   }
 }
 
-public func metadata<Metadata: Equatable>(_ model: Metadata) -> Predicate<Entry> {
+public func metadata<Metadata: Equatable>(_ model: Metadata) -> Predicate<Registration> {
   metafilter{ $0 == model }
 }
 
-public func scope(in scope: Scope) -> Predicate<Entry> {
+public func scope(in scope: Scope) -> Predicate<Registration> {
   return { entry in
     entry.key.starts(with: scope)
   }
 }
 
-public func scope(is scope: Scope) -> Predicate<Entry> {
+public func scope(is scope: Scope) -> Predicate<Registration> {
   return { entry in
     entry.key.parent.flatMap{ $0 == scope } ?? false
   }
 }
 
-public func key<K>(type: K.Type) -> Predicate<Entry> {
+public func key<K>(type: K.Type) -> Predicate<Registration> {
   return { entry in
     entry.key.identifier.base is TypeName<K>
   }
@@ -50,8 +50,8 @@ public extension Resolver {
    resolver.filter(predicate)
    ```
    */
-  func filter(_ isIncluded: Predicate<Entry>) -> Entries {
-    var entries: Entries = [:]
+  func filter(_ isIncluded: Predicate<Registration>) -> Registrations {
+    var entries: Registrations = [:]
     let iterator = makeIterator()
     while let next = iterator.next() {
       if isIncluded(next) {
@@ -70,7 +70,7 @@ public extension Resolver {
    let registrations = filter(valueType: Registration.self, isIncluded: scope(.default))
    ```
    */
-  func filter<V>(valueType: V.Type = V.self, _ isIncluded: Predicate<Entry>? = nil) -> [Key: V] {
+  func filter<V>(valueType: V.Type = V.self, _ isIncluded: Predicate<Registration>? = nil) -> [Key: V] {
     var entries: [Key: V] = [:]
     let iterator = makeIterator()
     while let next = iterator.next() {

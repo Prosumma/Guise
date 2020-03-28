@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Registrar {
-  func discard(_ isDiscarded: @escaping (Entries.Element) -> Bool) {
+  func discard(_ isDiscarded: @escaping (Registrations.Element) -> Bool) {
     write { registrations in registrations.filter(not(isDiscarded)) }
   }
   

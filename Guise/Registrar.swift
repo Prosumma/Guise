@@ -20,7 +20,7 @@ import Foundation
  The entire edifice of Guise is built upon
  this simple base.
  */
-public protocol Registrar: class, RegistrationBuilderProtocol {
+public protocol Registrar: class, FactoryBuilderProtocol {
   /**
    Get or set entries in the registrar.
    
@@ -37,5 +37,5 @@ public protocol Registrar: class, RegistrationBuilderProtocol {
    
    Conforming implementations are thread-safe.
    */
-  func write(_ transform: (Entries) -> Entries)
+  func write(_ transform: (Registrations) -> Registrations)
 }

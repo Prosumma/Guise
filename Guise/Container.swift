@@ -16,16 +16,16 @@ import Foundation
  */
 open class Container: Registrar & Resolver {
   private let lock = Lock()
-  private var registrations: Entries = [:]
+  private var registrations: Registrations = [:]
   
   public init() {}
   
-  public func makeIterator() -> AnyIterator<Entry> {
+  public func makeIterator() -> AnyIterator<Registration> {
     let regs = lock.read { Array(registrations) }
     return AnyIterator(regs.makeIterator())
   }
   
-  public func write(_ transform: (Entries) -> Entries) {
+  public func write(_ transform: (Registrations) -> Registrations) {
     lock.write { registrations = transform(registrations) }
   }
   
@@ -34,7 +34,7 @@ open class Container: Registrar & Resolver {
     set { lock.write { registrations[key] = newValue } }
   }
   
-  open var builder: RegistrationBuilder {
-    return RegistrationBuilder(registrar: self)
+  open var builder: FactoryBuilder {
+    return FactoryBuilder(registrar: self)
   }
 }

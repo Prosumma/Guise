@@ -8,11 +8,8 @@
 
 import Foundation
 
-public typealias Entries = [Key: Any]
-public typealias Entry = Entries.Element
-
 public protocol Resolver {
   subscript(key: Key) -> Any? { get }
-  func makeIterator() -> AnyIterator<Entry>
+  func makeIterator() -> AnyIterator<Registration>
 }
 

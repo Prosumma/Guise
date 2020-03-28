@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  FactoryBuilder.swift
 //  
 //
 //  Created by Gregory Higley on 3/28/20.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol RegistrationBuilderProtocol {
-  var builder: RegistrationBuilder { get }
+public protocol FactoryBuilderProtocol {
+  var builder: FactoryBuilder { get }
 }
 
-open class RegistrationBuilder: RegistrationBuilderProtocol {
+open class FactoryBuilder: FactoryBuilderProtocol {
   
   public struct StateKey: Hashable {
     public let identifier = UUID()
@@ -34,7 +34,7 @@ open class RegistrationBuilder: RegistrationBuilderProtocol {
     set { state[key] = newValue }
   }
   
-  public var builder: RegistrationBuilder {
+  public var builder: FactoryBuilder {
     return self
   }
   
@@ -49,39 +49,39 @@ open class RegistrationBuilder: RegistrationBuilderProtocol {
   }
 }
 
-public extension RegistrationBuilderProtocol {
+public extension FactoryBuilderProtocol {
   @discardableResult
   func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
     builder.register(type: type, factory: factory)
   }
   
-  func build<Value>(_ key: RegistrationBuilder.StateKey, _ value: Value) -> RegistrationBuilder {
+  func build<Value>(_ key: FactoryBuilder.StateKey, _ value: Value) -> FactoryBuilder {
     let b = builder
     b[key] = value
     return b
   }
   
-  func lifetime(_ lifetime: Lifetime) -> RegistrationBuilder {
+  func lifetime(_ lifetime: Lifetime) -> FactoryBuilder {
     build(.lifetime, lifetime)
   }
   
-  func metadata(_ metadata: Any) -> RegistrationBuilder {
+  func metadata(_ metadata: Any) -> FactoryBuilder {
     build(.metadata, metadata)
   }
   
-  func `in`(_ scope: Scope) -> RegistrationBuilder {
+  func `in`(_ scope: Scope) -> FactoryBuilder {
     build(.scope, scope)
   }
   
-  var transient: RegistrationBuilder {
+  var transient: FactoryBuilder {
     lifetime(.transient)
   }
   
-  var singleton: RegistrationBuilder {
+  var singleton: FactoryBuilder {
     lifetime(.singleton)
   }
   
-  var `weak`: RegistrationBuilder {
+  var `weak`: FactoryBuilder {
     lifetime(.weak)
   }
   

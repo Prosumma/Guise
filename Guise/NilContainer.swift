@@ -22,15 +22,15 @@ public class NilContainer: Registrar & Resolver {
     AnyIterator([:].makeIterator())
   }
 
-  public func write(_ setter: (Entries) -> Entries) {
+  public func write(_ setter: (Registrations) -> Registrations) {
     
   }
 
-  public func rewrite(_ write: @escaping (Entries) -> Entries) {
+  public func rewrite(_ write: @escaping (Registrations) -> Registrations) {
 
   }
   
-  public var builder: RegistrationBuilder {
-    RegistrationBuilder(registrar: self)
+  public var builder: FactoryBuilder {
+    FactoryBuilder(registrar: self)
   }
 }
