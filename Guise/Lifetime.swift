@@ -10,13 +10,15 @@ import Foundation
 
 public struct Lifetime {
   private let factoryType: LifetimeRegistration.Type
+  private let state: Any
   
-  public init<FactoryType: LifetimeRegistration>(_ type: FactoryType.Type) {
-    factoryType = type
+  public init<FactoryType: LifetimeRegistration>(_ type: FactoryType.Type, state: Any = ()) {
+    self.factoryType = type
+    self.state = state
   }
   
   public func register<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any) -> FactoryRegistration {
-    return factoryType.init(type: type, factory: factory, metadata: metadata)
+    return factoryType.init(type: type, factory: factory, metadata: metadata, state: state)
   }
 }
 
@@ -28,6 +30,6 @@ public extension Lifetime {
 }
 
 public protocol LifetimeRegistration: FactoryRegistration {
-  init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type, metadata: Any)
+  init<Type, Arg>(type: Type.Type, factory: @escaping (Resolver, Arg) -> Type, metadata: Any, state: Any)
 }
 
