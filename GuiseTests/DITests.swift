@@ -49,6 +49,23 @@ class DITests: XCTestCase {
     XCTAssertEqual(7, worthless.i)
   }
   
+  func testZeroArgConstruct() {
+    struct Zero {
+      init() {}
+    }
+    
+    let container: Container = Guise()
+    
+    // There is no overload of `construct` that takes an
+    // initializer with no arguments. Yet it works! The
+    // reason is that `Void` is a type in Swift, and
+    // a zero-argument function or initializer has
+    // an implicit argument of type `Void`.
+    container.register(factory: construct(Zero.init))
+    let zero: Zero? = container.resolve()
+    XCTAssertNotNil(zero)
+  }
+  
   func testScopeHierarchy() {
     class Something {}
     
