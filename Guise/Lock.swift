@@ -9,12 +9,12 @@
 import Foundation
 
 /// A simple GCD-powered lock allowing one writer and multiple readers.
-final class Lock {
+public final class Lock {
 
   private let label = "com.prosumma.Guise.lock.\(UUID())"
   private let queue: DispatchQueue
 
-  init() {
+  public init() {
     let qos: DispatchQoS
     if #available(macOS 10.10, *) {
       /*
@@ -36,7 +36,7 @@ final class Lock {
     queue = DispatchQueue(label: label, qos: qos, attributes: .concurrent, autoreleaseFrequency: afq, target: nil)
   }
 
-  func read<T>(_ block: () -> T) -> T {
+  public func read<T>(_ block: () -> T) -> T {
     var result: T! = nil
     queue.sync {
       result = block()
@@ -44,7 +44,7 @@ final class Lock {
     return result
   }
 
-  func write<T>(_ block: () -> T) -> T {
+  public func write<T>(_ block: () -> T) -> T {
     var result: T! = nil
     queue.sync(flags: .barrier) {
       result = block()

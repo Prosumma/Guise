@@ -14,7 +14,7 @@ public final class SingletonFactory: LifetimeRegistration {
   private let _factory: Resolve<Any, Any>
   private var value: Any?
   
-  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any = ()) {
+  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any = (), state: Any = ()) {
     self._factory = { r, arg in factory(r, arg as! Arg) }
     self.metadata = metadata
   }

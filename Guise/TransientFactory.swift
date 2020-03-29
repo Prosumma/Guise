@@ -12,7 +12,7 @@ public final class TransientFactory: LifetimeRegistration {
   public let metadata: Any
   private let _factory: Resolve<Any, Any>
   
-  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any = ()) {
+  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any = (), state: Any = ()) {
     self._factory = { r, arg in factory(r, arg as! Arg) }
     self.metadata = metadata
   }

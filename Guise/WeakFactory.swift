@@ -14,7 +14,7 @@ public final class WeakFactory: LifetimeRegistration {
   private var _factory: Resolve<Any, Any>? = nil
   private weak var value: AnyObject?
   
-  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any = ()) {
+  public init<Type, Arg>(type: Type.Type, factory: @escaping Resolve<Arg, Type>, metadata: Any = (), state: Any = ()) {
     self._factory = { r, arg in
       factory(r, arg as! Arg)
     }
