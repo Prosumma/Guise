@@ -77,6 +77,10 @@ public extension FactoryBuilderProtocol {
     lifetime(.weak)
   }
   
+  var once: FactoryBuilder {
+    lifetime(.once)
+  }
+  
   @discardableResult
   func register<Type, Arg>(type: Type.Type = Type.self, factory: @escaping (Resolver, Arg) -> Type) -> Key {
     let b = builder
@@ -133,6 +137,13 @@ public extension FactoryBuilderProtocol {
   func register<Type>(singleton: @escaping @autoclosure () -> Type) -> Key {
     lifetime(.singleton).register { _ in
       singleton()
+    }
+  }
+  
+  @discardableResult
+  func register<Type>(once: @escaping @autoclosure () -> Type) -> Key {
+    lifetime(.once).register { _ in
+      once()
     }
   }
     

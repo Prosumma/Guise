@@ -21,15 +21,9 @@ public func metadata<Metadata: Equatable>(_ model: Metadata) -> Predicate<Regist
   metafilter{ $0 == model }
 }
 
-public func scope(in scope: Scope) -> Predicate<Registration> {
+public func scope(_ scope: Scope) -> Predicate<Registration> {
   return { entry in
     entry.key.starts(with: scope)
-  }
-}
-
-public func scope(is scope: Scope) -> Predicate<Registration> {
-  return { entry in
-    entry.key.parent.flatMap{ $0 == scope } ?? false
   }
 }
 
@@ -70,14 +64,18 @@ public extension Resolver {
    let registrations = filter(valueType: Registration.self, isIncluded: scope(.default))
    ```
    */
-  func filter<V>(valueType: V.Type = V.self, _ isIncluded: Predicate<Registration>? = nil) -> [Key: V] {
-    var entries: [Key: V] = [:]
+  func filter<R>(registeredType: R.Type = R.self, _ isIncluded: Predicate<Registration>? = nil) -> [Key: R] {
+    var entries: [Key: R] = [:]
     let iterator = makeIterator()
     while let next = iterator.next() {
-      if let value = next.value as? V, isIncluded?(next) ?? true {
+      if let value = next.value as? R, isIncluded?(next) ?? true {
         entries[next.key] = value
       }
     }
     return entries
+  }
+  
+  func factories(_ isIncluded: @escaping Predicate<Registration>) -> [Key: FactoryRegistration] {
+    filter(isIncluded)
   }
 }

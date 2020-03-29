@@ -24,6 +24,7 @@ public extension Lifetime {
   static let transient = Lifetime(TransientFactory.self)
   static let singleton = Lifetime(SingletonFactory.self)
   static let `weak` = Lifetime(WeakFactory.self)
+  static let once = Lifetime(OnceFactory.self)
 }
 
 public protocol LifetimeRegistration: FactoryRegistration {

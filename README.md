@@ -38,6 +38,8 @@ Guise 10 is a complete rewrite and reimagining based on conversations with devel
 - The `Guise` type with its static methods is gone. You must now create an instance of a container yourself. Happily, the default container type
 is still called `Guise`.
 
+Guise 9:
+
 ```swift
 enum Name {
   case awesome
@@ -173,4 +175,86 @@ So far, Guise looks similar to its previous versions as well as other DI framewo
 
 #### Registration in Scopes 
 
+All registrations occur in a `Scope`, even if it is not explicitly mentioned. The default scope for registrations is `Scope.default`. (This is not a root scope. It actually has a parent, `Scope.factories`. More on that later.)
 
+When we say that a registration occurs "in a `Scope`", we mean that a registration always has a parent scope. When a registration occurs, the type of the registered dependency is combined with the scope in which it is registered to produce the key with which the registration is recorded in the container. 
+
+```swift
+let key: Scope = container.register(transient: Dependency())
+```
+
+The `key` above is `Scope.default / Dependency.self`. When a `Scope` is used in this way, we call it a `Key`.
+
+```swift
+public typealias Key = Scope
+```
+
+We can make registrations in a `Scope` of our choice using the `in` function of the fluent interface:
+
+```swift
+extension Scope {
+  static let plugins = .factories / UUID()
+}
+
+let key = container.in(.plugins).register(transient: Plugin1() as Plugin) 
+```
+
+Our `key` is thus `Scope.plugins / Plugin.self`.
+
+We can use this technique to distinguish multiple registrations which would otherwise overwrite each other:
+
+```swift
+container.in(.plugins / UUID()).register(transient: Plugin1() as Plugin)
+container.in(.plugins / UUID()).register(transient: Plugin2() as Plugin)
+container.in(.plugins / UUID()).register(transient: Plugin3() as Plugin)
+```
+
+When resolving, we can easily find all the factory registrations in `Scope.plugins` that are of type `Plugin`, even if we don't know the exact key:
+
+```swift
+let plugins: [Key: Plugin] = container.factories(key(type: Plugin.self) && scope(.plugins)).resolve()
+```
+
+More on this and what it all means when we discuss resolution.
+
+#### Lifetimes 
+
+Factory registrations have four possible lifetimes, described by the `Lifetime` type:
+
+- `Lifetime.transient`: The registered block is executed every time resolution occurs.
+- `Lifetime.singleton`: The registered block is called only once. After that, its result is cached and returned as is.
+- `Lifetime.weak`: Same as `Lifetime.singleton`, except that a `weak` reference is held to the resolved value. When all references have gone out of scope, resolution will always return `nil`. Applies only to reference types.
+- `Lifetime.once`: The registered block is called only once. After that, it always returns `nil`.
+
+The `Lifetime` system is extensible.
+
+Lifetimes are specified using the `lifetime` function in the fluent interface. 
+
+```swift
+container.lifetime(.singleton).register { _ in
+  Dependency()
+}
+```
+
+Each of the four pre-defined lifetimes also has a property of its own in the fluent interface:
+
+```swift
+container.singleton.register { _ in Dependency() }
+container.transient.register { _ in Dependency() }
+```
+
+In addition, as mentioned previously, there are overloads of `register` which include the lifetime:
+
+```swift
+container.register(transient: Dependency())
+```
+
+When multiple lifetimes are specified, the last one wins:
+
+```swift
+container.singleton.transient.register { _ in
+  Dependency()
+}
+```
+
+In the above case, `singleton` is superfluous and the expression registers a `transient` dependency.
