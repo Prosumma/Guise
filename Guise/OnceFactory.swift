@@ -27,9 +27,8 @@ public final class OnceFactory: LifetimeRegistration {
       guard let factory = _factory else {
         return nil
       }
-      let value = factory(resolver, arg) as! Type
-      _factory = nil
-      return value
+      defer { _factory = nil }
+      return (factory(resolver, arg) as! Type)
     }
   }
 }

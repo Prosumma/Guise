@@ -35,6 +35,19 @@ class DITests: XCTestCase {
     XCTAssert(service1.dependency === service2.dependency)
   }
   
+  func testOnce() {
+    class Dependency {
+      
+    }
+    
+    let container: Container = Guise()
+    container.register(once: Dependency())
+    var dep: Dependency? = container.resolve()
+    XCTAssertNotNil(dep)
+    dep = container.resolve()
+    XCTAssertNil(dep)
+  }
+  
   func testConstruct() {
     struct Worthless {
       let i: Int
