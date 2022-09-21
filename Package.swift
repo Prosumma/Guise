@@ -5,19 +5,23 @@ import PackageDescription
 
 let package = Package(
     name: "Guise",
-    platforms: [.macOS(.v10_15)],
+    platforms: [.macOS(.v10_15), .iOS(.v15), .tvOS(.v15), .watchOS(.v8)],
     products: [
         .library(
             name: "Guise",
             targets: ["Guise"]),
     ],
     dependencies: [
-      .package(url: "https://github.com/apple/swift-atomics", from: "1.0.0")
+      .package(url: "https://github.com/apple/swift-atomics", from: "1.0.0"),
+      .package(url: "https://github.com/apple/swift-collections", from: "1.0.0")
     ],
     targets: [
         .target(
             name: "Guise",
-            dependencies: [.product(name: "Atomics", package: "swift-atomics")]),
+            dependencies: [
+              .product(name: "Atomics", package: "swift-atomics"),
+              .product(name: "OrderedCollections", package: "swift-collections")
+            ]),
         .testTarget(
             name: "GuiseTests",
             dependencies: ["Guise"]),

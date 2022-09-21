@@ -10,6 +10,7 @@ import Foundation
 public protocol Registrar {
   func register(key: Key, entry: Entry)
   func unregister(keys: Set<Key>)
+  func register<A: Assembly>(assembly: A)
 }
 
 public extension Registrar {
