@@ -7,6 +7,9 @@
 
 import Foundation
 
+public typealias SyncFactory<T, A> = (any Resolver, A) throws -> T
+public typealias AsyncFactory<T, A> = (any Resolver, A) async throws -> T
+
 public protocol Registrar {
   func register(key: Key, entry: Entry)
   func unregister(keys: Set<Key>)
@@ -19,7 +22,7 @@ public extension Registrar {
     _ type: T.Type,
     name: Set<AnyHashable>,
     lifetime: Lifetime,
-    factory: @escaping (any Resolver, A) throws -> T
+    factory: @escaping SyncFactory<T, A>
   ) -> Key {
     let key = Key(type, name: name, args: A.self)
     let entry = Entry(lifetime: lifetime, factory: factory)
@@ -34,13 +37,10 @@ public extension Registrar {
     lifetime: Lifetime = .transient,
     factory: @escaping (any Resolver) throws -> T
   ) -> Key {
-    let key = Key(type, name: Set(name), args: Void.self)
-    let factory: (any Resolver, Void) throws -> T = { r, _ in
+    let factory: SyncFactory<T, Void> = { r, _ in
       try factory(r)
     }
-    let entry = Entry(lifetime: lifetime, factory: factory)
-    register(key: key, entry: entry)
-    return key
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
   
   @discardableResult
@@ -48,9 +48,47 @@ public extension Registrar {
     _ type: T.Type = T.self,
     name: AnyHashable...,
     lifetime: Lifetime = .transient,
-    factory: @escaping (any Resolver, A) throws -> T
+    factory: @escaping SyncFactory<T, A>
   ) -> Key {
-    let key = Key(type, name: Set(name), args: A.self)
+    register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+ 
+  @discardableResult
+  func register<T, A1, A2>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    factory: @escaping (any Resolver, A1, A2) throws -> T
+  ) -> Key {
+    let factory: SyncFactory<T, (A1, A2)> = { r, arg in
+      try factory(r, arg.0, arg.1)
+    }
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+  
+  @discardableResult
+  func register<T>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    service: @escaping @autoclosure () -> T
+  ) -> Key {
+    let factory: SyncFactory<T, Void> = { _, _ in
+      service()
+    }
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+}
+
+public extension Registrar {
+  @discardableResult
+  func register<T, A>(
+    _ type: T.Type,
+    name: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping AsyncFactory<T, A>
+  ) -> Key {
+    let key = Key(type, name: name, args: A.self)
     let entry = Entry(lifetime: lifetime, factory: factory)
     register(key: key, entry: entry)
     return key
@@ -61,29 +99,34 @@ public extension Registrar {
     _ type: T.Type = T.self,
     name: AnyHashable...,
     lifetime: Lifetime = .transient,
-    service: @escaping @autoclosure () -> T
+    factory: @escaping (any Resolver) async throws -> T
   ) -> Key {
-    let key = Key(type, name: Set(name), args: Void.self)
-    let factory: (any Resolver, Void) throws -> T = { _, _ in
-      service()
+    let factory: (any Resolver, Void) async throws -> T = { r, _ in
+      try await factory(r)
     }
-    let entry = Entry(lifetime: lifetime, factory: factory)
-    register(key: key, entry: entry)
-    return key
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-}
-
-public extension Registrar {
+  
   @discardableResult
   func register<T, A>(
-    _ type: T.Type,
-    name: Set<AnyHashable>,
-    lifetime: Lifetime,
-    factory: @escaping (any Resolver, A) async throws -> T
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    factory: @escaping AsyncFactory<T, A>
   ) -> Key {
-    let key = Key(type, name: name, args: A.self)
-    let entry = Entry(lifetime: lifetime, factory: factory)
-    register(key: key, entry: entry)
-    return key
+    register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+  
+  @discardableResult
+  func register<T, A1, A2>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    factory: @escaping (any Resolver, A1, A2) async throws -> T
+  ) -> Key {
+    let factory: AsyncFactory<T, (A1, A2)> = { r, arg in
+      try await factory(r, arg.0, arg.1)
+    }
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
 }

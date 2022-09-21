@@ -6,7 +6,7 @@
 //
 
 public struct ResolutionError: Error {
-  public let criteria: Criteria?
+  public let criteria: Criteria
   public let reason: Reason
   
   public init(criteria: Criteria, reason: Reason) {

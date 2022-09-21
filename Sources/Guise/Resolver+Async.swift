@@ -7,9 +7,9 @@
 
 public extension Resolver {
   func resolve<T, A>(
-    _ type: T.Type = T.self,
+    _ type: T.Type,
     name: Set<AnyHashable>,
-    args arg1: A = ()
+    args arg1: A
   ) async throws -> T {
     let key = Key(type, name: name, args: A.self)
     let entry = try resolve(key: key)
@@ -22,6 +22,14 @@ public extension Resolver {
     } catch {
       throw ResolutionError(key: key, reason: .error(error))
     }
+  }
+  
+  func resolve<T, A>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    args arg1: A = ()
+  ) async throws -> T {
+    try await resolve(type, name: Set(name), args: arg1)
   }
   
   func resolve<T, A1, A2>(
