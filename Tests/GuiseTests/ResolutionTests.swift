@@ -43,7 +43,7 @@ final class ResolutionTests: XCTestCase {
     // Given
     class Singleton {}
     let container = Container()
-    container.register(lifetime: .singleton, service: Singleton())
+    container.register(lifetime: .singleton, instance: Singleton())
     
     // When
     let singleton1 = try container.resolve(Singleton.self)
@@ -95,12 +95,39 @@ final class ResolutionTests: XCTestCase {
     _ = try container.resolve(Transient.self)
   }
   
+  func test_resolve_optional() throws {
+    // Given
+    class Service {}
+    let container = Container()
+    container.register(instance: Service())
+    var service: Service?
+    
+    // When
+    service = try container.resolve()
+    
+    // Then
+    XCTAssertNotNil(service)
+  }
+  
+  func test_resolve_lazy() throws {
+    // Given
+    class Service {}
+    let container = Container()
+    container.register(instance: Service())
+    
+    // When
+    let lazyResolver = try container.resolve(LazyResolver<Service>.self)
+    let service = try? lazyResolver.resolve()
+    
+    XCTAssertNotNil(service)
+  }
+  
   func test_resolve_all_sync() throws {
     // Given
     class Plugin {}
     let container = Container()
-    container.register(name: UUID(), "plugin", service: Plugin())
-    container.register(name: UUID(), "plugin", service: Plugin())
+    container.register(name: UUID(), "plugin", instance: Plugin())
+    container.register(name: UUID(), "plugin", instance: Plugin())
     
     // When
     let plugins = try container.resolve(all: Plugin.self, name: .contains("plugin"))
@@ -113,8 +140,8 @@ final class ResolutionTests: XCTestCase {
     // Given
     class Plugin {}
     let container = Container()
-    container.register(name: UUID(), "plugin", service: Plugin())
-    container.register(name: UUID(), "plugin", service: Plugin())
+    container.register(name: UUID(), "plugin", instance: Plugin())
+    container.register(name: UUID(), "plugin", instance: Plugin())
     
     // When
     let plugins = try await container.resolve(all: Plugin.self, name: .contains("plugin"))

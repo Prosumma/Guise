@@ -22,6 +22,7 @@ public struct ResolutionError: Error {
 public extension ResolutionError {
   enum Reason: Error {
     case notFound
+    case noResolver
     case requiresAsync
     case error(Error)
   }

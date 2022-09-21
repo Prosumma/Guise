@@ -11,16 +11,23 @@ public extension Resolver {
     name: Set<AnyHashable>,
     args arg1: A = ()
   ) throws -> T {
-    let key = Key(type, name: name, args: A.self)
-    let entry = try resolve(key: key)
-    do {
-      return try entry.resolve(self, arg1) as! T
-    } catch let reason as ResolutionError.Reason {
-      throw ResolutionError(key: key, reason: reason)
-    } catch let error as ResolutionError {
-      throw error
-    } catch {
-      throw ResolutionError(key: key, reason: .error(error))
+    switch type {
+    case let type as LazyResolving.Type:
+      return type.init(self, name: name) as! T
+    case let type as OptionalResolving.Type:
+      return try type.resolve(with: self, name: name, args: arg1) as! T
+    default:
+      let key = Key(type, name: name, args: A.self)
+      let entry = try resolve(key: key)
+      do {
+        return try entry.resolve(self, arg1) as! T
+      } catch let reason as ResolutionError.Reason {
+        throw ResolutionError(key: key, reason: reason)
+      } catch let error as ResolutionError {
+        throw error
+      } catch {
+        throw ResolutionError(key: key, reason: .error(error))
+      }
     }
   }
   

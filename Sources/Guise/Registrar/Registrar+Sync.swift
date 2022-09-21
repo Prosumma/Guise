@@ -65,10 +65,10 @@ extension Registrar {
     _ type: T.Type = T.self,
     name: AnyHashable...,
     lifetime: Lifetime = .transient,
-    service: @escaping @autoclosure () -> T
+    instance: @escaping @autoclosure () -> T
   ) -> Key {
     let factory: SyncFactory<T, Void> = { _, _ in
-      service()
+      instance()
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
