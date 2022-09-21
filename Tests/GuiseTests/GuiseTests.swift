@@ -59,4 +59,18 @@ final class GuiseTests: XCTestCase {
     let foo = try await container.resolve(Foo.self, args: 1)
     XCTAssertEqual(foo.i, 1)
   }
+  
+  func testAssembly() throws {
+    let container = Container()
+    container.assemble(TestAssembly())
+    _ = try container.resolve(Watusi.self)
+  }
 }
+
+class TestAssembly: Assembly {
+  func register(in registrar: Registrar) {
+    registrar.register(service: Watusi())
+  }
+}
+
+class Watusi {}

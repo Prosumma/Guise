@@ -55,5 +55,8 @@ extension Container: Assembler {
     for assembly in assemblies.values {
       assembly.registered(to: self)
     }
+    assemblyLock.sync {
+      assemblies = [:]
+    }
   }
 }
