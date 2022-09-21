@@ -34,9 +34,9 @@ public extension Resolver {
   
   func resolve<T, A1, A2>(
     _ type: T.Type = T.self,
-    name: Set<AnyHashable>,
+    name: AnyHashable...,
     args arg1: A1, _ arg2: A2
   ) async throws -> T {
-    try await resolve(type, name: name, args: (arg1, arg2))
+    try await resolve(type, name: Set(name), args: (arg1, arg2))
   }
 }
