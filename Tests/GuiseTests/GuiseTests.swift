@@ -3,9 +3,21 @@ import XCTest
 
 final class GuiseTests: XCTestCase {
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(Guise().text, "Hello, World!")
+      class Foo {}
+      class Bar {
+        let foo: Foo
+        init(foo: Foo) {
+          self.foo = foo
+        }
+      }
+      
+      let container = Container()
+      container.register(service: Foo())
+      container.register(lifetime: .singleton, factory: auto(Bar.init))
+      
+      let bar1 = try container.resolve(Bar.self)
+      let bar2 = try container.resolve(Bar.self)
+      
+      XCTAssert(bar1 === bar2)
     }
 }
