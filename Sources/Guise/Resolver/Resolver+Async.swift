@@ -5,7 +5,37 @@
 //  Created by Gregory Higley on 2022-09-21.
 //
 
+extension Resolver {
+  /**
+   A helper method for resolving an `Entry`.
+   
+   Never call `Entry::resolve` directly. Instead, use
+   this method, which handles error propagation.
+   */
+  func resolve<T, A>(
+    entry: Entry,
+    args arg1: A,
+    forKey key: Key
+  ) async throws -> T {
+    do {
+      return try await entry.resolve(self, arg1) as! T
+    } catch let reason as ResolutionError.Reason {
+      throw ResolutionError(key: key, reason: reason)
+    } catch let error as ResolutionError {
+      throw error
+    } catch {
+      throw ResolutionError(key: key, reason: .error(error))
+    }
+  }
+}
+
 public extension Resolver {
+  /**
+   The root resolution method. All roads lead here.
+   
+   Although this method is public, its overloads are
+   much more convenient to use.
+   */
   func resolve<T, A>(
     _ type: T.Type,
     name: Set<AnyHashable>,
@@ -19,15 +49,7 @@ public extension Resolver {
     default:
       let key = Key(type, name: name, args: A.self)
       let entry = try resolve(key: key)
-      do {
-        return try await entry.resolve(self, arg1) as! T
-      } catch let reason as ResolutionError.Reason {
-        throw ResolutionError(key: key, reason: reason)
-      } catch let error as ResolutionError {
-        throw error
-      } catch {
-        throw ResolutionError(key: key, reason: .error(error))
-      }
+      return try await resolve(entry: entry, args: arg1, forKey: key)
     }
   }
   

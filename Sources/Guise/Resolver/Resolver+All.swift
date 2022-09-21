@@ -12,7 +12,9 @@ public extension Resolver  {
     args arg1: A = ()
   ) throws -> [T] {
     let criteria = Criteria(type: type, name: name, args: A.self)
-    return try resolve(criteria: criteria).values.map { try $0.resolve(self, arg1) as! T }
+    return try resolve(criteria: criteria).map {
+      try self.resolve(entry: $0.value, args: arg1, forKey: $0.key)
+    }
   }
   
   func resolve<T, A>(
@@ -22,8 +24,8 @@ public extension Resolver  {
   ) async throws -> [T] {
     let criteria = Criteria(type: type, name: name, args: A.self)
     var result: [T] = []
-    for entry in resolve(criteria: criteria).values {
-      try await result.append(entry.resolve(self, arg1) as! T)
+    for (key, entry) in resolve(criteria: criteria) {
+      try await result.append(resolve(entry: entry, args: arg1, forKey: key))
     }
     return result
   }
