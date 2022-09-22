@@ -6,17 +6,12 @@
 //
 
 public struct ResolutionError: Error {
-  // TODO: Replace this with `Key`. We don't need `Criteria` here any more.
-  public let criteria: Criteria
+  public let key: Key
   public let reason: Reason
   
-  public init(criteria: Criteria, reason: Reason) {
-    self.criteria = criteria
-    self.reason = reason
-  }
-  
   public init(key: Key, reason: Reason) {
-    self.init(criteria: .init(key: key), reason: reason)
+    self.key = key
+    self.reason = reason
   }
 }
 

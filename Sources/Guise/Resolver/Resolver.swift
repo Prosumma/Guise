@@ -27,7 +27,7 @@ extension Resolver {
     if let entry = entries[key] {
       return entry
     } else {
-      throw ResolutionError(criteria: criteria, reason: .notFound)
+      throw ResolutionError(key: key, reason: .notFound)
     }
   }
 }

@@ -17,10 +17,9 @@ extension Array: ResolutionAdapter {
       do {
         try array.append(resolver.resolve(Element.self, name: key.name, args: args))
       } catch let error as ResolutionError {
-        let criteria = Criteria(key: key)
         guard
           case .notFound = error.reason,
-          error.criteria == criteria
+          error.key == key
         else {
           throw error
         }
@@ -40,10 +39,9 @@ extension Array: ResolutionAdapter {
       do {
         try await array.append(resolver.resolve(Element.self, name: key.name, args: args))
       } catch let error as ResolutionError {
-        let criteria = Criteria(key: key)
         guard
           case .notFound = error.reason,
-          error.criteria == criteria
+          error.key == key
         else {
           throw error
         }

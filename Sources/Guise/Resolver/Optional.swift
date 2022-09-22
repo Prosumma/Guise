@@ -16,10 +16,9 @@ extension Optional: ResolutionAdapter {
       wrapped = try resolver.resolve(Wrapped.self, name: name, args: args)
     } catch let error as ResolutionError {
       let key = Key(Wrapped.self, name: name, args: A.self)
-      let criteria = Criteria(key: key)
       guard
         case .notFound = error.reason,
-        error.criteria == criteria
+        error.key == key
       else {
         throw error
       }
@@ -38,10 +37,9 @@ extension Optional: ResolutionAdapter {
       wrapped = try await resolver.resolve(Wrapped.self, name: name, args: args)
     } catch let error as ResolutionError {
       let key = Key(Wrapped.self, name: name, args: A.self)
-      let criteria = Criteria(key: key)
       guard
         case .notFound = error.reason,
-        error.criteria == criteria
+        error.key == key
       else {
         throw error
       }
