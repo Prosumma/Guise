@@ -9,217 +9,61 @@ import XCTest
 @testable import Guise
 
 final class ResolutionTests: XCTestCase {
-  func test_sync_transient() throws {
-    // Given
-    class Transient {}
+  func test1() throws {
     let container = Container()
-    container.register(factory: auto(Transient.init))
+    container.assemble(TestAssembly())
     
-    // Then
-    let transient1 = try container.resolve(Transient.self)
-    let transient2 = try container.resolve(Transient.self)
+    let silly: Silly = try container.resolve()
     
-    // Then
-    XCTAssert(transient1 !== transient2)
+    XCTAssertEqual(silly.watusis.count, 2)
   }
   
-  func test_async_transient() async throws {
-    // Given
-    class Transient {}
+  func test2() throws {
     let container = Container()
-    container.register { _ async in
-      Transient()
+    container.register { _ in
+      await Async()
     }
+    container.register(factory: auto(Sync.init))
     
-    // Then
-    let transient1 = try await container.resolve(Transient.self)
-    let transient2 = try await container.resolve(Transient.self)
-    
-    // Then
-    XCTAssert(transient1 !== transient2)
-  }
-  
-  func test_sync_singleton() throws {
-    // Given
-    class Singleton {}
-    let container = Container()
-    container.register(lifetime: .singleton, instance: Singleton())
-    
-    // When
-    let singleton1 = try container.resolve(Singleton.self)
-    let singleton2 = try container.resolve(Singleton.self)
-    
-    // Then
-    XCTAssert(singleton1 === singleton2)
-  }
-  
-  func test_async_singleton() async throws {
-    // Given
-    class Singleton {}
-    let container = Container()
-    container.register(lifetime: .singleton) { _ async in
-      Singleton()
-    }
-    
-    // When
-    let singleton1 = try await container.resolve(Singleton.self)
-    let singleton2 = try await container.resolve(Singleton.self)
-    
-    // Then
-    XCTAssert(singleton1 === singleton2)
-  }
-  
-  func test_sync_resolve_async() throws {
-    // Given
-    class Transient {}
-    let container = Container()
-    container.register { _ async in
-      Transient()
-    }
-    
-    // When/Then
     do {
-      _ = try container.resolve(Transient.self)
-      XCTFail("Expected to throw a ResolutionError with reason .requiresAsync")
-    } catch let error as ResolutionError {
-      guard case .requiresAsync = error.reason else {
-        throw error
-      }
+      _ = try container.resolve(Sync.self)
+      XCTFail("Expected to throw an error.")
+    } catch _ as ResolutionError {
+      
     }
-    
-    // When
-    defer { Entry.allowSynchronousResolutionOfAsyncEntries = false }
-    Entry.allowSynchronousResolutionOfAsyncEntries = true
-    
-    // Then
-    _ = try container.resolve(Transient.self)
   }
-  
-  func test_resolve_optional() throws {
-    // Given
-    class Service {}
-    let container = Container()
-    container.register(instance: Service())
-    var service: Service?
-    
-    // When
-    service = try container.resolve()
-    
-    // Then
-    XCTAssertNotNil(service)
+}
+
+class Watusi {}
+class Silly {
+  let watusis: [Watusi]
+  init(watusis: LazyNameResolver<[Watusi]>) throws {
+    self.watusis = try watusis.resolve()
   }
-  
-  func test_resolve_missing_optional() throws {
-    // Given
-    class Service {}
-    var service: Service?
-    let container = Container()
-    
-    // When
-    service = try container.resolve()
-    
-    // Then
-    XCTAssertNil(service)
+}
+
+enum Registration {
+  case watusi
+}
+
+class Async {
+  init() async {}
+}
+
+class Sync {
+  let `async`: Async
+  init(async: LazyResolver<Async>) throws {
+    self.async = try `async`.resolve()
   }
-  
-  func test_resolve_missing_suboptional() throws {
-    // Given
-    class Subservice {}
-    class Service {
-      init(subservice: Subservice) {}
+}
+
+class TestAssembly: Assembly {
+  func register(in registrar: Registrar) {
+    registrar.register(name: UUID(), Registration.watusi, instance: Watusi())
+    registrar.register(name: UUID(), Registration.watusi, instance: Watusi())
+    registrar.register(name: UUID(), instance: Watusi())
+    registrar.register(lifetime: .singleton) { r in
+      try Silly(watusis: r.resolve(name: Registration.watusi))
     }
-    let container = Container()
-    container.register(factory: auto(Service.init))
-    var service: Service?
-    
-    // When
-    do {
-      service = try container.resolve()
-      XCTFail("Expected to throw a ResolutionError")
-    } catch let error as ResolutionError {
-      let key = Key(Subservice.self, name: [], args: Void.self)
-      let criteria = Criteria(key: key)
-      guard
-        case .error(let suberror as ResolutionError) = error.reason,
-        suberror.criteria == criteria,
-        case .notFound = suberror.reason
-      else {
-        throw error
-      }
-    }
-    
-    // Then
-    XCTAssertNil(service)
-  }
-  
-  func test_resolve_lazy() throws {
-    // Given
-    class Service {}
-    let container = Container()
-    container.register(instance: Service())
-    
-    // When
-    let lazyResolver = try container.resolve(LazyResolver<Service>.self)
-    let service = try? lazyResolver.resolve()
-    
-    // Then
-    XCTAssertNotNil(service)
-  }
-  
-  func test_resolve_lazy_name() throws {
-    // Given
-    class Service {}
-    let container = Container()
-    container.register(name: 1, instance: Service())
-    
-    // When
-    let lazyResolver: LazyNameResolver<Service> = try container.resolve(name: 1)
-    let service = try? lazyResolver.resolve()
-    
-    // Then
-    XCTAssertNotNil(service)
-  }
-  
-  func test_resolve_lazy_full() throws {
-    // Given
-    class Service {}
-    let container = Container()
-    container.register(name: 1, instance: Service())
-    
-    // When
-    let lazyResolver: LazyFullResolver<Service> = try container.resolve(name: 1)
-    let service = try? lazyResolver.resolve()
-    
-    // Then
-    XCTAssertNotNil(service)
-  }
-  
-  func test_resolve_all_sync() throws {
-    // Given
-    class Plugin {}
-    let container = Container()
-    container.register(name: UUID(), "plugin", instance: Plugin())
-    container.register(name: UUID(), "plugin", instance: Plugin())
-    
-    // When
-    let plugins: [Plugin] = try container.resolve(name: "plugin")
-    
-    // Then
-    XCTAssertEqual(plugins.count, 2)
-  }
-  
-  func test_resolve_all_async() async throws {
-    // Given
-    class Plugin {}
-    let container = Container()
-    container.register(name: UUID(), "plugin", instance: Plugin())
-    container.register(name: UUID(), "plugin", instance: Plugin())
-    
-    // When
-    let plugins = try await container.resolve([Plugin].self, name: "plugin")
-    print(plugins)
-    
-    // Then
-    XCTAssertEqual(plugins.count, 2)
   }
 }
