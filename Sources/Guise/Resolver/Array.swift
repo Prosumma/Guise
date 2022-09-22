@@ -26,7 +26,7 @@ extension Array: ResolutionAdapter {
     name: Set<AnyHashable>,
     args: A
   ) async throws -> Any {
-    let criteria = Criteria(Element.self, name: .contains(name), args: A.self)
+    let criteria = adapt(criteria: Criteria(Element.self, name: .contains(name), args: A.self), with: resolver)
     var result: [Element] = []
     for (key, _) in resolver.resolve(criteria: criteria) {
       try await result.append(resolver.resolve(Element.self, name: key.name, args: args))
