@@ -22,7 +22,7 @@
  ```
  
  - Warning: This type holds a strong reference to the arguments,
- which could cause a retain cycle in some circumstances.
+ which could cause a retain cycle in some circumstances. Use with care.
  */
 public final class LazyFullResolver<T> {
   // This is a very thunky class.
