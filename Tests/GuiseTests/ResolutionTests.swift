@@ -159,7 +159,7 @@ final class ResolutionTests: XCTestCase {
     container.register(name: UUID(), "plugin", instance: Plugin())
     
     // When
-    let plugins: [Plugin?] = try container.resolve(name: "plugin")
+    let plugins: [Plugin] = try container.resolve(name: "plugin")
     
     // Then
     XCTAssertEqual(plugins.count, 2)

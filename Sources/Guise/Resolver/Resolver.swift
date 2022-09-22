@@ -21,15 +21,6 @@ public protocol Resolver: AnyObject {
 }
 
 extension Resolver {
-  func adapt<T>(_ type: T.Type = T.self, criteria: Criteria) -> Criteria {
-    switch type {
-    case let type as ResolutionAdapter.Type:
-      return type.adapt(criteria: criteria, with: self)
-    default:
-      return criteria
-    }
-  }
-  
   func resolve(key: Key) throws -> Entry {
     let criteria = Criteria(key: key)
     let entries = resolve(criteria: criteria)

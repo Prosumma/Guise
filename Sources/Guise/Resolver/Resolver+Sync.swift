@@ -55,7 +55,7 @@ public extension Resolver {
         }
         switch type {
         case let type as ResolutionAdapter.Type:
-          return try type.resolve(with: self, name: name, args: arg1) as! T
+          return try type.resolve(name: name, args: arg1, with: self) as! T
         default:
           throw error
         }

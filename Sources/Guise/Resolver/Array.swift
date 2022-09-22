@@ -6,31 +6,49 @@
 //
 
 extension Array: ResolutionAdapter {
-  static func adapt(criteria: Criteria, with resolver: any Resolver) -> Criteria {
-    resolver.adapt(Element.self, criteria: Criteria(Element.self, name: criteria.name, args: criteria.args))
-  }
-  
   static func resolve<A>(
-    with resolver: any Resolver,
     name: Set<AnyHashable>,
-    args: A
+    args: A,
+    with resolver: Resolver
   ) throws -> Any {
-    let criteria = adapt(criteria: Criteria(Element.self, name: .contains(name), args: A.self), with: resolver)
-    return try resolver.resolve(criteria: criteria).map { (key, _) in
-      try resolver.resolve(Element.self, name: key.name, args: args)
+    var array: [Element] = []
+    let criteria = Criteria(Element.self, name: .contains(name), args: A.self)
+    for (key, _) in resolver.resolve(criteria: criteria) {
+      do {
+        try array.append(resolver.resolve(Element.self, name: key.name, args: args))
+      } catch let error as ResolutionError {
+        let criteria = Criteria(key: key)
+        guard
+          case .notFound = error.reason,
+          error.criteria == criteria
+        else {
+          throw error
+        }
+      }
     }
+    return array
   }
   
   static func resolve<A>(
-    with resolver: any Resolver,
     name: Set<AnyHashable>,
-    args: A
+    args: A,
+    with resolver: Resolver
   ) async throws -> Any {
-    let criteria = adapt(criteria: Criteria(Element.self, name: .contains(name), args: A.self), with: resolver)
-    var result: [Element] = []
+    var array: [Element] = []
+    let criteria = Criteria(Element.self, name: .contains(name), args: A.self)
     for (key, _) in resolver.resolve(criteria: criteria) {
-      try await result.append(resolver.resolve(Element.self, name: key.name, args: args))
+      do {
+        try await array.append(resolver.resolve(Element.self, name: key.name, args: args))
+      } catch let error as ResolutionError {
+        let criteria = Criteria(key: key)
+        guard
+          case .notFound = error.reason,
+          error.criteria == criteria
+        else {
+          throw error
+        }
+      }
     }
-    return result
+    return array
   }
 }

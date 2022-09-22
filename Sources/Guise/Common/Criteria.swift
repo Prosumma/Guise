@@ -6,7 +6,7 @@
 //
 
 /// A type used for querying the DI container
-public struct Criteria {
+public struct Criteria: Equatable {
   public let type: String?
   public let name: NameCriterion?
   public let args: String?
@@ -60,7 +60,7 @@ func ~= (criteria: Criteria, key: Key) -> Bool {
 }
 
 public extension Criteria {
-  struct NameCriterion {
+  struct NameCriterion: Equatable {
     public enum Comparison {
       case equals
       case contains
