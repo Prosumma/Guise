@@ -2,7 +2,6 @@
 //  Array.swift
 //  Guise
 //
-//  Created by Greg Higley on 9/21/22.
 //  Created by Greg Higley on 2022-09-21.
 //
 
