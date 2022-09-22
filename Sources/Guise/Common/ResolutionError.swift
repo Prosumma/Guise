@@ -6,6 +6,7 @@
 //
 
 public struct ResolutionError: Error {
+  // TODO: Replace this with `Key`. We don't need `Criteria` here any more.
   public let criteria: Criteria
   public let reason: Reason
   
