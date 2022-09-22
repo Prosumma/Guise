@@ -7,6 +7,33 @@
 
 import Foundation
 
+/**
+ A lazy resolver which stores a `name` for later use
+ when it is resolved.
+ 
+ To instantiate a `LazyNameResolver`, use the `Resolver`
+ itself:
+ 
+ ```swift
+ let lnr: LazyNameResolver<Service> = try resolver.resolve(name: "s")
+ ```
+ 
+ Any name passed during resolution is stored by the `LazyNameResolver`
+ to be used when resolving with it:
+ 
+ ```swift
+ let service = try lnr.resolve()
+ ```
+ 
+ This implicitly uses the name "s" when resolving.
+ 
+ Any arguments passed when constructing the `LazyNameResolver` are
+ ignored and must be passed when resolving:
+ 
+ ```
+ let service = try lnr.resolve(args: 1)
+ ```
+ */
 public final class LazyNameResolver<T> {
   private weak var resolver: (any Resolver)?
   public let name: Set<AnyHashable>

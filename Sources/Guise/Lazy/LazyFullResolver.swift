@@ -9,6 +9,18 @@
  A lazy resolver which resolves the type `T` with the
  given `name` and arguments.
  
+ To construct a `LazyFullResolver`, use the `Resolver` itself:
+ 
+ ```swift
+ let lfr: LazyFullResolver<Service> = try resolver.resolve(name: "s", args: 3)
+ ```
+ 
+ The `name` and `args` are stored for later use when resolving:
+ 
+ ```
+ let service = try lfr.resolve()
+ ```
+ 
  - Warning: This type holds a strong reference to the arguments,
  which could cause a retain cycle in some circumstances.
  */

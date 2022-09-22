@@ -8,6 +8,19 @@
 /**
  A lazy resolver which resolves instances of the type `T`.
  Name and arguments must be specified when resolving.
+ 
+ To instantiate a `LazyResolver`, use the `Resolver` itself:
+ 
+ ```swift
+ let lr: LazyResolver<Service> = try resolver.resolve()
+ ```
+ 
+ Any `name` or arguments passed when instantiating a `LazyResolver`
+ are ignored. These must be supplied when using the lazy resolver:
+ 
+ ```swift
+ let service = try lr.resolve(name: "s", args: 2)
+ ```
  */
 public final class LazyResolver<T> {
   weak var resolver: (any Resolver)?
