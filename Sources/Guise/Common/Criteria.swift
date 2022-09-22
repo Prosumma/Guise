@@ -10,16 +10,6 @@ public struct Criteria: Equatable {
   public let type: String?
   public let name: NameCriterion?
   public let args: String?
- 
-  public init<T>(
-    _ type: T.Type,
-    name: NameCriterion?,
-    args: String?
-  ) {
-    self.type = String(reflecting: type)
-    self.name = name
-    self.args = args
-  }
   
   public init<T, A>(
     _ type: T.Type,

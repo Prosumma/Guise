@@ -14,7 +14,7 @@ public struct Key: Equatable, Hashable {
   public init<T, A>(
     _ type: T.Type,
     name: Set<AnyHashable>,
-    args: A.Type
+    args: A.Type = Void.self
   ) {
     self.type = String(reflecting: type)
     self.name = name
@@ -24,7 +24,7 @@ public struct Key: Equatable, Hashable {
   public init<T, A>(
     _ type: T.Type,
     name: AnyHashable...,
-    args: A.Type
+    args: A.Type = Void.self
   ) {
     self.type = String(reflecting: type)
     self.name = Set(name)
