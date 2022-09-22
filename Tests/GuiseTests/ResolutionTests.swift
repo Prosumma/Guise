@@ -109,6 +109,49 @@ final class ResolutionTests: XCTestCase {
     XCTAssertNotNil(service)
   }
   
+  func test_resolve_missing_optional() throws {
+    // Given
+    class Service {}
+    var service: Service?
+    let container = Container()
+    
+    // When
+    service = try container.resolve()
+    
+    // Then
+    XCTAssertNil(service)
+  }
+  
+  func test_resolve_missing_suboptional() throws {
+    // Given
+    class Subservice {}
+    class Service {
+      init(subservice: Subservice) {}
+    }
+    let container = Container()
+    container.register(factory: auto(Service.init))
+    var service: Service?
+    
+    // When
+    do {
+      service = try container.resolve()
+      XCTFail("Expected to throw a ResolutionError")
+    } catch let error as ResolutionError {
+      let key = Key(Subservice.self, name: [], args: Void.self)
+      let criteria = Criteria(key: key)
+      guard
+        case .error(let suberror as ResolutionError) = error.reason,
+        suberror.criteria == criteria,
+        case .notFound = suberror.reason
+      else {
+        throw error
+      }
+    }
+    
+    // Then
+    XCTAssertNil(service)
+  }
+  
   func test_resolve_lazy() throws {
     // Given
     class Service {}

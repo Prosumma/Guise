@@ -21,13 +21,13 @@ public final class LazyFullResolver<T> {
   init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A) {
     let key = Key(T.self, name: name, args: A.self)
     self.syncResolve = { [weak resolver] in
-      guard let resolver = resolver else {
+      guard let resolver else {
         throw ResolutionError(key: key, reason: .noResolver)
       }
       return try resolver.resolve(name: name, args: args)
     }
     self.asyncResolve = { [weak resolver] in
-      guard let resolver = resolver else {
+      guard let resolver else {
         throw ResolutionError(key: key, reason: .noResolver)
       }
       return try await resolver.resolve(name: name, args: args)
