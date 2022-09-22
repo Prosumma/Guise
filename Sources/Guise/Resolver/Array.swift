@@ -5,6 +5,10 @@
 //  Created by Greg Higley on 2022-09-21.
 //
 
+public struct ArrayResolutionConfig {
+  static var throwResolutionErrorWhenNotFound = false
+}
+
 extension Array: ResolutionAdapter {
   static func resolve<A>(
     name: Set<AnyHashable>,
@@ -18,6 +22,7 @@ extension Array: ResolutionAdapter {
         try array.append(resolver.resolve(Element.self, name: key.name, args: args))
       } catch let error as ResolutionError {
         guard
+          !ArrayResolutionConfig.throwResolutionErrorWhenNotFound,
           case .notFound = error.reason,
           error.key == key
         else {

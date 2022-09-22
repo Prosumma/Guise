@@ -5,6 +5,10 @@
 //  Created by Greg Higley on 2022-09-21.
 //
 
+public struct OptionalResolutionConfig {
+  static var throwResolutionErrorWhenNotFound = false
+}
+
 extension Optional: ResolutionAdapter {
   static func resolve<A>(
     name: Set<AnyHashable>,
@@ -17,6 +21,7 @@ extension Optional: ResolutionAdapter {
     } catch let error as ResolutionError {
       let key = Key(Wrapped.self, name: name, args: A.self)
       guard
+        !OptionalResolutionConfig.throwResolutionErrorWhenNotFound,
         case .notFound = error.reason,
         error.key == key
       else {
@@ -38,6 +43,7 @@ extension Optional: ResolutionAdapter {
     } catch let error as ResolutionError {
       let key = Key(Wrapped.self, name: name, args: A.self)
       guard
+        !OptionalResolutionConfig.throwResolutionErrorWhenNotFound,
         case .notFound = error.reason,
         error.key == key
       else {
