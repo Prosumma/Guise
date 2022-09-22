@@ -8,6 +8,6 @@
 import Foundation
 
 protocol LazyResolving {
-  init(_ resolver: any Resolver, name: Set<AnyHashable>)
+  init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A)
 }
 

@@ -5,10 +5,14 @@
 //  Created by Gregory Higley on 2022-09-21.
 //
 
+/**
+ A lazy resolver which resolves instances of the type `T`.
+ Name and arguments must be specified when resolving.
+ */
 public final class LazyResolver<T> {
-  private weak var resolver: (any Resolver)?
+  weak var resolver: (any Resolver)?
   
-  init(_ resolver: any Resolver, name: Set<AnyHashable>) {
+  init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A) {
     self.resolver = resolver
   }
   

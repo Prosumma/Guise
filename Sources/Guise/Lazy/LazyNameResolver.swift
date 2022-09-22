@@ -11,7 +11,7 @@ public final class LazyNameResolver<T> {
   private weak var resolver: (any Resolver)?
   public let name: Set<AnyHashable>
   
-  init(_ resolver: any Resolver, name: Set<AnyHashable>) {
+  init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A) {
     self.resolver = resolver
     self.name = name
   }

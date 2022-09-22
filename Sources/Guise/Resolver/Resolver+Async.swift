@@ -43,13 +43,23 @@ public extension Resolver {
   ) async throws -> T {
     switch type {
     case let type as LazyResolving.Type:
-      return type.init(self, name: name) as! T
-    case let type as OptionalResolving.Type:
-      return try await type.resolve(with: self, name: name, args: arg1) as! T
+      return type.init(self, name: name, args: arg1) as! T
     default:
-      let key = Key(type, name: name, args: A.self)
-      let entry = try resolve(key: key)
-      return try await resolve(entry: entry, args: arg1, forKey: key)
+      do {
+        let key = Key(type, name: name, args: A.self)
+        let entry = try resolve(key: key)
+        return try await resolve(entry: entry, args: arg1, forKey: key)
+      } catch let error as ResolutionError {
+        guard case .notFound = error.reason else {
+          throw error
+        }
+        switch type {
+        case let type as ResolutionAdapter.Type:
+          return try await type.resolve(with: self, name: name, args: arg1) as! T
+        default:
+          throw error
+        }
+      }
     }
   }
   

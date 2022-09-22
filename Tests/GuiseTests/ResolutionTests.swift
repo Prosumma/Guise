@@ -119,6 +119,35 @@ final class ResolutionTests: XCTestCase {
     let lazyResolver = try container.resolve(LazyResolver<Service>.self)
     let service = try? lazyResolver.resolve()
     
+    // Then
+    XCTAssertNotNil(service)
+  }
+  
+  func test_resolve_lazy_name() throws {
+    // Given
+    class Service {}
+    let container = Container()
+    container.register(name: 1, instance: Service())
+    
+    // When
+    let lazyResolver: LazyNameResolver<Service> = try container.resolve(name: 1)
+    let service = try? lazyResolver.resolve()
+    
+    // Then
+    XCTAssertNotNil(service)
+  }
+  
+  func test_resolve_lazy_full() throws {
+    // Given
+    class Service {}
+    let container = Container()
+    container.register(name: 1, instance: Service())
+    
+    // When
+    let lazyResolver: LazyFullResolver<Service> = try container.resolve(name: 1)
+    let service = try? lazyResolver.resolve()
+    
+    // Then
     XCTAssertNotNil(service)
   }
   
@@ -130,7 +159,7 @@ final class ResolutionTests: XCTestCase {
     container.register(name: UUID(), "plugin", instance: Plugin())
     
     // When
-    let plugins = try container.resolve(all: Plugin.self, name: .contains("plugin"))
+    let plugins: [Plugin?] = try container.resolve(name: "plugin")
     
     // Then
     XCTAssertEqual(plugins.count, 2)
@@ -144,7 +173,8 @@ final class ResolutionTests: XCTestCase {
     container.register(name: UUID(), "plugin", instance: Plugin())
     
     // When
-    let plugins = try await container.resolve(all: Plugin.self, name: .contains("plugin"))
+    let plugins = try await container.resolve([Plugin].self, name: "plugin")
+    print(plugins)
     
     // Then
     XCTAssertEqual(plugins.count, 2)
