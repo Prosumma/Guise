@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: When allowSynchronousResolutionOfAsyncEntries is enabled, there's a possible race condition because of the use of two different locks.
+
 public class Entry {
   /**
    Allows for the synchronous resolution of `async` entries
