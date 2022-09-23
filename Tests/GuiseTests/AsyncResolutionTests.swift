@@ -158,6 +158,7 @@ final class AsyncResolutionTests: XCTestCase {
     Entry.singletonTestDelay = 100_000
     let singletons = try await [singleton1, singleton2]
    
+    XCTAssertEqual(Entry.singletonTestDelay, 100_000)
     XCTAssert(singletons[0] === singletons[1])
   }
   

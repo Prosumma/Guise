@@ -181,8 +181,9 @@ final class SyncResolutionTests: XCTestCase {
     semaphore.wait()
     
     // Then
+    XCTAssertEqual(Entry.singletonTestDelay, 100_000)
     XCTAssertNotNil(singleton1)
-    XCTAssertNotNil(singleton2)
+    print("\(Unmanaged.passUnretained(singleton1!).toOpaque()) \(Unmanaged.passUnretained(singleton2!).toOpaque())")
     XCTAssert(singleton1 === singleton2)
   }
   

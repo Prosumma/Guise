@@ -30,8 +30,8 @@ public class Entry {
   /// Used by the unit tests. If this is set, `Entry` throws this error when resolving.
   static var testResolutionError: Error? = nil
   
-  private lazy var lock = DispatchQueue(label: "Guise Entry")
-  private lazy var asyncLock = AsyncLock()
+  private let lock = DispatchQueue(label: "Guise Entry")
+  private let asyncLock = AsyncLock()
   private let factory: Factory
   private let lifetime: Lifetime
   private var resolution: Resolution = .factory
