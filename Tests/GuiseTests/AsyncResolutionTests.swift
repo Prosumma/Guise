@@ -14,6 +14,7 @@ final class AsyncResolutionTests: XCTestCase {
   override func setUp() {
     super.setUp()
     container = Container()
+    prepareForGuiseTests()
   }
   
   func test_0_args() async throws {
@@ -144,6 +145,43 @@ final class AsyncResolutionTests: XCTestCase {
     
     // Then
     XCTAssertEqual(args, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+  }
+  
+  func test_singleton() async throws {
+    // Given
+    class Singleton {}
+    container.register(lifetime: .singleton, instance: Singleton())
+    
+    async let singleton1 = container.resolve(Singleton.self)
+    async let singleton2 = container.resolve(Singleton.self)
+    
+    Entry.singletonTestDelay = 100_000
+    let singletons = try await [singleton1, singleton2]
+   
+    XCTAssert(singletons[0] === singletons[1])
+  }
+  
+  func test_random_error() async throws {
+    // Given
+    struct RandomError: Error {}
+    Entry.testResolutionError = RandomError()
+    container.register { _ async in
+      "never"
+    }
+    
+    // When
+    do {
+      _ = try await container.resolve(String.self)
+      XCTFail("Expected to throw an error")
+    } catch let error as ResolutionError {
+      let key = Key(String.self)
+      guard
+        error.key == key,
+        case .error(_ as RandomError) = error.reason
+      else {
+        throw error
+      }
+    }
   }
 }
 

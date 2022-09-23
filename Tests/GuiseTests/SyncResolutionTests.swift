@@ -14,6 +14,7 @@ final class SyncResolutionTests: XCTestCase {
   override func setUp() {
     super.setUp()
     container = Container()
+    prepareForGuiseTests()
   }
   
   func test_0_args() throws {
@@ -155,6 +156,92 @@ final class SyncResolutionTests: XCTestCase {
     
     // Then
     XCTAssertEqual(args, [9, 8, 7])
+  }
+  
+  func test_singleton() throws {
+    // Given
+    class Singleton {}
+    container.register(lifetime: .singleton, instance: Singleton())
+    let semaphore = DispatchSemaphore(value: 0)
+    var singleton1: Singleton?
+    var singleton2: Singleton?
+    
+    // When
+    Entry.singletonTestDelay = 100_000
+    Thread {
+      singleton1 = try? self.container.resolve()
+      semaphore.signal()
+    }.start()
+    Thread {
+      singleton2 = try? self.container.resolve()
+      semaphore.signal()
+    }.start()
+    
+    semaphore.wait()
+    semaphore.wait()
+    
+    // Then
+    XCTAssertNotNil(singleton1)
+    XCTAssertNotNil(singleton2)
+    XCTAssert(singleton1 === singleton2)
+  }
+  
+  func test_resolve_async_fail() throws {
+    // Given
+    container.register { _ async in
+      "async"
+    }
+    
+    // When
+    do {
+      _ = try container.resolve(String.self)
+      XCTFail("Expected to throw .requiresAsync")
+    } catch let error as ResolutionError {
+      let key = Key(String.self)
+      guard
+        case .requiresAsync = error.reason,
+        error.key == key
+      else {
+        throw error
+      }
+    }
+  }
+  
+  func test_resolve_async() throws {
+    // Given
+    Entry.allowSynchronousResolutionOfAsyncEntries = true
+    container.register { _ async in
+      "async"
+    }
+    
+    // When
+    let s: String = try container.resolve()
+    
+    // Then
+    XCTAssertEqual(s, "async")
+  }
+  
+  func test_random_error() throws {
+    // Given
+    struct RandomError: Error {}
+    Entry.testResolutionError = RandomError()
+    container.register { _ in
+      "never"
+    }
+    
+    // When
+    do {
+      _ = try container.resolve(String.self)
+      XCTFail("Expected to throw an error")
+    } catch let error as ResolutionError {
+      let key = Key(String.self)
+      guard
+        error.key == key,
+        case .error(_ as RandomError) = error.reason
+      else {
+        throw error
+      }
+    }
   }
 }
 

@@ -24,6 +24,12 @@ public class Entry {
    */
   public static var allowSynchronousResolutionOfAsyncEntries = false
   
+  /// Used by the unit tests. Expressed in nanoseconds.
+  static var singletonTestDelay: UInt64 = 0
+  
+  /// Used by the unit tests. If this is set, `Entry` throws this error when resolving.
+  static var testResolutionError: Error? = nil
+  
   private lazy var lock = DispatchQueue(label: "Guise Entry")
   private lazy var asyncLock = AsyncLock()
   private let factory: Factory
@@ -51,6 +57,7 @@ public class Entry {
   }
   
   func resolve(_ resolver: any Resolver, _ argument: Any) throws -> Any {
+    try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
     case .instance(let instance):
       return instance
@@ -60,6 +67,8 @@ public class Entry {
         return try factory(resolver, argument)
       case .singleton:
         return try lock.sync {
+          let sleep = TimeInterval(Entry.singletonTestDelay) / .nanosecondsPerSecond
+          Thread.sleep(forTimeInterval: sleep)
           switch resolution {
           case .instance(let instance):
             return instance
@@ -74,6 +83,7 @@ public class Entry {
   }
   
   func resolve(_ resolver: any Resolver, _ argument: Any) async throws -> Any {
+    try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
     case .instance(let instance):
       return instance
@@ -83,6 +93,7 @@ public class Entry {
         return try await factory(resolver, argument)
       case .singleton:
         return try await asyncLock.lock {
+          try await Task.sleep(nanoseconds: Entry.singletonTestDelay)
           switch resolution {
           case .instance(let instance):
             return instance
@@ -143,4 +154,8 @@ private extension Entry {
     case instance(Any)
     case factory
   }
+}
+
+extension TimeInterval {
+  static let nanosecondsPerSecond: TimeInterval = 1_000_000
 }

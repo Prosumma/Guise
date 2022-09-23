@@ -22,7 +22,11 @@ extension Resolver {
     } catch let reason as ResolutionError.Reason {
       throw ResolutionError(key: key, reason: reason)
     } catch let error as ResolutionError {
-      throw error
+      if error.key == key {
+        throw error
+      } else {
+        throw ResolutionError(key: key, reason: .error(error))
+      }
     } catch {
       throw ResolutionError(key: key, reason: .error(error))
     }
