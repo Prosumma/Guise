@@ -109,7 +109,7 @@ public class Entry {
     argument: Any
   ) throws -> Any {
     try lock.sync {
-      Thread.sleep(forTimeInterval: TimeInterval(Entry.singletonTestDelay) / 1_000_000)
+      Thread.sleep(forTimeInterval: TimeInterval(Entry.singletonTestDelay) / .nanosecondsPerSecond)
       switch resolution {
       case .instance(let instance):
         return instance

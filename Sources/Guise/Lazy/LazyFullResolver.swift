@@ -36,13 +36,13 @@ public final class LazyFullResolver<T> {
       guard let resolver else {
         throw ResolutionError(key: key, reason: .noResolver)
       }
-      return try resolver.resolve(name: name, args: args)
+      return try resolver.resolve(T.self, name: name, args: args)
     }
     self.asyncResolve = { [weak resolver] in
       guard let resolver else {
         throw ResolutionError(key: key, reason: .noResolver)
       }
-      return try await resolver.resolve(name: name, args: args)
+      return try await resolver.resolve(T.self, name: name, args: args)
     }
   }
 
