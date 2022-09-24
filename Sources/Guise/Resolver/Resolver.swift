@@ -14,7 +14,7 @@ public protocol Resolver: AnyObject {
    first step in resolving is to perform this lookup.
  
    - Note: Although this method is public, calling it will do you no good,
-   since the all properties and methods of the `Entry` type are
+   since all the properties and methods of the `Entry` type are
    private or internal.
    */
   func resolve(criteria: Criteria) -> [Key: Entry]
