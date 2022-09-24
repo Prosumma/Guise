@@ -9,9 +9,9 @@ import Atomics
 
 class AsyncLock {
   static let sleepNanoseconds: UInt64 = 1_000
-  
+
   let locked = ManagedAtomic(false)
-  
+
   @discardableResult
   func lock<T>(_ closure: () async throws -> T) async throws -> T {
     defer { locked.store(false, ordering: .sequentiallyConsistent) }

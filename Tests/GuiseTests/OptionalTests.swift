@@ -10,30 +10,30 @@ import XCTest
 
 final class OptionalTests: XCTestCase {
   var container: Container!
-  
+
   override func setUp() {
     super.setUp()
     container = Container()
     prepareForGuiseTests()
   }
-  
+
   func test_resolve_sync() throws {
     // Given
     container.register(instance: Service())
     var service: Service?
-    
+
     // When
     service = try container.resolve()
-    
+
     // Then
     XCTAssertNotNil(service)
   }
-  
+
   func test_throw_whenNotFound_sync() throws {
     // Given
     OptionalResolutionConfig.throwResolutionErrorWhenNotFound = true
     var service: Service?
-    
+
     // When
     do {
       service = try container.resolve()
@@ -47,7 +47,7 @@ final class OptionalTests: XCTestCase {
         throw error
       }
     }
-    
+
     // Then
     XCTAssertNil(service)
   }

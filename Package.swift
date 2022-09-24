@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .library(
             name: "Guise",
-            targets: ["Guise"]),
+            targets: ["Guise"])
     ],
     dependencies: [
       .package(url: "https://github.com/apple/swift-atomics", from: "1.0.0"),
@@ -24,6 +24,6 @@ let package = Package(
             ]),
         .testTarget(
             name: "GuiseTests",
-            dependencies: ["Guise"]),
+            dependencies: ["Guise"])
     ]
 )

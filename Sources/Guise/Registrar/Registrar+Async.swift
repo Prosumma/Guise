@@ -9,7 +9,7 @@ import Foundation
 
 public extension Registrar {
   typealias AsyncFactory<T, A> = (any Resolver, A) async throws -> T
-  
+
   /**
    The root registration method. All roads lead here.
    
@@ -28,7 +28,7 @@ public extension Registrar {
     register(key: key, entry: entry)
     return key
   }
-  
+
   @discardableResult
   func register<T>(
     _ type: T.Type = T.self,
@@ -41,7 +41,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A>(
     _ type: T.Type = T.self,
@@ -51,7 +51,7 @@ public extension Registrar {
   ) -> Key {
     register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2>(
     _ type: T.Type = T.self,
@@ -64,7 +64,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2, A3>(
     _ type: T.Type = T.self,
@@ -77,7 +77,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2, A3, A4>(
     _ type: T.Type = T.self,
@@ -90,7 +90,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2, A3, A4, A5>(
     _ type: T.Type = T.self,
@@ -103,7 +103,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2, A3, A4, A5, A6>(
     _ type: T.Type = T.self,
@@ -116,7 +116,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2, A3, A4, A5, A6, A7>(
     _ type: T.Type = T.self,
@@ -129,7 +129,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2, A3, A4, A5, A6, A7, A8>(
     _ type: T.Type = T.self,
@@ -142,7 +142,7 @@ public extension Registrar {
     }
     return register(type, name: Set(name), lifetime: lifetime, factory: factory)
   }
-  
+
   @discardableResult
   func register<T, A1, A2, A3, A4, A5, A6, A7, A8, A9>(
     _ type: T.Type = T.self,

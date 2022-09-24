@@ -31,7 +31,7 @@ extension Optional: ResolutionAdapter {
     }
     return (wrapped as Any)
   }
-  
+
   static func resolve<A>(
     name: Set<AnyHashable>,
     args: A,

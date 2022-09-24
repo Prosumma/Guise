@@ -26,10 +26,10 @@
  */
 public final class LazyFullResolver<T> {
   // This is a very thunky class.
-  
+
   private let syncResolve: () throws -> T
   private let asyncResolve: () async throws -> T
-  
+
   init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A) {
     let key = Key(T.self, name: name, args: A.self)
     self.syncResolve = { [weak resolver] in
@@ -45,11 +45,11 @@ public final class LazyFullResolver<T> {
       return try await resolver.resolve(name: name, args: args)
     }
   }
-  
+
   public func resolve() throws -> T {
     try syncResolve()
   }
-  
+
   public func resolve() async throws -> T {
     try await asyncResolve()
   }

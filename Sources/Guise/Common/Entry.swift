@@ -7,6 +7,7 @@
 
 import Foundation
 
+// swiftlint:disable:next line_length
 // TODO: When allowSynchronousResolutionOfAsyncEntries is enabled, there's a possible race condition because of the use of two different locks.
 
 public class Entry {
@@ -25,19 +26,19 @@ public class Entry {
    of entries occurs.
    */
   public static var allowSynchronousResolutionOfAsyncEntries = false
-  
+
   /// Used by the unit tests. Expressed in nanoseconds.
   static var singletonTestDelay: UInt64 = 0
-  
+
   /// Used by the unit tests. If this is set, `Entry` throws this error when resolving.
-  static var testResolutionError: Error? = nil
-  
+  static var testResolutionError: Error?
+
   private let lock = DispatchQueue(label: "Guise Entry")
   private let asyncLock = AsyncLock()
   private let factory: Factory
   private let lifetime: Lifetime
   private var resolution: Resolution = .factory
- 
+
   init<T, A>(
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) throws -> T
@@ -47,7 +48,7 @@ public class Entry {
       try factory(resolver, arg as! A)
     }
   }
-  
+
   init<T, A>(
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) async throws -> T
@@ -57,7 +58,7 @@ public class Entry {
       try await factory(resolver, arg as! A)
     }
   }
-  
+
   func resolve(_ resolver: any Resolver, _ argument: Any) throws -> Any {
     try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
@@ -83,7 +84,7 @@ public class Entry {
       }
     }
   }
-  
+
   func resolve(_ resolver: any Resolver, _ argument: Any) async throws -> Any {
     try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
@@ -114,7 +115,7 @@ private extension Entry {
   enum Factory {
     case sync((any Resolver, Any) throws -> Any)
     case `async`((any Resolver, Any) async throws -> Any)
-    
+
     func callAsFunction(_ resolver: any Resolver, _ arg: Any) throws -> Any {
       switch self {
       case .sync(let factory):
@@ -137,7 +138,7 @@ private extension Entry {
         }
       }
     }
-  
+
     func callAsFunction(_ resolver: any Resolver, _ arg: Any) async throws -> Any {
       do {
         switch self {
@@ -151,7 +152,7 @@ private extension Entry {
       }
     }
   }
-  
+
   enum Resolution {
     case instance(Any)
     case factory

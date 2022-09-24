@@ -10,4 +10,3 @@ import Foundation
 protocol LazyResolving {
   init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A)
 }
-

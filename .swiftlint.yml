@@ -1,0 +1,8 @@
+disabled_rules:
+  - identifier_name
+  - function_parameter_count
+  - force_cast
+  - nesting
+  - todo
+excluded:
+  - .build

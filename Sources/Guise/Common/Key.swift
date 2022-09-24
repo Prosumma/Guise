@@ -10,7 +10,7 @@ public struct Key: Equatable, Hashable {
   public let type: String
   public let args: String
   public let name: Set<AnyHashable>
-  
+
   public init<T, A>(
     _ type: T.Type,
     name: Set<AnyHashable>,
@@ -20,7 +20,7 @@ public struct Key: Equatable, Hashable {
     self.name = name
     self.args = String(reflecting: args)
   }
-  
+
   public init<T, A>(
     _ type: T.Type,
     name: AnyHashable...,

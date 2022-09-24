@@ -10,7 +10,7 @@ public struct Criteria: Equatable {
   public let type: String?
   public let name: NameCriterion?
   public let args: String?
-  
+
   public init<T, A>(
     _ type: T.Type,
     name: NameCriterion?,
@@ -20,7 +20,7 @@ public struct Criteria: Equatable {
     self.name = name
     self.args = String(reflecting: args)
   }
-  
+
   public init<T>(
     _ type: T.Type,
     name: NameCriterion? = nil
@@ -29,13 +29,13 @@ public struct Criteria: Equatable {
     self.name = name
     args = nil
   }
-  
+
   public init(name: NameCriterion? = nil) {
     self.type = nil
     self.name = name
     self.args = nil
   }
-  
+
   public init(key: Key) {
     self.type = key.type
     self.name = .equals(key.name)
@@ -55,31 +55,31 @@ public extension Criteria {
       case equals
       case contains
     }
-    
+
     public let name: Set<AnyHashable>
     public let comparison: Comparison
-    
+
     public init(name: Set<AnyHashable>, comparison: Comparison = .equals) {
       self.name = name
       self.comparison = comparison
     }
-    
+
     static func equals(_ name: Set<AnyHashable>) -> NameCriterion {
       .init(name: name)
     }
-    
+
     static func equals(_ name: AnyHashable...) -> NameCriterion {
       .equals(Set(name))
     }
-    
+
     static func contains(_ name: Set<AnyHashable>) -> NameCriterion {
       .init(name: name, comparison: .contains)
     }
-    
+
     static func contains(_ name: AnyHashable...) -> NameCriterion {
       .contains(Set(name))
     }
-   
+
     static func ~= (criterion: NameCriterion, name: Set<AnyHashable>) -> Bool {
       switch criterion.comparison {
       case .equals:

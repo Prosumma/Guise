@@ -32,7 +32,7 @@ extension Array: ResolutionAdapter {
     }
     return array
   }
-  
+
   static func resolve<A>(
     name: Set<AnyHashable>,
     args: A,
