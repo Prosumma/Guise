@@ -8,12 +8,12 @@
 import Foundation
 
 public protocol Assembler {
-  func assemble()
+  func assemble() throws
 }
 
 public extension Assembler where Self: Registrar {
-  func assemble(_ assembly: some Assembly) {
+  func assemble(_ assembly: some Assembly) throws {
     register(assembly: assembly)
-    assemble()
+    try assemble()
   }
 }

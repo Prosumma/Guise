@@ -9,16 +9,16 @@ import Foundation
 import OrderedCollections
 
 public class Container {
-  private let entryLock = DispatchQueue(label: "Guise Container Entry Lock", attributes: .concurrent)
+  private let lock = DispatchQueue(label: "Guise Container Entry Lock", attributes: .concurrent)
   private var entries: [Key: Entry] = [:]
 
-  private lazy var assemblyLock = DispatchQueue(label: "Guise Assembly Entry Lock")
+  private let assemblyLock = DispatchQueue(label: "Guise Assembly Entry Lock")
   private var assemblies: OrderedDictionary<String, Assembly> = [:]
 }
 
 extension Container: Resolver {
   public func resolve(criteria: Criteria) -> [Key: Entry] {
-    entryLock.sync {
+    lock.sync {
       entries.filter { criteria ~= $0.key }
     }
   }
@@ -26,13 +26,13 @@ extension Container: Resolver {
 
 extension Container: Registrar {
   public func register(key: Key, entry: Entry) {
-    entryLock.sync(flags: .barrier) {
+    lock.sync(flags: .barrier) {
       entries[key] = entry
     }
   }
 
   public func unregister(keys: Set<Key>) {
-    entryLock.sync(flags: .barrier) {
+    lock.sync(flags: .barrier) {
       entries = entries.filter { !keys.contains($0.key) }
     }
   }
@@ -48,14 +48,14 @@ extension Container: Registrar {
 }
 
 extension Container: Assembler {
-  public func assemble() {
+  public func assemble() throws {
     for assembly in assemblies.values {
       assembly.register(in: self)
     }
-    for assembly in assemblies.values {
-      assembly.registered(to: self)
-    }
-    assemblyLock.sync {
+    try assemblyLock.sync {
+      for assembly in assemblies.values {
+        try assembly.registered(to: self)
+      }
       assemblies = [:]
     }
   }

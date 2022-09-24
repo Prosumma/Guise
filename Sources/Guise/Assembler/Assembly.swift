@@ -7,9 +7,9 @@
 
 public protocol Assembly {
   func register(in registrar: Registrar)
-  func registered(to resolver: Resolver)
+  func registered(to resolver: Resolver) throws
 }
 
 public extension Assembly {
-  func registered(to resolver: Resolver) {}
+  func registered(to resolver: Resolver) throws {}
 }

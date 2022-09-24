@@ -18,17 +18,11 @@ extension Array: ResolutionAdapter {
     var array: [Element] = []
     let criteria = Criteria(Element.self, name: .contains(name), args: A.self)
     for (key, _) in resolver.resolve(criteria: criteria) {
-      do {
-        try array.append(resolver.resolve(Element.self, name: key.name, args: args))
-      } catch let error as ResolutionError {
-        guard
-          !ArrayResolutionConfig.throwResolutionErrorWhenNotFound,
-          case .notFound = error.reason,
-          error.key == key
-        else {
-          throw error
-        }
-      }
+      try array.append(resolver.resolve(Element.self, name: key.name, args: args))
+    }
+    if ArrayResolutionConfig.throwResolutionErrorWhenNotFound && array.isEmpty {
+      let key = Key([Element].self, name: name, args: A.self)
+      throw ResolutionError(key: key, reason: .notFound)
     }
     return array
   }
@@ -41,16 +35,11 @@ extension Array: ResolutionAdapter {
     var array: [Element] = []
     let criteria = Criteria(Element.self, name: .contains(name), args: A.self)
     for (key, _) in resolver.resolve(criteria: criteria) {
-      do {
-        try await array.append(resolver.resolve(Element.self, name: key.name, args: args))
-      } catch let error as ResolutionError {
-        guard
-          case .notFound = error.reason,
-          error.key == key
-        else {
-          throw error
-        }
-      }
+      try await array.append(resolver.resolve(Element.self, name: key.name, args: args))
+    }
+    if ArrayResolutionConfig.throwResolutionErrorWhenNotFound && array.isEmpty {
+      let key = Key([Element].self, name: name, args: A.self)
+      throw ResolutionError(key: key, reason: .notFound)
     }
     return array
   }

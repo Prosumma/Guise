@@ -49,12 +49,15 @@ public extension Resolver {
     case let type as LazyResolving.Type:
       return type.init(self, name: name, args: arg1) as! T
     default:
+      let key = Key(type, name: name, args: A.self)
       do {
-        let key = Key(type, name: name, args: A.self)
         let entry = try resolve(key: key)
         return try resolve(entry: entry, args: arg1, forKey: key)
       } catch let error as ResolutionError {
-        guard case .notFound = error.reason else {
+        guard
+          error.key == key,
+          case .notFound = error.reason
+        else {
           throw error
         }
         switch type {
