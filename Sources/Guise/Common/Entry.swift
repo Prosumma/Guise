@@ -7,9 +7,6 @@
 
 import Foundation
 
-// swiftlint:disable:next line_length
-// TODO: When allowSynchronousResolutionOfAsyncEntries is enabled, there's a possible race condition because of the use of two different locks.
-
 public class Entry {
   /**
    Allows for the synchronous resolution of `async` entries
@@ -33,7 +30,7 @@ public class Entry {
   /// Used by the unit tests. If this is set, `Entry` throws this error when resolving.
   static var testResolutionError: Error?
 
-  private let lock = DispatchQueue(label: "Guise Entry")
+  private let lock: DispatchQueue
   private let asyncLock = AsyncLock()
   private let factory: Factory
   private let lifetime: Lifetime
@@ -43,6 +40,7 @@ public class Entry {
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) throws -> T
   ) {
+    self.lock = DispatchQueue(label: "Guise Entry Lock")
     self.lifetime = lifetime
     self.factory = .sync { resolver, arg in
       try factory(resolver, arg as! A)
@@ -53,6 +51,7 @@ public class Entry {
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) async throws -> T
   ) {
+    self.lock = DispatchQueue(label: "Guise Entry Lock")
     self.lifetime = lifetime
     self.factory = .async { resolver, arg in
       try await factory(resolver, arg as! A)
@@ -67,18 +66,17 @@ public class Entry {
     case .factory:
       switch lifetime {
       case .transient:
-        return try factory(resolver, argument)
+        return try run(factory: factory, with: resolver, argument: argument)
       case .singleton:
-        return try lock.sync {
-          let sleep = TimeInterval(Entry.singletonTestDelay) / .nanosecondsPerSecond
-          Thread.sleep(forTimeInterval: sleep)
-          switch resolution {
-          case .instance(let instance):
-            return instance
-          case .factory:
-            let instance = try factory(resolver, argument)
-            self.resolution = .instance(instance)
-            return instance
+        switch factory {
+        case .sync(let factory):
+          return try resolveSingleton(factory: factory, with: resolver, argument: argument)
+        case .async(let factory):
+          guard Entry.allowSynchronousResolutionOfAsyncEntries else {
+            throw ResolutionError.Reason.requiresAsync
+          }
+          return try runBlocking {
+            try await self.resolveSingleton(factory: factory, with: resolver, argument: argument)
           }
         }
       }
@@ -93,20 +91,118 @@ public class Entry {
     case .factory:
       switch lifetime {
       case .transient:
-        return try await factory(resolver, argument)
+        return try await run(factory: factory, with: resolver, argument: argument)
       case .singleton:
-        return try await asyncLock.lock {
-          try await Task.sleep(nanoseconds: Entry.singletonTestDelay)
-          switch resolution {
-          case .instance(let instance):
-            return instance
-          case .factory:
-            let instance = try await factory(resolver, argument)
-            self.resolution = .instance(instance)
-            return instance
-          }
+        switch factory {
+        case .async(let factory):
+          return try await resolveSingleton(factory: factory, with: resolver, argument: argument)
+        case .sync(let factory):
+          return try resolveSingleton(factory: factory, with: resolver, argument: argument)
         }
       }
+    }
+  }
+  
+  private func resolveSingleton(
+    factory: (any Resolver, Any) throws -> Any,
+    with resolver: any Resolver,
+    argument: Any
+  ) throws -> Any {
+    try lock.sync {
+      Thread.sleep(forTimeInterval: TimeInterval(Entry.singletonTestDelay) / 1_000_000)
+      switch resolution {
+      case .instance(let instance):
+        return instance
+      case .factory:
+        let instance = try run(factory: factory, with: resolver, argument: argument)
+        self.resolution = .instance(instance)
+        return instance
+      }
+    }
+  }
+  
+  private func resolveSingleton(
+    factory: (any Resolver, Any) async throws -> Any,
+    with resolver: any Resolver,
+    argument: Any
+  ) async throws -> Any {
+    try await asyncLock.lock {
+      try await Task.sleep(nanoseconds: Entry.singletonTestDelay)
+      switch resolution {
+      case .instance(let instance):
+        return instance
+      case .factory:
+        let instance = try await run(factory: factory, with: resolver, argument: argument)
+        self.resolution = .instance(instance)
+        return instance
+      }
+    }
+  }
+  
+  private func run(
+    factory: (any Resolver, Any) throws -> Any,
+    with resolver: Resolver,
+    argument: Any
+  ) throws -> Any {
+    do {
+      return try factory(resolver, argument)
+    } catch {
+      throw ResolutionError.Reason.error(error)
+    }
+  }
+  
+  private func run(
+    factory: (any Resolver, Any) async throws -> Any,
+    with resolver: Resolver,
+    argument: Any
+  ) async throws -> Any {
+    do {
+      return try await factory(resolver, argument)
+    } catch {
+      throw ResolutionError.Reason.error(error)
+    }
+  }
+  
+  private func run(
+    factory: (any Resolver, Any) throws -> Any,
+    with resolver: Resolver,
+    argument: Any
+  ) async throws -> Any {
+    do {
+      return try factory(resolver, argument)
+    } catch {
+      throw ResolutionError.Reason.error(error)
+    }
+  }
+  
+  private func run(
+    factory: Factory,
+    with resolver: Resolver,
+    argument: Any
+  ) throws -> Any {
+    switch factory {
+    case .sync(let factory):
+      return try run(factory: factory, with: resolver, argument: argument)
+    case .async(let factory):
+      guard Entry.allowSynchronousResolutionOfAsyncEntries else {
+        throw ResolutionError.Reason.requiresAsync
+      }
+      return try runBlocking {
+        try await factory(resolver, argument)
+      }
+    }
+  }
+  
+  private func run(
+    factory: Factory,
+    with resolver: Resolver,
+    argument: Any
+  ) async throws -> Any {
+    switch factory {
+    case .sync(let factory):
+      return try await run(factory: factory, with: resolver, argument: argument)
+    case .async(let factory):
+      return try await run(factory: factory, with: resolver, argument: argument)
     }
   }
 }
@@ -115,42 +211,6 @@ private extension Entry {
   enum Factory {
     case sync((any Resolver, Any) throws -> Any)
     case `async`((any Resolver, Any) async throws -> Any)
-
-    func callAsFunction(_ resolver: any Resolver, _ arg: Any) throws -> Any {
-      switch self {
-      case .sync(let factory):
-        do {
-          return try factory(resolver, arg)
-        } catch {
-          throw ResolutionError.Reason.error(error)
-        }
-      case .async(let factory):
-        if Entry.allowSynchronousResolutionOfAsyncEntries {
-          do {
-            return try runBlocking {
-              try await factory(resolver, arg)
-            }
-          } catch {
-            throw ResolutionError.Reason.error(error)
-          }
-        } else {
-          throw ResolutionError.Reason.requiresAsync
-        }
-      }
-    }
-
-    func callAsFunction(_ resolver: any Resolver, _ arg: Any) async throws -> Any {
-      do {
-        switch self {
-        case .sync(let factory):
-          return try factory(resolver, arg)
-        case .async(let factory):
-          return try await factory(resolver, arg)
-        }
-      } catch {
-        throw ResolutionError.Reason.error(error)
-      }
-    }
   }
 
   enum Resolution {
