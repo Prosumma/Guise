@@ -36,7 +36,7 @@ import XCTest
  
  `test_sync_factory_async_transient_allowed`
  
- In addition to the basic tests, there are tests for race conditions.
+ In addition to the basic tests, there are tests for race conditions and error handling.
  */
 final class EntryTests: XCTestCase {
   var container: Container!
@@ -239,8 +239,72 @@ final class EntryTests: XCTestCase {
     // Then
     XCTAssert(services[0] === services[1])
   }
+  
+  func test_sync_factory_sync_error() throws {
+    // Given
+    container.register(Service.self) { _ in
+      throw ServiceError.error
+    }
+    
+    // When
+    do {
+      _ = try container.resolve(Service.self)
+    } catch let error as ResolutionError {
+      let key = Key(Service.self)
+      guard
+        key == error.key,
+        case .error(_ as ServiceError) = error.reason
+      else {
+        throw error
+      }
+    }
+  }
+  
+  func test_async_factory_sync_error() async throws {
+    // Given
+    container.register(Service.self) { _ in
+      throw ServiceError.error
+    }
+    
+    // When
+    do {
+      _ = try await container.resolve(Service.self)
+    } catch let error as ResolutionError {
+      let key = Key(Service.self)
+      guard
+        key == error.key,
+        case .error(_ as ServiceError) = error.reason
+      else {
+        throw error
+      }
+    }
+  }
+  
+  func test_async_factory_async_error() async throws {
+    // Given
+    container.register(Service.self) { _ async throws in
+      throw ServiceError.error
+    }
+    
+    // When
+    do {
+      _ = try await container.resolve(Service.self)
+    } catch let error as ResolutionError {
+      let key = Key(Service.self)
+      guard
+        key == error.key,
+        case .error(_ as ServiceError) = error.reason
+      else {
+        throw error
+      }
+    }
+  }
 }
 
 extension EntryTests {
   class Service {}
+  
+  enum ServiceError: Error, Equatable {
+    case error
+  }
 }
