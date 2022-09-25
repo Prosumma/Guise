@@ -12,3 +12,15 @@ public protocol Registrar {
   func unregister(keys: Set<Key>)
   func register<A: Assembly>(assembly: A)
 }
+
+public extension Registrar {
+  func unregister(keys: Key...) {
+    unregister(keys: Set(keys))
+  }
+}
+
+public extension Registrar where Self: Resolver {
+  func unregister(criteria: Criteria) {
+    unregister(keys: Set(resolve(criteria: criteria).keys))
+  }
+}

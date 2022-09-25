@@ -33,9 +33,17 @@ public class Entry {
   private let lock: DispatchQueue
   private let asyncLock = AsyncLock()
   private let factory: Factory
-  private let lifetime: Lifetime
   private var resolution: Resolution = .factory
-
+  
+  public let lifetime: Lifetime
+  
+  public var isResolved: Bool {
+    guard case .instance = resolution else {
+      return false
+    }
+    return true
+  }
+  
   init<T, A>(
     key: Key,
     lifetime: Lifetime,
