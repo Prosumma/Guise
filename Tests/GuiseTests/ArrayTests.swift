@@ -16,24 +16,24 @@ class ArrayTests: XCTestCase {
     container = Container()
     prepareForGuiseTests()
   }
-  
+
   func test_resolve_sync() throws {
     // Given
     container.register(name: UUID(), instance: Service())
     container.register(name: UUID(), instance: Service())
     container.register(name: UUID(), instance: Service())
-    
+
     // When
     let services: [Service] = try container.resolve()
-    
+
     // Then
     XCTAssertEqual(services.count, 3)
   }
-  
+
   func test_throwWhenNotFound_sync() throws {
     // Given
     ArrayResolutionConfig.throwResolutionErrorWhenNotFound = true
-    
+
     // When
     do {
       _ = try container.resolve([Service].self)

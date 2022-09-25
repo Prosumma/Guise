@@ -40,25 +40,25 @@ import XCTest
  */
 final class EntryTests: XCTestCase {
   var container: Container!
-  
+
   override func setUp() {
     super.setUp()
     container = Container()
     prepareForGuiseTests()
   }
-  
+
   func test_sync_instance() throws {
     // Given
     container.register(lifetime: .singleton, instance: Service())
-    
+
     // When
     let service1: Service = try container.resolve()
     let service2: Service = try container.resolve()
-    
+
     // Then
     XCTAssert(service1 === service2)
   }
-  
+
   func test_sync_factory_sync_singleton() throws {
     // Given
     container.register(lifetime: .singleton, instance: Service())
@@ -66,25 +66,25 @@ final class EntryTests: XCTestCase {
     // When
     let service1 = try container.resolve(Service.self)
     let service2 = try container.resolve(Service.self)
-    
+
     // Then
     XCTAssert(service1 === service2)
   }
-  
+
   func test_sync_factory_sync_transient() throws {
     // Given
     container.register(factory: auto(Service.init))
-    
+
     // When/Then
     _ = try container.resolve(Service.self)
   }
-  
+
   func test_sync_factory_async_singleton() throws {
     // Given
     container.register(lifetime: .singleton) { _ async in
       Service()
     }
-    
+
     // When/Then
     do {
       _ = try container.resolve(Service.self)
@@ -99,24 +99,24 @@ final class EntryTests: XCTestCase {
       }
     }
   }
-  
+
   func test_sync_factory_async_singleton_allowed() throws {
     // Given
     container.register(lifetime: .singleton) { _ async in
       Service()
     }
     Entry.allowSynchronousResolutionOfAsyncEntries = true
-    
+
     // When/Then
     _ = try container.resolve(Service.self)
   }
-  
+
   func test_sync_factory_async_transient() throws {
     // Given
     container.register { _ async in
       Service()
     }
-    
+
     // When/Then
     do {
       _ = try container.resolve(Service.self)
@@ -131,28 +131,28 @@ final class EntryTests: XCTestCase {
       }
     }
   }
-  
+
   func test_sync_factory_async_transient_allowed() throws {
     // Given
     container.register { _ async in
       Service()
     }
     Entry.allowSynchronousResolutionOfAsyncEntries = true
-    
+
     // When/Then
     _ = try container.resolve(Service.self)
   }
-  
+
   func test_async_instance() async throws {
     // Given
     container.register(lifetime: .singleton) { _ async in
       Service()
     }
-    
+
     // When
     let service1: Service = try await container.resolve()
     let service2: Service = try await container.resolve()
-    
+
     // Then
     XCTAssert(service1 === service2)
   }
@@ -160,39 +160,39 @@ final class EntryTests: XCTestCase {
   func test_async_factory_sync_singleton() async throws {
     // Given
     container.register(lifetime: .singleton, factory: auto(Service.init))
-    
+
     // When/Then
     _ = try await container.resolve(Service.self)
   }
-  
+
   func test_async_factory_sync_transient() async throws {
     // Given
     container.register(factory: auto(Service.init))
-    
+
     // When/Then
     _ = try await container.resolve(Service.self)
   }
-  
+
   func test_async_factory_async_singleton() async throws {
     // Given
     container.register(lifetime: .singleton) { _ async in
       Service()
     }
-    
+
     // When
     let service1: Service = try await container.resolve()
     let service2: Service = try await container.resolve()
-    
+
     // Then
     XCTAssert(service1 === service2)
   }
-  
+
   func test_async_factory_async_transient() async throws {
     // Given
     container.register { _ async in
         Service()
     }
-    
+
     // When/Then
     _ = try await container.resolve(Service.self)
   }
@@ -204,7 +204,7 @@ final class EntryTests: XCTestCase {
     let semaphore = DispatchSemaphore(value: 0)
     var service1: Service?
     var service2: Service?
-    
+
     // When
     Thread.detachNewThread {
       service1 = try? self.container.resolve(Service.self)
@@ -215,15 +215,15 @@ final class EntryTests: XCTestCase {
       service2 = try? self.container.resolve(Service.self)
       semaphore.signal()
     }
-    
+
     semaphore.wait()
     semaphore.wait()
-    
+
     // Then
     XCTAssertNotNil(service1)
     XCTAssert(service1 === service2)
   }
-  
+
   func test_async_race() async throws {
     // Given
     container.register(lifetime: .singleton) { _ async in
@@ -232,20 +232,20 @@ final class EntryTests: XCTestCase {
     Entry.singletonTestDelay = 100_000
     async let service1 = container.resolve(Service.self)
     async let service2 = container.resolve(Service.self)
-    
+
     // When
     let services = try await [service1, service2]
-    
+
     // Then
     XCTAssert(services[0] === services[1])
   }
-  
+
   func test_sync_factory_sync_error() throws {
     // Given
     container.register(Service.self) { _ in
       throw ServiceError.error
     }
-    
+
     // When
     do {
       _ = try container.resolve(Service.self)
@@ -259,13 +259,13 @@ final class EntryTests: XCTestCase {
       }
     }
   }
-  
+
   func test_async_factory_sync_error() async throws {
     // Given
     container.register(Service.self) { _ in
       throw ServiceError.error
     }
-    
+
     // When
     do {
       _ = try await container.resolve(Service.self)
@@ -279,13 +279,13 @@ final class EntryTests: XCTestCase {
       }
     }
   }
-  
+
   func test_async_factory_async_error() async throws {
     // Given
     container.register(Service.self) { _ async throws in
       throw ServiceError.error
     }
-    
+
     // When
     do {
       _ = try await container.resolve(Service.self)
@@ -303,7 +303,7 @@ final class EntryTests: XCTestCase {
 
 extension EntryTests {
   class Service {}
-  
+
   enum ServiceError: Error, Equatable {
     case error
   }

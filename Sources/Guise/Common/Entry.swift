@@ -34,16 +34,16 @@ public class Entry {
   private let asyncLock = AsyncLock()
   private let factory: Factory
   private var resolution: Resolution = .factory
-  
+
   public let lifetime: Lifetime
-  
+
   public var isResolved: Bool {
     guard case .instance = resolution else {
       return false
     }
     return true
   }
-  
+
   init<T, A>(
     key: Key,
     lifetime: Lifetime,
@@ -112,7 +112,7 @@ public class Entry {
       }
     }
   }
-  
+
   private func resolveSingleton(
     factory: (any Resolver, Any) throws -> Any,
     with resolver: any Resolver,
@@ -130,7 +130,7 @@ public class Entry {
       }
     }
   }
-  
+
   private func resolveSingleton(
     factory: (any Resolver, Any) async throws -> Any,
     with resolver: any Resolver,
@@ -148,7 +148,7 @@ public class Entry {
       }
     }
   }
-  
+
   private func run(
     factory: (any Resolver, Any) throws -> Any,
     with resolver: Resolver,
@@ -160,7 +160,7 @@ public class Entry {
       throw ResolutionError.Reason.error(error)
     }
   }
-  
+
   private func run(
     factory: (any Resolver, Any) async throws -> Any,
     with resolver: Resolver,
@@ -172,7 +172,7 @@ public class Entry {
       throw ResolutionError.Reason.error(error)
     }
   }
-  
+
   private func run(
     factory: (any Resolver, Any) throws -> Any,
     with resolver: Resolver,
@@ -184,7 +184,7 @@ public class Entry {
       throw ResolutionError.Reason.error(error)
     }
   }
-  
+
   private func run(
     factory: Factory,
     with resolver: Resolver,
@@ -202,7 +202,7 @@ public class Entry {
       }
     }
   }
-  
+
   private func run(
     factory: Factory,
     with resolver: Resolver,

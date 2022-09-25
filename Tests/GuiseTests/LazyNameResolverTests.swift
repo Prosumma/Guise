@@ -13,21 +13,21 @@ final class LazyNameResolverTests: XCTestCase {
     super.setUp()
     prepareForGuiseTests()
   }
-  
+
   func test_resolve_sync() throws {
     // Given
     let container = Container()
     container.register(name: "s") { _, arg in
       Service(i: arg)
     }
-    
+
     // When
     let lnr: LazyNameResolver<Service> = try container.resolve(name: "s")
-    
+
     // Then
     _ = try lnr.resolve(args: 2)
   }
-  
+
   func test_resolve_sync_weak() throws {
     // Given
     var container: Container? = Container()
@@ -35,10 +35,10 @@ final class LazyNameResolverTests: XCTestCase {
       Service(i: arg)
     }
     let lnr: LazyNameResolver<Service> = try container!.resolve(name: "s")
-    
+
     // When
     container = nil
-    
+
     // Then
     do {
       _ = try lnr.resolve(args: 7)
@@ -53,21 +53,21 @@ final class LazyNameResolverTests: XCTestCase {
       }
     }
   }
-  
+
   func test_resolve_async() async throws {
     // Given
     let container = Container()
     container.register(name: "s") { _, arg in
       Service(i: arg)
     }
-    
+
     // When
     let lnr: LazyNameResolver<Service> = try await container.resolve(name: "s")
-    
+
     // Then
     _ = try await lnr.resolve(args: 2)
   }
-  
+
   func test_resolve_async_weak() async throws {
     // Given
     var container: Container? = Container()
@@ -75,10 +75,10 @@ final class LazyNameResolverTests: XCTestCase {
       Service(i: arg)
     }
     let lnr: LazyNameResolver<Service> = try await container!.resolve(name: "s")
-    
+
     // When
     container = nil
-    
+
     // Then
     do {
       _ = try await lnr.resolve(args: 7)

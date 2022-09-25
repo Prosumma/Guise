@@ -21,12 +21,12 @@ extension AssemblyTests {
   class Service {
     var x = 0
   }
-  
+
   class TestAssembly: Assembly {
     func register(in registrar: Registrar) {
       registrar.register(lifetime: .singleton, instance: Service())
     }
-    
+
     func registered(to resolver: Resolver) throws {
       let service = try resolver.resolve(Service.self)
       service.x = 1

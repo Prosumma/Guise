@@ -10,32 +10,32 @@ import XCTest
 
 class AutoTests: XCTestCase {
   var container: Container!
-  
+
   override func setUp() {
     super.setUp()
     container = Container()
     container.register(factory: auto(Dependency.init))
   }
-  
+
   func test0() throws {
     _ = try container.resolve(Dependency.self)
   }
-  
+
   func test1() throws {
     container.register(factory: auto(Dependency1.init))
     _ = try container.resolve(Dependency1.self)
   }
-  
+
   func test2() throws {
     container.register(factory: auto(Dependency2.init))
     _ = try container.resolve(Dependency2.self)
   }
-  
+
   func test3() throws {
     container.register(factory: auto(Dependency3.init))
     _ = try container.resolve(Dependency3.self)
   }
-  
+
   func test4() throws {
     container.register(factory: auto(Dependency4.init))
     _ = try container.resolve(Dependency4.self)

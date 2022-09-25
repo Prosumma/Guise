@@ -8,7 +8,7 @@
 import Atomics
 
 class AsyncLock {
-  static let sleepNanoseconds: UInt64 = 1 
+  static let sleepNanoseconds: UInt64 = 1
 
   let locked = ManagedAtomic(false)
 

@@ -9,31 +9,31 @@ import XCTest
 @testable import Guise
 
 final class LazyFullResolverTests: XCTestCase {
-  
+
   override func setUp() {
     super.setUp()
     prepareForGuiseTests()
   }
-  
+
   func test_resolve_sync() throws {
     // Given
     let container = Container()
     container.register(name: 42, instance: Service())
     let lfr: LazyFullResolver<Service> = try container.resolve(name: 42)
-    
+
     // When/Then
     _ = try lfr.resolve()
   }
-  
+
   func test_resolve_sync_weak() throws {
     // Given
     var container: Container? = Container()
     container!.register(instance: Service())
     let lfr: LazyFullResolver<Service> = try container!.resolve()
-    
+
     // When
     container = nil
-    
+
     // Then
     do {
       _ = try lfr.resolve()
@@ -48,7 +48,7 @@ final class LazyFullResolverTests: XCTestCase {
       }
     }
   }
-  
+
   func test_resolve_async() async throws {
     // Given
     let container = Container()
@@ -56,11 +56,11 @@ final class LazyFullResolverTests: XCTestCase {
       Service()
     }
     let lfr: LazyFullResolver<Service> = try await container.resolve(name: 42)
-    
+
     // When/Then
     _ = try await lfr.resolve()
   }
-  
+
   func test_resolve_async_weak() async throws {
     // Given
     var container: Container? = Container()
@@ -68,10 +68,10 @@ final class LazyFullResolverTests: XCTestCase {
       Service()
     }
     let lfr: LazyFullResolver<Service> = try await container!.resolve()
-    
+
     // When
     container = nil
-    
+
     // Then
     do {
       _ = try await lfr.resolve()
