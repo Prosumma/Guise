@@ -16,7 +16,7 @@ public extension Registrar {
     factory: @escaping SyncFactory<T, A>
   ) -> Key {
     let key = Key(type, name: name, args: A.self)
-    let entry = Entry(lifetime: lifetime, factory: factory)
+    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
     register(key: key, entry: entry)
     return key
   }

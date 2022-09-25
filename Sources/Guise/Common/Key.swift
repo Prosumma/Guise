@@ -31,3 +31,18 @@ public struct Key: Equatable, Hashable {
     self.args = String(reflecting: args)
   }
 }
+
+extension Key: CustomStringConvertible {
+  public var description: String {
+    var names: [String] = []
+    for name in name {
+      if let name = name.base as? CustomDebugStringConvertible {
+        names.append("\(name.debugDescription)")
+      } else {
+        names.append("\(name.base)")
+      }
+    }
+    names.sort()
+    return "Key(\(type), name: \(names.joined(separator: ", ")), args: \(args))"
+  }
+}

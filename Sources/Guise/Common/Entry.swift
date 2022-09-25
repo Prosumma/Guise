@@ -37,10 +37,11 @@ public class Entry {
   private var resolution: Resolution = .factory
 
   init<T, A>(
+    key: Key,
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) throws -> T
   ) {
-    self.lock = DispatchQueue(label: "Guise Entry Lock")
+    self.lock = DispatchQueue(label: "Guise Entry Lock for \(key)")
     self.lifetime = lifetime
     self.factory = .sync { resolver, arg in
       try factory(resolver, arg as! A)
@@ -48,10 +49,11 @@ public class Entry {
   }
 
   init<T, A>(
+    key: Key,
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) async throws -> T
   ) {
-    self.lock = DispatchQueue(label: "Guise Entry Lock")
+    self.lock = DispatchQueue(label: "Guise Entry Lock for \(key)")
     self.lifetime = lifetime
     self.factory = .async { resolver, arg in
       try await factory(resolver, arg as! A)
