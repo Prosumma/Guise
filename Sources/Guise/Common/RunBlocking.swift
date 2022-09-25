@@ -17,7 +17,7 @@ import Foundation
  no less. They strongly recommend never blocking such a thread.
  
  This function does not block the `async` closure that is passed to it. The
- semaphore is signaled at the end, but it does block the "current" thread,
+ semaphore is signaled at the end, but it does block the calling thread,
  and if that thread is an `async` thread, then a deadlock is possible.
  
  This function is used by `Entry` to resolve `async` entries only if
