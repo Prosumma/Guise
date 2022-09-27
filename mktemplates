@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+gyb="./Vendor/gyb"
+
+find Tests -iname '*.gyb' | while read file; do
+  target="${file%.gyb}"
+  test -f "$target" && rm "$target"
+  $gyb --line-directive '' "$file" > $target
+done

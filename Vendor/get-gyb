@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+rm gyb gyb.py
+curl -O 'https:/raw.githubusercontent.com/apple/swift/main/utils/gyb'
+curl -O 'https:/raw.githubusercontent.com/apple/swift/main/utils/gyb.py'
+chmod +x gyb

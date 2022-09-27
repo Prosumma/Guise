@@ -5,48 +5,87 @@
 //  Created by Gregory Higley on 2022-09-20.
 //
 
-/// A type used for querying the DI container
+/**
+ A type used for querying the DI container,
+ either by attributes of the `Key`, the `Entry`
+ or both.
+ */
 public struct Criteria: Equatable {
   public let type: String?
   public let name: NameCriterion?
   public let args: String?
+  
+  public let lifetime: Lifetime?
 
   public init<T, A>(
     _ type: T.Type,
-    name: NameCriterion?,
-    args: A.Type
+    name: NameCriterion? = nil,
+    args: A.Type,
+    lifetime: Lifetime? = nil
   ) {
     self.type = String(reflecting: type)
     self.name = name
     self.args = String(reflecting: args)
+    self.lifetime = lifetime
   }
 
   public init<T>(
     _ type: T.Type,
-    name: NameCriterion? = nil
+    name: NameCriterion? = nil,
+    lifetime: Lifetime? = nil
   ) {
     self.type = String(reflecting: type)
     self.name = name
-    args = nil
+    self.args = nil
+    self.lifetime = lifetime
+  }
+  
+  public init<A>(
+    name: NameCriterion? = nil,
+    args: A.Type,
+    lifetime: Lifetime? = nil
+  ) {
+    self.type = nil
+    self.name = name
+    self.args = String(reflecting: args)
+    self.lifetime = lifetime
   }
 
-  public init(name: NameCriterion? = nil) {
+  public init(
+    name: NameCriterion? = nil,
+    lifetime: Lifetime? = nil
+  ) {
     self.type = nil
     self.name = name
     self.args = nil
+    self.lifetime = lifetime
   }
 
-  public init(key: Key) {
+  public init(
+    key: Key,
+    lifetime: Lifetime? = nil
+  ) {
     self.type = key.type
     self.name = .equals(key.name)
     self.args = key.args
+    self.lifetime = lifetime
   }
 }
 
 func ~= (criteria: Criteria, key: Key) -> Bool {
-  (criteria.type ?? key.type) == key.type &&
-  (criteria.name ?? .equals(key.name)) ~= key.name &&
-  (criteria.args ?? key.args) == key.args
+  let type = criteria.type ?? key.type
+  let name = criteria.name ?? .equals(key.name)
+  let args = criteria.args ?? key.args
+  return type == key.type && name ~= key.name && args == key.args
+}
+
+func ~= (criteria: Criteria, entry: Entry) -> Bool {
+  let lifetime = criteria.lifetime ?? entry.lifetime
+  return lifetime == entry.lifetime
+}
+
+func ~= (criteria: Criteria, rhs: Dictionary<Key, Entry>.Element) -> Bool {
+  criteria ~= rhs.key && criteria ~= rhs.value
 }
 
 public extension Criteria {

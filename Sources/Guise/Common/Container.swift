@@ -19,7 +19,7 @@ public class Container {
 extension Container: Resolver {
   public func resolve(criteria: Criteria) -> [Key: Entry] {
     lock.sync {
-      entries.filter { criteria ~= $0.key }
+      entries.filter { criteria ~= $0 }
     }
   }
 }

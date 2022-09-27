@@ -24,6 +24,10 @@ let package = Package(
             ]),
         .testTarget(
             name: "GuiseTests",
-            dependencies: ["Guise"])
+            dependencies: ["Guise"],
+            exclude: [
+              "ArgumentTests.swift.gyb"
+            ]
+        )
     ]
 )

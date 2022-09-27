@@ -8,8 +8,11 @@
 import Foundation
 
 public protocol Registrar {
+  // MARK: Entries
   func register(key: Key, entry: Entry)
   func unregister(keys: Set<Key>)
+    
+  // MARK: Assemblies
   func register<A: Assembly>(assembly: A)
 }
 

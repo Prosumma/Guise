@@ -49,7 +49,7 @@ public class Entry {
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) throws -> T
   ) {
-    self.lock = DispatchQueue(label: "Guise Entry Lock for \(key)")
+    self.lock = Self.lock(from: key)
     self.lifetime = lifetime
     self.factory = .sync { resolver, arg in
       try factory(resolver, arg as! A)
@@ -61,7 +61,7 @@ public class Entry {
     lifetime: Lifetime,
     factory: @escaping (any Resolver, A) async throws -> T
   ) {
-    self.lock = DispatchQueue(label: "Guise Entry Lock for \(key)")
+    self.lock = Self.lock(from: key)
     self.lifetime = lifetime
     self.factory = .async { resolver, arg in
       try await factory(resolver, arg as! A)
@@ -112,7 +112,7 @@ public class Entry {
       }
     }
   }
-
+  
   private func resolveSingleton(
     factory: (any Resolver, Any) throws -> Any,
     with resolver: any Resolver,
@@ -214,6 +214,12 @@ public class Entry {
     case .async(let factory):
       return try await run(factory: factory, with: resolver, argument: argument)
     }
+  }
+}
+
+private extension Entry {
+  static func lock(from key: Key) -> DispatchQueue {
+    DispatchQueue(label: "Guise Entry lock for \(key)")
   }
 }
 
