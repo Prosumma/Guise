@@ -112,7 +112,7 @@ public class Entry {
       }
     }
   }
-  
+
   private func resolveSingleton(
     factory: (any Resolver, Any) throws -> Any,
     with resolver: any Resolver,

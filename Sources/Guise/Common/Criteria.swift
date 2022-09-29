@@ -14,7 +14,7 @@ public struct Criteria: Equatable {
   public let type: String?
   public let name: NameCriterion?
   public let args: String?
-  
+
   public let lifetime: Lifetime?
 
   public init<T, A>(
@@ -39,7 +39,7 @@ public struct Criteria: Equatable {
     self.args = nil
     self.lifetime = lifetime
   }
-  
+
   public init<A>(
     name: NameCriterion? = nil,
     args: A.Type,

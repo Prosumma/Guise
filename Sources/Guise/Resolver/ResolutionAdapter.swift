@@ -18,7 +18,7 @@ protocol ResolutionAdapter {
     args: A,
     with resolver: Resolver
   ) throws -> Any
-  
+
   /**
    This should just be called `resolve`, but unfortunately
    https://github.com/apple/swift/issues/60318 prevents it.

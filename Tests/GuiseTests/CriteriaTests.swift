@@ -22,7 +22,7 @@ final class CriteriaTests: XCTestCase {
     XCTAssertNil(criteria.args)
     XCTAssertNil(criteria.lifetime)
   }
-  
+
   func test_criteria_args() {
     let criteria = Criteria(args: Int.self)
     XCTAssertEqual(criteria.args, "Swift.Int")

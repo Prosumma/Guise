@@ -48,7 +48,7 @@ class ArrayTests: XCTestCase {
       }
     }
   }
-  
+
   func test_resolve_async() async throws {
     // Given
     container.register(name: UUID()) { _ async in
