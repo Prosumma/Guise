@@ -9,7 +9,7 @@ import XCTest
 @testable import Guise
 
 class ArgumentTests: XCTestCase {
-  var container: Container!
+  var container: (any (Resolver & Registrar))!
 
   override func setUp() {
     super.setUp()
@@ -34,8 +34,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync1() throws {
     // Given
-    container.register { _, a1 in
-      [a1] as [Int]
+    container.register { _, arg1 in
+      [arg1] as [Int]
     }
     
     // When
@@ -47,8 +47,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync2() throws {
     // Given
-    container.register { _, a1, a2 in
-      [a1, a2] as [Int]
+    container.register { _, arg1, arg2 in
+      [arg1, arg2] as [Int]
     }
     
     // When
@@ -60,8 +60,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync3() throws {
     // Given
-    container.register { _, a1, a2, a3 in
-      [a1, a2, a3] as [Int]
+    container.register { _, arg1, arg2, arg3 in
+      [arg1, arg2, arg3] as [Int]
     }
     
     // When
@@ -73,8 +73,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync4() throws {
     // Given
-    container.register { _, a1, a2, a3, a4 in
-      [a1, a2, a3, a4] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4 in
+      [arg1, arg2, arg3, arg4] as [Int]
     }
     
     // When
@@ -86,8 +86,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync5() throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5 in
-      [a1, a2, a3, a4, a5] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5 in
+      [arg1, arg2, arg3, arg4, arg5] as [Int]
     }
     
     // When
@@ -99,8 +99,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync6() throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6 in
-      [a1, a2, a3, a4, a5, a6] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6 in
+      [arg1, arg2, arg3, arg4, arg5, arg6] as [Int]
     }
     
     // When
@@ -112,8 +112,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync7() throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6, a7 in
-      [a1, a2, a3, a4, a5, a6, a7] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7 in
+      [arg1, arg2, arg3, arg4, arg5, arg6, arg7] as [Int]
     }
     
     // When
@@ -125,8 +125,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync8() throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6, a7, a8 in
-      [a1, a2, a3, a4, a5, a6, a7, a8] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 in
+      [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8] as [Int]
     }
     
     // When
@@ -138,8 +138,8 @@ class ArgumentTests: XCTestCase {
   
   func test_sync9() throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6, a7, a8, a9 in
-      [a1, a2, a3, a4, a5, a6, a7, a8, a9] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 in
+      [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9] as [Int]
     }
     
     // When
@@ -166,8 +166,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async1() async throws {
     // Given
-    container.register { _, a1 async in
-      [a1] as [Int]
+    container.register { _, arg1 async in
+      [arg1] as [Int]
     }
     
     // When
@@ -179,8 +179,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async2() async throws {
     // Given
-    container.register { _, a1, a2 async in
-      [a1, a2] as [Int]
+    container.register { _, arg1, arg2 async in
+      [arg1, arg2] as [Int]
     }
     
     // When
@@ -192,8 +192,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async3() async throws {
     // Given
-    container.register { _, a1, a2, a3 async in
-      [a1, a2, a3] as [Int]
+    container.register { _, arg1, arg2, arg3 async in
+      [arg1, arg2, arg3] as [Int]
     }
     
     // When
@@ -205,8 +205,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async4() async throws {
     // Given
-    container.register { _, a1, a2, a3, a4 async in
-      [a1, a2, a3, a4] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4 async in
+      [arg1, arg2, arg3, arg4] as [Int]
     }
     
     // When
@@ -218,8 +218,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async5() async throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5 async in
-      [a1, a2, a3, a4, a5] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5 async in
+      [arg1, arg2, arg3, arg4, arg5] as [Int]
     }
     
     // When
@@ -231,8 +231,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async6() async throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6 async in
-      [a1, a2, a3, a4, a5, a6] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6 async in
+      [arg1, arg2, arg3, arg4, arg5, arg6] as [Int]
     }
     
     // When
@@ -244,8 +244,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async7() async throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6, a7 async in
-      [a1, a2, a3, a4, a5, a6, a7] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7 async in
+      [arg1, arg2, arg3, arg4, arg5, arg6, arg7] as [Int]
     }
     
     // When
@@ -257,8 +257,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async8() async throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6, a7, a8 async in
-      [a1, a2, a3, a4, a5, a6, a7, a8] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 async in
+      [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8] as [Int]
     }
     
     // When
@@ -270,8 +270,8 @@ class ArgumentTests: XCTestCase {
   
   func test_async9() async throws {
     // Given
-    container.register { _, a1, a2, a3, a4, a5, a6, a7, a8, a9 async in
-      [a1, a2, a3, a4, a5, a6, a7, a8, a9] as [Int]
+    container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 async in
+      [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9] as [Int]
     }
     
     // When

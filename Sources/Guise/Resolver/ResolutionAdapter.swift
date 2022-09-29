@@ -18,7 +18,15 @@ protocol ResolutionAdapter {
     args: A,
     with resolver: Resolver
   ) throws -> Any
-  static func resolve<A>(
+  
+  /**
+   This should just be called `resolve`, but unfortunately
+   https://github.com/apple/swift/issues/60318 prevents it.
+   
+   Oddly, this bug should be affecting the entire codebase,
+   but it doesn't seem to.
+   */
+  static func resolveAsync<A>(
     name: Set<AnyHashable>,
     args: A,
     with resolver: Resolver

@@ -9,7 +9,7 @@ import XCTest
 @testable import Guise
 
 final class OptionalTests: XCTestCase {
-  var container: Container!
+  var container: (any (Resolver & Registrar))!
 
   override func setUp() {
     super.setUp()

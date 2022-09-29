@@ -27,7 +27,7 @@ extension Array: ResolutionAdapter {
     return array
   }
 
-  static func resolve<A>(
+  static func resolveAsync<A>(
     name: Set<AnyHashable>,
     args: A,
     with resolver: Resolver

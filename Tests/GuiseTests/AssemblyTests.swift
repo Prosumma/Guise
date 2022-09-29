@@ -10,7 +10,7 @@ import XCTest
 
 class AssemblyTests: XCTestCase {
   func test_assembly() throws {
-    let container = Container()
+    let container: any (Resolver & Registrar & Assembler) = Container()
     try container.assemble(TestAssembly())
     let service = try container.resolve(Service.self)
     XCTAssertEqual(service.x, 1)

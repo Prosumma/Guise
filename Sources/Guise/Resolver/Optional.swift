@@ -32,7 +32,7 @@ extension Optional: ResolutionAdapter {
     return (wrapped as Any)
   }
 
-  static func resolve<A>(
+  static func resolveAsync<A>(
     name: Set<AnyHashable>,
     args: A,
     with resolver: Resolver

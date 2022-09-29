@@ -39,7 +39,7 @@ import XCTest
  In addition to the basic tests, there are tests for race conditions and error handling.
  */
 final class EntryTests: XCTestCase {
-  var container: Container!
+  var container: (any (Resolver & Registrar))!
 
   override func setUp() {
     super.setUp()

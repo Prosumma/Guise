@@ -1,0 +1,25 @@
+//
+//  LazyResolver+Sync.swift
+//  Guise
+//
+//  Created by Gregory Higley on 2022-09-21.
+//
+%{
+def args(items, fmt=lambda i: f'{i}', delimit=lambda r: f'{r}', sep=', '):
+  return delimit(sep.join(map(fmt, items)))
+}%
+
+public extension LazyResolver {
+  func resolve<A>(name: AnyHashable..., args arg1: A = ()) throws -> T {
+    try resolve(name: Set(name), args: arg1)
+  }
+% for a in range(2, 10):
+
+  func resolve<${args(range(1, a + 1), lambda i: f'A{i}')}>(
+    name: AnyHashable...,
+    args arg1: A1, ${args(range(2, a + 1), lambda i: f'_ arg{i}: A{i}')}
+  ) throws -> T {
+    try resolve(name: Set(name), args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
+  }
+% end
+}

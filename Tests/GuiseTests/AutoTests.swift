@@ -9,7 +9,7 @@ import XCTest
 @testable import Guise
 
 class AutoTests: XCTestCase {
-  var container: Container!
+  var container: (any (Resolver & Registrar))!
 
   override func setUp() {
     super.setUp()

@@ -62,7 +62,7 @@ public extension Resolver {
         }
         switch type {
         case let type as ResolutionAdapter.Type:
-          return try await type.resolve(name: name, args: arg1, with: self) as! T
+          return try await type.resolveAsync(name: name, args: arg1, with: self) as! T
         default:
           throw error
         }
