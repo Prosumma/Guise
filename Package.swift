@@ -21,6 +21,12 @@ let package = Package(
             dependencies: [
               .product(name: "Atomics", package: "swift-atomics"),
               .product(name: "OrderedCollections", package: "swift-collections")
+            ],
+            exclude: [
+              "Lazy/LazyResolver+Async.swift.gyb",
+              "Lazy/LazyResolver+Sync.swift.gyb",
+              "Lazy/LazyNameResolver+Async.swift.gyb",
+              "Lazy/LazyNameResolver+Sync.swift.gyb"
             ]),
         .testTarget(
             name: "GuiseTests",

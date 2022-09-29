@@ -8,8 +8,8 @@
 import XCTest
 @testable import Guise
 %{
-def args(items, fmt=lambda i: f'{i}', delimit=lambda r: f'{r}', sep=', '):
-  return delimit(sep.join(map(fmt, items)))
+def args(items, fmt=lambda i: f'{i}', sep=', '):
+  return sep.join(map(fmt, items))
 }%
 
 class ArgumentTests: XCTestCase {
