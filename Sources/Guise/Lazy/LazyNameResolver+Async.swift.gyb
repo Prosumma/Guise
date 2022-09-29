@@ -1,0 +1,21 @@
+//
+//  LazyNameResolver+Async.swift
+//  Guise
+//
+//  Created by Gregory Higley on 2022-09-29.
+//
+%{
+def args(items, fmt=lambda i: f'{i}', delimit=lambda r: f'{r}', sep=', '):
+  return delimit(sep.join(map(fmt, items)))
+}%
+
+public extension LazyNameResolver {
+% for a in range(2, 10):
+  func resolve<${args(range(1, a + 1), lambda i: f'A{i}')}>(
+    args arg1: A1, ${args(range(2, a + 1), lambda i: f'_ arg{i}: A{i}')}
+  ) async throws -> T {
+    try await resolve(args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
+  }
+  
+% end
+}
