@@ -5,6 +5,8 @@
 //  Created by Gregory Higley on 2022-09-21.
 //
 %{
+arg_count = 9
+
 def args(items, fmt=lambda i: f'{i}', delimit=lambda r: f'{r}', sep=', '):
   return delimit(sep.join(map(fmt, items)))
 }%
@@ -16,7 +18,7 @@ public extension LazyResolver {
   ) async throws -> T {
     try await resolve(name: Set(name), args: arg1)
   }
-% for a in range(2, 10):
+% for a in range(2, arg_count + 1):
 
   func resolve<${args(range(1, a + 1), lambda i: f'A{i}')}>(
     name: AnyHashable...,
