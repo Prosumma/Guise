@@ -5,8 +5,6 @@
 //  Created by Gregory Higley on 2022-09-21.
 //
 
-import Foundation
-
 public extension Registrar {
   typealias AsyncFactory<T, A> = (any Resolver, A) async throws -> T
 

@@ -1,0 +1,85 @@
+//
+//  Registrar.swift
+//  Guise
+//
+//  Created by Gregory Higley on 2022-09-21.
+//
+%{
+arg_count = 9
+
+def args(items, fmt=lambda i: f'{i}', sep=', '):
+  return sep.join(map(fmt, items))
+}%
+
+public extension Registrar {
+  typealias SyncFactory<T, A> = (any Resolver, A) throws -> T
+
+  @discardableResult
+  func register<T, A>(
+    _ type: T.Type,
+    name: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping SyncFactory<T, A>
+  ) -> Key {
+    let key = Key(type, name: name, args: A.self)
+    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
+    register(key: key, entry: entry)
+    return key
+  }
+
+  @discardableResult
+  func register<T>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    factory: @escaping (any Resolver) throws -> T
+  ) -> Key {
+    let factory: SyncFactory<T, Void> = { r, _ in
+      try factory(r)
+    }
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+
+  @discardableResult
+  func register<T, A>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    factory: @escaping SyncFactory<T, A>
+  ) -> Key {
+    register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+
+% for a in range(2, arg_count + 1):
+  @discardableResult
+  func register<T, ${args(range(1, a + 1), lambda i: f'A{i}')}>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    factory: @escaping (any Resolver, ${args(range(1, a + 1), lambda i: f'A{i}')}) throws -> T
+  ) -> Key {
+    let factory: SyncFactory<T, (${args(range(1, a + 1), lambda i: f'A{i}')})> = { r, arg in
+      try factory(r, ${args(range(0, a), lambda i: f'arg.{i}')})
+    }
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+% if a < arg_count:
+
+% end
+% end
+}
+
+extension Registrar {
+  @discardableResult
+  func register<T>(
+    _ type: T.Type = T.self,
+    name: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    instance: @escaping @autoclosure () -> T
+  ) -> Key {
+    let factory: SyncFactory<T, Void> = { _, _ in
+      instance()
+    }
+    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
+  }
+}
