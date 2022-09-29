@@ -176,7 +176,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1])
   }
-  
+
   func test_async2() async throws {
     // Given
     container.register { _, arg1, arg2 async in
@@ -189,7 +189,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2])
   }
-  
+
   func test_async3() async throws {
     // Given
     container.register { _, arg1, arg2, arg3 async in
@@ -202,7 +202,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2, 3])
   }
-  
+
   func test_async4() async throws {
     // Given
     container.register { _, arg1, arg2, arg3, arg4 async in
@@ -215,7 +215,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2, 3, 4])
   }
-  
+
   func test_async5() async throws {
     // Given
     container.register { _, arg1, arg2, arg3, arg4, arg5 async in
@@ -228,7 +228,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2, 3, 4, 5])
   }
-  
+
   func test_async6() async throws {
     // Given
     container.register { _, arg1, arg2, arg3, arg4, arg5, arg6 async in
@@ -241,7 +241,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2, 3, 4, 5, 6])
   }
-  
+
   func test_async7() async throws {
     // Given
     container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7 async in
@@ -254,7 +254,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2, 3, 4, 5, 6, 7])
   }
-  
+
   func test_async8() async throws {
     // Given
     container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 async in
@@ -267,7 +267,7 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2, 3, 4, 5, 6, 7, 8])
   }
-  
+
   func test_async9() async throws {
     // Given
     container.register { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 async in
@@ -280,5 +280,4 @@ class ArgumentTests: XCTestCase {
     // Then
     XCTAssertEqual(ints, [1, 2, 3, 4, 5, 6, 7, 8, 9])
   }
-  
 }

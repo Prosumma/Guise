@@ -16,6 +16,8 @@ public extension LazyNameResolver {
   ) throws -> T {
     try resolve(args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
   }
-  
+% if a < 9:
+
+% end
 % end
 }
