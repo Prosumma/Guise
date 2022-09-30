@@ -51,6 +51,43 @@ final class OptionalTests: XCTestCase {
     // Then
     XCTAssertNil(service)
   }
+
+  func test_resolve_async() async throws {
+    // Given
+    container.register { _ async in
+      Service()
+    }
+    var service: Service?
+
+    // When
+    service = try await container.resolve()
+
+    // Then
+    XCTAssertNotNil(service)
+  }
+
+  func test_throw_whenNotFound_async() async throws {
+    // Given
+    OptionalResolutionConfig.throwResolutionErrorWhenNotFound = true
+    var service: Service?
+
+    // When
+    do {
+      service = try await container.resolve()
+      XCTFail("Expected to throw .notFound")
+    } catch let error as ResolutionError {
+      let key = Key(Service.self)
+      guard
+        error.key == key,
+        case .notFound = error.reason
+      else {
+        throw error
+      }
+    }
+
+    // Then
+    XCTAssertNil(service)
+  }
 }
 
 extension OptionalTests {
