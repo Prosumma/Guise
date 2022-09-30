@@ -66,7 +66,7 @@ public struct Criteria: Equatable {
     lifetime: Lifetime? = nil
   ) {
     self.type = key.type
-    self.name = .equals(key.name)
+    self.name = .equals(key.tags)
     self.args = key.args
     self.lifetime = lifetime
   }
@@ -74,9 +74,9 @@ public struct Criteria: Equatable {
 
 func ~= (criteria: Criteria, key: Key) -> Bool {
   let type = criteria.type ?? key.type
-  let name = criteria.name ?? .equals(key.name)
+  let name = criteria.name ?? .equals(key.tags)
   let args = criteria.args ?? key.args
-  return type == key.type && name ~= key.name && args == key.args
+  return type == key.type && name ~= key.tags && args == key.args
 }
 
 func ~= (criteria: Criteria, entry: Entry) -> Bool {

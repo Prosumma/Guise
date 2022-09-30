@@ -44,7 +44,7 @@ public final class LazyNameResolver<T> {
   }
 
   public func resolve<A>(args arg1: A = ()) throws -> T {
-    let key = Key(T.self, name: name, args: A.self)
+    let key = Key(T.self, tags: name, args: A.self)
     guard let resolver else {
       throw ResolutionError(key: key, reason: .noResolver)
     }
@@ -52,7 +52,7 @@ public final class LazyNameResolver<T> {
   }
 
   public func resolve<A>(args arg1: A = ()) async throws -> T {
-    let key = Key(T.self, name: name, args: A.self)
+    let key = Key(T.self, tags: name, args: A.self)
     guard let resolver else {
       throw ResolutionError(key: key, reason: .noResolver)
     }

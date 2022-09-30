@@ -31,7 +31,7 @@ public final class LazyFullResolver<T> {
   private let asyncResolve: () async throws -> T
 
   init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A) {
-    let key = Key(T.self, name: name, args: A.self)
+    let key = Key(T.self, tags: name, args: A.self)
     self.syncResolve = { [weak resolver] in
       guard let resolver else {
         throw ResolutionError(key: key, reason: .noResolver)

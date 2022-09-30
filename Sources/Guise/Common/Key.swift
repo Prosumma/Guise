@@ -9,40 +9,40 @@
 public struct Key: Equatable, Hashable {
   public let type: String
   public let args: String
-  public let name: Set<AnyHashable>
+  public let tags: Set<AnyHashable>
 
   public init<T, A>(
     _ type: T.Type,
-    name: Set<AnyHashable>,
+    tags: Set<AnyHashable>,
     args: A.Type = Void.self
   ) {
     self.type = String(reflecting: type)
-    self.name = name
+    self.tags = tags
     self.args = String(reflecting: args)
   }
 
   public init<T, A>(
     _ type: T.Type,
-    name: AnyHashable...,
+    tags: AnyHashable...,
     args: A.Type = Void.self
   ) {
     self.type = String(reflecting: type)
-    self.name = Set(name)
+    self.tags = Set(tags)
     self.args = String(reflecting: args)
   }
 }
 
 extension Key: CustomStringConvertible {
   public var description: String {
-    var names: [String] = []
-    for name in name {
-      if let name = name.base as? CustomDebugStringConvertible {
-        names.append("\(name.debugDescription)")
+    var tags: [String] = []
+    for tag in self.tags {
+      if let name = tag.base as? CustomDebugStringConvertible {
+        tags.append("\(name.debugDescription)")
       } else {
-        names.append("\(name.base)")
+        tags.append("\(tag.base)")
       }
     }
-    names.sort()
-    return "Key(\(type), name: \(names.joined(separator: ", ")), args: \(args))"
+    tags.sort()
+    return "Key(\(type), name: \(tags.joined(separator: ", ")), args: \(args))"
   }
 }

@@ -19,7 +19,7 @@ extension Optional: ResolutionAdapter {
     do {
       wrapped = try resolver.resolve(Wrapped.self, name: name, args: args)
     } catch let error as ResolutionError {
-      let key = Key(Wrapped.self, name: name, args: A.self)
+      let key = Key(Wrapped.self, tags: name, args: A.self)
       guard
         !OptionalResolutionConfig.throwResolutionErrorWhenNotFound,
         case .notFound = error.reason,
@@ -41,7 +41,7 @@ extension Optional: ResolutionAdapter {
     do {
       wrapped = try await resolver.resolve(Wrapped.self, name: name, args: args)
     } catch let error as ResolutionError {
-      let key = Key(Wrapped.self, name: name, args: A.self)
+      let key = Key(Wrapped.self, tags: name, args: A.self)
       guard
         !OptionalResolutionConfig.throwResolutionErrorWhenNotFound,
         case .notFound = error.reason,

@@ -30,7 +30,7 @@ public final class LazyResolver<T> {
   }
 
   public func resolve<A>(name: Set<AnyHashable>, args arg1: A) throws -> T {
-    let key = Key(T.self, name: name, args: A.self)
+    let key = Key(T.self, tags: name, args: A.self)
     guard let resolver else {
       throw ResolutionError(key: key, reason: .noResolver)
     }
@@ -38,7 +38,7 @@ public final class LazyResolver<T> {
   }
 
   public func resolve<A>(name: Set<AnyHashable>, args arg1: A) async throws -> T {
-    let key = Key(T.self, name: name, args: A.self)
+    let key = Key(T.self, tags: name, args: A.self)
     guard let resolver else {
       throw ResolutionError(key: key, reason: .noResolver)
     }

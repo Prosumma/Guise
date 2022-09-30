@@ -18,10 +18,10 @@ extension Array: ResolutionAdapter {
     var array: [Element] = []
     let criteria = Criteria(Element.self, name: .contains(name), args: A.self)
     for (key, _) in resolver.resolve(criteria: criteria) {
-      try array.append(resolver.resolve(Element.self, name: key.name, args: args))
+      try array.append(resolver.resolve(Element.self, name: key.tags, args: args))
     }
     if ArrayResolutionConfig.throwResolutionErrorWhenNotFound && array.isEmpty {
-      let key = Key([Element].self, name: name, args: A.self)
+      let key = Key([Element].self, tags: name, args: A.self)
       throw ResolutionError(key: key, reason: .notFound)
     }
     return array
@@ -35,10 +35,10 @@ extension Array: ResolutionAdapter {
     var array: [Element] = []
     let criteria = Criteria(Element.self, name: .contains(name), args: A.self)
     for (key, _) in resolver.resolve(criteria: criteria) {
-      try await array.append(resolver.resolve(Element.self, name: key.name, args: args))
+      try await array.append(resolver.resolve(Element.self, name: key.tags, args: args))
     }
     if ArrayResolutionConfig.throwResolutionErrorWhenNotFound && array.isEmpty {
-      let key = Key([Element].self, name: name, args: A.self)
+      let key = Key([Element].self, tags: name, args: A.self)
       throw ResolutionError(key: key, reason: .notFound)
     }
     return array

@@ -180,7 +180,7 @@ final class LazyNameResolverTests: XCTestCase {
       _ = try lnr.resolve(args: 7)
       XCTFail("Expected resolution to fail.")
     } catch let error as ResolutionError {
-      let key = Key(Service.self, name: "s", args: Int.self)
+      let key = Key(Service.self, tags: "s", args: Int.self)
       guard
         error.key == key,
         case .noResolver = error.reason
@@ -356,7 +356,7 @@ final class LazyNameResolverTests: XCTestCase {
       _ = try await lnr.resolve(args: 7)
       XCTFail("Expected resolution to fail.")
     } catch let error as ResolutionError {
-      let key = Key(Service.self, name: "s", args: Int.self)
+      let key = Key(Service.self, tags: "s", args: Int.self)
       guard
         error.key == key,
         case .noResolver = error.reason
