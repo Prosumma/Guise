@@ -37,6 +37,7 @@ let package = Package(
             dependencies: ["Guise"],
             exclude: [
               "ArgumentTests.swift.gyb",
+              "LazyResolverTests.swift.gyb",
               "LazyTagsResolverTests.swift.gyb"
             ]
         )
