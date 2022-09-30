@@ -12,14 +12,14 @@
  */
 public struct Criteria: Equatable {
   public let type: String?
-  public let name: NameCriterion?
+  public let name: Name?
   public let args: String?
 
   public let lifetime: Lifetime?
 
   public init<T, A>(
     _ type: T.Type,
-    name: NameCriterion? = nil,
+    name: Name? = nil,
     args: A.Type,
     lifetime: Lifetime? = nil
   ) {
@@ -31,7 +31,7 @@ public struct Criteria: Equatable {
 
   public init<T>(
     _ type: T.Type,
-    name: NameCriterion? = nil,
+    name: Name? = nil,
     lifetime: Lifetime? = nil
   ) {
     self.type = String(reflecting: type)
@@ -41,7 +41,7 @@ public struct Criteria: Equatable {
   }
 
   public init<A>(
-    name: NameCriterion? = nil,
+    name: Name? = nil,
     args: A.Type,
     lifetime: Lifetime? = nil
   ) {
@@ -52,7 +52,7 @@ public struct Criteria: Equatable {
   }
 
   public init(
-    name: NameCriterion? = nil,
+    name: Name? = nil,
     lifetime: Lifetime? = nil
   ) {
     self.type = nil
@@ -89,7 +89,7 @@ func ~= (criteria: Criteria, rhs: Dictionary<Key, Entry>.Element) -> Bool {
 }
 
 public extension Criteria {
-  struct NameCriterion: Equatable {
+  struct Name: Equatable {
     public enum Comparison {
       case equals
       case contains
@@ -103,23 +103,23 @@ public extension Criteria {
       self.comparison = comparison
     }
 
-    static func equals(_ name: Set<AnyHashable>) -> NameCriterion {
+    static func equals(_ name: Set<AnyHashable>) -> Name {
       .init(name: name)
     }
 
-    static func equals(_ name: AnyHashable...) -> NameCriterion {
+    static func equals(_ name: AnyHashable...) -> Name {
       .equals(Set(name))
     }
 
-    static func contains(_ name: Set<AnyHashable>) -> NameCriterion {
+    static func contains(_ name: Set<AnyHashable>) -> Name {
       .init(name: name, comparison: .contains)
     }
 
-    static func contains(_ name: AnyHashable...) -> NameCriterion {
+    static func contains(_ name: AnyHashable...) -> Name {
       .contains(Set(name))
     }
 
-    static func ~= (criterion: NameCriterion, name: Set<AnyHashable>) -> Bool {
+    static func ~= (criterion: Name, name: Set<AnyHashable>) -> Bool {
       switch criterion.comparison {
       case .equals:
         return criterion.name == name
