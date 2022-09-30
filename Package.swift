@@ -25,8 +25,8 @@ let package = Package(
             exclude: [
               "Lazy/LazyResolver+Async.swift.gyb",
               "Lazy/LazyResolver+Sync.swift.gyb",
-              "Lazy/LazyNameResolver+Async.swift.gyb",
-              "Lazy/LazyNameResolver+Sync.swift.gyb",
+              "Lazy/LazyTagsResolver+Async.swift.gyb",
+              "Lazy/LazyTagsResolver+Sync.swift.gyb",
               "Registrar/Registrar+Async.swift.gyb",
               "Registrar/Registrar+Sync.swift.gyb",
               "Resolver/Resolver+Async.swift.gyb",
@@ -37,7 +37,7 @@ let package = Package(
             dependencies: ["Guise"],
             exclude: [
               "ArgumentTests.swift.gyb",
-              "LazyNameResolverTests.swift.gyb"
+              "LazyTagsResolverTests.swift.gyb"
             ]
         )
     ]

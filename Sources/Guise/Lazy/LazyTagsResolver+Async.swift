@@ -5,7 +5,7 @@
 //  Created by Gregory Higley on 2022-09-29.
 //
 
-public extension LazyNameResolver {
+public extension LazyTagsResolver {
   func resolve<A1, A2>(
     args arg1: A1, _ arg2: A2
   ) async throws -> T {

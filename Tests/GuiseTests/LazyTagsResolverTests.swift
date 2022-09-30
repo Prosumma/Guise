@@ -20,10 +20,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 0) { _ in
       [] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 0)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 0)
 
     // When
-    let ints: [Int] = try lnr.resolve()
+    let ints: [Int] = try ltr.resolve()
 
     // Then
     XCTAssertEqual(ints, [])
@@ -35,10 +35,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 1) { _, arg1 in
       [arg1] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 1)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 1)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0)
+    let ints: [Int] = try ltr.resolve(args: 0)
 
     // Then
     XCTAssertEqual(ints, [0])
@@ -50,10 +50,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 2) { _, arg1, arg2 in
       [arg1, arg2] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 2)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 2)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1)
+    let ints: [Int] = try ltr.resolve(args: 0, 1)
 
     // Then
     XCTAssertEqual(ints, [0, 1])
@@ -65,10 +65,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 3) { _, arg1, arg2, arg3 in
       [arg1, arg2, arg3] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 3)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 3)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1, 2)
+    let ints: [Int] = try ltr.resolve(args: 0, 1, 2)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2])
@@ -80,10 +80,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 4) { _, arg1, arg2, arg3, arg4 in
       [arg1, arg2, arg3, arg4] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 4)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 4)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1, 2, 3)
+    let ints: [Int] = try ltr.resolve(args: 0, 1, 2, 3)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3])
@@ -95,10 +95,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 5) { _, arg1, arg2, arg3, arg4, arg5 in
       [arg1, arg2, arg3, arg4, arg5] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 5)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 5)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1, 2, 3, 4)
+    let ints: [Int] = try ltr.resolve(args: 0, 1, 2, 3, 4)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4])
@@ -110,10 +110,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 6) { _, arg1, arg2, arg3, arg4, arg5, arg6 in
       [arg1, arg2, arg3, arg4, arg5, arg6] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 6)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 6)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1, 2, 3, 4, 5)
+    let ints: [Int] = try ltr.resolve(args: 0, 1, 2, 3, 4, 5)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5])
@@ -125,10 +125,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 7) { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7 in
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 7)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 7)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1, 2, 3, 4, 5, 6)
+    let ints: [Int] = try ltr.resolve(args: 0, 1, 2, 3, 4, 5, 6)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6])
@@ -140,10 +140,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 8) { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 in
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 8)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 8)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7)
+    let ints: [Int] = try ltr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7])
@@ -155,10 +155,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 9) { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 in
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 9)
+    let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 9)
 
     // When
-    let ints: [Int] = try lnr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7, 8)
+    let ints: [Int] = try ltr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7, 8)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7, 8])
@@ -170,14 +170,14 @@ final class LazyNameResolverTests: XCTestCase {
     container!.register(tags: "s") { _, arg in
       Service(i: arg)
     }
-    let lnr: LazyNameResolver<Service> = try container!.resolve(tags: "s")
+    let ltr: LazyTagsResolver<Service> = try container!.resolve(tags: "s")
 
     // When
     container = nil
 
     // Then
     do {
-      _ = try lnr.resolve(args: 7)
+      _ = try ltr.resolve(args: 7)
       XCTFail("Expected resolution to fail.")
     } catch let error as ResolutionError {
       let key = Key(Service.self, tags: "s", args: Int.self)
@@ -196,10 +196,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 0) { _ async in
       [] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 0)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 0)
 
     // When
-    let ints: [Int] = try await lnr.resolve()
+    let ints: [Int] = try await ltr.resolve()
 
     // Then
     XCTAssertEqual(ints, [])
@@ -211,10 +211,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 1) { _, arg1 async in
       [arg1] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 1)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 1)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0)
+    let ints: [Int] = try await ltr.resolve(args: 0)
 
     // Then
     XCTAssertEqual(ints, [0])
@@ -226,10 +226,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 2) { _, arg1, arg2 async in
       [arg1, arg2] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 2)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 2)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1)
 
     // Then
     XCTAssertEqual(ints, [0, 1])
@@ -241,10 +241,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 3) { _, arg1, arg2, arg3 async in
       [arg1, arg2, arg3] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 3)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 3)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1, 2)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1, 2)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2])
@@ -256,10 +256,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 4) { _, arg1, arg2, arg3, arg4 async in
       [arg1, arg2, arg3, arg4] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 4)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 4)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1, 2, 3)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1, 2, 3)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3])
@@ -271,10 +271,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 5) { _, arg1, arg2, arg3, arg4, arg5 async in
       [arg1, arg2, arg3, arg4, arg5] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 5)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 5)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1, 2, 3, 4)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1, 2, 3, 4)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4])
@@ -286,10 +286,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 6) { _, arg1, arg2, arg3, arg4, arg5, arg6 async in
       [arg1, arg2, arg3, arg4, arg5, arg6] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 6)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 6)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1, 2, 3, 4, 5)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1, 2, 3, 4, 5)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5])
@@ -301,10 +301,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 7) { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7 async in
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 7)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 7)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1, 2, 3, 4, 5, 6)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1, 2, 3, 4, 5, 6)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6])
@@ -316,10 +316,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 8) { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 async in
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 8)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 8)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7])
@@ -331,10 +331,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 9) { _, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 async in
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 9)
+    let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 9)
 
     // When
-    let ints: [Int] = try await lnr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7, 8)
+    let ints: [Int] = try await ltr.resolve(args: 0, 1, 2, 3, 4, 5, 6, 7, 8)
 
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7, 8])
@@ -346,14 +346,14 @@ final class LazyNameResolverTests: XCTestCase {
     container!.register(tags: "s") { _, arg async in
       Service(i: arg)
     }
-    let lnr: LazyNameResolver<Service> = try await container!.resolve(tags: "s")
+    let ltr: LazyTagsResolver<Service> = try await container!.resolve(tags: "s")
 
     // When
     container = nil
 
     // Then
     do {
-      _ = try await lnr.resolve(args: 7)
+      _ = try await ltr.resolve(args: 7)
       XCTFail("Expected resolution to fail.")
     } catch let error as ResolutionError {
       let key = Key(Service.self, tags: "s", args: Int.self)

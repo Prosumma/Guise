@@ -8,33 +8,33 @@
 import Foundation
 
 /**
- A lazy resolver which stores a `tags` for later use
+ A lazy resolver which stores `tags` for later use
  when it is resolved.
  
  To instantiate a `LazyNameResolver`, use the `Resolver`
  itself:
  
  ```swift
- let lnr: LazyNameResolver<Service> = try resolver.resolve(tags: "s")
+ let ltr: LazyNameResolver<Service> = try resolver.resolve(tags: "s")
  ```
  
  Any tags passed during resolution is stored by the `LazyNameResolver`
  to be used when resolving with it:
  
  ```swift
- let service = try lnr.resolve()
+ let service = try ltr.resolve()
  ```
  
  This implicitly uses the tags "s" when resolving.
  
- Any arguments passed when constructing the `LazyNameResolver` are
+ Any arguments passed when constructing the `LazyTagsResolver` are
  ignored and must be passed when resolving:
  
  ```
- let service = try lnr.resolve(args: 1)
+ let service = try ltr.resolve(args: 1)
  ```
  */
-public final class LazyNameResolver<T> {
+public final class LazyTagsResolver<T> {
   private weak var resolver: (any Resolver)?
   public let tags: Set<AnyHashable>
 
@@ -60,4 +60,4 @@ public final class LazyNameResolver<T> {
   }
 }
 
-extension LazyNameResolver: LazyResolving {}
+extension LazyTagsResolver: LazyResolving {}

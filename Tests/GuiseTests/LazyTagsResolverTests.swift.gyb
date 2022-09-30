@@ -1,5 +1,5 @@
 //
-//  LazyNameResolverTests.swift
+//  LazyTagsResolverTests.swift
 //  GuiseTests
 //
 //  Created by Gregory Higley on 2022-09-24.
@@ -26,10 +26,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 0) { _ in
       [] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: 0)
+    let ltr: LazyNameResolver<[Int]> = try container.resolve(tags: 0)
    
     // When
-    let ints: [Int] = try lnr.resolve()
+    let ints: [Int] = try ltr.resolve()
     
     // Then
     XCTAssertEqual(ints, [])
@@ -42,10 +42,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: ${a}) { _, ${args(range(1, a + 1), lambda i: f'arg{i}')} in
       [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try container.resolve(tags: ${a})
+    let ltr: LazyNameResolver<[Int]> = try container.resolve(tags: ${a})
    
     // When
-    let ints: [Int] = try lnr.resolve(args: ${args(range(0, a))})
+    let ints: [Int] = try ltr.resolve(args: ${args(range(0, a))})
     
     // Then
     XCTAssertEqual(ints, [${args(range(0, a))}])
@@ -58,14 +58,14 @@ final class LazyNameResolverTests: XCTestCase {
     container!.register(tags: "s") { _, arg in
       Service(i: arg)
     }
-    let lnr: LazyNameResolver<Service> = try container!.resolve(tags: "s")
+    let ltr: LazyNameResolver<Service> = try container!.resolve(tags: "s")
 
     // When
     container = nil
 
     // Then
     do {
-      _ = try lnr.resolve(args: 7)
+      _ = try ltr.resolve(args: 7)
       XCTFail("Expected resolution to fail.")
     } catch let error as ResolutionError {
       let key = Key(Service.self, tags: "s", args: Int.self)
@@ -84,10 +84,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: 0) { _ async in
       [] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: 0)
+    let ltr: LazyNameResolver<[Int]> = try await container.resolve(tags: 0)
    
     // When
-    let ints: [Int] = try await lnr.resolve()
+    let ints: [Int] = try await ltr.resolve()
     
     // Then
     XCTAssertEqual(ints, [])
@@ -100,10 +100,10 @@ final class LazyNameResolverTests: XCTestCase {
     container.register(tags: ${a}) { _, ${args(range(1, a + 1), lambda i: f'arg{i}')} async in
       [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
     }
-    let lnr: LazyNameResolver<[Int]> = try await container.resolve(tags: ${a})
+    let ltr: LazyNameResolver<[Int]> = try await container.resolve(tags: ${a})
    
     // When
-    let ints: [Int] = try await lnr.resolve(args: ${args(range(0, a))})
+    let ints: [Int] = try await ltr.resolve(args: ${args(range(0, a))})
     
     // Then
     XCTAssertEqual(ints, [${args(range(0, a))}])
@@ -116,14 +116,14 @@ final class LazyNameResolverTests: XCTestCase {
     container!.register(tags: "s") { _, arg async in
       Service(i: arg)
     }
-    let lnr: LazyNameResolver<Service> = try await container!.resolve(tags: "s")
+    let ltr: LazyNameResolver<Service> = try await container!.resolve(tags: "s")
 
     // When
     container = nil
 
     // Then
     do {
-      _ = try await lnr.resolve(args: 7)
+      _ = try await ltr.resolve(args: 7)
       XCTFail("Expected resolution to fail.")
     } catch let error as ResolutionError {
       let key = Key(Service.self, tags: "s", args: Int.self)
