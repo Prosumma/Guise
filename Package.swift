@@ -28,7 +28,9 @@ let package = Package(
               "Lazy/LazyNameResolver+Async.swift.gyb",
               "Lazy/LazyNameResolver+Sync.swift.gyb",
               "Registrar/Registrar+Async.swift.gyb",
-              "Registrar/Registrar+Sync.swift.gyb"
+              "Registrar/Registrar+Sync.swift.gyb",
+              "Resolver/Resolver+Async.swift.gyb",
+              "Resolver/Resolver+Sync.swift.gyb"
             ]),
         .testTarget(
             name: "GuiseTests",
