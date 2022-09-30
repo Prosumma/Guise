@@ -14,7 +14,7 @@
  */
 protocol ResolutionAdapter {
   static func resolve<A>(
-    name: Set<AnyHashable>,
+    tags: Set<AnyHashable>,
     args: A,
     with resolver: Resolver
   ) throws -> Any
@@ -27,7 +27,7 @@ protocol ResolutionAdapter {
    but it doesn't seem to.
    */
   static func resolveAsync<A>(
-    name: Set<AnyHashable>,
+    tags: Set<AnyHashable>,
     args: A,
     with resolver: Resolver
   ) async throws -> Any

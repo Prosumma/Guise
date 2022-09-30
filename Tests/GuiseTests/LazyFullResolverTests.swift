@@ -18,8 +18,8 @@ final class LazyFullResolverTests: XCTestCase {
   func test_resolve_sync() throws {
     // Given
     let container = Container()
-    container.register(name: 42, instance: Service())
-    let lfr: LazyFullResolver<Service> = try container.resolve(name: 42)
+    container.register(tags: 42, instance: Service())
+    let lfr: LazyFullResolver<Service> = try container.resolve(tags: 42)
 
     // When/Then
     _ = try lfr.resolve()
@@ -52,10 +52,10 @@ final class LazyFullResolverTests: XCTestCase {
   func test_resolve_async() async throws {
     // Given
     let container = Container()
-    container.register(name: 42) { _ async in
+    container.register(tags: 42) { _ async in
       Service()
     }
-    let lfr: LazyFullResolver<Service> = try await container.resolve(name: 42)
+    let lfr: LazyFullResolver<Service> = try await container.resolve(tags: 42)
 
     // When/Then
     _ = try await lfr.resolve()

@@ -7,15 +7,15 @@
 
 /**
  A lazy resolver which resolves the type `T` with the
- given `name` and arguments.
+ given `tags` and arguments.
  
  To construct a `LazyFullResolver`, use the `Resolver` itself:
  
  ```swift
- let lfr: LazyFullResolver<Service> = try resolver.resolve(name: "s", args: 3)
+ let lfr: LazyFullResolver<Service> = try resolver.resolve(tags: "s", args: 3)
  ```
  
- The `name` and `args` are stored for later use when resolving:
+ The `tags` and `args` are stored for later use when resolving:
  
  ```
  let service = try lfr.resolve()
@@ -30,19 +30,19 @@ public final class LazyFullResolver<T> {
   private let syncResolve: () throws -> T
   private let asyncResolve: () async throws -> T
 
-  init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A) {
-    let key = Key(T.self, tags: name, args: A.self)
+  init<A>(_ resolver: any Resolver, tags: Set<AnyHashable>, args: A) {
+    let key = Key(T.self, tags: tags, args: A.self)
     self.syncResolve = { [weak resolver] in
       guard let resolver else {
         throw ResolutionError(key: key, reason: .noResolver)
       }
-      return try resolver.resolve(T.self, name: name, args: args)
+      return try resolver.resolve(T.self, tags: tags, args: args)
     }
     self.asyncResolve = { [weak resolver] in
       guard let resolver else {
         throw ResolutionError(key: key, reason: .noResolver)
       }
-      return try await resolver.resolve(T.self, name: name, args: args)
+      return try await resolver.resolve(T.self, tags: tags, args: args)
     }
   }
 

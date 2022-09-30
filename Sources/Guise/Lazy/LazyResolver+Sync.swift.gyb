@@ -12,16 +12,16 @@ def args(items, fmt=lambda i: f'{i}', sep=', '):
 }%
 
 public extension LazyResolver {
-  func resolve<A>(name: AnyHashable..., args arg1: A = ()) throws -> T {
-    try resolve(name: Set(name), args: arg1)
+  func resolve<A>(tags: AnyHashable..., args arg1: A = ()) throws -> T {
+    try resolve(tags: Set(tags), args: arg1)
   }
 % for a in range(2, arg_count + 1):
 
   func resolve<${args(range(1, a + 1), lambda i: f'A{i}')}>(
-    name: AnyHashable...,
+    tags: AnyHashable...,
     args arg1: A1, ${args(range(2, a + 1), lambda i: f'_ arg{i}: A{i}')}
   ) throws -> T {
-    try resolve(name: Set(name), args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
+    try resolve(tags: Set(tags), args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
   }
 % end
 }

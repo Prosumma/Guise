@@ -15,13 +15,13 @@ import XCTest
 final class CriteriaTests: XCTestCase {
   func test_criteria_type_name() {
     // Given
-    let name: Criteria.Name = .equals("x", 2, UUID())
-    let criteria = Criteria(String.self, name: name)
+    let tags: Criteria.Tags = .equals("x", 2, UUID())
+    let criteria = Criteria(String.self, tags: tags)
 
     // Then
     XCTAssertNotNil(criteria.type)
-    XCTAssertEqual(criteria.name?.name.count, 3)
-    XCTAssertEqual(criteria.name?.comparison, .equals)
+    XCTAssertEqual(criteria.tags?.tags.count, 3)
+    XCTAssertEqual(criteria.tags?.comparison, .equals)
     XCTAssertNil(criteria.args)
     XCTAssertNil(criteria.lifetime)
   }
@@ -33,7 +33,7 @@ final class CriteriaTests: XCTestCase {
     // Then
     XCTAssertEqual(criteria.args, "Swift.Int")
     XCTAssertNil(criteria.type)
-    XCTAssertNil(criteria.name)
+    XCTAssertNil(criteria.tags)
     XCTAssertNil(criteria.lifetime)
   }
 
@@ -44,7 +44,7 @@ final class CriteriaTests: XCTestCase {
     // Then
     XCTAssertNotNil(criteria.lifetime)
     XCTAssertNil(criteria.type)
-    XCTAssertNil(criteria.name)
+    XCTAssertNil(criteria.tags)
     XCTAssertNil(criteria.args)
   }
 }

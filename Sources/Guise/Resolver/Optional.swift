@@ -11,15 +11,15 @@ public struct OptionalResolutionConfig {
 
 extension Optional: ResolutionAdapter {
   static func resolve<A>(
-    name: Set<AnyHashable>,
+    tags: Set<AnyHashable>,
     args: A,
     with resolver: Resolver
   ) throws -> Any {
     let wrapped: Wrapped?
     do {
-      wrapped = try resolver.resolve(Wrapped.self, name: name, args: args)
+      wrapped = try resolver.resolve(Wrapped.self, tags: tags, args: args)
     } catch let error as ResolutionError {
-      let key = Key(Wrapped.self, tags: name, args: A.self)
+      let key = Key(Wrapped.self, tags: tags, args: A.self)
       guard
         !OptionalResolutionConfig.throwResolutionErrorWhenNotFound,
         case .notFound = error.reason,
@@ -33,15 +33,15 @@ extension Optional: ResolutionAdapter {
   }
 
   static func resolveAsync<A>(
-    name: Set<AnyHashable>,
+    tags: Set<AnyHashable>,
     args: A,
     with resolver: Resolver
   ) async throws -> Any {
     let wrapped: Wrapped?
     do {
-      wrapped = try await resolver.resolve(Wrapped.self, name: name, args: args)
+      wrapped = try await resolver.resolve(Wrapped.self, tags: tags, args: args)
     } catch let error as ResolutionError {
-      let key = Key(Wrapped.self, tags: name, args: A.self)
+      let key = Key(Wrapped.self, tags: tags, args: A.self)
       guard
         !OptionalResolutionConfig.throwResolutionErrorWhenNotFound,
         case .notFound = error.reason,

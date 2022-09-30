@@ -43,6 +43,6 @@ extension Key: CustomStringConvertible {
       }
     }
     tags.sort()
-    return "Key(\(type), name: \(tags.joined(separator: ", ")), args: \(args))"
+    return "Key(\(type), tags: \(tags.joined(separator: ", ")), args: \(args))"
   }
 }

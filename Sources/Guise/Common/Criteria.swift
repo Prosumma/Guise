@@ -12,51 +12,51 @@
  */
 public struct Criteria: Equatable {
   public let type: String?
-  public let name: Name?
+  public let tags: Tags?
   public let args: String?
 
   public let lifetime: Lifetime?
 
   public init<T, A>(
     _ type: T.Type,
-    name: Name? = nil,
+    tags: Tags? = nil,
     args: A.Type,
     lifetime: Lifetime? = nil
   ) {
     self.type = String(reflecting: type)
-    self.name = name
+    self.tags = tags
     self.args = String(reflecting: args)
     self.lifetime = lifetime
   }
 
   public init<T>(
     _ type: T.Type,
-    name: Name? = nil,
+    tags: Tags? = nil,
     lifetime: Lifetime? = nil
   ) {
     self.type = String(reflecting: type)
-    self.name = name
+    self.tags = tags
     self.args = nil
     self.lifetime = lifetime
   }
 
   public init<A>(
-    name: Name? = nil,
+    tags: Tags? = nil,
     args: A.Type,
     lifetime: Lifetime? = nil
   ) {
     self.type = nil
-    self.name = name
+    self.tags = tags
     self.args = String(reflecting: args)
     self.lifetime = lifetime
   }
 
   public init(
-    name: Name? = nil,
+    tags: Tags? = nil,
     lifetime: Lifetime? = nil
   ) {
     self.type = nil
-    self.name = name
+    self.tags = tags
     self.args = nil
     self.lifetime = lifetime
   }
@@ -66,7 +66,7 @@ public struct Criteria: Equatable {
     lifetime: Lifetime? = nil
   ) {
     self.type = key.type
-    self.name = .equals(key.tags)
+    self.tags = .equals(key.tags)
     self.args = key.args
     self.lifetime = lifetime
   }
@@ -74,7 +74,7 @@ public struct Criteria: Equatable {
 
 func ~= (criteria: Criteria, key: Key) -> Bool {
   let type = criteria.type ?? key.type
-  let name = criteria.name ?? .equals(key.tags)
+  let name = criteria.tags ?? .equals(key.tags)
   let args = criteria.args ?? key.args
   return type == key.type && name ~= key.tags && args == key.args
 }
@@ -89,42 +89,42 @@ func ~= (criteria: Criteria, rhs: Dictionary<Key, Entry>.Element) -> Bool {
 }
 
 public extension Criteria {
-  struct Name: Equatable {
+  struct Tags: Equatable {
     public enum Comparison {
       case equals
       case contains
     }
 
-    public let name: Set<AnyHashable>
+    public let tags: Set<AnyHashable>
     public let comparison: Comparison
 
-    public init(name: Set<AnyHashable>, comparison: Comparison = .equals) {
-      self.name = name
+    public init(tags: Set<AnyHashable>, comparison: Comparison = .equals) {
+      self.tags = tags
       self.comparison = comparison
     }
 
-    static func equals(_ name: Set<AnyHashable>) -> Name {
-      .init(name: name)
+    static func equals(_ tags: Set<AnyHashable>) -> Tags {
+      .init(tags: tags)
     }
 
-    static func equals(_ name: AnyHashable...) -> Name {
-      .equals(Set(name))
+    static func equals(_ tags: AnyHashable...) -> Tags {
+      .equals(Set(tags))
     }
 
-    static func contains(_ name: Set<AnyHashable>) -> Name {
-      .init(name: name, comparison: .contains)
+    static func contains(_ tags: Set<AnyHashable>) -> Tags {
+      .init(tags: tags, comparison: .contains)
     }
 
-    static func contains(_ name: AnyHashable...) -> Name {
-      .contains(Set(name))
+    static func contains(_ tags: AnyHashable...) -> Tags {
+      .contains(Set(tags))
     }
 
-    static func ~= (criterion: Name, name: Set<AnyHashable>) -> Bool {
+    static func ~= (criterion: Tags, tags: Set<AnyHashable>) -> Bool {
       switch criterion.comparison {
       case .equals:
-        return criterion.name == name
+        return criterion.tags == tags
       case .contains:
-        return criterion.name.isSubset(of: name)
+        return criterion.tags.isSubset(of: tags)
       }
     }
   }

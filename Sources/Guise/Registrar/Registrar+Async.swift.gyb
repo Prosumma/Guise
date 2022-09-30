@@ -23,11 +23,11 @@ public extension Registrar {
   @discardableResult
   func register<T, A>(
     _ type: T.Type,
-    name: Set<AnyHashable>,
+    tags: Set<AnyHashable>,
     lifetime: Lifetime,
     factory: @escaping AsyncFactory<T, A>
   ) -> Key {
-    let key = Key(type, name: name, args: A.self)
+    let key = Key(type, tags: tags, args: A.self)
     let entry = Entry(key: key, lifetime: lifetime, factory: factory)
     register(key: key, entry: entry)
     return key
@@ -36,38 +36,38 @@ public extension Registrar {
   @discardableResult
   func register<T>(
     _ type: T.Type = T.self,
-    name: AnyHashable...,
+    tags: AnyHashable...,
     lifetime: Lifetime = .transient,
     factory: @escaping (any Resolver) async throws -> T
   ) -> Key {
     let factory: (any Resolver, Void) async throws -> T = { r, _ in
       try await factory(r)
     }
-    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
+    return register(type, tags: Set(tags), lifetime: lifetime, factory: factory)
   }
 
   @discardableResult
   func register<T, A>(
     _ type: T.Type = T.self,
-    name: AnyHashable...,
+    tags: AnyHashable...,
     lifetime: Lifetime = .transient,
     factory: @escaping AsyncFactory<T, A>
   ) -> Key {
-    register(type, name: Set(name), lifetime: lifetime, factory: factory)
+    register(type, tags: Set(tags), lifetime: lifetime, factory: factory)
   }
 
 % for a in range(2, arg_count + 1):
   @discardableResult
   func register<T, ${args(range(1, a + 1), lambda i: f'A{i}')}>(
     _ type: T.Type = T.self,
-    name: AnyHashable...,
+    tags: AnyHashable...,
     lifetime: Lifetime = .transient,
     factory: @escaping (any Resolver, ${args(range(1, a + 1), lambda i: f'A{i}')}) async throws -> T
   ) -> Key {
     let factory: AsyncFactory<T, (${args(range(1, a + 1), lambda i: f'A{i}')})> = { r, arg in
       try await factory(r, ${args(range(0, a), lambda i: f'arg.{i}')})
     }
-    return register(type, name: Set(name), lifetime: lifetime, factory: factory)
+    return register(type, tags: Set(tags), lifetime: lifetime, factory: factory)
   }
 % if a < arg_count:
 

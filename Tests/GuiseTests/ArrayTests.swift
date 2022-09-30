@@ -19,9 +19,9 @@ class ArrayTests: XCTestCase {
 
   func test_resolve_sync() throws {
     // Given
-    container.register(name: UUID(), instance: Service())
-    container.register(name: UUID(), instance: Service())
-    container.register(name: UUID(), instance: Service())
+    container.register(tags: UUID(), instance: Service())
+    container.register(tags: UUID(), instance: Service())
+    container.register(tags: UUID(), instance: Service())
 
     // When
     let services: [Service] = try container.resolve()
@@ -51,13 +51,13 @@ class ArrayTests: XCTestCase {
 
   func test_resolve_async() async throws {
     // Given
-    container.register(name: UUID()) { _ async in
+    container.register(tags: UUID()) { _ async in
       Service()
     }
-    container.register(name: UUID()) { _ async in
+    container.register(tags: UUID()) { _ async in
       Service()
     }
-    container.register(name: UUID()) { _ async in
+    container.register(tags: UUID()) { _ async in
       Service()
     }
 

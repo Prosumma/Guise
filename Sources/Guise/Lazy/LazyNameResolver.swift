@@ -8,24 +8,24 @@
 import Foundation
 
 /**
- A lazy resolver which stores a `name` for later use
+ A lazy resolver which stores a `tags` for later use
  when it is resolved.
  
  To instantiate a `LazyNameResolver`, use the `Resolver`
  itself:
  
  ```swift
- let lnr: LazyNameResolver<Service> = try resolver.resolve(name: "s")
+ let lnr: LazyNameResolver<Service> = try resolver.resolve(tags: "s")
  ```
  
- Any name passed during resolution is stored by the `LazyNameResolver`
+ Any tags passed during resolution is stored by the `LazyNameResolver`
  to be used when resolving with it:
  
  ```swift
  let service = try lnr.resolve()
  ```
  
- This implicitly uses the name "s" when resolving.
+ This implicitly uses the tags "s" when resolving.
  
  Any arguments passed when constructing the `LazyNameResolver` are
  ignored and must be passed when resolving:
@@ -36,27 +36,27 @@ import Foundation
  */
 public final class LazyNameResolver<T> {
   private weak var resolver: (any Resolver)?
-  public let name: Set<AnyHashable>
+  public let tags: Set<AnyHashable>
 
-  init<A>(_ resolver: any Resolver, name: Set<AnyHashable>, args: A) {
+  init<A>(_ resolver: any Resolver, tags: Set<AnyHashable>, args: A) {
     self.resolver = resolver
-    self.name = name
+    self.tags = tags
   }
 
   public func resolve<A>(args arg1: A = ()) throws -> T {
-    let key = Key(T.self, tags: name, args: A.self)
+    let key = Key(T.self, tags: tags, args: A.self)
     guard let resolver else {
       throw ResolutionError(key: key, reason: .noResolver)
     }
-    return try resolver.resolve(T.self, name: name, args: arg1)
+    return try resolver.resolve(T.self, tags: tags, args: arg1)
   }
 
   public func resolve<A>(args arg1: A = ()) async throws -> T {
-    let key = Key(T.self, tags: name, args: A.self)
+    let key = Key(T.self, tags: tags, args: A.self)
     guard let resolver else {
       throw ResolutionError(key: key, reason: .noResolver)
     }
-    return try await resolver.resolve(T.self, name: name, args: arg1)
+    return try await resolver.resolve(T.self, tags: tags, args: arg1)
   }
 }
 

@@ -13,18 +13,18 @@ def args(items, fmt=lambda i: f'{i}', sep=', '):
 
 public extension LazyResolver {
   func resolve<A>(
-    name: AnyHashable...,
+    tags: AnyHashable...,
     args arg1: A = ()
   ) async throws -> T {
-    try await resolve(name: Set(name), args: arg1)
+    try await resolve(tags: Set(tags), args: arg1)
   }
 % for a in range(2, arg_count + 1):
 
   func resolve<${args(range(1, a + 1), lambda i: f'A{i}')}>(
-    name: AnyHashable...,
+    tags: AnyHashable...,
     args arg1: A1, ${args(range(2, a + 1), lambda i: f'_ arg{i}: A{i}')}
   ) async throws -> T {
-    try await resolve(name: Set(name), args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
+    try await resolve(tags: Set(tags), args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
   }
 % end
 }

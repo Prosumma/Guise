@@ -13,7 +13,7 @@ final class KeyTests: XCTestCase {
     let key = Key(String.self, tags: [2, "a"], args: Int.self)
     XCTAssertEqual(
       String(describing: key),
-      "Key(Swift.String, name: \"a\", 2, args: Swift.Int)"
+      "Key(Swift.String, tags: \"a\", 2, args: Swift.Int)"
     )
   }
 }
