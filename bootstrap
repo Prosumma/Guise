@@ -2,4 +2,3 @@
 
 ./mktemplates
 swiftlint --fix --quiet
-
