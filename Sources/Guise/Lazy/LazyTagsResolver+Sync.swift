@@ -1,5 +1,5 @@
 //
-//  LazyNameResolver+Sync.swift
+//  LazyTagsResolver+Sync.swift
 //  Guise
 //
 //  Created by Gregory Higley on 2022-09-29.

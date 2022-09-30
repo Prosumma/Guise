@@ -1,5 +1,5 @@
 //
-//  LazyNameResolverTests.swift
+//  LazyTagsResolverTests.swift
 //  GuiseTests
 //
 //  Created by Gregory Higley on 2022-09-24.

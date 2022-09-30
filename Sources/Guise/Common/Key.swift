@@ -36,8 +36,8 @@ extension Key: CustomStringConvertible {
   public var description: String {
     var tags: [String] = []
     for tag in self.tags {
-      if let name = tag.base as? CustomDebugStringConvertible {
-        tags.append("\(name.debugDescription)")
+      if let tag = tag.base as? CustomDebugStringConvertible {
+        tags.append("\(tag.debugDescription)")
       } else {
         tags.append("\(tag.base)")
       }

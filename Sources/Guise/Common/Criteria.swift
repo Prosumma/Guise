@@ -74,9 +74,9 @@ public struct Criteria: Equatable {
 
 func ~= (criteria: Criteria, key: Key) -> Bool {
   let type = criteria.type ?? key.type
-  let name = criteria.tags ?? .equals(key.tags)
+  let tags = criteria.tags ?? .equals(key.tags)
   let args = criteria.args ?? key.args
-  return type == key.type && name ~= key.tags && args == key.args
+  return type == key.type && tags ~= key.tags && args == key.args
 }
 
 func ~= (criteria: Criteria, entry: Entry) -> Bool {
