@@ -8,7 +8,7 @@
 import XCTest
 @testable import Guise
 
-final class LazyNameResolverTests: XCTestCase {
+final class LazyTagsResolverTests: XCTestCase {
   override func setUp() {
     super.setUp()
     prepareForGuiseTests()
@@ -367,7 +367,7 @@ final class LazyNameResolverTests: XCTestCase {
   }
 }
 
-extension LazyNameResolverTests {
+extension LazyTagsResolverTests {
   class Service {
     let i: Int
     init(i: Int) {
