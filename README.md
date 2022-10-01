@@ -114,7 +114,7 @@ let plugin: Plugin = try container.resolve(Plugin.self, tags: 1, Types.plugin)
 
 The tags weren't given in the same order as when the registration was made, but that makes no difference.
 
-Tags become really powerful when resolving arrays of dependencies. In that case, only a subset of the tags needs to be specified. See the discussion on tags in the resolution section of this README.
+Tags become really powerful when resolving arrays of dependencies. In that case, only a subset of the tags needs to be specified. See the discussion on arrays in the resolution section of this README.
 
 ##### Arguments
 
@@ -238,7 +238,7 @@ container.register(instance: Service())
 let service: Service? = try container.resolve()
 ```
 
-This works. What happens behind the scenes is that Guise first looks for the exact registration, i.e., a registration of the type `Service?`. If it doesn't find that, then it attempts to resolve `Service`.
+What happens behind the scenes is that Guise first looks for the exact registration, i.e., a registration of the type `Service?`. If it doesn't find that, then it attempts to resolve `Service`.
 
 When resolving an optional, Guise returns `nil` instead of throwing an error if the registration cannot be found. To change this behavior, set `OptionalResolutionConfig.throwResolutionErrorWhenNotFound` to true.
 
@@ -249,9 +249,9 @@ Imagine a plugin architecture in which we want to locate and resolve many instan
 ```swift
 protocol Plugin {}
 
-container.register(Plugin.self, instance: Plugin1())
-container.register(Plugin.self, instance: Plugin2())
-container.register(Plugin.self, instance: Plugin3())
+container.register(Plugin.self, tags: UUID(), instance: Plugin1())
+container.register(Plugin.self, tags: UUID(), instance: Plugin2())
+container.register(Plugin.self, tags: UUID(), instance: Plugin3())
 ```
 
 We can get all of these plugins very easily:
