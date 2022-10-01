@@ -390,4 +390,3 @@ container.register(lifetime: .singleton) { _ async in
 }
 container.register(lifetime: .singleton, factory: auto(Service.init))
 ```
-
