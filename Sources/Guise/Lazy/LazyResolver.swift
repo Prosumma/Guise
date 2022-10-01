@@ -25,7 +25,11 @@
 public final class LazyResolver<T> {
   weak var resolver: (any Resolver)?
 
-  init<A>(_ resolver: any Resolver, tags: Set<AnyHashable>, args: A) {
+  /**
+   This constructor is required to satisfy the `LazyResolving` protocol,
+   but the `tags` and `args` arguments are ignored.
+   */
+  public init<A>(_ resolver: any Resolver, tags: Set<AnyHashable>, args: A) {
     self.resolver = resolver
   }
 

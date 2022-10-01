@@ -38,7 +38,11 @@ public final class LazyTagsResolver<T> {
   private weak var resolver: (any Resolver)?
   public let tags: Set<AnyHashable>
 
-  init<A>(_ resolver: any Resolver, tags: Set<AnyHashable>, args: A) {
+  /**
+   This protocol is required to satisfy the `LazyResolving` protocol,
+   but the `args` argument is ignored.
+   */
+  public init<A>(_ resolver: any Resolver, tags: Set<AnyHashable>, args: A) {
     self.resolver = resolver
     self.tags = tags
   }
