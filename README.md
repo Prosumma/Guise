@@ -34,6 +34,8 @@ Guise 10 is not backwards compatible with 9.
 
 To register a dependency with the container, four facts are needed: The _type_ to be registered, the _tags_ under which it will be registered, the _arguments_ needed in order to resolve the registration, and the _lifetime_ of the registration. Let's start with these one by one.
 
+##### Types 
+
 ```swift
 let container = Container()
 container.register(Service.self) { _ in
@@ -72,3 +74,18 @@ container.register(Service.self) { _ in
 }
 ```
 
+Notice that in this example, the block returns `ConcreteService` but the registered type is `Service`. Another way to express this is
+
+```swift
+container.register { _ in ConcreteService() as Service }
+```
+
+Later, when we resolve this registration, we ask for `Service`, not `ConcreteService`.
+
+For simple registrations that have no arguments, Guise has a convenient overload which uses an `@autoclosure`:
+
+```swift
+container.register(instance: ConcreteService() as Service)
+```
+
+##### Tags
