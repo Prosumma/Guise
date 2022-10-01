@@ -116,5 +116,208 @@ let plugin: Plugin = try container.resolve(Plugin.self, tags: 1, Types.plugin)
 
 The tags weren't given in the same order as when the registration was made, but that makes no difference.
 
-Where tags become really powerful is resolving arrays of dependencies. In that case, only a subset of the tags needs to be specified. See the discussion on tags in the resolution section of this README.
+Tags become really powerful when resolving arrays of dependencies. In that case, only a subset of the tags needs to be specified. See the discussion on tags in the resolution section of this README.
+
+##### Arguments
+
+It's very common to need to pass some state to a dependency when resolving. Guise supports up to 9 arguments.
+
+```swift
+class Service {
+  let id: Int
+  let state: String
+}
+
+container.register { _, id, state in
+  Service(id: id, state: state)
+}
+```
+
+When resolving these arguments must be given or Guise will throw an error:
+
+```swift
+let service: Service = try container.resolve(args: 1, "foo")
+```
+
+The error it throws is `.notFound`. This is because, as mentioned above, the arguments to the resolution block form part of the `Key` that uniquely identifies the registration. If they don't match, then
+the registration cannot be found.
+
+This means that registrations can be overloaded with different arguments:
+
+```swift
+container.register { _, state in
+  Service(id: 0, state: state)
+}
+container.register { _, id, state in
+  Service(id: id, state: state)
+}
+container.register { _, id in
+  Service(id: id, state: "")
+}
+```
+
+Each of the three registrations above is distinct.
+
+##### Lifetimes
+
+Guise supports two lifetimes: transient and singleton. Transient is the default.
+
+In a transient registration, a new instance of the dependency is created and returned each time. In other words, the resolution factory that is passed as the last argument to `register` is called, the arguments are passed, and its result is returned to the caller.
+
+In a singleton registration, the factory is invoked the first time, but every subsequent request for that registration returns the same instance.
+
+```swift
+container.register(lifetime: .singleton, instance: Service())
+```
+
+It's rare to register singletons with arguments, but if this is necessary, all resolutions of that singleton must pass the same arguments so that the registration can be located. (Here, "same" means the same types, not the same values.)
+
+##### Transitive dependencies
+
+One of the primary functions of dependency injection is to locate and resolve complex hierarchies of dependencies. Guise can do this as well. The first argument of every resolution block is an instance of `Resolver`, which allows registrations to be located and resolved.
+
+```swift
+class Database {}
+class Service {
+  let database: Database
+  init(database: Database) {
+    self.database = database
+  }
+}
+
+container.register(lifetime: .singleton, instance: Database())
+container.register(lifetime: .singleton) { r in
+  Service(database: try r.resolve())
+}
+```
+
+Whenever we resolve `Service`, the `Database` parameter in its constructor will be located and resolved.
+
+This pattern is so common that Guise has a higher-order function, `auto`, that can handle up to 9 dependencies:
+
+```swift
+container.register(lifetime: .singleton, factory: auto(Service.init))
+```
+
+In order to use `auto`, the sub-dependencies must not have any tags or factory arguments.
+
+#### Resolution
+
+Resolution looks up and instantiates a dependency given its type, tags, and arguments, and taking into account its lifetime.
+
+Resolution is simpler than registration, so a few examples will suffice:
+
+```swift
+class Service {}
+container.register(instance: Service())
+
+// Two alternate ways to resolve the above registration
+let service: Service = try container.resolve()
+let service = try container.resolve(Service.self)
+```
+
+##### Optional Resolution
+
+Guise can resolve optionals as the wrapped type:
+
+```swift
+class Service {}
+container.register(instance: Service())
+let service: Service? = try container.resolve()
+```
+
+This works. What happens behind the scenes is that Guise first looks for the exact registration, i.e., a registration of the type `Service?`. If it doesn't find that, then it attempts to resolve `Service`.
+
+When resolving an optional, Guise returns `nil` instead of throwing an error if the registration cannot be found. To change this behavior, set `OptionalResolutionConfig.throwResolutionErrorWhenNotFound` to true.
+
+##### Array Resolution
+
+Imagine a plugin architecture in which we want to locate and resolve many instances of the same type.
+
+```swift
+protocol Plugin {}
+
+container.register(Plugin.self, instance: Plugin1())
+container.register(Plugin.self, instance: Plugin2())
+container.register(Plugin.self, instance: Plugin3())
+```
+
+We can get all of these plugins very easily:
+
+```swift
+let plugins: [Plugin] = try container.resolve()
+```
+
+Just as with optional resolution, Guise first looks for an exact match for this registration. Not finding one, it notices that this is trying to resolve an array. It then locates all registrations of type `Plugin` and attempts to resolve them all. If any fail, all fail.
+
+When resolving an array, tags are processed differently. Guise looks for all registrations containing all of the given tags.
+
+```swift
+container.register(Plugin.self, tags: "type1", UUID(), instance: Plugin1())
+container.register(Plugin.self, tags: "type1", UUID(), instance: Plugin2())
+container.register(Plugin.self, tags: "type2", UUID(), instance: Plugin3())
+container.register(Plugin.self, tags: "type2", UUID(), instance: Plugin4())
+```
+
+Here we have four plugins registered. Each is disambiguated with an anonymous `UUID` and divided into two types: type 1 and type 2. To get all of the type 1 registrations…
+
+```swift
+let plugins: [Plugin] = try container.resolve(tags: "type1")
+```
+
+This gets `Plugin1` and `Plugin2` but not `Plugin3` and `Plugin4`. Of course, we can still get all four of them with this incantation:
+
+```swift
+let plugins: [Plugin] = try container.resolve()
+```
+
+If no registrations are found, Guise returns an empty array by default instead of throwing an error. To override this behavior, set `ArrayResolutionConfig.throwResolutionErrorWhenNotFound` to true.
+
+##### Lazy Resolution
+
+(Discuss it here.)
+
+#### Async
+
+Guise supports `async` registrations and resolution.
+
+```swift
+class Service {
+  let database: Database
+
+  init(database: Database) async {
+    self.database = database
+    await database.setup()
+  }
+}
+
+container.register { r in
+  try await Service(database: r.resolve())
+}
+let service = try await container.resolve(Service.self)
+```
+
+Any synchronous registration may be resolved asynchronously, but the reverse is not true. By default, if an attempt is made to resolve an `async` registration in a synchronous context, Guise throws `.requiresAsync`. This can be overridden by setting `Entry.allowSynchronousResolutionOfAsyncEntries` to true. Because this can briefly block threads in the `async` threadpool, there's a possibility of deadlocks. Whether this will actually occur in your application depends upon many factors. In a typical application, it's unlikely, but it's a possibility that must be considered. 
+
+If you don't want to turn `allowSynchronousResolutionOfAsyncEntries` on, a safer pattern may be to use lazy resolution:
+
+```swift
+class Service {
+  let databaseResolver: LazyFullResolver<Database>
+
+  init(databaseResolver: LazyFullResolver<Database>) {
+    self.databaseResolver = databaseResolver
+  }
+
+  func performService() async throws {
+    let database = try await databaseResolver.resolve()
+    await database.setup() 
+  }
+}
+
+container.register(lifetime: .singleton) { _ async in
+  await Database()
+}
+container.register(lifetime: .singleton, factory: auto(Service.init))
+```
 
