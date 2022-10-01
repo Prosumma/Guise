@@ -32,7 +32,9 @@ Guise 10 is not backwards compatible with 9.
 
 #### Registration
 
-To register a dependency with the container, four facts are needed: The _type_ to be registered, the _tags_ under which it will be registered, the _arguments_ needed in order to resolve the registration, and the _lifetime_ of the registration. Let's start with these one by one.
+To register a dependency with the container, four facts are needed: The _type_ to be registered, the _tags_ under which it will be registered, the _arguments_ needed in order to resolve the registration, and the _lifetime_ of the registration. The first three uniquely identify a registration. We'll discuss the fourth fact, lifetime, below.
+
+Let's start with these one by one.
 
 ##### Types 
 
@@ -89,3 +91,30 @@ container.register(instance: ConcreteService() as Service)
 ```
 
 ##### Tags
+
+As mentioned above, three facts about a registration uniquely identify it. A subsequent registration will overwrite a previous registration with the same type, tags, and argument.
+
+Tags can help locate, describe, and disambiguate registrations. A tag can be any `Hashable` type, such as `String`, `UUID`, `Int` or a custom type you create yourself.
+
+```swift
+enum Types: Equatable, Hashable {
+  case plugin
+}
+
+container.register(Plugin.self, tags: Types.plugin, 1) { _ in
+  PluginImpl1()
+}
+```
+
+The order of tags is not important and any number may be used. Tags are collected into a `Set<AnyHashable>`, so repetition has no effect.
+
+Because the tags used in a registration are part of the unique `Key` that identifies that registration, the same tags must be used when resolving:
+
+```swift
+let plugin: Plugin = try container.resolve(Plugin.self, tags: 1, Types.plugin) 
+```
+
+The tags weren't given in the same order as when the registration was made, but that makes no difference.
+
+Where tags become really powerful is resolving arrays of dependencies. In that case, only a subset of the tags needs to be specified. See the discussion on tags in the resolution section of this README.
+
