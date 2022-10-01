@@ -92,8 +92,6 @@ container.register(instance: ConcreteService() as Service)
 
 ##### Tags
 
-As mentioned above, three facts about a registration uniquely identify it. A subsequent registration will overwrite a previous registration with the same type, tags, and argument.
-
 Tags can help locate, describe, and disambiguate registrations. A tag can be any `Hashable` type, such as `String`, `UUID`, `Int` or a custom type you create yourself.
 
 ```swift
