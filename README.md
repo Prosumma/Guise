@@ -214,6 +214,20 @@ container.register(instance: Service())
 // Two alternate ways to resolve the above registration
 let service: Service = try container.resolve()
 let service = try container.resolve(Service.self)
+
+container.register(tags: 2, instance: Service())
+let service: Service = try container.resolve(tags: 2)
+
+class Something {
+  let id: Int
+
+  init(id: Int) { self.id = id }
+}
+
+container.register { _, id in
+  Something(id: id)
+}
+let something = try container.resolve(Something.self, args: 7)
 ```
 
 ##### Optional Resolution
@@ -275,7 +289,65 @@ If no registrations are found, Guise returns an empty array by default instead o
 
 ##### Lazy Resolution
 
-(Discuss it here.)
+Occasionally there's a need to depend on a service that isn't ready yet. Or we wish to prevent a cycle because two services depend on each other.
+
+One way to solve this problem is to pass an instance of the `Resolver` itself:
+
+```swift
+class Service {
+  weak var resolver: Resolver! 
+
+  init(resolver: Resolver) {
+    self.resolver = resolver
+  }
+
+  func performService() throws {
+    let database = try resolver.resolve(Database.self)
+    database.doSomething()
+  }
+}
+```
+
+The problem with the pattern above is that it breaks one of the fundamental rules of dependency injection: make dependencies explicit. A user of `Service` must read the source code in order to know what other dependencies it has. This makes the class harder to use and harder to test.
+
+Guise solves this problem with lazy resolvers. There are three lazy resolvers: `LazyResolver`, `LazyTagsResolver`, and `LazyFullResolver`. The difference between these is in how much of the registration information each one retains. `LazyFullResolver` stores the type, tags, and arguments. `LazyTagsResolver` stores the type and tags, and `LazyResolver` stores only the type. The additional information (if any) must be supplied when the `resolve` method is called.
+
+```swift
+class Service {}
+container.register(tags: "s", instance: Service())
+
+let lr: LazyResolver<Service> = try container.resolve()
+```
+
+Lazy resolvers don't have to be registered. Guise automatically constructs them as needed. This particular lazy resolver resolves dependencies of the type `Service`. Tags and arguments are specified when resolving:
+
+```swift
+let service = lr.resolve(tags: "s")
+```
+
+A `LazyTagsResolver` stores the type and tags, but not the arguments:
+
+```swift
+class Dependency {}
+class Service {
+  let lazyDependency: LazyTagsResolver<Dependency> 
+
+  init(lazyDependency: LazyTagsResolver<Dependency>) { 
+    self.lazyDependency = lazyDependency
+  }
+
+  func foo() throws {
+    let dependency = try lazyDependency.resolve()
+  }
+}
+
+container.register(tags: "d", lifetime: .singleton, instance: Dependency())
+container.register { r in
+  Service(dependency: try r.resolve(tags: "d"))
+}
+```
+
+Notice that when resolving the `LazyTagsResolver`, it is resolved with `try r.resolve(tags: "d")`. When Guise constructs the `LazyTagsResolver`, it passes any tags used in `resolve` to the `LazyTagsResolver` and these tags are used when `LazyTagsResolver`'s `resolve` method is called. 
 
 #### Async
 
