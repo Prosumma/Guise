@@ -99,9 +99,7 @@ enum Types: Equatable, Hashable {
   case plugin
 }
 
-container.register(Plugin.self, tags: Types.plugin, 1) { _ in
-  PluginImpl1()
-}
+container.register(Plugin.self, tags: Types.plugin, 1, instance: PluginImpl1())
 ```
 
 The order of tags is not important and any number may be used. Tags are collected into a `Set<AnyHashable>`, so repetition has no effect.
