@@ -6,10 +6,12 @@
 //
 
 public protocol Assembly {
-  func register(in registrar: Registrar)
-  func registered(to resolver: Resolver) throws
+  var dependentAssemblies: [any Assembly] { get }
+  func register(in registrar: any Registrar)
+  func registered(to resolver: any Resolver)
 }
 
 public extension Assembly {
-  func registered(to resolver: Resolver) throws {}
+  var dependentAssemblies: [any Assembly] { [] }
+  func registered(to resolver: any Resolver) {}
 }

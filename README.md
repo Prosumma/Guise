@@ -388,3 +388,57 @@ container.register(lifetime: .singleton) { _ async in
 }
 container.register(lifetime: .singleton, factory: auto(Service.init))
 ```
+
+#### Assemblies
+
+In a complex application with many modules, it can be helpful to organization registrations exported from the module. Guise provides _assemblies_ for this purpose.
+
+```swift
+class AwesomeAssembly: Assembly {
+  // Implementation of this method is optional
+  var dependentAssemblies: [any Assembly] {
+    [CoolAssembly()]
+  }
+
+  func register(in registrar: any Registrar) {
+    registrar.register(lifetime: .singleton: instance: Service())
+  }
+
+  // Implementation of this method is optional
+  func registered(to resolver: any Resolver) {
+    do {
+      let service = try resolver.resolve(Service.self)
+      service.configure()
+    } catch {
+      // Handle error
+    }
+  }
+}
+```
+
+Assemblies are organized in a hierarchy. An assembly should list its dependent assemblies by overriding the `dependentAssembles` property.
+
+Assemblies are keyed by their type, so adding the same assembly twice will not result in double registration.
+
+At the top, a root assembly is required, and this is passed to the `Assembler`'s `assemble` method:
+
+```swift
+class AppAssembly: Assembly {
+  var dependentAssemblies: [any Assembly] {
+    [UtilAssembly(), UIAssembly()]
+  }
+
+  func register(in registrar: any Registrar) {
+    registrar.register(instance: Service())
+  }
+}
+
+let container: Assembler = Container()
+container.assemble(AppAssembly())
+```
+
+If `UIAssembly` also depends on `UtilAssembly`, double registration won't occur.
+
+The act of assembling first creates an ordered set of assemblies, i.e., a list without duplicates in order of first registration. It then iterates through this list and calls `register(in:)` on each one. After which it iterates through the list and calls `registered(to:)` on each one.
+
+The purpose of `registered(to:)` is to perform additional initialization after dependencies have been registered without exposing the dependencies outside of the assembly.

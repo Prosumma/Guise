@@ -11,9 +11,6 @@ import OrderedCollections
 public class Container {
   private let lock = DispatchQueue(label: "Guise Container Entry Lock", attributes: .concurrent)
   private var entries: [Key: Entry] = [:]
-
-  private let assemblyLock = DispatchQueue(label: "Guise Assembly Entry Lock")
-  private var assemblies: OrderedDictionary<String, Assembly> = [:]
 }
 
 extension Container: Resolver {
@@ -36,27 +33,26 @@ extension Container: Registrar {
       entries = entries.filter { !keys.contains($0.key) }
     }
   }
-
-  public func register<A: Assembly>(assembly: A) {
-    assemblyLock.sync {
-      let key = String(reflecting: A.self)
-      if !assemblies.keys.contains(key) {
-        assemblies[key] = assembly
-      }
-    }
-  }
 }
 
 extension Container: Assembler {
-  public func assemble() throws {
+  public func assemble(_ assembly: some Assembly) {
+    var assemblies: OrderedDictionary<String, any Assembly> = [:]
+    add(assembly: assembly, to: &assemblies)
     for assembly in assemblies.values {
       assembly.register(in: self)
     }
-    try assemblyLock.sync {
-      for assembly in assemblies.values {
-        try assembly.registered(to: self)
-      }
-      assemblies = [:]
+    for assembly in assemblies.values {
+      assembly.registered(to: self)
     }
+  }
+  
+  private func add(assembly: any Assembly, to assemblies: inout OrderedDictionary<String, any Assembly>) {
+    let key = String(reflecting: type(of: assembly))
+    guard !assemblies.keys.contains(key) else { return }
+    for dependentAssembly in assembly.dependentAssemblies {
+      add(assembly: dependentAssembly, to: &assemblies)
+    }
+    assemblies[key] = assembly
   }
 }
