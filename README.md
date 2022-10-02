@@ -394,8 +394,9 @@ container.register(lifetime: .singleton, factory: auto(Service.init))
 In a complex application with many modules, it can be helpful to organization registrations exported from the module. Guise provides _assemblies_ for this purpose.
 
 ```swift
+// All the methods and properties of Assembly are optional.
+// Default implementations are provided.
 class AwesomeAssembly: Assembly {
-  // Implementation of this method is optional
   var dependentAssemblies: [any Assembly] {
     [CoolAssembly()]
   }
@@ -404,7 +405,6 @@ class AwesomeAssembly: Assembly {
     registrar.register(lifetime: .singleton: instance: Service())
   }
 
-  // Implementation of this method is optional
   func registered(to resolver: any Resolver) {
     do {
       let service = try resolver.resolve(Service.self)
@@ -442,3 +442,13 @@ If `UIAssembly` also depends on `UtilAssembly`, double registration won't occur.
 The act of assembling first creates an ordered set of assemblies, i.e., a list without duplicates in order of first registration. It then iterates through this list and calls `register(in:)` on each one. After which it iterates through the list and calls `registered(to:)` on each one.
 
 The purpose of `registered(to:)` is to perform additional initialization after dependencies have been registered without exposing the dependencies outside of the assembly.
+
+##### `RootAssembly`
+
+If your root assembly does nothing more than declare a set of dependent assemblies, Guise provides a `RootAssembly` class that can simplify assembly:
+
+```swift
+container.assemble(RootAssembly(UtilAssembly(), UIAssembly()))
+```
+
+Just pass the dependent assemblies to `RootAssembly`'s constructor.

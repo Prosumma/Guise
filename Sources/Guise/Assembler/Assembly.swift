@@ -13,5 +13,6 @@ public protocol Assembly {
 
 public extension Assembly {
   var dependentAssemblies: [any Assembly] { [] }
+  func register(in registrar: any Registrar) {}
   func registered(to resolver: any Resolver) {}
 }
