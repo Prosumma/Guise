@@ -1,5 +1,5 @@
 //
-//  LazyNameResolver.swift
+//  LazyTagsResolver.swift
 //  Guise
 //
 //  Created by Gregory Higley on 2022-09-21.
@@ -11,14 +11,14 @@ import Foundation
  A lazy resolver which stores `tags` for later use
  when it is resolved.
  
- To instantiate a `LazyNameResolver`, use the `Resolver`
+ To instantiate a `LazyTagsResolver`, use the `Resolver`
  itself:
  
  ```swift
- let ltr: LazyNameResolver<Service> = try resolver.resolve(tags: "s")
+ let ltr: LazyTagsResolver<Service> = try resolver.resolve(tags: "s")
  ```
  
- Any tags passed during resolution is stored by the `LazyNameResolver`
+ Any tags passed during resolution is stored by the `LazyTagsResolver`
  to be used when resolving with it:
  
  ```swift
