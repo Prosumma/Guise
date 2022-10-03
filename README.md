@@ -26,7 +26,7 @@ Guise 10 is not backwards compatible with 9.
 - [x] Guise 10 removes support for CocoaPods and Carthage. This is now a pure Swift package. 
 - [x] Metadata, containers and names have been merged into `tags`. (See below.)
 - [x] Injection has been removed but will make a comeback in a point release. (If you need it, use version 9 for now.)
-- [x] The global `Guise` type has been removed. If you want a global container, you'll have to do it yourself.
+- [x] The global `Guise` type has been removed. If you want a global container, it's easy enough to declare one. 
 
 ### Basic Documentation
 
