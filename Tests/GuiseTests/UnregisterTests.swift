@@ -2,7 +2,7 @@
 //  UnregisterTests.swift
 //  GuiseTests
 //
-//  Created by Greg Higley on 2022-10-03.
+//  Created by Gregory Higley on 2022-10-03.
 //
 
 import XCTest

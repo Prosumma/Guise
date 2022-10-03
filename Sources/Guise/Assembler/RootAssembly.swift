@@ -2,7 +2,7 @@
 //  RootAssembly.swift
 //  Guise
 //
-//  Created by Greg Higley on 2022-10-02.
+//  Created by Gregory Higley on 2022-10-02.
 //
 
 public final class RootAssembly: Assembly {

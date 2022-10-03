@@ -21,10 +21,16 @@ public class Container {
 extension Container: Resolver {
   public func resolve(criteria: Criteria) -> [Key: Entry] {
     lock.sync {
-      let parentEntries = parent?.resolve(criteria: criteria) ?? [:]
-      let childEntries = entries.filter { criteria ~= $0 }
-      // Entries in this container override entries in its parent.
-      return parentEntries.merging(childEntries, uniquingKeysWith: { _, new in new })
+      let result: [Key: Entry]
+      if let parent {
+        let parentEntries = parent.resolve(criteria: criteria)
+        let childEntries = entries.filter { criteria ~= $0 }
+        // Entries in this container override entries in its parent.
+        result = parentEntries.merging(childEntries, uniquingKeysWith: { _, new in new })
+      } else {
+        result = entries.filter { criteria ~= $0 }
+      }
+      return result
     }
   }
 }

@@ -452,3 +452,16 @@ container.assemble(RootAssembly(UtilAssembly(), UIAssembly()))
 ```
 
 Just pass the dependent assemblies to `RootAssembly`'s constructor.
+
+#### Nested Containers
+
+Guise supports nested `Container`s. When constructing a `Container`, simply pass its parent in the constructor:
+
+```swift
+let parent = Container()
+let child = Container(parent: parent)
+```
+
+When resolving, if an entry can't be found in the child, the parent is searched. Child entries always override parent entries for matching `Key`s. The reverse is **not** true: A parent has no knowledge of its child containers. Searching the parent directly will not discover any child entries. 
+
+When registering or assembling, a specific `Container` must be targeted.

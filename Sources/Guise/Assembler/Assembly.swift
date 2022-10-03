@@ -2,7 +2,7 @@
 //  Assembly.swift
 //  Guise
 //
-//  Created by Greg Higley on 2022-09-21.
+//  Created by Gregory Higley on 2022-09-21.
 //
 
 public protocol Assembly {
