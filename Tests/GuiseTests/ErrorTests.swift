@@ -13,14 +13,14 @@ final class ErrorTests: XCTestCase {
     super.setUp()
     prepareForGuiseTests()
   }
-  
+
   func test_error_same_key_sync() throws {
     // Given
     let key = Key(String.self)
     let container = Container()
     container.register(instance: "error")
     Entry.testResolutionError = ResolutionError(key: key, reason: .notFound)
-    
+
     // When
     do {
       _ = try container.resolve(String.self)
@@ -34,7 +34,7 @@ final class ErrorTests: XCTestCase {
       }
     }
   }
-  
+
   func test_error_different_key_sync() throws {
     // Given
     let key = Key(String.self)
@@ -42,7 +42,7 @@ final class ErrorTests: XCTestCase {
     container.register(instance: "error")
     container.register(instance: 7)
     Entry.testResolutionError = ResolutionError(key: key, reason: .notFound)
-    
+
     // When
     do {
       _ = try container.resolve(Int.self)
@@ -58,7 +58,7 @@ final class ErrorTests: XCTestCase {
       }
     }
   }
-  
+
   func test_arbitrary_error_sync() throws {
     // Given
     enum Foo: Error { case foo }
@@ -66,7 +66,7 @@ final class ErrorTests: XCTestCase {
     let container = Container()
     container.register(instance: "error")
     Entry.testResolutionError = Foo.foo
-    
+
     do {
       _ = try container.resolve(String.self)
       XCTFail("Expected to throw an error.")
@@ -79,14 +79,14 @@ final class ErrorTests: XCTestCase {
       }
     }
   }
-  
+
   func test_error_same_key_async() async throws {
     // Given
     let key = Key(String.self)
     let container = Container()
     container.register(instance: "error")
     Entry.testResolutionError = ResolutionError(key: key, reason: .notFound)
-    
+
     // When
     do {
       _ = try await container.resolve(String.self)
@@ -100,7 +100,7 @@ final class ErrorTests: XCTestCase {
       }
     }
   }
-  
+
   func test_error_different_key_async() async throws {
     // Given
     let key = Key(String.self)
@@ -108,7 +108,7 @@ final class ErrorTests: XCTestCase {
     container.register(instance: "error")
     container.register(instance: 7)
     Entry.testResolutionError = ResolutionError(key: key, reason: .notFound)
-    
+
     // When
     do {
       _ = try await container.resolve(Int.self)
@@ -124,7 +124,7 @@ final class ErrorTests: XCTestCase {
       }
     }
   }
-  
+
   func test_arbitrary_error_async() async throws {
     // Given
     enum Foo: Error { case foo }
@@ -132,7 +132,7 @@ final class ErrorTests: XCTestCase {
     let container = Container()
     container.register(instance: "error")
     Entry.testResolutionError = Foo.foo
-    
+
     do {
       _ = try await container.resolve(String.self)
       XCTFail("Expected to throw an error.")
