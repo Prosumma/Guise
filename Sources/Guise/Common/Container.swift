@@ -46,7 +46,7 @@ extension Container: Assembler {
       assembly.registered(to: self)
     }
   }
-  
+
   private func add(assembly: any Assembly, to assemblies: inout OrderedDictionary<String, any Assembly>) {
     let key = String(reflecting: type(of: assembly))
     guard !assemblies.keys.contains(key) else { return }

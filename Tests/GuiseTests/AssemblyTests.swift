@@ -15,7 +15,7 @@ class AssemblyTests: XCTestCase {
     let service = try container.resolve(Service.self)
     XCTAssertEqual(service.x, 1)
   }
-  
+
   func test_assemblies() throws {
     let container: any (Resolver & Assembler) = Container()
     container.assemble(RootAssembly(UtilAssembly(), TestAssembly()))
@@ -28,7 +28,7 @@ extension AssemblyTests {
   class Service {
     var x = 0
   }
-  
+
   class UtilAssembly: Assembly {
     func register(in registrar: Registrar) {
       registrar.register(instance: 1)
@@ -37,7 +37,7 @@ extension AssemblyTests {
 
   class TestAssembly: Assembly {
     let dependentAssemblies: [Assembly] = [UtilAssembly()]
-    
+
     func register(in registrar: Registrar) {
       registrar.register(lifetime: .singleton, instance: Service())
     }

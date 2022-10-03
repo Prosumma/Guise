@@ -7,11 +7,11 @@
 
 public final class RootAssembly: Assembly {
   public let dependentAssemblies: [Assembly]
-  
+
   public init(_ assemblies: [any Assembly]) {
     dependentAssemblies = assemblies
   }
-  
+
   public convenience init(_ assemblies: any Assembly...) {
     self.init(assemblies)
   }
