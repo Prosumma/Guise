@@ -12,7 +12,7 @@ public class Container {
   private let parent: Container?
   private let lock = DispatchQueue(label: "Guise Container Entry Lock", attributes: .concurrent)
   private var entries: [Key: Entry] = [:]
-  
+
   public init(parent: Container? = nil) {
     self.parent = parent
   }
@@ -24,7 +24,7 @@ extension Container: Resolver {
       let parentEntries = parent?.resolve(criteria: criteria) ?? [:]
       let childEntries = entries.filter { criteria ~= $0 }
       // Entries in this container override entries in its parent.
-      return parentEntries.merging(childEntries, uniquingKeysWith: { old, new in new })
+      return parentEntries.merging(childEntries, uniquingKeysWith: { _, new in new })
     }
   }
 }
