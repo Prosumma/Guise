@@ -9,6 +9,7 @@ Guise is a flexible, minimal dependency resolution framework for Swift.
 - [x] Simplifies unit testing
 - [x] Pass arbitrary state when resolving
 - [x] Lazy resolution
+- [x] Nested containers
 - [x] Swift 5.7+
 - [x] Support for iOS 8.0+, macOS 10.9+, watchOS 2+, tvOS 9+
 
@@ -27,6 +28,7 @@ Guise 10 is not backwards compatible with 9.
 - [x] Metadata, containers and names have been merged into `tags`. (See below.)
 - [x] Injection has been removed but will make a comeback in a point release. (If you need it, use version 9 for now.)
 - [x] The global `Guise` type has been removed. If you want a global container, it's easy enough to declare one. 
+- [x] Guise now supports nested containers. (See below.)
 
 ### Basic Documentation
 
