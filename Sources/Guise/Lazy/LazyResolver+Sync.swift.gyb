@@ -1,0 +1,27 @@
+//
+//  LazyResolver+Sync.swift
+//  Guise
+//
+//  Created by Gregory Higley on 2022-09-21.
+//
+%{
+arg_count = 9
+
+def args(items, fmt=lambda i: f'{i}', sep=', '):
+  return sep.join(map(fmt, items))
+}%
+
+public extension LazyResolver {
+  func resolve<A>(tags: AnyHashable..., args arg1: A = ()) throws -> T {
+    try resolve(tags: Set(tags), args: arg1)
+  }
+% for a in range(2, arg_count + 1):
+
+  func resolve<${args(range(1, a + 1), lambda i: f'A{i}')}>(
+    tags: AnyHashable...,
+    args arg1: A1, ${args(range(2, a + 1), lambda i: f'_ arg{i}: A{i}')}
+  ) throws -> T {
+    try resolve(tags: Set(tags), args: (${args(range(1, a + 1), lambda i: f'arg{i}')}))
+  }
+% end
+}

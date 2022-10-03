@@ -4,3 +4,4 @@ xcuserdata
 Playground.playground/
 .swiftpm/
 .build/
+__pycache__

@@ -1,0 +1,88 @@
+//
+//  ArgumentTests.swift(.gyb)
+//  GuiseTests
+//
+//  Created by Gregory Higley 2022-09-27.
+//
+
+import XCTest
+@testable import Guise
+%{
+arg_count = 9
+
+def args(items, fmt=lambda i: f'{i}', sep=', '):
+  return sep.join(map(fmt, items))
+}%
+
+class ArgumentTests: XCTestCase {
+  var container: (any (Resolver & Registrar))!
+
+  override func setUp() {
+    super.setUp()
+    container = Container()
+    prepareForGuiseTests()
+  }
+
+  // MARK: Synchronous
+  
+  func test_sync0() throws {
+    // Given
+    container.register { _ in
+      [] as [Int]
+    }
+    
+    // When
+    let ints: [Int] = try container.resolve()
+    
+    // Then
+    XCTAssertEqual(ints, [])
+  }
+  
+% for a in range(1, arg_count + 1):
+  func test_sync${a}() throws {
+    // Given
+    container.register { _, ${args(range(1, a + 1), lambda i: f'arg{i}')} in
+      [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
+    }
+    
+    // When
+    let ints: [Int] = try container.resolve(args: ${args(range(1, a + 1))})
+    
+    // Then
+    XCTAssertEqual(ints, [${args(range(1, a + 1))}])
+  }
+  
+% end
+  // MARK: Asynchronous
+
+  func test_async0() async throws {
+    // Given
+    container.register { _ async in
+      [] as [Int]
+    }
+    
+    // When
+    let ints: [Int] = try await container.resolve()
+    
+    // Then
+    XCTAssertEqual(ints, [])
+  }
+  
+% for a in range(1, arg_count + 1):
+  func test_async${a}() async throws {
+    // Given
+    container.register { _, ${args(range(1, a + 1), lambda i: f'arg{i}')} async in
+      [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
+    }
+    
+    // When
+    let ints: [Int] = try await container.resolve(args: ${args(range(1, a + 1))})
+    
+    // Then
+    XCTAssertEqual(ints, [${args(range(1, a + 1))}])
+  }
+% if a < arg_count:
+
+% end
+% end
+}
