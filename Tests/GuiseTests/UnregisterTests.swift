@@ -50,4 +50,23 @@ final class UnregisterTests: XCTestCase {
     // Then
     XCTAssertEqual(container.resolve(criteria: criteria).count, 0)
   }
+
+  /**
+   Like registration, unregistration affects only
+   the targeted container.
+   */
+  func test_unregister_parent() {
+    // Given
+    let key = Key(Int.self)
+    let criteria = Criteria(key: key)
+    let parent = Container()
+    let child = Container(parent: parent)
+    parent.register(instance: 7)
+
+    // When
+    child.unregister(keys: key)
+
+    // Then
+    XCTAssertEqual(child.resolve(criteria: criteria).count, 1)
+  }
 }

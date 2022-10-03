@@ -9,7 +9,7 @@ import Foundation
 import OrderedCollections
 
 public class Container {
-  private let parent: Container?
+  public let parent: Container?
   private let lock = DispatchQueue(label: "Guise Container Entry Lock", attributes: .concurrent)
   private var entries: [Key: Entry] = [:]
 
