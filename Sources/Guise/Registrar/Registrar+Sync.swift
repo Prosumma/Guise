@@ -149,7 +149,7 @@ public extension Registrar {
   }
 }
 
-extension Registrar {
+public extension Registrar {
   @discardableResult
   func register<T>(
     _ type: T.Type = T.self,
