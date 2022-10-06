@@ -27,6 +27,7 @@ let package = Package(
               "Lazy/LazyResolver+Sync.swift.gyb",
               "Lazy/LazyTagsResolver+Async.swift.gyb",
               "Lazy/LazyTagsResolver+Sync.swift.gyb",
+              "Registrar/Auto.swift.gyb",
               "Registrar/Registrar+Async.swift.gyb",
               "Registrar/Registrar+Sync.swift.gyb",
               "Resolver/Resolver+Async.swift.gyb",

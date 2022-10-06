@@ -19,7 +19,9 @@ public func auto<T, A1>(
   _ initializer: @escaping (A1) throws -> T
 ) -> Resolution<T> {
   return { r in
-    try initializer(r.resolve())
+    try initializer(
+      r.resolve()
+    )
   }
 }
 
