@@ -8,7 +8,7 @@
 import XCTest
 @testable import Guise
 %{
-arg_count = 9
+arg_count = int(arg_count)
 
 def args(items, fmt=lambda i: f'{i}', sep=', '):
   return sep.join(map(fmt, items))
