@@ -47,7 +47,7 @@ extension Container: Registrar {
     register(key: key, resolvable: entry)
     return key
   }
-  
+
   public func register<T, A>(
     _ type: T.Type,
     tags: Set<AnyHashable>,
@@ -65,7 +65,7 @@ extension Container: Registrar {
       entries = entries.filter { !keys.contains($0.key) }
     }
   }
-  
+
   private func register(key: Key, resolvable: any Resolvable) {
     lock.sync(flags: .barrier) {
       entries[key] = resolvable
