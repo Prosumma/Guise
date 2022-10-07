@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol Registrar {
-  func register(key: Key, entry: Entry)
+  func register(key: Key, entry: Any)
   func unregister(keys: Set<Key>)
 }
 

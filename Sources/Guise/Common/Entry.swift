@@ -35,14 +35,7 @@ public class Entry {
   private let factory: Factory
   private var resolution: Resolution = .factory
 
-  public let lifetime: Lifetime
-
-  public var isResolved: Bool {
-    guard case .instance = resolution else {
-      return false
-    }
-    return true
-  }
+  let lifetime: Lifetime
 
   init<T, A>(
     key: Key,
@@ -235,6 +228,6 @@ private extension Entry {
   }
 }
 
-extension TimeInterval {
+private extension TimeInterval {
   static let nanosecondsPerSecond: TimeInterval = 1_000_000
 }

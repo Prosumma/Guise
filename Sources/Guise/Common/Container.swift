@@ -19,11 +19,11 @@ public class Container {
 }
 
 extension Container: Resolver {
-  public func resolve(criteria: Criteria) -> [Key: Entry] {
+  public func resolve(criteria: Criteria) -> [Key: Any] {
     lock.sync {
       let result: [Key: Entry]
       if let parent {
-        let parentEntries = parent.resolve(criteria: criteria)
+        let parentEntries = (parent.resolve(criteria: criteria) as? [Key: Entry]) ?? [:]
         let childEntries = entries.filter { criteria ~= $0 }
         // Entries in this container override entries in its parent.
         result = parentEntries.merging(childEntries, uniquingKeysWith: { _, new in new })
@@ -36,9 +36,9 @@ extension Container: Resolver {
 }
 
 extension Container: Registrar {
-  public func register(key: Key, entry: Entry) {
+  public func register(key: Key, entry: Any) {
     lock.sync(flags: .barrier) {
-      entries[key] = entry
+      entries[key] = (entry as! Entry)
     }
   }
 
