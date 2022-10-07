@@ -10,7 +10,7 @@ import XCTest
 
 extension XCTestCase {
   func prepareForGuiseTests() {
-    Entry.allowSynchronousResolutionOfAsyncEntries = false
+    ResolutionConfig.allowSynchronousResolutionOfAsyncEntries = false
     Entry.singletonTestDelay = 0
     Entry.testResolutionError = nil
     OptionalResolutionConfig.throwResolutionErrorWhenNotFound = false

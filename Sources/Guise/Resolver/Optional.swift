@@ -5,7 +5,7 @@
 //  Created by Gregory Higley on 2022-09-21.
 //
 
-public struct OptionalResolutionConfig {
+public enum OptionalResolutionConfig {
   static var throwResolutionErrorWhenNotFound = false
 }
 

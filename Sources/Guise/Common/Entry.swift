@@ -7,23 +7,7 @@
 
 import Foundation
 
-public class Entry: Resolvable {
-  /**
-   Allows for the synchronous resolution of `async` entries
-   using the `runBlocking` function.
-   
-   This is disabled by default because it is mildly dangerous
-   and could cause deadlocks. Read the documentation for
-   `runBlocking` and enable at your own risk!
-   
-   If most of your DI resolution occurs in the main thread, it's
-   reasonably safe to enable this.
-   
-   If you want to enable this, set it to `true` before any resolution
-   of entries occurs.
-   */
-  public static var allowSynchronousResolutionOfAsyncEntries = false
-
+class Entry: Resolvable {
   /// Used by the unit tests. Expressed in nanoseconds.
   static var singletonTestDelay: UInt64 = 0
 
@@ -35,7 +19,7 @@ public class Entry: Resolvable {
   private let factory: Factory
   private var resolution: Resolution = .factory
 
-  public let lifetime: Lifetime
+  let lifetime: Lifetime
 
   init<T, A>(
     key: Key,
@@ -61,7 +45,7 @@ public class Entry: Resolvable {
     }
   }
 
-  public func resolve(_ resolver: any Resolver, _ argument: Any) throws -> Any {
+  func resolve(_ resolver: any Resolver, _ argument: Any) throws -> Any {
     try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
     case .instance(let instance):
@@ -75,7 +59,7 @@ public class Entry: Resolvable {
         case .sync(let factory):
           return try resolveSingleton(factory: factory, with: resolver, argument: argument)
         case .async(let factory):
-          guard Entry.allowSynchronousResolutionOfAsyncEntries else {
+          guard ResolutionConfig.allowSynchronousResolutionOfAsyncEntries else {
             throw ResolutionError.Reason.requiresAsync
           }
           return try runBlocking {
@@ -86,7 +70,7 @@ public class Entry: Resolvable {
     }
   }
 
-  public func resolve(_ resolver: any Resolver, _ argument: Any) async throws -> Any {
+  func resolve(_ resolver: any Resolver, _ argument: Any) async throws -> Any {
     try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
     case .instance(let instance):
@@ -187,7 +171,7 @@ public class Entry: Resolvable {
     case .sync(let factory):
       return try run(factory: factory, with: resolver, argument: argument)
     case .async(let factory):
-      guard Entry.allowSynchronousResolutionOfAsyncEntries else {
+      guard ResolutionConfig.allowSynchronousResolutionOfAsyncEntries else {
         throw ResolutionError.Reason.requiresAsync
       }
       return try runBlocking {

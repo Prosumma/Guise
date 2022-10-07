@@ -105,7 +105,7 @@ final class EntryTests: XCTestCase {
     container.register(lifetime: .singleton) { _ async in
       Service()
     }
-    Entry.allowSynchronousResolutionOfAsyncEntries = true
+    ResolutionConfig.allowSynchronousResolutionOfAsyncEntries = true
 
     // When/Then
     _ = try container.resolve(Service.self)
@@ -137,7 +137,7 @@ final class EntryTests: XCTestCase {
     container.register { _ async in
       Service()
     }
-    Entry.allowSynchronousResolutionOfAsyncEntries = true
+    ResolutionConfig.allowSynchronousResolutionOfAsyncEntries = true
 
     // When/Then
     _ = try container.resolve(Service.self)
