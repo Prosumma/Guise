@@ -367,7 +367,7 @@ container.register { r in
 let service = try await container.resolve(Service.self)
 ```
 
-Any synchronous registration may be resolved asynchronously, but the reverse is not true. By default, if an attempt is made to resolve an `async` registration in a synchronous context, Guise throws `.requiresAsync`. This can be overridden by setting `Entry.allowSynchronousResolutionOfAsyncEntries` to true. Because this can briefly block threads in the `async` threadpool, there's a possibility of deadlocks. Whether this will actually occur in your application depends upon many factors. In a typical application, it's unlikely, but it's a possibility that must be considered. 
+Any synchronous registration may be resolved asynchronously, but the reverse is not true. By default, if an attempt is made to resolve an `async` registration in a synchronous context, Guise throws `.requiresAsync`. This can be overridden by setting `ResolutionConfig.allowSynchronousResolutionOfAsyncEntries` to true. Because this can briefly block threads in the `async` threadpool, there's a possibility of deadlocks. Whether this will actually occur in your application depends upon many factors. In a typical application, it's unlikely, but it's a possibility that must be considered. 
 
 If you don't want to turn `allowSynchronousResolutionOfAsyncEntries` on, a safer pattern may be to use lazy resolution:
 
