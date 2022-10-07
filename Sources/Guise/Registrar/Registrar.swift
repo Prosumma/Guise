@@ -5,10 +5,21 @@
 //  Created by Gregory Higley on 2022-09-20.
 //
 
-import Foundation
-
 public protocol Registrar {
-  func register(key: Key, entry: Any)
+  @discardableResult
+  func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping SyncFactory<T, A>
+  ) -> Key
+  @discardableResult
+  func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping AsyncFactory<T, A>
+  ) -> Key
   func unregister(keys: Set<Key>)
 }
 

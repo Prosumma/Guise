@@ -6,26 +6,6 @@
 //
 
 public extension Registrar {
-  typealias AsyncFactory<T, A> = (any Resolver, A) async throws -> T
-
-  /**
-   The root registration method. All roads lead here.
-   
-   Although this method is public, its overloads are
-   much more convenient to use.
-   */
-  @discardableResult
-  func register<T, A>(
-    _ type: T.Type,
-    tags: Set<AnyHashable>,
-    lifetime: Lifetime,
-    factory: @escaping AsyncFactory<T, A>
-  ) -> Key {
-    let key = Key(type, tags: tags, args: A.self)
-    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
-    register(key: key, entry: entry)
-    return key
-  }
 
   @discardableResult
   func register<T>(

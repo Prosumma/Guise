@@ -79,12 +79,12 @@ func ~= (criteria: Criteria, key: Key) -> Bool {
   return type == key.type && tags ~= key.tags && args == key.args
 }
 
-func ~= (criteria: Criteria, entry: Entry) -> Bool {
-  let lifetime = criteria.lifetime ?? entry.lifetime
-  return lifetime == entry.lifetime
+func ~= (criteria: Criteria, resolvable: any Resolvable) -> Bool {
+  let lifetime = criteria.lifetime ?? resolvable.lifetime
+  return lifetime == resolvable.lifetime
 }
 
-func ~= (criteria: Criteria, rhs: Dictionary<Key, Entry>.Element) -> Bool {
+func ~= (criteria: Criteria, rhs: Dictionary<Key, any Resolvable>.Element) -> Bool {
   criteria ~= rhs.key && criteria ~= rhs.value
 }
 

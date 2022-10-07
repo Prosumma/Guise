@@ -6,20 +6,6 @@
 //
 
 public extension Registrar {
-  typealias SyncFactory<T, A> = (any Resolver, A) throws -> T
-
-  @discardableResult
-  func register<T, A>(
-    _ type: T.Type,
-    tags: Set<AnyHashable>,
-    lifetime: Lifetime,
-    factory: @escaping SyncFactory<T, A>
-  ) -> Key {
-    let key = Key(type, tags: tags, args: A.self)
-    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
-    register(key: key, entry: entry)
-    return key
-  }
 
   @discardableResult
   func register<T>(

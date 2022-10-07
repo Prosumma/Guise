@@ -13,7 +13,7 @@ public protocol Resolver: AnyObject {
    keyed by the `Key` type and looked up by `Criteria`. The
    first step in resolving is to perform this lookup.
    */
-  func resolve(criteria: Criteria) -> [Key: Any]
+  func resolve(criteria: Criteria) -> [Key: any Resolvable]
 }
 
 extension Resolver {

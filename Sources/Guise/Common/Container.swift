@@ -11,7 +11,7 @@ import OrderedCollections
 public class Container {
   public let parent: Container?
   private let lock = DispatchQueue(label: "Guise Container Entry Lock", attributes: .concurrent)
-  private var entries: [Key: Entry] = [:]
+  private var entries: [Key: any Resolvable] = [:]
 
   public init(parent: Container? = nil) {
     self.parent = parent
@@ -19,11 +19,11 @@ public class Container {
 }
 
 extension Container: Resolver {
-  public func resolve(criteria: Criteria) -> [Key: Any] {
+  public func resolve(criteria: Criteria) -> [Key: any Resolvable] {
     lock.sync {
-      let result: [Key: Entry]
+      let result: [Key: any Resolvable]
       if let parent {
-        let parentEntries = (parent.resolve(criteria: criteria) as? [Key: Entry]) ?? [:]
+        let parentEntries = parent.resolve(criteria: criteria)
         let childEntries = entries.filter { criteria ~= $0 }
         // Entries in this container override entries in its parent.
         result = parentEntries.merging(childEntries, uniquingKeysWith: { _, new in new })
@@ -36,15 +36,39 @@ extension Container: Resolver {
 }
 
 extension Container: Registrar {
-  public func register(key: Key, entry: Any) {
-    lock.sync(flags: .barrier) {
-      entries[key] = (entry as! Entry)
-    }
+  public func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping SyncFactory<T, A>
+  ) -> Key {
+    let key = Key(type, tags: tags, args: A.self)
+    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
+    register(key: key, resolvable: entry)
+    return key
+  }
+  
+  public func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping AsyncFactory<T, A>
+  ) -> Key {
+    let key = Key(type, tags: tags, args: A.self)
+    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
+    register(key: key, resolvable: entry)
+    return key
   }
 
   public func unregister(keys: Set<Key>) {
     lock.sync(flags: .barrier) {
       entries = entries.filter { !keys.contains($0.key) }
+    }
+  }
+  
+  private func register(key: Key, resolvable: any Resolvable) {
+    lock.sync(flags: .barrier) {
+      entries[key] = resolvable
     }
   }
 }

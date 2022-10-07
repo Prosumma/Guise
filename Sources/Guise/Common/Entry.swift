@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Entry {
+public class Entry: Resolvable {
   /**
    Allows for the synchronous resolution of `async` entries
    using the `runBlocking` function.
@@ -35,7 +35,7 @@ public class Entry {
   private let factory: Factory
   private var resolution: Resolution = .factory
 
-  let lifetime: Lifetime
+  public let lifetime: Lifetime
 
   init<T, A>(
     key: Key,
@@ -61,7 +61,7 @@ public class Entry {
     }
   }
 
-  func resolve(_ resolver: any Resolver, _ argument: Any) throws -> Any {
+  public func resolve(_ resolver: any Resolver, _ argument: Any) throws -> Any {
     try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
     case .instance(let instance):
@@ -86,7 +86,7 @@ public class Entry {
     }
   }
 
-  func resolve(_ resolver: any Resolver, _ argument: Any) async throws -> Any {
+  public func resolve(_ resolver: any Resolver, _ argument: Any) async throws -> Any {
     try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {
     case .instance(let instance):
