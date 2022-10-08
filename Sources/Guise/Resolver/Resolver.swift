@@ -20,10 +20,12 @@ extension Resolver {
   func resolve(key: Key) throws -> Entry {
     let criteria = Criteria(key: key)
     let entries = resolve(criteria: criteria)
+    let result: Entry
     if let entry = entries[key] as? Entry {
-      return entry
+      result = entry
     } else {
       throw ResolutionError(key: key, reason: .notFound)
     }
+    return result
   }
 }

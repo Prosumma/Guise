@@ -131,11 +131,13 @@ class Entry: Resolvable {
     with resolver: Resolver,
     argument: Any
   ) throws -> Any {
+    let result: Any
     do {
-      return try factory(resolver, argument)
+      result = try factory(resolver, argument)
     } catch {
       throw ResolutionError.Reason.error(error)
     }
+    return result
   }
 
   private func run(
@@ -143,11 +145,13 @@ class Entry: Resolvable {
     with resolver: Resolver,
     argument: Any
   ) async throws -> Any {
+    let result: Any
     do {
-      return try await factory(resolver, argument)
+      result = try await factory(resolver, argument)
     } catch {
       throw ResolutionError.Reason.error(error)
     }
+    return result
   }
 
   private func run(
@@ -155,11 +159,13 @@ class Entry: Resolvable {
     with resolver: Resolver,
     argument: Any
   ) async throws -> Any {
+    let result: Any
     do {
-      return try factory(resolver, argument)
+      result = try factory(resolver, argument)
     } catch {
       throw ResolutionError.Reason.error(error)
     }
+    return result
   }
 
   private func run(
