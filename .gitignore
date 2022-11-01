@@ -5,3 +5,4 @@ Playground.playground/
 .swiftpm/
 .build/
 __pycache__
+.vscode
