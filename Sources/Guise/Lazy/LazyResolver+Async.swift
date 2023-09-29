@@ -69,3 +69,4 @@ public extension LazyResolver {
     try await resolve(tags: Set(tags), args: (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9))
   }
 }
+

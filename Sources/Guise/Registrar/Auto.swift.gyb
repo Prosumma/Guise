@@ -21,6 +21,18 @@ public func auto<T>(
   }
 }
 
+#if swift(>=5.9)
+
+public func auto<T, each D>(
+  _ initializer: @escaping (repeat each D) throws -> T
+) -> Resolution<T> {
+  return { r in
+    try initializer(repeat r.resolve() as (each D))
+  }
+}
+
+#else
+
 % for a in range(1, arg_count + 1):
 public func auto<T, ${args(range(1, a + 1), lambda i: f'A{i}')}>(
   _ initializer: @escaping (${args(range(1, a + 1), lambda i: f'A{i}')}) throws -> T
@@ -34,3 +46,5 @@ public func auto<T, ${args(range(1, a + 1), lambda i: f'A{i}')}>(
 
 % end
 % end
+
+#endif
