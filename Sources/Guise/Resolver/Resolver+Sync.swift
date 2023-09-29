@@ -70,6 +70,19 @@ public extension Resolver {
     }
   }
 
+#if swift(>=5.9)
+
+  func resolve<T, A1, each A>(
+    _ type: T.Type = T.self,
+    tags: AnyHashable...,
+    args arg1: A1 = (),
+    _    args: repeat each A
+  ) throws -> T {
+    try resolve(type, tags: Set(tags), args: (arg1, repeat each args))
+  }
+
+#else
+
   // Resolve the entry with 0 or 1 arguments.
   func resolve<T, A>(
     _ type: T.Type = T.self,
@@ -194,4 +207,6 @@ public extension Resolver {
     let args = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
     return try resolve(type, tags: Set(tags), args: args)
   }
+
+#endif
 }
