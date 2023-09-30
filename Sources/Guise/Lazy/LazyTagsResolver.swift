@@ -46,6 +46,32 @@ public final class LazyTagsResolver<T> {
     self.resolver = resolver
     self.tags = tags
   }
+  
+#if swift(>=5.9)
+
+  public func resolve<A1, each A>(
+    args arg1: A1 = (),
+    _    args: repeat each A
+  ) throws -> T {
+    let key = Key(T.self, tags: tags, args: (A1, repeat each A).self)
+    guard let resolver else {
+      throw ResolutionError(key: key, reason: .noResolver)
+    }
+    return try resolver.resolve(T.self, tags: tags, args: (arg1, repeat each args))
+  }
+  
+  public func resolve<A1, each A>(
+    args arg1: A1 = (),
+    _    args: repeat each A
+  ) async throws -> T {
+    let key = Key(T.self, tags: tags, args: (A1, repeat each A).self)
+    guard let resolver else {
+      throw ResolutionError(key: key, reason: .noResolver)
+    }
+    return try await resolver.resolve(T.self, tags: tags, args: (arg1, repeat each args))
+  }
+
+#else
 
   public func resolve<A>(args arg1: A = ()) throws -> T {
     let key = Key(T.self, tags: tags, args: A.self)
@@ -62,6 +88,8 @@ public final class LazyTagsResolver<T> {
     }
     return try await resolver.resolve(T.self, tags: tags, args: arg1)
   }
+  
+#endif
 }
 
 extension LazyTagsResolver: LazyResolving {}

@@ -5,6 +5,8 @@
 //  Created by Gregory Higley on 2022-09-29.
 //
 
+#if swift(<5.9)
+
 public extension LazyTagsResolver {
   func resolve<A1, A2>(
     args arg1: A1, _ arg2: A2
@@ -54,3 +56,5 @@ public extension LazyTagsResolver {
     try resolve(args: (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9))
   }
 }
+
+#endif
