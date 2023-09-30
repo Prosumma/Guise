@@ -13,7 +13,7 @@ class LazyResolverTests: XCTestCase {
     super.setUp()
     prepareForGuiseTests()
   }
-  
+
   func test_sync0() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -21,10 +21,10 @@ class LazyResolverTests: XCTestCase {
       [] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 0)
-    
+
     // Then
     XCTAssertEqual(ints, [])
   }
@@ -36,14 +36,14 @@ class LazyResolverTests: XCTestCase {
       [arg1] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 1, args: 0)
-    
+
     // Then
     XCTAssertEqual(ints, [0])
   }
-  
+
   func test_sync2() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -51,14 +51,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 2, args: 0, 1)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1])
   }
-  
+
   func test_sync3() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -66,14 +66,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 3, args: 0, 1, 2)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2])
   }
-  
+
   func test_sync4() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -81,14 +81,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 4, args: 0, 1, 2, 3)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3])
   }
-  
+
   func test_sync5() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -96,14 +96,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 5, args: 0, 1, 2, 3, 4)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4])
   }
-  
+
   func test_sync6() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -111,14 +111,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 6, args: 0, 1, 2, 3, 4, 5)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5])
   }
-  
+
   func test_sync7() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -126,14 +126,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 7, args: 0, 1, 2, 3, 4, 5, 6)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6])
   }
-  
+
   func test_sync8() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -141,14 +141,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 8, args: 0, 1, 2, 3, 4, 5, 6, 7)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7])
   }
-  
+
   func test_sync9() throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -156,14 +156,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9] as [Int]
     }
     let lr: LazyResolver<[Int]> = try container.resolve()
-   
+
     // When
     let ints: [Int] = try lr.resolve(tags: 9, args: 0, 1, 2, 3, 4, 5, 6, 7, 8)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7, 8])
   }
-  
+
   func test_resolve_sync_weak() throws {
     // Given
     var container: Container? = Container()
@@ -189,7 +189,7 @@ class LazyResolverTests: XCTestCase {
       }
     }
   }
-  
+
   func test_async0() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -197,10 +197,10 @@ class LazyResolverTests: XCTestCase {
       [] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 0)
-    
+
     // Then
     XCTAssertEqual(ints, [])
   }
@@ -212,14 +212,14 @@ class LazyResolverTests: XCTestCase {
       [arg1] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 1, args: 0)
-    
+
     // Then
     XCTAssertEqual(ints, [0])
   }
-  
+
   func test_async2() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -227,14 +227,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 2, args: 0, 1)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1])
   }
-  
+
   func test_async3() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -242,14 +242,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 3, args: 0, 1, 2)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2])
   }
-  
+
   func test_async4() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -257,14 +257,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 4, args: 0, 1, 2, 3)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3])
   }
-  
+
   func test_async5() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -272,14 +272,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 5, args: 0, 1, 2, 3, 4)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4])
   }
-  
+
   func test_async6() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -287,14 +287,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 6, args: 0, 1, 2, 3, 4, 5)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5])
   }
-  
+
   func test_async7() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -302,14 +302,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 7, args: 0, 1, 2, 3, 4, 5, 6)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6])
   }
-  
+
   func test_async8() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -317,14 +317,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 8, args: 0, 1, 2, 3, 4, 5, 6, 7)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7])
   }
-  
+
   func test_async9() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -332,14 +332,14 @@ class LazyResolverTests: XCTestCase {
       [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9] as [Int]
     }
     let lr: LazyResolver<[Int]> = try await container.resolve()
-   
+
     // When
     let ints: [Int] = try await lr.resolve(tags: 9, args: 0, 1, 2, 3, 4, 5, 6, 7, 8)
-    
+
     // Then
     XCTAssertEqual(ints, [0, 1, 2, 3, 4, 5, 6, 7, 8])
   }
-  
+
   func test_resolve_async_weak() async throws {
     // Given
     var container: Container? = Container()

@@ -24,34 +24,34 @@ class ArgumentTests: XCTestCase {
   }
 
   // MARK: Synchronous
-  
+
   func test_sync0() throws {
     // Given
     container.register { _ in
       [] as [Int]
     }
-    
+
     // When
     let ints: [Int] = try container.resolve()
-    
+
     // Then
     XCTAssertEqual(ints, [])
   }
-  
+
 % for a in range(1, arg_count + 1):
   func test_sync${a}() throws {
     // Given
     container.register { _, ${args(range(1, a + 1), lambda i: f'arg{i}')} in
       [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
     }
-    
+
     // When
     let ints: [Int] = try container.resolve(args: ${args(range(1, a + 1))})
-    
+
     // Then
     XCTAssertEqual(ints, [${args(range(1, a + 1))}])
   }
-  
+
 % end
   // MARK: Asynchronous
 
@@ -60,24 +60,24 @@ class ArgumentTests: XCTestCase {
     container.register { _ async in
       [] as [Int]
     }
-    
+
     // When
     let ints: [Int] = try await container.resolve()
-    
+
     // Then
     XCTAssertEqual(ints, [])
   }
-  
+
 % for a in range(1, arg_count + 1):
   func test_async${a}() async throws {
     // Given
     container.register { _, ${args(range(1, a + 1), lambda i: f'arg{i}')} async in
       [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
     }
-    
+
     // When
     let ints: [Int] = try await container.resolve(args: ${args(range(1, a + 1))})
-    
+
     // Then
     XCTAssertEqual(ints, [${args(range(1, a + 1))}])
   }

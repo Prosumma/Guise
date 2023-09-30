@@ -46,9 +46,9 @@ public final class LazyTagsResolver<T> {
     self.resolver = resolver
     self.tags = tags
   }
-  
+
 #if swift(>=5.9)
-  
+
   public func resolve<each A>(
     args: repeat each A
   ) throws -> T {
@@ -58,7 +58,7 @@ public final class LazyTagsResolver<T> {
     }
     return try resolver.resolve(T.self, tags: tags, args: (repeat each args))
   }
-  
+
   public func resolve<each A>(
     args: repeat each A
   ) async throws -> T {
@@ -86,7 +86,7 @@ public final class LazyTagsResolver<T> {
     }
     return try await resolver.resolve(T.self, tags: tags, args: arg1)
   }
-  
+
 #endif
 }
 

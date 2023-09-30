@@ -102,7 +102,7 @@ public extension Resolver {
   func resolve<T, ${args(range(1, a + 1), lambda i: f'A{i}')}>(
     _ type: T.Type = T.self,
     tags: AnyHashable...,
-    args arg1: A1, ${args(range(2, a + 1), lambda i: f"\n    _    arg{i}: A{i}")}
+    args arg1: A1,${args(range(2, a + 1), lambda i: f"\n    _    arg{i}: A{i}", sep=",")}
   ) async throws -> T {
     let args = (${args(range(1, a + 1), lambda i: f"arg{i}")})
     return try await resolve(type, tags: Set(tags), args: args)

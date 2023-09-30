@@ -38,7 +38,7 @@ public func auto<T, ${args(range(1, a + 1), lambda i: f'A{i}')}>(
   _ initializer: @escaping (${args(range(1, a + 1), lambda i: f'A{i}')}) throws -> T
 ) -> Resolution<T> {
   return { r in
-    try initializer(${args(range(1, a + 1), lambda i: f"\n      r.resolve()")}
+    try initializer(${args(range(1, a + 1), lambda i: f"\n      r.resolve()", sep=',')}
     )
   }
 }

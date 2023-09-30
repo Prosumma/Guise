@@ -27,10 +27,10 @@ final class LazyTagsResolverTests: XCTestCase {
       [] as [Int]
     }
     let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: 0)
-   
+
     // When
     let ints: [Int] = try ltr.resolve()
-    
+
     // Then
     XCTAssertEqual(ints, [])
   }
@@ -43,14 +43,14 @@ final class LazyTagsResolverTests: XCTestCase {
       [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
     }
     let ltr: LazyTagsResolver<[Int]> = try container.resolve(tags: ${a})
-   
+
     // When
     let ints: [Int] = try ltr.resolve(args: ${args(range(0, a))})
-    
+
     // Then
     XCTAssertEqual(ints, [${args(range(0, a))}])
   }
-  
+
 % end
   func test_resolve_sync_weak() throws {
     // Given
@@ -77,7 +77,7 @@ final class LazyTagsResolverTests: XCTestCase {
       }
     }
   }
-  
+
   func test_async0() async throws {
     // Given
     let container: any (Resolver & Registrar) = Container()
@@ -85,10 +85,10 @@ final class LazyTagsResolverTests: XCTestCase {
       [] as [Int]
     }
     let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: 0)
-   
+
     // When
     let ints: [Int] = try await ltr.resolve()
-    
+
     // Then
     XCTAssertEqual(ints, [])
   }
@@ -101,14 +101,14 @@ final class LazyTagsResolverTests: XCTestCase {
       [${args(range(1, a + 1), lambda i: f'arg{i}')}] as [Int]
     }
     let ltr: LazyTagsResolver<[Int]> = try await container.resolve(tags: ${a})
-   
+
     // When
     let ints: [Int] = try await ltr.resolve(args: ${args(range(0, a))})
-    
+
     // Then
     XCTAssertEqual(ints, [${args(range(0, a))}])
   }
-  
+
 % end
   func test_resolve_async_weak() async throws {
     // Given

@@ -14,7 +14,7 @@ public extension LazyResolver {
   ) throws -> T {
     try resolve(tags: Set(tags), args: (repeat each args))
   }
-  
+
 #else
 
   func resolve<A>(tags: AnyHashable..., args arg1: A = ()) throws -> T {

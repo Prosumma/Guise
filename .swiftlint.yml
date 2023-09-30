@@ -1,9 +1,10 @@
 disabled_rules:
-  - identifier_name
-  - function_parameter_count
-  - force_cast
-  - force_try
-  - nesting
-  - todo
+- identifier_name
+- function_parameter_count
+- force_cast
+- force_try
+- large_tuple
+- nesting
+- todo
 excluded:
-  - .build
+- .build

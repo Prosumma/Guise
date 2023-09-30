@@ -42,7 +42,7 @@ public func auto<T, A1, A2>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
+      r.resolve(),
       r.resolve()
     )
   }
@@ -53,8 +53,8 @@ public func auto<T, A1, A2, A3>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
-      r.resolve(), 
+      r.resolve(),
+      r.resolve(),
       r.resolve()
     )
   }
@@ -65,9 +65,9 @@ public func auto<T, A1, A2, A3, A4>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
       r.resolve()
     )
   }
@@ -78,10 +78,10 @@ public func auto<T, A1, A2, A3, A4, A5>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
       r.resolve()
     )
   }
@@ -92,11 +92,11 @@ public func auto<T, A1, A2, A3, A4, A5, A6>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
       r.resolve()
     )
   }
@@ -107,12 +107,12 @@ public func auto<T, A1, A2, A3, A4, A5, A6, A7>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
       r.resolve()
     )
   }
@@ -123,13 +123,13 @@ public func auto<T, A1, A2, A3, A4, A5, A6, A7, A8>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
       r.resolve()
     )
   }
@@ -140,14 +140,14 @@ public func auto<T, A1, A2, A3, A4, A5, A6, A7, A8, A9>(
 ) -> Resolution<T> {
   return { r in
     try initializer(
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
-      r.resolve(), 
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
+      r.resolve(),
       r.resolve()
     )
   }
