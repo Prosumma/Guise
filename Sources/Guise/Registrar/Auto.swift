@@ -7,14 +7,6 @@
 
 public typealias Resolution<T> = (any Resolver) throws -> T
 
-public func auto<T>(
-  _ initializer: @escaping () throws -> T
-) -> Resolution<T> {
-  return { _ in
-    try initializer()
-  }
-}
-
 #if swift(>=5.9)
 
 public func auto<T, each D>(
