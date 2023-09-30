@@ -8,12 +8,11 @@
 public extension LazyResolver {
 #if swift(>=5.9)
 
-  func resolve<A1, each A>(
+  func resolve<each A>(
     tags: AnyHashable...,
-    args arg1: A1 = (),
-    _    args: repeat each A
+    args: repeat each A
   ) async throws -> T {
-    try await resolve(tags: Set(tags), args: (arg1, repeat each args))
+    try await resolve(tags: Set(tags), args: (repeat each args))
   }
 
 #else

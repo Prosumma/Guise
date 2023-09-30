@@ -78,13 +78,12 @@ public extension Resolver {
 
 #if swift(>=5.9)
 
-  func resolve<T, A1, each A>(
+  func resolve<T, each A>(
     _ type: T.Type = T.self,
     tags: AnyHashable...,
-    args arg1: A1 = (),
-    _    args: repeat each A
+    args: repeat each A
   ) async throws -> T {
-    try await resolve(type, tags: Set(tags), args: (arg1, repeat each args))
+    try await resolve(type, tags: Set(tags), args: (repeat each args))
   }
 
 #else
