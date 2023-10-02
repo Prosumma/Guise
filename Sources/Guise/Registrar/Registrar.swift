@@ -6,13 +6,9 @@
 //
 
 public protocol Registrar {
-  @discardableResult
-  func register<T, A>(
-    _ type: T.Type,
-    tags: Set<AnyHashable>,
-    lifetime: Lifetime,
-    factory: @escaping SyncFactory<T, A>
-  ) -> Key
+    @discardableResult
+    func register<T, each A>(_ type: T.Type, tags: Set<AnyHashable>, lifetime: Lifetime, factory: @escaping SyncFactory<T, repeat each A>) -> Key
+    
   @discardableResult
   func register<T, A>(
     _ type: T.Type,

@@ -36,17 +36,12 @@ extension Container: Resolver {
 }
 
 extension Container: Registrar {
-  public func register<T, A>(
-    _ type: T.Type,
-    tags: Set<AnyHashable>,
-    lifetime: Lifetime,
-    factory: @escaping SyncFactory<T, A>
-  ) -> Key {
-    let key = Key(type, tags: tags, args: A.self)
-    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
-    register(key: key, resolvable: entry)
-    return key
-  }
+    public func register<T, each A>(_ type: T.Type, tags: Set<AnyHashable>, lifetime: Lifetime, factory: @escaping SyncFactory<T, repeat each A>) -> Key {
+        let key = Key(type, tags: tags, args: (repeat each A).self)
+        let entry = Entry(key: key, lifetime: lifetime, factory: factory)
+        register(key: key, resolvable: entry)
+        return key
+    }
 
   public func register<T, A>(
     _ type: T.Type,
