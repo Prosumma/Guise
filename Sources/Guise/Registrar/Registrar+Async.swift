@@ -17,17 +17,4 @@ public extension Registrar {
     }
     return register(type, tags: Set(tags), lifetime: lifetime, factory: factory)
   }
-  
-  @discardableResult
-  func register<T>(
-    _ type: T.Type = T.self,
-    tags: AnyHashable...,
-    lifetime: Lifetime = .transient,
-    factory: @escaping (any Resolver) async throws -> T
-  ) -> Key {
-    let factory: (any Resolver, Void) async throws -> T = { r, _ in
-      try await factory(r)
-    }
-    return register(type, tags: Set(tags), lifetime: lifetime, factory: factory)
-  }
 }
