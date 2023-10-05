@@ -7,18 +7,18 @@
 
 public protocol Registrar {
   @discardableResult
-  func register<T, A>(
+  func register<T, each A>(
     _ type: T.Type,
     tags: Set<AnyHashable>,
     lifetime: Lifetime,
-    factory: @escaping SyncFactory<T, A>
+    factory: @escaping SyncFactory<T, repeat each A>
   ) -> Key
   @discardableResult
-  func register<T, A>(
+  func register<T, each A>(
     _ type: T.Type,
     tags: Set<AnyHashable>,
     lifetime: Lifetime,
-    factory: @escaping AsyncFactory<T, A>
+    factory: @escaping AsyncFactory<T, repeat each A>
   ) -> Key
   func unregister(keys: Set<Key>)
 }

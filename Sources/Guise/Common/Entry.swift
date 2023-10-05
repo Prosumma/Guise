@@ -21,27 +21,29 @@ class Entry: Resolvable {
 
   let lifetime: Lifetime
 
-  init<T, A>(
+  init<T, each A>(
     key: Key,
     lifetime: Lifetime,
-    factory: @escaping (any Resolver, A) throws -> T
+    factory: @escaping (any Resolver, repeat each A) throws -> T
   ) {
     self.lock = Self.lock(from: key)
     self.lifetime = lifetime
     self.factory = .sync { resolver, arg in
-      try factory(resolver, arg as! A)
+      let args = arg as! (repeat each A)
+      return try factory(resolver, repeat each args)
     }
   }
 
-  init<T, A>(
+  init<T, each A>(
     key: Key,
     lifetime: Lifetime,
-    factory: @escaping (any Resolver, A) async throws -> T
+    factory: @escaping (any Resolver, repeat each A) async throws -> T
   ) {
     self.lock = Self.lock(from: key)
     self.lifetime = lifetime
     self.factory = .async { resolver, arg in
-      try await factory(resolver, arg as! A)
+      let args = arg as! (repeat each A)
+      return try await factory(resolver, repeat each args)
     }
   }
 
