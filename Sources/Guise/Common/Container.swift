@@ -37,7 +37,8 @@ extension Container: Resolver {
 
 extension Container: Registrar {
   public func register<T, each A>(
-    _ type: T.Type, tags: Set<AnyHashable>,
+    _ type: T.Type, 
+    tags: Set<AnyHashable>,
     lifetime: Lifetime,
     factory: @escaping SyncFactory<T, repeat each A>
   ) -> Key {
