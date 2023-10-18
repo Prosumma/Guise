@@ -37,6 +37,7 @@ extension Container: Resolver {
 
 extension Container: Registrar {
 #if swift(>=5.9)
+  @discardableResult
   public func register<T, each A>(
     _ type: T.Type, 
     tags: Set<AnyHashable>,
@@ -49,6 +50,7 @@ extension Container: Registrar {
     return key
   }
 
+  @discardableResult
   public func register<T, each A>(
     _ type: T.Type,
     tags: Set<AnyHashable>,
@@ -61,6 +63,7 @@ extension Container: Registrar {
     return key
   }
 #else
+  @discardableResult
   public func register<T, A>(
     _ type: T.Type,
     tags: Set<AnyHashable>,
@@ -73,6 +76,7 @@ extension Container: Registrar {
     return key
   }
 
+  @discardableResult
   public func register<T, A>(
     _ type: T.Type,
     tags: Set<AnyHashable>,
