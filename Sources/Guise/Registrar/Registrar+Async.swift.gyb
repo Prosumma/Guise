@@ -12,6 +12,19 @@ def args(items, fmt=lambda i: f'{i}', sep=', '):
 }%
 
 public extension Registrar {
+#if swift(>=5.9)
+  func register<T, each A>(
+    _ type: T.Type = T.self,
+    tags: AnyHashable...,
+    lifetime: Lifetime = .transient,
+    factory: @escaping (any Resolver, repeat each A) async throws -> T
+  ) -> Key {
+    let factory: AsyncFactory<T, repeat each A> = { (r: any Resolver, arg: repeat each A) in
+      try await factory(r, repeat each arg)
+    }
+    return register(type, tags: Set(tags), lifetime: lifetime, factory: factory)
+  }
+#else
   @discardableResult
   func register<T>(
     _ type: T.Type = T.self,
@@ -52,4 +65,5 @@ public extension Registrar {
 
 % end
 % end
+#endif
 }

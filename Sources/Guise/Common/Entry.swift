@@ -21,6 +21,7 @@ class Entry: Resolvable {
 
   let lifetime: Lifetime
 
+#if swift(>=5.9)
   init<T, each A>(
     key: Key,
     lifetime: Lifetime,
@@ -46,7 +47,32 @@ class Entry: Resolvable {
       return try await factory(resolver, repeat each args)
     }
   }
+#else
+  init<T, A>(
+    key: Key,
+    lifetime: Lifetime,
+    factory: @escaping (any Resolver, A) throws -> T
+  ) {
+    self.lock = Self.lock(from: key)
+    self.lifetime = lifetime
+    self.factory = .sync { resolver, arg in
+      try factory(resolver, arg as! A)
+    }
+  }
 
+  init<T, A>(
+    key: Key,
+    lifetime: Lifetime,
+    factory: @escaping (any Resolver, A) async throws -> T
+  ) {
+    self.lock = Self.lock(from: key)
+    self.lifetime = lifetime
+    self.factory = .async { resolver, arg in
+      try await factory(resolver, arg as! A)
+    }
+  }
+#endif
+  
   func resolve(_ resolver: any Resolver, _ argument: Any) throws -> Any {
     try Entry.testResolutionError.flatMap { throw $0 }
     switch resolution {

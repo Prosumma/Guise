@@ -6,6 +6,7 @@
 //
 
 public protocol Registrar {
+#if swift(>=5.9)
   @discardableResult
   func register<T, each A>(
     _ type: T.Type,
@@ -20,6 +21,22 @@ public protocol Registrar {
     lifetime: Lifetime,
     factory: @escaping AsyncFactory<T, repeat each A>
   ) -> Key
+#else
+  @discardableResult
+  func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping SyncFactory<T, A>
+  ) -> Key
+  @discardableResult
+  func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping AsyncFactory<T, A>
+  ) -> Key
+#endif
   func unregister(keys: Set<Key>)
 }
 

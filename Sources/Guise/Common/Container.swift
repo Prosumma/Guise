@@ -36,6 +36,7 @@ extension Container: Resolver {
 }
 
 extension Container: Registrar {
+#if swift(>=5.9)
   public func register<T, each A>(
     _ type: T.Type, 
     tags: Set<AnyHashable>,
@@ -59,6 +60,31 @@ extension Container: Registrar {
     register(key: key, resolvable: entry)
     return key
   }
+#else
+  public func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping SyncFactory<T, A>
+  ) -> Key {
+    let key = Key(type, tags: tags, args: A.self)
+    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
+    register(key: key, resolvable: entry)
+    return key
+  }
+
+  public func register<T, A>(
+    _ type: T.Type,
+    tags: Set<AnyHashable>,
+    lifetime: Lifetime,
+    factory: @escaping AsyncFactory<T, A>
+  ) -> Key {
+    let key = Key(type, tags: tags, args: A.self)
+    let entry = Entry(key: key, lifetime: lifetime, factory: factory)
+    register(key: key, resolvable: entry)
+    return key
+  }
+#endif
 
   public func unregister(keys: Set<Key>) {
     lock.sync(flags: .barrier) {
