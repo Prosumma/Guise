@@ -7,6 +7,7 @@
 
 public extension Registrar {
 #if swift(>=5.9)
+  @discardableResult
   func register<T, each A>(
     _ type: T.Type = T.self,
     tags: AnyHashable...,
