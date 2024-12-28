@@ -1,4 +1,4 @@
-# Guise 10
+# Guise 11
 
 Guise is a flexible, minimal dependency resolution framework for Swift.
 
@@ -10,35 +10,25 @@ Guise is a flexible, minimal dependency resolution framework for Swift.
 - [x] Pass arbitrary state when resolving
 - [x] Lazy resolution
 - [x] Nested containers
-- [x] Swift 5.7+
-- [x] Support for iOS 8.0+, macOS 10.9+, watchOS 2+, tvOS 9+
+- [x] Swift 6+
+- [x] Support for iOS 13+, macOS 10.15+, watchOS 6+, tvOS 13+
 
-### What Makes Guise Better Than Those Other Guys?
+## What Makes Guise Better Than Those Other Guys?
 
 - Guise doesn't require any modification to the types you register. There are no special interfaces like `Injectable` or `Component` to implement. There are no special initializers or properties to add. Any type can be registered as is.
 - Guise was designed with Swift in mind. Other DI frameworks for Swift appear to be translations of frameworks from other languages, particularly C&#x266f; and Java. These languages have strengths and weaknesses that are different from those of Swift, and those strengths and weaknesses are reflected in the design of these frameworks. This makes them clumsy in Swift.
-- Many of these frameworks register _types_ directly. Guise registers _blocks_ directly and _types_ indirectly. This simple distinction removes an enormous amount of complexity while introducing greater compile-time safety. 
+- Many of these frameworks register _types_ directly. Guise registers _lambdas_ directly and _types_ indirectly (as the return type of the lambda). This simple distinction removes an enormous amount of complexity while introducing greater compile-time safety.
 - Guise was designed to be simple rather than easy. Turns out it's both.
 
-### Changes
+## Basic Documentation
 
-Guise 10 is not backwards compatible with 9.
-
-- [x] Guise 10 removes support for CocoaPods and Carthage. This is now a pure Swift package. 
-- [x] Metadata, containers and names have been merged into `tags`. (See below.)
-- [x] Injection has been removed but will make a comeback in a point release. (If you need it, use version 9 for now.)
-- [x] The global `Guise` type has been removed. If you want a global container, it's easy enough to declare one. 
-- [x] Guise now supports nested containers. (See below.)
-
-### Basic Documentation
-
-#### Registration
+### Registration
 
 To register a dependency with the container, four facts are needed: The _type_ to be registered, the _tags_ under which it will be registered, the _arguments_ needed in order to resolve the registration, and the _lifetime_ of the registration. The first three uniquely identify a registration. We'll discuss the fourth fact, lifetime, below.
 
 Let's start with these one by one.
 
-##### Types 
+#### Types
 
 ```swift
 let container = Container()
@@ -86,25 +76,26 @@ container.register { _ in ConcreteService() as Service }
 
 Later, when we resolve this registration, we ask for `Service`, not `ConcreteService`.
 
-For simple registrations that have no arguments, Guise has a convenient overload which uses an `@autoclosure`:
+For simple registrations, Guise has a convenient overload which uses an `@autoclosure`:
 
 ```swift
 container.register(instance: ConcreteService() as Service)
 ```
 
-##### Tags
+#### Tags
 
-Tags can help locate, describe, and disambiguate registrations. A tag can be any `Hashable` type, such as `String`, `UUID`, `Int` or a custom type you create yourself.
+Tags can help locate, describe, and disambiguate registrations. A tag can be any type which is both `Hashable` and `Sendable`, such as `String`, `UUID`, `Int`
+or a custom type you create yourself.
 
 ```swift
-enum Types: Equatable, Hashable {
+enum Types: Hashable, Sendable {
   case plugin
 }
 
 container.register(Plugin.self, tags: Types.plugin, 1, instance: PluginImpl1())
 ```
 
-The order of tags is not important and any number may be used. Tags are collected into a `Set<AnyHashable>`, so repetition has no effect.
+The order of tags is not important and any number may be used. Tags are collected into a `Set<AnySendableHashable>`, so repetition has no effect.
 
 Because the tags used in a registration are part of the unique `Key` that identifies that registration, the same tags must be used when resolving:
 
@@ -116,9 +107,9 @@ The tags weren't given in the same order as when the registration was made, but 
 
 Tags become really powerful when resolving arrays of dependencies. In that case, only a subset of the tags needs to be specified. See the discussion on arrays in the resolution section of this README.
 
-##### Arguments
+#### Arguments
 
-It's very common to need to pass some state to a dependency when resolving. Guise supports up to 9 arguments.
+It's very common to need to pass some state to a dependency when resolving. Guise supports any number of arguments.
 
 ```swift
 class Service {
@@ -131,32 +122,13 @@ container.register { _, id, state in
 }
 ```
 
-When resolving these arguments must be given or Guise will throw an error:
+When resolving, these arguments must be given or Guise will throw an error:
 
 ```swift
 let service: Service = try container.resolve(args: 1, "foo")
 ```
 
-The error it throws is `.notFound`. This is because, as mentioned above, the arguments to the resolution block form part of the `Key` that uniquely identifies the registration. If they don't match, then
-the registration cannot be found.
-
-This means that registrations can be overloaded with different arguments:
-
-```swift
-container.register { _, state in
-  Service(id: 0, state: state)
-}
-container.register { _, id, state in
-  Service(id: id, state: state)
-}
-container.register { _, id in
-  Service(id: id, state: "")
-}
-```
-
-Each of the three registrations above is distinct.
-
-##### Lifetimes
+#### Lifetimes
 
 Guise supports two lifetimes: transient and singleton. Transient is the default.
 
@@ -168,9 +140,7 @@ In a singleton registration, the factory is invoked the first time, but every su
 container.register(lifetime: .singleton, instance: Service())
 ```
 
-It's rare to register singletons with arguments, but if this is necessary, all resolutions of that singleton must pass the same arguments so that the registration can be located. (Here, "same" means the same types, not the same values.)
-
-##### Transitive dependencies
+#### Transitive dependencies
 
 One of the primary functions of dependency injection is to locate and resolve complex hierarchies of dependencies. Guise can do this as well. The first argument of every resolution block is an instance of `Resolver`, which allows registrations to be located and resolved.
 
@@ -191,7 +161,7 @@ container.register(lifetime: .singleton) { r in
 
 Whenever we resolve `Service`, the `Database` parameter in its constructor will be located and resolved.
 
-This pattern is so common that Guise has a higher-order function, `auto`, that can handle up to 9 dependencies:
+This pattern is so common that Guise has a higher-order function, `auto`, that can handle any number of dependencies:
 
 ```swift
 container.register(lifetime: .singleton, factory: auto(Service.init))
@@ -199,9 +169,9 @@ container.register(lifetime: .singleton, factory: auto(Service.init))
 
 In order to use `auto`, the sub-dependencies must not have any tags or factory arguments.
 
-#### Resolution
+### Resolution
 
-Resolution looks up and instantiates a dependency given its type, tags, and arguments, and taking into account its lifetime.
+Resolution looks up and instantiates a dependency given its type, tags, and factory arguments, and taking into account its lifetime.
 
 Resolution is simpler than registration, so a few examples will suffice:
 
@@ -228,7 +198,7 @@ container.register { _, id in
 let something = try container.resolve(Something.self, args: 7)
 ```
 
-##### Optional Resolution
+#### Optional Resolution
 
 Guise can resolve optionals as the wrapped type:
 
@@ -240,9 +210,9 @@ let service: Service? = try container.resolve()
 
 What happens behind the scenes is that Guise first looks for the exact registration, i.e., a registration of the type `Service?`. If it doesn't find that, then it attempts to resolve `Service`.
 
-When resolving an optional, Guise returns `nil` instead of throwing an error if the registration cannot be found. To change this behavior, set `OptionalResolutionConfig.throwResolutionErrorWhenNotFound` to true.
+When resolving an optional, Guise returns `nil` instead of throwing an error if the registration cannot be found.
 
-##### Array Resolution
+#### Array Resolution
 
 Imagine a plugin architecture in which we want to locate and resolve many instances of the same type.
 
@@ -283,9 +253,9 @@ This gets `Plugin1` and `Plugin2` but not `Plugin3` and `Plugin4`. Of course, we
 let plugins: [Plugin] = try container.resolve()
 ```
 
-If no registrations are found, Guise returns an empty array by default instead of throwing an error. To override this behavior, set `ArrayResolutionConfig.throwResolutionErrorWhenNotFound` to true.
+If no registrations are found, Guise returns an empty array by default instead of throwing an error.
 
-##### Lazy Resolution
+#### Lazy Resolution
 
 Occasionally there's a need to depend on a service that isn't ready yet. Or we wish to prevent a cycle because two services depend on each other.
 
@@ -308,7 +278,7 @@ class Service {
 
 The problem with the pattern above is that it breaks one of the fundamental rules of dependency injection: make dependencies explicit. A user of `Service` must read the source code in order to know what other dependencies it has. This makes the class harder to use and harder to test.
 
-Guise solves this problem with lazy resolvers. There are three lazy resolvers: `LazyResolver`, `LazyTagsResolver`, and `LazyFullResolver`. The difference between these is in how much of the registration information each one retains. `LazyFullResolver` stores the type, tags, and arguments. `LazyTagsResolver` stores the type and tags, and `LazyResolver` stores only the type. The additional information (if any) must be supplied when the `resolve` method is called.
+Guise solves this problem with lazy resolvers.
 
 ```swift
 class Service {}
@@ -317,37 +287,13 @@ container.register(tags: "s", instance: Service())
 let lr: LazyResolver<Service> = try container.resolve()
 ```
 
-Lazy resolvers don't have to be registered. Guise automatically constructs them as needed. This particular lazy resolver resolves dependencies of the type `Service`. Tags and arguments are specified when resolving:
+Lazy resolvers don't have to be registered. Guise automatically constructs them as needed. A lazy resolver resolves dependencies of the type `Service`. Tags and arguments are specified when resolving:
 
 ```swift
 let service = lr.resolve(tags: "s")
 ```
 
-A `LazyTagsResolver` stores the type and tags, but not the arguments:
-
-```swift
-class Dependency {}
-class Service {
-  let lazyDependency: LazyTagsResolver<Dependency> 
-
-  init(lazyDependency: LazyTagsResolver<Dependency>) { 
-    self.lazyDependency = lazyDependency
-  }
-
-  func foo() throws {
-    let dependency = try lazyDependency.resolve()
-  }
-}
-
-container.register(tags: "d", lifetime: .singleton, instance: Dependency())
-container.register { r in
-  Service(dependency: try r.resolve(tags: "d"))
-}
-```
-
-Notice that when resolving the `LazyTagsResolver`, it is resolved with `try r.resolve(tags: "d")`. When Guise constructs the `LazyTagsResolver`, it passes any tags used in `resolve` to the `LazyTagsResolver` and these tags are used when `LazyTagsResolver`'s `resolve` method is called. 
-
-#### Async
+### Async
 
 Guise supports `async` registrations and resolution.
 
@@ -367,46 +313,21 @@ container.register { r in
 let service = try await container.resolve(Service.self)
 ```
 
-Any synchronous registration may be resolved asynchronously, but the reverse is not true. By default, if an attempt is made to resolve an `async` registration in a synchronous context, Guise throws `.requiresAsync`. This can be overridden by setting `ResolutionConfig.allowSynchronousResolutionOfAsyncEntries` to true. Because this can briefly block threads in the `async` threadpool, there's a possibility of deadlocks. Whether this will actually occur in your application depends upon many factors. In a typical application, it's unlikely, but it's a possibility that must be considered. 
+Any synchronous registration may be resolved asynchronously, but the reverse is not true. By default, if an attempt is made to resolve an `async` registration in a synchronous context, Guise throws `.requiresAsync`.
 
-If you don't want to turn `allowSynchronousResolutionOfAsyncEntries` on, a safer pattern may be to use lazy resolution:
-
-```swift
-class Service {
-  let databaseResolver: LazyFullResolver<Database>
-
-  init(databaseResolver: LazyFullResolver<Database>) {
-    self.databaseResolver = databaseResolver
-  }
-
-  func performService() async throws {
-    let database = try await databaseResolver.resolve()
-    await database.setup() 
-  }
-}
-
-container.register(lifetime: .singleton) { _ async in
-  await Database()
-}
-container.register(lifetime: .singleton, factory: auto(Service.init))
-```
-
-#### Assemblies
+### Assemblies
 
 In a complex application with many modules, it can be helpful to organization registrations exported from the module. Guise provides _assemblies_ for this purpose.
 
 ```swift
-// All the methods and properties of Assembly are optional.
-// Default implementations are provided.
 class AwesomeAssembly: Assembly {
-  var dependentAssemblies: [any Assembly] {
-    [CoolAssembly()]
-  }
-
   func register(in registrar: any Registrar) {
+    registrar.register(assemblies: CoolAssembly())
     registrar.register(lifetime: .singleton: instance: Service())
   }
 
+  // This method is optional. A default implementation
+  // is provided, which does nothing.
   func registered(to resolver: any Resolver) {
     do {
       let service = try resolver.resolve(Service.self)
@@ -418,44 +339,28 @@ class AwesomeAssembly: Assembly {
 }
 ```
 
-Assemblies are organized in a hierarchy. An assembly should list its dependent assemblies by overriding the `dependentAssembles` property.
+Assemblies are organized in a hierarchy. An assembly should register its dependent assemblies using `register(assemblies:)`.
 
 Assemblies are keyed by their type, so adding the same assembly twice will not result in double registration.
-
-At the top, a root assembly is required, and this is passed to the `Assembler`'s `assemble` method:
-
-```swift
-class AppAssembly: Assembly {
-  var dependentAssemblies: [any Assembly] {
-    [UtilAssembly(), UIAssembly()]
-  }
-
-  func register(in registrar: any Registrar) {
-    registrar.register(instance: Service())
-  }
-}
-
-let container: Assembler = Container()
-container.assemble(AppAssembly())
-```
-
-If `UIAssembly` also depends on `UtilAssembly`, double registration won't occur.
 
 The act of assembling first creates an ordered set of assemblies, i.e., a list without duplicates in order of first registration. It then iterates through this list and calls `register(in:)` on each one. After which it iterates through the list and calls `registered(to:)` on each one.
 
 The purpose of `registered(to:)` is to perform additional initialization after dependencies have been registered without exposing the dependencies outside of the assembly.
 
-##### `RootAssembly`
-
-If your root assembly does nothing more than declare a set of dependent assemblies, Guise provides a `RootAssembly` class that can simplify assembly:
+Once all dependencies have been registered, call `assemble` on the container to make everything work. Additional assemblies can be passed as arguments to `assemble` or it can be called without arguments if they've already been registered.
 
 ```swift
-container.assemble(RootAssembly(UtilAssembly(), UIAssembly()))
+container.assemble(AwesomeAssembly(), CoolAssembly())
 ```
 
-Just pass the dependent assemblies to `RootAssembly`'s constructor.
+or
 
-#### Nested Containers
+```swift
+container.register(assemblies: AwesomeAssembly(), CoolAssembly())
+container.assemble()
+```
+
+### Nested Containers
 
 Guise supports nested `Container`s. When constructing a `Container`, simply pass its parent in the constructor:
 
@@ -464,6 +369,15 @@ let parent = Container()
 let child = Container(parent: parent)
 ```
 
-When resolving, if an entry can't be found in the child, the parent is searched. Child entries always override parent entries for matching `Key`s. The reverse is **not** true: A parent has no knowledge of its child containers. Searching the parent directly will not discover any child entries. 
+When resolving, if an entry can't be found in the child, the parent is searched. Child entries always override parent entries for matching `Key`s. The reverse is **not** true: A parent has no knowledge of its child containers. Searching the parent directly will not discover any child entries.
 
-When registering or assembling, a specific `Container` must be targeted.
+### Nested Containers &amp; Assemblies
+
+Assemblies are simply a way to make many registrations _en masse_. If a container cannot find a registration, it will search its parent. This is not true of assemblies. Assemblies are specific to a container.
+
+```swift
+let parent = Container()
+parent.assemble(CoolAssembly())
+let child = Container(parent: parent)
+child.assemble(AwesomeAssembly())
+```

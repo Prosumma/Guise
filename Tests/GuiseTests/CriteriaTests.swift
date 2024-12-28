@@ -1,50 +1,40 @@
 //
 //  CriteriaTests.swift
-//  GuiseTests
+//  Guise
 //
-//  Created by Gregory Higley on 2022-09-25.
+//  Created by Gregory Higley on 2024-12-18.
 //
 
-import XCTest
+import Testing
+
 @testable import Guise
 
-/**
- `Criteria` is implicitly tested by many other
- tests. These are just here to provide coverage.
- */
-final class CriteriaTests: XCTestCase {
-  func test_criteria_type_name() {
-    // Given
-    let tags: Criteria.Tags = .equals("x", 2, UUID())
-    let criteria = Criteria(String.self, tags: tags)
+@Test func testCriteria_initWithEachTag() throws {
+  let criteria = Criteria<Int>(tags: "foo", 3)
+  let key = Key<Int>(tags: "foo", 3)
+  #expect(criteria.matches(key))
+}
 
-    // Then
-    XCTAssertNotNil(criteria.type)
-    XCTAssertEqual(criteria.tags?.tags.count, 3)
-    XCTAssertEqual(criteria.tags?.comparison, .equals)
-    XCTAssertNil(criteria.args)
-    XCTAssertNil(criteria.lifetime)
-  }
+@Test func testCriteria_initWithEachTag_matchesSubset() throws {
+  let criteria = Criteria<Int>(op: .subset, tags: "foo")
+  let key = Key<Int>(tags: "foo", 3)
+  #expect(criteria.matches(key))
+}
 
-  func test_criteria_args() {
-    // Given
-    let criteria = Criteria(args: Int.self)
+@Test func testCriteria_initFromKey() throws {
+  let key = Key<Int>(tags: 7)
+  let criteria = Criteria(from: key)
+  #expect(criteria.matches(AnyKey(key)))
+}
 
-    // Then
-    XCTAssertEqual(criteria.args, "Swift.Int")
-    XCTAssertNil(criteria.type)
-    XCTAssertNil(criteria.tags)
-    XCTAssertNil(criteria.lifetime)
-  }
+@Test func testCriteria_matchesSubset() throws {
+  let criteria = Criteria<Int>(op: .subset, tags: 7)
+  let key = Key<Int>(tags: 7, 3)
+  #expect(criteria.matches(AnyKey(key)))
+}
 
-  func test_criteria_lifetime() {
-    // Given
-    let criteria = Criteria(lifetime: .singleton)
-
-    // Then
-    XCTAssertNotNil(criteria.lifetime)
-    XCTAssertNil(criteria.type)
-    XCTAssertNil(criteria.tags)
-    XCTAssertNil(criteria.args)
-  }
+@Test func testCriteria_keyDoesNotMatch() throws {
+  let key = Key<Int>(tags: 7)
+  let criteria = Criteria<String>(tags: 7)
+  #expect(!criteria.matches(AnyKey(key)))
 }

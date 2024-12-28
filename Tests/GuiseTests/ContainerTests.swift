@@ -1,43 +1,25 @@
 //
 //  ContainerTests.swift
-//  GuiseTests
+//  Guise
 //
-//  Created by Gregory Higley on 2022-10-03.
+//  Created by Gregory Higley on 2024-12-22.
 //
 
-import XCTest
-@testable import Guise
+import Guise
+import Testing
 
-final class ContainerTests: XCTestCase {
-  override func setUp() {
-    super.setUp()
-    prepareForGuiseTests()
-  }
+@Test func testResolveInParent() throws {
+  let parent = Container()
+  parent.register(instance: Thing(x: 77))
+  let child = Container(parent: parent)
+  _ = try child.resolve(Thing.self)
+}
 
-  func test_parent() throws {
-    // Given
-    let parent = Container()
-    let child = Container(parent: parent)
-
-    // When
-    parent.register(instance: "instance")
-    let instance: String = try child.resolve()
-
-    // Then
-    XCTAssertEqual(instance, "instance")
-  }
-
-  func test_override() throws {
-    // Given
-    let parent = Container()
-    let child = Container(parent: parent)
-
-    // When
-    parent.register(instance: "parent")
-    child.register(instance: "child")
-    let instance: String = try child.resolve()
-
-    // Then
-    XCTAssertEqual(instance, "child")
-  }
+@Test func testChildRegistrationOverridesParent() throws {
+  let parent = Container()
+  parent.register(instance: Thing(x: 77))
+  let child = Container(parent: parent)
+  child.register(instance: Thing(x: 99))
+  let thing = try child.resolve(Thing.self)
+  #expect(thing.x == 99)
 }

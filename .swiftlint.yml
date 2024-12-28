@@ -6,5 +6,7 @@ disabled_rules:
 - large_tuple
 - nesting
 - todo
+- trailing_comma
 excluded:
 - .build
+- .swiftpm

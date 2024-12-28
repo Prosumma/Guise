@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-./mktemplates
-swiftlint --fix --quiet
-swiftlint --strict --quiet && swift test

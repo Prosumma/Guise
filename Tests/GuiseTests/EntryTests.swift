@@ -1,310 +1,94 @@
 //
 //  EntryTests.swift
-//  GuiseTests
+//  Guise
 //
-//  Created by Gregory Higley on 2022-09-24.
+//  Created by Gregory Higley on 2024-12-18.
 //
 
-import XCTest
-@testable import Guise
+import Guise
+import Testing
 
-/**
- There are twelve basic tests that must be performed, based
- on the following matrix:
- 
- - `resolve`: whether the call to `resolve` is `sync` or `async`.
- - `resolution`: whether `resolution` is `instance` or `factory`.
- - `factory`: whether `factory` is `sync` or `async`.
- - `lifetime`: whether `lifetime` is `transient` or `singleton`.
- - whether synchronous resolution of async factories is allowed or not.
-
- Not all of these combinations are logically possible, which is why there
- are only twelve tests.
- 
- The names of the tests are a bit cryptic, but make sense by reference
- to the matrix:
- 
- `test_sync_factory_async_transient`
- 
- This tests the situation where `resolve` is called synchronously, `resolution`
- is `factory`, the `factory` is `async` and the `lifetime` is `transient`.
- 
- In fact, when `resolve` is `sync` and the factory is `async`, we have to
- do two tests: One where synchronous evaluation of `async` factories is allowed
- and another where it isn't. By default it isn't allowed, so in the situation
- where it is, we add `_allowed` to the end:
- 
- `test_sync_factory_async_transient_allowed`
- 
- In addition to the basic tests, there are tests for race conditions and error handling.
- */
-final class EntryTests: XCTestCase {
-  var container: (any (Resolver & Registrar))!
-
-  override func setUp() {
-    super.setUp()
-    container = Container()
-    prepareForGuiseTests()
-  }
-
-  func test_sync_instance() throws {
-    // Given
-    container.register(lifetime: .singleton, instance: Service())
-
-    // When
-    let service1: Service = try container.resolve()
-    let service2: Service = try container.resolve()
-
-    // Then
-    XCTAssert(service1 === service2)
-  }
-
-  func test_sync_factory_sync_singleton() throws {
-    // Given
-    container.register(lifetime: .singleton, instance: Service())
-
-    // When
-    let service1 = try container.resolve(Service.self)
-    let service2 = try container.resolve(Service.self)
-
-    // Then
-    XCTAssert(service1 === service2)
-  }
-
-  func test_sync_factory_sync_transient() throws {
-    // Given
-    container.register(factory: auto(Service.init))
-
-    // When/Then
-    _ = try container.resolve(Service.self)
-  }
-
-  func test_sync_factory_async_singleton() throws {
-    // Given
-    container.register(lifetime: .singleton) { _ async in
-      Service()
-    }
-
-    // When/Then
-    do {
-      _ = try container.resolve(Service.self)
-      XCTFail("Expected to throw .requiresAsync.")
-    } catch let error as ResolutionError {
-      let key = Key(Service.self)
-      guard
-        error.key == key,
-        case .requiresAsync = error.reason
-      else {
-        throw error
-      }
-    }
-  }
-
-  func test_sync_factory_async_singleton_allowed() throws {
-    // Given
-    container.register(lifetime: .singleton) { _ async in
-      Service()
-    }
-    ResolutionConfig.allowSynchronousResolutionOfAsyncEntries = true
-
-    // When/Then
-    _ = try container.resolve(Service.self)
-  }
-
-  func test_sync_factory_async_transient() throws {
-    // Given
-    container.register { _ async in
-      Service()
-    }
-
-    // When/Then
-    do {
-      _ = try container.resolve(Service.self)
-      XCTFail("Expected to throw .requiresAsync.")
-    } catch let error as ResolutionError {
-      let key = Key(Service.self)
-      guard
-        error.key == key,
-        case .requiresAsync = error.reason
-      else {
-        throw error
-      }
-    }
-  }
-
-  func test_sync_factory_async_transient_allowed() throws {
-    // Given
-    container.register { _ async in
-      Service()
-    }
-    ResolutionConfig.allowSynchronousResolutionOfAsyncEntries = true
-
-    // When/Then
-    _ = try container.resolve(Service.self)
-  }
-
-  func test_async_instance() async throws {
-    // Given
-    container.register(lifetime: .singleton) { _ async in
-      Service()
-    }
-
-    // When
-    let service1: Service = try await container.resolve()
-    let service2: Service = try await container.resolve()
-
-    // Then
-    XCTAssert(service1 === service2)
-  }
-
-  func test_async_factory_sync_singleton() async throws {
-    // Given
-    container.register(lifetime: .singleton, factory: auto(Service.init))
-
-    // When/Then
-    _ = try await container.resolve(Service.self)
-  }
-
-  func test_async_factory_sync_transient() async throws {
-    // Given
-    container.register(factory: auto(Service.init))
-
-    // When/Then
-    _ = try await container.resolve(Service.self)
-  }
-
-  func test_async_factory_async_singleton() async throws {
-    // Given
-    container.register(lifetime: .singleton) { _ async in
-      Service()
-    }
-
-    // When
-    let service1: Service = try await container.resolve()
-    let service2: Service = try await container.resolve()
-
-    // Then
-    XCTAssert(service1 === service2)
-  }
-
-  func test_async_factory_async_transient() async throws {
-    // Given
-    container.register { _ async in
-        Service()
-    }
-
-    // When/Then
-    _ = try await container.resolve(Service.self)
-  }
-
-  func test_sync_race() {
-    // Given
-    container.register(lifetime: .singleton, instance: Service())
-    Entry.singletonTestDelay = 100_000
-    let semaphore = DispatchSemaphore(value: 0)
-    var service1: Service?
-    var service2: Service?
-
-    // When
-    Thread.detachNewThread {
-      service1 = try? self.container.resolve(Service.self)
-      semaphore.signal()
-    }
-
-    Thread.detachNewThread {
-      service2 = try? self.container.resolve(Service.self)
-      semaphore.signal()
-    }
-
-    semaphore.wait()
-    semaphore.wait()
-
-    // Then
-    XCTAssertNotNil(service1)
-    XCTAssert(service1 === service2)
-  }
-
-  func test_async_race() async throws {
-    // Given
-    container.register(lifetime: .singleton) { _ async in
-      Service()
-    }
-    Entry.singletonTestDelay = 100_000
-    async let service1 = container.resolve(Service.self)
-    async let service2 = container.resolve(Service.self)
-
-    // When
-    let services = try await [service1, service2]
-
-    // Then
-    XCTAssert(services[0] === services[1])
-  }
-
-  func test_sync_factory_sync_error() throws {
-    // Given
-    container.register(Service.self) { _ in
-      throw ServiceError.error
-    }
-
-    // When
-    do {
-      _ = try container.resolve(Service.self)
-    } catch let error as ResolutionError {
-      let key = Key(Service.self)
-      guard
-        key == error.key,
-        case .error(_ as ServiceError) = error.reason
-      else {
-        throw error
-      }
-    }
-  }
-
-  func test_async_factory_sync_error() async throws {
-    // Given
-    container.register(Service.self) { _ in
-      throw ServiceError.error
-    }
-
-    // When
-    do {
-      _ = try await container.resolve(Service.self)
-    } catch let error as ResolutionError {
-      let key = Key(Service.self)
-      guard
-        key == error.key,
-        case .error(_ as ServiceError) = error.reason
-      else {
-        throw error
-      }
-    }
-  }
-
-  func test_async_factory_async_error() async throws {
-    // Given
-    container.register(Service.self) { _ async throws in
-      throw ServiceError.error
-    }
-
-    // When
-    do {
-      _ = try await container.resolve(Service.self)
-    } catch let error as ResolutionError {
-      let key = Key(Service.self)
-      guard
-        key == error.key,
-        case .error(_ as ServiceError) = error.reason
-      else {
-        throw error
-      }
+@Test func testEntry_invalidArgsType() throws {
+  let container = Container()
+  container.register(instance: Thing(x: 12))
+  let key = Key<Thing>()
+  do {
+    _ = try container.resolve(Thing.self, args: "bob")
+    Issue.record("We should not have resolved a Thing here.")
+  } catch let error as ResolutionError {
+    guard
+      error.key == key,
+      case .invalidArgsType = error.reason
+    else {
+      throw error
     }
   }
 }
 
-extension EntryTests {
-  class Service {}
-
-  enum ServiceError: Error, Equatable {
-    case error
+@Test func testEntry_invalidArgsType_async() async throws {
+  let container = Container()
+  container.register(lifetime: .singleton) { _ in await Alien(s: "bob") }
+  let key = Key<Alien>()
+  do {
+    _ = try await container.resolve(Alien.self, args: 2)
+    Issue.record("We should not have resolved an Alien here.")
+  } catch let error as ResolutionError {
+    guard
+      error.key == key,
+      case .invalidArgsType = error.reason
+    else {
+      throw error
+    }
   }
+}
+
+@Test func testEntry_requiresAsync() throws {
+  let container = Container()
+  container.register(lifetime: .singleton) { _ in await Alien(s: "bob") }
+  let key = Key<Alien>()
+  do {
+    _ = try container.resolve(Alien.self, args: 2)
+    Issue.record("We should not have resolved an Alien here.")
+  } catch let error as ResolutionError {
+    guard
+      error.key == key,
+      case .requiresAsync = error.reason
+    else {
+      throw error
+    }
+  }
+}
+
+@Test func testEntry_singleton() async throws {
+  let container = Container()
+  container.register(lifetime: .singleton, factory: auto(Ningleton.init))
+  let task1 = Task {
+    try await container.resolve(Ningleton.self)
+  }
+  let task2 = Task {
+    try await container.resolve(Ningleton.self)
+  }
+  #expect(try await task1.value === task2.value)
+}
+
+@Test func testEntry_singletonSameInstance() throws {
+  let container = Container()
+  container.register(lifetime: .singleton, factory: auto(Ningleton.init))
+  let ningleton1: Ningleton = try container.resolve()
+  let ningleton2: Ningleton = try container.resolve()
+  #expect(ningleton1 === ningleton2)
+}
+
+@Test func testEntry_singletonAsync() async throws {
+  let container = Container()
+  container.register(lifetime: .singleton, factory: auto(Singleton.init))
+  let task1 = Task {
+    try await container.resolve(Singleton.self)
+  }
+  let task2 = Task {
+    try await container.resolve(Singleton.self)
+  }
+  #expect(try await task1.value === task2.value)
+  let singleton: Singleton = try await container.resolve()
+  #expect(try await task2.value === singleton)
 }

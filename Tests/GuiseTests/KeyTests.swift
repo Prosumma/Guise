@@ -1,19 +1,29 @@
 //
 //  KeyTests.swift
-//  GuiseTests
+//  Guise
 //
-//  Created by Gregory Higley on 2022-09-24.
+//  Created by Gregory Higley on 2024-12-18.
 //
 
-import XCTest
 import Guise
+import Testing
 
-final class KeyTests: XCTestCase {
-  func test_key_description() {
-    let key = Key(String.self, tags: [2, "a"], args: Int.self)
-    XCTAssertEqual(
-      String(describing: key),
-      "Key(Swift.String, tags: \"a\", 2, args: Swift.Int)"
-    )
-  }
+@Test func testEquatable() throws {
+  let key1 = Key<Int>(tags: 1)
+  let key2 = AnyKey(Int.self, tags: 1)
+  let key3 = Key<String>()
+  #expect(key1 == key2)
+  #expect(key2 == key1)
+  #expect(key2 != key3)
+  #expect(key3 != key2)
+}
+
+@Test func testFailableInitSucceeds() {
+  let key = AnyKey(Int.self, tags: 1)
+  #expect(Key<Int>(key) != nil)
+}
+
+@Test func testFailableInitFails() {
+  let key = AnyKey(Int.self, tags: 1)
+  #expect(Key<Singleton>(key) == nil)
 }

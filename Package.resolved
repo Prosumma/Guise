@@ -1,12 +1,13 @@
 {
+  "originHash" : "8ec77aa81408049d243edddd7a23858de4372995584a8c6d73f0eb7f59e37264",
   "pins" : [
     {
-      "identity" : "swift-atomics",
+      "identity" : "semaphore",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-atomics",
+      "location" : "https://github.com/groue/Semaphore",
       "state" : {
-        "revision" : "919eb1d83e02121cdb434c7bfc1f0c66ef17febe",
-        "version" : "1.0.2"
+        "revision" : "2543679282aa6f6c8ecf2138acd613ed20790bc2",
+        "version" : "0.1.0"
       }
     },
     {
@@ -14,10 +15,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections",
       "state" : {
-        "revision" : "f504716c27d2e5d4144fa4794b12129301d17729",
-        "version" : "1.0.3"
+        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
+        "version" : "1.1.4"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
