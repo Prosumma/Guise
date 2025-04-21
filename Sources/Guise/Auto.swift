@@ -37,3 +37,22 @@ public func auto<T, each Dep>(
     try await initializer(repeat resolver.resolve() as (each Dep))
   }
 }
+
+/// Automatically initializes a dependency of type `T` using the provided dependencies.
+/// This particular version must be used when registering a MainActor-isolated type.
+/// 
+/// This is used in the `factory` parameter of the various `register` overloads.
+///
+/// - Parameters:
+///   - T: The type of the dependency to resolve.
+///   - Dep: The types of the dependencies to use for resolution.
+/// - Returns: An instance of type `T` resolved using the provided dependencies.
+public func mainauto<T: Sendable, each Dep>(
+  _ initializer: @escaping @Sendable (repeat each Dep) throws -> T
+) -> (any Resolver) throws -> T {
+  return { resolver in
+    try MainActor.assumeIsolated {
+      try initializer(repeat resolver.resolve() as (each Dep))
+    }
+  }
+}
