@@ -105,7 +105,8 @@ import Testing
   } catch let error as ResolutionError {
     guard
       error.key == key,
-      case .requiresMainActor = error.reason
+      case .requiresIsolation(let actor) = error.reason,
+      actor === MainActor.shared
     else {
       throw error
     }

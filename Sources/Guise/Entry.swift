@@ -173,7 +173,7 @@ public class Entry: @unchecked Sendable {
           }
         }
       case .main:
-        throw ResolutionError(key, reason: .requiresMainActor)
+        throw ResolutionError(key, reason: .requiresIsolation(MainActor.shared))
       }
     }
   }
