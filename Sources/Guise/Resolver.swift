@@ -21,7 +21,7 @@ public protocol Resolver: AnyObject, Sendable {
 }
 
 public extension Resolver {
-  func resolve<T, each Arg>(
+  func resolve<T, each Arg: Sendable>(
     key: Key<T>,
     args: repeat each Arg
   ) throws -> T {
@@ -39,7 +39,7 @@ public extension Resolver {
     return try entry.resolve(with: self, args: repeat each args) as! T
   }
 
-  func resolve<T, each Arg>(
+  func resolve<T, each Arg: Sendable>(
     key: Key<T>,
     args: repeat each Arg
   ) async throws -> T {
@@ -57,7 +57,27 @@ public extension Resolver {
     return try await entry.resolve(with: self, args: repeat each args) as! T
   }
 
-  func resolve<T, each Tag: Hashable & Sendable, each Arg>(
+  @MainActor
+  func resolve<T, each Arg: Sendable>(
+    key: Key<T>,
+    isolation: MainActor,
+    args: repeat each Arg
+  ) throws -> T {
+    if let type = T.self as? LazyResolving.Type {
+      return type.init(tagset: key.tagset, with: self) as! T
+    }
+    guard let entry = self[key] else {
+      switch T.self {
+      case let type as ResolutionAdapter.Type:
+        return try type.resolve(with: self, key: key, isolation: isolation, args: repeat each args) as! T
+      default:
+        throw ResolutionError(key, reason: .notFound)
+      }
+    }
+    return try entry.resolve(with: self, isolation: isolation, args: repeat each args) as! T
+  }
+
+  func resolve<T, each Tag: Hashable & Sendable, each Arg: Sendable>(
     _ type: T.Type = T.self,
     tags: repeat each Tag,
     args: repeat each Arg
@@ -66,12 +86,23 @@ public extension Resolver {
     return try resolve(key: key, args: repeat each args)
   }
 
-  func resolve<T, each Tag: Hashable & Sendable, each Arg>(
+  func resolve<T, each Tag: Hashable & Sendable, each Arg: Sendable>(
     _ type: T.Type = T.self,
     tags: repeat each Tag,
     args: repeat each Arg
   ) async throws -> T {
     let key = Key<T>(tags: repeat each tags)
     return try await resolve(key: key, args: repeat each args)
+  }
+
+  @MainActor
+  func resolve<T, each Tag: Hashable & Sendable, each Arg: Sendable>(
+    _ type: T.Type = T.self,
+    isolation: MainActor,
+    tags: repeat each Tag,
+    args: repeat each Arg
+  ) throws -> T {
+    let key = Key<T>(tags: repeat each tags)
+    return try resolve(key: key, isolation: isolation, args: repeat each args)
   }
 }

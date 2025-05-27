@@ -25,6 +25,7 @@ public extension ResolutionError {
     case invalidArgsType
     case invalidInstanceType
     case requiresAsync
+    case requiresMainActor
     case noResolver
     case error(Error)
   }

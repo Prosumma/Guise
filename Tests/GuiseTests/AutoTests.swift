@@ -23,3 +23,10 @@ import Testing
   let spaceship: Spaceship = try await container.resolve()
   #expect(spaceship.alien.s == "something")
 }
+
+@Test @MainActor func testAuto_main() throws {
+  let container = Container()
+  container.register(instance: Thing(x: 3))
+  container.register(isolation: MainActor.shared, factory: mainauto(ViewController.init))
+  _ = try container.resolve(ViewController.self, isolation: MainActor.shared)
+}

@@ -36,6 +36,14 @@ import Testing
   #expect(things.isEmpty)
 }
 
+@Test @MainActor func testResolveArray_main() throws {
+  let container = Container()
+  container.register(isolation: #isolation, tags: 7, instance: Thing(x: 7))
+  container.register(isolation: #isolation, tags: 6, instance: Thing(x: 6))
+  let things: [Thing] = try container.resolve(isolation: #isolation)
+  #expect(things.count == 2)
+}
+
 @Test func testResolveSet() throws {
   let container = Container()
   container.register(tags: 7, instance: 7)
@@ -64,6 +72,14 @@ import Testing
   #expect(ints.isEmpty)
 }
 
+@Test @MainActor func testResolveSet_main() throws {
+  let container = Container()
+  container.register(isolation: #isolation, tags: 7, instance: 7)
+  container.register(isolation: #isolation, tags: 6, instance: 6)
+  let ints: Set<Int> = try container.resolve(isolation: #isolation)
+  #expect(ints.count == 2)
+}
+
 @Test func testResolveOptional() throws {
   let container = Container()
   container.register(instance: Thing(x: 99))
@@ -75,6 +91,13 @@ import Testing
   let container = Container()
   container.register(instance: Thing(x: 99))
   let thing: Thing? = try await container.resolve()
+  #expect(thing?.x == 99)
+}
+
+@Test @MainActor func testResolveOptional_main() throws {
+  let container = Container()
+  container.register(isolation: MainActor.shared, instance: Thing(x: 99))
+  let thing: Thing? = try container.resolve(isolation: MainActor.shared)
   #expect(thing?.x == 99)
 }
 
@@ -94,6 +117,19 @@ import Testing
   container.register(Int.self) { _ in throw ResolutionError(Key<Int>(), reason: .noResolver) }
   do {
     _ = try await container.resolve(Int?.self)
+    Issue.record("We should not have resolved an Int here.")
+  } catch {
+    // This is what we want
+  }
+}
+
+@Test @MainActor func testResolveOptional_throwError_main() throws {
+  let container = Container()
+  container.register(Int.self, isolation: MainActor.shared) { _ in
+    throw ResolutionError(Key<Int>(), reason: .noResolver)
+  }
+  do {
+    _ = try container.resolve(Int?.self, isolation: MainActor.shared)
     Issue.record("We should not have resolved an Int here.")
   } catch {
     // This is what we want

@@ -8,6 +8,8 @@
 import Foundation
 import Semaphore
 
+// swiftlint:disable cyclomatic_complexity
+
 /// This class represents a single entry in the container.
 /// 
 /// Although this class is public, most of its state is private.
@@ -19,8 +21,9 @@ public class Entry: @unchecked Sendable {
   }
 
   private enum Factory {
-    case sync((any Resolver, Any) throws -> Any)
-    case async((any Resolver, Any) async throws -> Any)
+    case sync(@Sendable (any Resolver, Any) throws -> Any)
+    case async(@Sendable (any Resolver, Any) async throws -> sending Any)
+    case main(@MainActor @Sendable (any Resolver, Any) throws -> Any)
   }
 
   public let key: AnyKey
@@ -30,10 +33,10 @@ public class Entry: @unchecked Sendable {
   private let lock = DispatchQueue(label: "Guise.Entry.lock")
   private let semaphore = AsyncSemaphore(value: 1)
 
-  init<T, each Arg>(
+  init<T, each Arg: Sendable>(
     key: Key<T>,
     lifetime: Lifetime,
-    factory: @escaping (any Resolver, repeat each Arg) throws -> T
+    factory: @escaping @Sendable (any Resolver, repeat each Arg) throws -> T
   ) {
     self.key = AnyKey(key)
     self.lifetime = lifetime
@@ -45,10 +48,10 @@ public class Entry: @unchecked Sendable {
     }
   }
 
-  init<T, each Arg>(
+  init<T, each Arg: Sendable>(
     key: Key<T>,
     lifetime: Lifetime,
-    factory: @escaping (any Resolver, repeat each Arg) async throws -> T
+    factory: @escaping @Sendable (any Resolver, repeat each Arg) async throws -> T
   ) {
     self.key = AnyKey(key)
     self.lifetime = lifetime
@@ -60,52 +63,30 @@ public class Entry: @unchecked Sendable {
     }
   }
 
-  func resolve<each Arg>(
-    with resolver: any Resolver,
-    args: repeat each Arg
-  ) throws -> Any {
-    try resolveSync(with: resolver, args: (repeat each args))
-  }
-
-  func resolve<each Arg>(
-    with resolver: any Resolver,
-    args: repeat each Arg
-  ) async throws -> Any {
-    try await resolveAsync(with: resolver, args: (repeat each args))
-  }
-
-  private func resolveSync<each Arg>(
-    with resolver: any Resolver,
-    args: repeat each Arg
-  ) throws -> Any {
-    switch resolution {
-    case .instance(let instance):
-      return instance
-    case .factory:
-      switch factory {
-      case .async:
-        throw ResolutionError(key, reason: .requiresAsync)
-      case .sync(let resolve):
-        switch lifetime {
-        case .transient:
-          return try resolve(resolver, (repeat each args))
-        case .singleton:
-          return try lock.sync {
-            switch resolution {
-            case .instance(let instance):
-              return instance
-            case .factory:
-              let instance = try resolve(resolver, (repeat each args))
-              resolution = .instance(instance)
-              return instance
-            }
-          }
-        }
+  init<T, each Arg: Sendable>(
+    key: Key<T>,
+    lifetime: Lifetime,
+    isolation: MainActor,
+    factory: @escaping @MainActor @Sendable (any Resolver, repeat each Arg) throws -> T
+  ) {
+    self.key = AnyKey(key)
+    self.lifetime = lifetime
+    self.factory = .main { resolver, args in
+      guard let args = args as? (repeat each Arg) else {
+        throw ResolutionError(key, reason: .invalidArgsType)
       }
+      return try factory(resolver, repeat each args)
     }
   }
 
-  private func resolveAsync<each Arg>(
+  func resolve<each Arg: Sendable>(
+    with resolver: any Resolver,
+    args: repeat each Arg
+  ) throws -> Any {
+    try resolveSync(with: resolver, args: repeat each args)
+  }
+
+  func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     args: repeat each Arg
   ) async throws -> Any {
@@ -132,7 +113,102 @@ public class Entry: @unchecked Sendable {
             return instance
           }
         }
+      case .main(let resolve):
+        let box = try await MainActor.run {
+          let value: Any
+          switch lifetime {
+          case .transient:
+            value = try resolve(resolver, (repeat each args))
+          case .singleton:
+            switch resolution {
+            case .instance(let instance):
+              value = instance
+            case .factory:
+              value = try resolve(resolver, (repeat each args))
+              resolution = .instance(value)
+            }
+          }
+          return UncheckedSendableBox(value: value)
+        }
+        return box.value
+      }
+    }
+  }
+
+  @MainActor
+  func resolve<each Arg>(
+    with resolver: any Resolver,
+    isolation: MainActor,
+    args: repeat each Arg
+  ) throws -> Any {
+    switch resolution {
+    case .instance(let instance):
+      return instance
+    case .factory:
+      switch factory {
+      case .async:
+        throw ResolutionError(key, reason: .requiresAsync)
+      case .sync(let resolve):
+        switch lifetime {
+        case .transient:
+          return try resolve(resolver, (repeat each args))
+        case .singleton:
+          return try lock.sync {
+            switch resolution {
+            case .instance(let instance):
+              return instance
+            case .factory:
+              let instance = try resolve(resolver, (repeat each args))
+              resolution = .instance(instance)
+              return instance
+            }
+          }
+        }
+      case .main(let resolve):
+        let value = try resolve(resolver, (repeat each args))
+        switch lifetime {
+        case .transient:
+          break
+        case .singleton:
+          resolution = .instance(value)
+        }
+        return value
+      }
+    }
+  }
+
+  private func resolveSync<each Arg: Sendable>(
+    with resolver: any Resolver,
+    args: repeat each Arg
+  ) throws -> Any {
+    switch resolution {
+    case .instance(let instance):
+      return instance
+    case .factory:
+      switch factory {
+      case .async:
+        throw ResolutionError(key, reason: .requiresAsync)
+      case .sync(let resolve):
+        switch lifetime {
+        case .transient:
+          return try resolve(resolver, (repeat each args))
+        case .singleton:
+          return try lock.sync {
+            switch resolution {
+            case .instance(let instance):
+              return instance
+            case .factory:
+              let instance = try resolve(resolver, (repeat each args))
+              resolution = .instance(instance)
+              return instance
+            }
+          }
+        }
+      case .main:
+        throw ResolutionError(key, reason: .requiresMainActor)
       }
     }
   }
 }
+
+// swiftlint:enable cyclomatic_complexity

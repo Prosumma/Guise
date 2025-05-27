@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-class UI {
+class UI { // swiftlint:disable:this type_name
   let x: UUID
 
   init(x: UUID? = nil) {

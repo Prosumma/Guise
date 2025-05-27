@@ -5,7 +5,7 @@ Guise is a flexible, minimal dependency resolution framework for Swift.
 - [x] Flexible dependency resolution, with optional caching
 - [x] Elegant, straightforward registration
 - [x] Thread-safe
-- [x] Supports `throw`ing and `async` initializers and resolution
+- [x] Supports `throw`ing, `async` and `MainActor`-isolated initializers and resolution
 - [x] Simplifies unit testing
 - [x] Pass arbitrary state when resolving
 - [x] Lazy resolution
@@ -13,12 +13,9 @@ Guise is a flexible, minimal dependency resolution framework for Swift.
 - [x] Swift 6+
 - [x] Support for iOS 13+, macOS 10.15+, watchOS 6+, tvOS 13+
 
-## What Makes Guise Better Than Those Other Guys?
+## What's New?
 
-- Guise doesn't require any modification to the types you register. There are no special interfaces like `Injectable` or `Component` to implement. There are no special initializers or properties to add. Any type can be registered as is.
-- Guise was designed with Swift in mind. Other DI frameworks for Swift appear to be translations of frameworks from other languages, particularly C&#x266f; and Java. These languages have strengths and weaknesses that are different from those of Swift, and those strengths and weaknesses are reflected in the design of these frameworks. This makes them clumsy in Swift.
-- Many of these frameworks register _types_ directly. Guise registers _lambdas_ directly and _types_ indirectly (as the return type of the lambda). This simple distinction removes an enormous amount of complexity while introducing greater compile-time safety.
-- Guise was designed to be simple rather than easy. Turns out it's both.
+Support for Swift 6 concurrency, especially `MainActor`-isolated registrations and resolutions in a synchronous `MainActor`-isolated context. Read the section below on concurrency to understand the whys and wherefores of this.
 
 ## Basic Documentation
 
@@ -315,6 +312,184 @@ let service = try await container.resolve(Service.self)
 
 Any synchronous registration may be resolved asynchronously, but the reverse is not true. By default, if an attempt is made to resolve an `async` registration in a synchronous context, Guise throws `.requiresAsync`.
 
+### Concurrency
+
+Guise has special support for `MainActor`-isolated registrations and resolutions. This uses the `isolation` parameter to distinguish between other overloads of `register` and `resolve`:
+
+```swift
+registrar.register(isolation: MainActor.shared) { _ in
+  MyViewController()
+}
+let myViewController = try resolver.resolve(MyViewController.self, isolation: MainActor.shared)
+```
+
+The obvious question is: Why only support `MainActor`? Why not support any global actor? Well, actually Guise _does_ support any global actor, it's just that both registration and resolution must be `async`:
+
+```swift
+registrar.register { @MyActor _ async in
+  MyService()
+}
+let myService: MyService = try await resolver.resolve()
+```
+
+The special support for `MainActor` is because, in general, we want `MainActor`-isolated resolutions _not_ to be `async` within the `MainActor` context, such as a view controller:
+
+```swift
+override func awakeFromNib() {
+  super.awakeFromNib()
+  MainActor.assumeIsolated {
+    // Note that this is synchronous.
+    let otherViewController = try resolver.resolve(OtherViewController.self, isolation: MainActor.shared)
+  }
+}
+```
+
+Currently, Apple does not provide a mechanism to "flow" the isolation context all the way through the internal dance of a DI framework, including type erasure, etc. while maintaining synchronous call semantics. I'm aware of `isolated` parameters and they looked promising. You _can_ flow the actor all the way through using that, but the problem is that when you try to resolve, everything is `async`, which kills ergonomics, particularly for `MainActor`. To call an actor-isolated method without using `await`, the Swift compiler must be able to prove statically _at compile time_ that the actor-isolated method is being called within
+the very same isolation context.
+
+I made the pragmatic choice to make `MainActor` a special case. And it really should be, because its semantics are a bit different from other actors. It's the actor within which all UI code executes, including a mountain of synchronous legacy code. As a result, we want resolution of `MainActor`-isolated types to be synchronous when possible. This greatly improves ergonomics.
+
+As a matter of fact, you can resolve `MainActor`-isolated registrations in an `async` context if you wish. For example:
+
+```swift
+registrar.register(isolation: MainActor.shared) { _ in
+  MyViewController()
+}
+let myViewController: MyViewController = try await resolver.resolve()
+```
+
+#### Why the `isolation` parameter instead of using a different name, like `registerMain`?
+
+There are two imperfect reasons for this:
+
+1. I wanted to stay consistent with using overloads of `register` and `resolve` for everything, whether synchronous, asynchronous, or `MainActor`-isolated.
+2. If Swift ever does make it possible to flow the actor context through and preserve synchronous call semantics, this is the obvious syntax to use, so it's a bit of future-proofing.
+
+If you think `register(isolation: MainActor.shared)` is long-winded, it's easy enough to create an extension method:
+
+```swift
+public extension Registrar {
+  func registerMain<T, each Tag: Hashable & Sendable, each Arg: Sendable>(
+    _ type: T.Type = T.self,
+    tags: repeat each Tag,
+    lifetime: Lifetime = .transient,
+    factory: @escaping @MainActor @Sendable (any Resolver, repeat each Arg) throws -> T
+  ) -> Key<T> {
+    register(type, isolation: MainActor.shared, tags: repeat each tags, lifetime: lifetime, factory: factory)
+  }
+}
+```
+
+#### `mainauto`
+
+Analogous to `auto`, Guise has a helper function called `mainauto` which can be used to simplify registration of `MainActor`-isolated types with constructor dependencies:
+
+```swift
+class MyViewController: UIViewController {
+  let myService: MyService
+  init(myService: MyService) {
+    self.myService = myService
+  }
+}
+await MainActor.run {
+  registrar.register(isolation: MainActor.shared, factory: mainauto(MyViewController.init))
+}
+```
+
+Why is `MainActor.run` necessary here? It really shouldn't be. Unfortunately, there's a bug in the Swift compiler's static concurrency analysis. It thinks that `MyViewController.init` &mdash; which is a `MainActor`-isolated initializer &mdash; is being called here instead of just passed as a higher-order function parameter. So unfortunately we must use `MainActor.run`. Hopefully this bug will be fixed in an upcoming version of Swift. If you don't use `mainauto`, you don't have to do this:
+
+```swift
+class MyViewController: UIViewController {
+  let myService: MyService
+  init(myService: MyService) {
+    self.myService = myService
+  }
+}
+registrar.register(isolation: MainActor.shared) { r in
+  try MyViewController(myService: r.resolve())
+}
+```
+
+#### The Resolution Matrix
+
+Dependencies often depend on other dependencies. These dependencies may have differences in isolation, which can cause problems when resolving. For example:
+
+```swift
+// This type is MainActor-isolated
+class ViewController: UIViewController {}
+registrar.register(
+  isolation: MainActor.shared,
+  instance: ViewController()
+)
+
+// This type is non-isolated, which we call "sync" in Guise.
+class Presenter {
+  let vc: ViewController
+  init(vc: ViewController) {
+    self.vc = vc
+  }
+  @MainActor
+  func present(on other: UIViewController) {
+    other.present(vc, animated: true)
+  }
+}
+// This won't even compile
+registrar.register(factory: auto(Presenter.init))
+```
+
+The reason `Presenter`'s registration won't compile is because its dependency, `ViewController`, has a MainActor-isolated initializer, which must
+be called within a `MainActor`-isolated context. There are several ways we can solve this.
+
+First, we can use async registration:
+
+```swift
+registrar.register { r in
+  try await Presenter(vc: r.resolve())
+}
+```
+
+This works but kills ergonomics in many cases because now we must also resolve using `await`:
+
+```swift
+let presenter: Presenter = try await resolver.resolve()
+```
+
+The second solution is to make `Presenter`'s registration `MainActor`-isolated as well:
+
+```swift
+registrar.register(isolation: MainActor.shared, mainauto(Presenter.init))
+```
+
+But now we must always resolve in a `MainActor`-isolated context.
+
+The best solution for this, in my opinion, is to use a `LazyResolver`. For that, we have to rewrite our `Presenter` a bit:
+
+```swift
+class Presenter {
+  let lvc: LazyViewController
+  init(lvc: LazyResolver<ViewController>) {
+    self.lvc = lvc
+  }
+  @MainActor
+  func present(on other: UIViewController) throws {
+    let vc = try lvc.resolve(isolation: MainActor.shared)
+    other.present(vc, animated: true)
+  }
+}
+```
+
+So what's the matrix? The matrix tells us what kind of resolution can resolve what kind of registration.
+
+| RSLV :point_down: RGSTR :point_right: | Sync               | Async              | MainActor          |
+|:--------------------------------------|--------------------|--------------------|--------------------|
+| **Sync**                              | :white_check_mark: | :x:                | :x:                |  
+| **Async**                             | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| **MainActor**                         | :white_check_mark: | :x:                | :white_check_mark: |
+
+Across the top are the different kinds of registrations and along the side are the different kinds of resolutions. This tells us, for example, that a synchronous non-isolated ("sync") registration can be resolved by any kind of resolution. Asynchronous non-isolated ("async") resolution can resolve any kind of registration. And so on.
+
+My recommendation is to use a `LazyResolver` everywhere you see an :x: in the table above.
+
 ### Assemblies
 
 In a complex application with many modules, it can be helpful to organization registrations exported from the module. Guise provides _assemblies_ for this purpose.
@@ -323,7 +498,7 @@ In a complex application with many modules, it can be helpful to organization re
 class AwesomeAssembly: Assembly {
   func register(in registrar: any Registrar) {
     registrar.register(assemblies: CoolAssembly())
-    registrar.register(lifetime: .singleton: instance: Service())
+    registrar.register(lifetime: .singleton, instance: Service())
   }
 
   // This method is optional. A default implementation

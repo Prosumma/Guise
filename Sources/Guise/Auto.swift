@@ -14,8 +14,8 @@
 ///   - Dep: The types of the dependencies to use for resolution.
 /// - Returns: An instance of type `T` resolved using the provided dependencies.
 public func auto<T, each Dep>(
-  _ initializer: @escaping (repeat each Dep) throws -> T
-) -> (any Resolver) throws -> T {
+  _ initializer: @escaping @Sendable (repeat each Dep) throws -> T
+) -> @Sendable (any Resolver) throws -> T {
   return { resolver in
     try initializer(repeat resolver.resolve() as (each Dep))
   }
@@ -31,8 +31,8 @@ public func auto<T, each Dep>(
 /// - Returns: An instance of type `T`.
 /// - Throws: An error if the dependency cannot be resolved.
 public func auto<T, each Dep>(
-  _ initializer: @escaping (repeat each Dep) async throws -> T
-) -> (any Resolver) async throws -> T {
+  _ initializer: @escaping @Sendable (repeat each Dep) async throws -> T
+) -> @Sendable (any Resolver) async throws -> T {
   return { resolver in
     try await initializer(repeat resolver.resolve() as (each Dep))
   }
@@ -48,11 +48,9 @@ public func auto<T, each Dep>(
 ///   - Dep: The types of the dependencies to use for resolution.
 /// - Returns: An instance of type `T` resolved using the provided dependencies.
 public func mainauto<T: Sendable, each Dep>(
-  _ initializer: @escaping @Sendable (repeat each Dep) throws -> T
-) -> (any Resolver) throws -> T {
+  _ initializer: @escaping @MainActor @Sendable (repeat each Dep) throws -> T
+) -> @MainActor @Sendable (any Resolver) throws -> T {
   return { resolver in
-    try MainActor.assumeIsolated {
-      try initializer(repeat resolver.resolve() as (each Dep))
-    }
+    try initializer(repeat resolver.resolve(isolation: MainActor.shared) as (each Dep))
   }
 }

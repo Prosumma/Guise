@@ -19,17 +19,25 @@ public final class LazyResolver<T>: LazyResolving {
     self.init(tagset: tagset, with: resolver)
   }
 
-  public func resolve<each Arg>(args: repeat each Arg) throws -> T {
+  public func resolve<each Arg: Sendable>(args: repeat each Arg) throws -> T {
     guard let resolver = resolver else {
       throw ResolutionError(key, reason: .noResolver)
     }
     return try resolver.resolve(key: key, args: repeat each args)
   }
 
-  public func resolve<each Arg>(args: repeat each Arg) async throws -> T {
+  public func resolve<each Arg: Sendable>(args: repeat each Arg) async throws -> T {
     guard let resolver = resolver else {
       throw ResolutionError(key, reason: .noResolver)
     }
     return try await resolver.resolve(key: key, args: repeat each args)
+  }
+
+  @MainActor
+  public func resolve<each Arg: Sendable>(isolation: MainActor, args: repeat each Arg) throws -> T {
+    guard let resolver = resolver else {
+      throw ResolutionError(key, reason: .noResolver)
+    }
+    return try resolver.resolve(key: key, isolation: #isolation, args: repeat each args)
   }
 }

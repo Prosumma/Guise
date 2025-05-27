@@ -22,56 +22,68 @@ public protocol Registrar: AnyObject {
 
 public extension Registrar {
   @discardableResult
-  func register<T, each Arg>(
+  func register<T, each Arg: Sendable>(
     key: Key<T>,
     lifetime: Lifetime = .transient,
-    factory: @escaping (any Resolver, repeat each Arg) throws -> T
+    factory: @escaping @Sendable (any Resolver, repeat each Arg) throws -> T
   ) -> Key<T> {
     self[key] = Entry(key: key, lifetime: lifetime, factory: factory)
     return key
   }
 
   @discardableResult
-  func register<T, each Arg>(
+  func register<T, each Arg: Sendable>(
     key: Key<T>,
     lifetime: Lifetime = .transient,
-    factory: @escaping (any Resolver, repeat each Arg) async throws -> T
+    factory: @escaping @Sendable (any Resolver, repeat each Arg) async throws -> T
   ) -> Key<T> {
     self[key] = Entry(key: key, lifetime: lifetime, factory: factory)
     return key
   }
 
   @discardableResult
-  func register<T, each Tag: Hashable & Sendable, each Arg>(
+  func register<T, each Arg: Sendable>(
+    key: Key<T>,
+    isolation: MainActor,
+    lifetime: Lifetime = .transient,
+    factory: @escaping @MainActor @Sendable (any Resolver, repeat each Arg) throws -> T
+  ) -> Key<T> {
+    self[key] = Entry(key: key, lifetime: lifetime, isolation: isolation, factory: factory)
+    return key
+  }
+
+  @discardableResult
+  func register<T, each Tag: Hashable & Sendable, each Arg: Sendable>(
     _ type: T.Type = T.self,
     tags: repeat each Tag,
     lifetime: Lifetime = .transient,
-    factory: @escaping (any Resolver, repeat each Arg) throws -> T
+    factory: @escaping @Sendable (any Resolver, repeat each Arg) throws -> T
   ) -> Key<T> {
     let key = Key<T>(tags: repeat each tags)
     return register(key: key, lifetime: lifetime, factory: factory)
   }
 
   @discardableResult
-  func register<T, each Tag: Hashable & Sendable, each Arg>(
+  func register<T, each Tag: Hashable & Sendable, each Arg: Sendable>(
     _ type: T.Type = T.self,
     tags: repeat each Tag,
     lifetime: Lifetime = .transient,
-    factory: @escaping (any Resolver, repeat each Arg) async throws -> T
+    factory: @escaping @Sendable (any Resolver, repeat each Arg) async throws -> T
   ) -> Key<T> {
     let key = Key<T>(tags: repeat each tags)
     return register(key: key, lifetime: lifetime, factory: factory)
   }
 
   @discardableResult
-  func register<T>(
+  func register<T, each Tag: Hashable & Sendable, each Arg: Sendable>(
     _ type: T.Type = T.self,
-    tagset: Set<AnySendableHashable>,
+    tags: repeat each Tag,
     lifetime: Lifetime = .transient,
-    instance: @escaping @autoclosure () -> T
+    isolation: MainActor,
+    factory: @escaping @MainActor @Sendable (any Resolver, repeat each Arg) throws -> T
   ) -> Key<T> {
-    let key = Key<T>(tagset: tagset)
-    return register(key: key, lifetime: lifetime) { _ in instance() }
+    let key = Key<T>(tags: repeat each tags)
+    return register(key: key, isolation: isolation, lifetime: lifetime, factory: factory)
   }
 
   @discardableResult
@@ -79,8 +91,21 @@ public extension Registrar {
     _ type: T.Type = T.self,
     tags: repeat each Tag,
     lifetime: Lifetime = .transient,
-    instance: @escaping @autoclosure () -> T
+    instance: @escaping @Sendable @autoclosure () -> T
   ) -> Key<T> {
-    register(type, tagset: Set(elements: repeat each tags), lifetime: lifetime, instance: instance())
+    let key = Key<T>(tags: repeat each tags)
+    return register(key: key, lifetime: lifetime) { _ in instance() }
+  }
+
+  @discardableResult
+  func register<T, each Tag: Hashable & Sendable>(
+    _ type: T.Type = T.self,
+    isolation: MainActor,
+    tags: repeat each Tag,
+    lifetime: Lifetime = .transient,
+    instance: @escaping @Sendable @MainActor @autoclosure () -> T
+  ) -> Key<T> {
+    let key = Key<T>(tags: repeat each tags)
+    return register(key: key, isolation: isolation, lifetime: lifetime) { _ in instance() }
   }
 }

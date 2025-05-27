@@ -26,20 +26,27 @@
  but in practice there's little call for such a thing.
  */
 protocol ResolutionAdapter {
-  static func resolve<each Arg>(
+  static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
   ) throws -> Any
-  static func resolve<each Arg>(
+  static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
   ) async throws -> Any
+  @MainActor
+  static func resolve<each Arg: Sendable>(
+    with resolver: any Resolver,
+    key: any Keyed,
+    isolation: MainActor,
+    args: repeat each Arg
+  ) throws -> Any
 }
 
 extension Optional: ResolutionAdapter {
-  public static func resolve<each Arg>(
+  public static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
@@ -59,7 +66,7 @@ extension Optional: ResolutionAdapter {
     return (result as Any)
   }
 
-  public static func resolve<each Arg>(
+  public static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
@@ -78,10 +85,32 @@ extension Optional: ResolutionAdapter {
     }
     return (result as Any)
   }
+
+  @MainActor
+  public static func resolve<each Arg: Sendable>(
+    with resolver: any Resolver,
+    key: any Keyed,
+    isolation: MainActor,
+    args: repeat each Arg
+  ) throws -> Any {
+    let key = Key<Wrapped>(tagset: key.tagset)
+    var result: Wrapped?
+    do {
+      result = try resolver.resolve(key: key, isolation: isolation, args: repeat each args)
+    } catch let error as ResolutionError {
+      guard
+        error.key == key,
+        case .notFound = error.reason
+      else {
+        throw error
+      }
+    }
+    return (result as Any)
+  }
 }
 
 extension Array: ResolutionAdapter {
-  public static func resolve<each Arg>(
+  public static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
@@ -94,7 +123,7 @@ extension Array: ResolutionAdapter {
     return result
   }
 
-  public static func resolve<each Arg>(
+  public static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
@@ -106,10 +135,25 @@ extension Array: ResolutionAdapter {
     }
     return result
   }
+
+  @MainActor
+  public static func resolve<each Arg: Sendable>(
+    with resolver: any Resolver,
+    key: any Keyed,
+    isolation: MainActor,
+    args: repeat each Arg
+  ) throws -> Any {
+    var result: [Element] = []
+    let criteria = Criteria<Element>(op: .subset, tagset: key.tagset)
+    for key in resolver.find(criteria) {
+      try result.append(resolver.resolve(key: key, isolation: isolation, args: repeat each args))
+    }
+    return result
+  }
 }
 
 extension Set: ResolutionAdapter {
-  public static func resolve<each Arg>(
+  public static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
@@ -122,7 +166,7 @@ extension Set: ResolutionAdapter {
     return result
   }
 
-  public static func resolve<each Arg>(
+  public static func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     key: any Keyed,
     args: repeat each Arg
@@ -131,6 +175,21 @@ extension Set: ResolutionAdapter {
     let criteria = Criteria<Element>(op: .subset, tagset: key.tagset)
     for key in resolver.find(criteria) {
       try await result.insert(resolver.resolve(key: key, args: repeat each args))
+    }
+    return result
+  }
+
+  @MainActor
+  public static func resolve<each Arg: Sendable>(
+    with resolver: any Resolver,
+    key: any Keyed,
+    isolation: MainActor,
+    args: repeat each Arg
+  ) throws -> Any {
+    var result: Set<Element> = []
+    let criteria = Criteria<Element>(op: .subset, tagset: key.tagset)
+    for key in resolver.find(criteria) {
+      try result.insert(resolver.resolve(key: key, isolation: isolation, args: repeat each args))
     }
     return result
   }

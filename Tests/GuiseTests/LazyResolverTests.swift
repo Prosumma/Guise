@@ -25,6 +25,14 @@ import Testing
   #expect(thing.x == 47)
 }
 
+@Test @MainActor func testLazyResolver_resolveMain() throws {
+  let container = Container()
+  container.register(isolation: #isolation, factory: { (_, arg) in Thing(x: arg) })
+  let lazyThing: LazyResolver<Thing> = try container.resolve(isolation: #isolation)
+  let thing = try lazyThing.resolve(isolation: #isolation, args: 47)
+  #expect(thing.x == 47)
+}
+
 @Test func testLazyResolver_resolveAsync_withoutResolver() async throws {
   var container: Container? = Container()
   container?.register(factory: { (_, arg) in Thing(x: arg) })
@@ -33,6 +41,24 @@ import Testing
   let key = Key<Thing>()
   do {
     _ = try await lazyThing.resolve(args: 47)
+    Issue.record("We should not be able to resolve a Thing here.")
+  } catch let error as ResolutionError {
+    guard
+      error.key == key,
+      case .noResolver = error.reason
+    else {
+      throw error
+    }
+  }
+}
+
+@Test @MainActor func testLazyResolver_resolveMain_withoutResolver() throws {
+  var container: Container? = Container()
+  let lazyThing = LazyResolver<Thing>(tags: 47, with: container!)
+  container = nil
+  let key = Key<Thing>(tags: 47)
+  do {
+    _ = try lazyThing.resolve(isolation: #isolation, args: 47)
     Issue.record("We should not be able to resolve a Thing here.")
   } catch let error as ResolutionError {
     guard

@@ -4,7 +4,7 @@ import Testing
 
 @Test func testUI() async throws {
   let container = Container()
-  container.register(lifetime: .singleton) { r, u in
+  container.register(lifetime: .singleton) { _, u in
     MainActor.assumeIsolated {
       UI(x: u)
     }
