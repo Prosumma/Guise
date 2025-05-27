@@ -113,34 +113,18 @@ public class Entry: @unchecked Sendable {
             return instance
           }
         }
-      case .main(let resolve):
-        let box = try await MainActor.run {
-          let value: Any
-          switch lifetime {
-          case .transient:
-            value = try resolve(resolver, (repeat each args))
-          case .singleton:
-            switch resolution {
-            case .instance(let instance):
-              value = instance
-            case .factory:
-              value = try resolve(resolver, (repeat each args))
-              resolution = .instance(value)
-            }
-          }
-          return UncheckedSendableBox(value: value)
-        }
-        return box.value
+      case .main:
+        return try await resolve(with: resolver, isolation: MainActor.shared, args: repeat each args)
       }
     }
   }
 
   @MainActor
-  func resolve<each Arg>(
+  func resolve<each Arg: Sendable>(
     with resolver: any Resolver,
     isolation: MainActor,
     args: repeat each Arg
-  ) throws -> Any {
+  ) throws -> sending Any {
     switch resolution {
     case .instance(let instance):
       return instance
@@ -148,22 +132,8 @@ public class Entry: @unchecked Sendable {
       switch factory {
       case .async:
         throw ResolutionError(key, reason: .requiresAsync)
-      case .sync(let resolve):
-        switch lifetime {
-        case .transient:
-          return try resolve(resolver, (repeat each args))
-        case .singleton:
-          return try lock.sync {
-            switch resolution {
-            case .instance(let instance):
-              return instance
-            case .factory:
-              let instance = try resolve(resolver, (repeat each args))
-              resolution = .instance(instance)
-              return instance
-            }
-          }
-        }
+      case .sync:
+        return try resolveSync(with: resolver, args: repeat each args)
       case .main(let resolve):
         let value = try resolve(resolver, (repeat each args))
         switch lifetime {
