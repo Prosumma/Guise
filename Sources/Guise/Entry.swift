@@ -8,8 +8,6 @@
 import Foundation
 import Semaphore
 
-// swiftlint:disable cyclomatic_complexity
-
 /// This class represents a single entry in the container.
 /// 
 /// Although this class is public, most of its state is private.
@@ -180,5 +178,3 @@ public class Entry: @unchecked Sendable {
     }
   }
 }
-
-// swiftlint:enable cyclomatic_complexity
